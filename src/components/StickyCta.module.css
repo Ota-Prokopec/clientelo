@@ -1,0 +1,36 @@
+/* The Sticky CTA: a cream pill with an ink offset shadow, pinned to the bottom gutter, sliding out when hidden. */
+.stickyCta {
+  position: fixed;
+  right: var(--space-4);
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  left: var(--space-4);
+  z-index: 10;
+  display: block;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: var(--space-4);
+  border: var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  box-shadow: var(--shadow-offset);
+  color: var(--color-ink);
+  font-size: var(--font-size-lead);
+  font-weight: var(--font-weight-display);
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.stickyCta[data-hidden='true'] {
+  transform: translateY(150%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stickyCta {
+    transition: none;
+  }
+}

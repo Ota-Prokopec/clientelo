@@ -1,22 +1,25 @@
+// The error page a route renders when it fails or doesn't exist, in the page's Czech voice.
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router'
+import styles from '../sections/Section.module.css'
 
+/**
+ * The Czech error page: a 404 says the page doesn't exist, anything else asks for a reload.
+ *
+ * ```tsx
+ * // /nic → "Tahle stránka neexistuje"
+ * ```
+ */
 export default function ErrorPage() {
   const error = useRouteError()
-
-  let title = 'Something went wrong'
-  let message = 'An unexpected error occurred.'
-  if (isRouteErrorResponse(error)) {
-    title = `${error.status} ${error.statusText}`
-    message = error.status === 404 ? 'This page does not exist.' : String(error.data)
-  } else if (error instanceof Error) {
-    message = error.message
-  }
+  const isNotFound = isRouteErrorResponse(error) && error.status === 404
 
   return (
-    <main>
-      <h1>{title}</h1>
-      <p>{message}</p>
-      <Link to="/">Go home</Link>
+    <main className={styles.section}>
+      <h1 className={styles.heading}>{isNotFound ? 'Tahle stránka neexistuje' : 'Něco se pokazilo'}</h1>
+      <p>{isNotFound ? 'Odkaz je možná neúplný.' : 'Zkuste stránku načíst znovu.'}</p>
+      <p>
+        <Link to="/">Zpět na srovnání ETF</Link>
+      </p>
     </main>
   )
 }

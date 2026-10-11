@@ -1,21 +1,13 @@
-import { NavLink, Outlet, useNavigation } from 'react-router'
+// The layout every route renders inside. The landing page has no navigation: its only way forward is the Lead Form.
+import { Outlet } from 'react-router'
 
+/**
+ * Renders the matched route with no chrome around it.
+ *
+ * ```tsx
+ * // `/` → <Home />, `/ochrana-osobnich-udaju` → <PrivacyPolicy />
+ * ```
+ */
 export default function Root() {
-  const navigation = useNavigation()
-
-  return (
-    <>
-      <header>
-        <nav>
-          <NavLink to="/" end>
-            Home
-          </NavLink>
-          <NavLink to="/about">About</NavLink>
-        </nav>
-      </header>
-      <main className={navigation.state === 'loading' ? 'loading' : ''}>
-        <Outlet />
-      </main>
-    </>
-  )
+  return <Outlet />
 }

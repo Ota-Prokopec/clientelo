@@ -12,6 +12,16 @@ Full reasoning and sources: [docs/strategy.md](./docs/strategy.md).
 - **Ads.** Two Ad Variants on Meta, one per persona, each opening its own First Screen through `utm_content`: A (pain) and B (money). Copy, visuals and targeting: [docs/ads.md](./docs/ads.md).
 - **Lead Ask.** Right after each Interactive Tool shows a result, plus a closing Section and the mobile sticky CTA. All of them lead to the single Lead Form.
 
+## Section order
+
+The page has one route at `/`. `utm_content` picks the Ad Variant (`pain` or `money`, anything else falls back to `pain`), and the Ad Variant picks which Interactive Tool opens the page. The Sticky CTA stays on screen throughout and steps aside only while a Lead Ask is in view.
+
+1. **First Screen** (`#first-screen`): the Ad Variant's own Interactive Tool, its result, and an inline Lead Ask. The Visitor gives the page a few seconds on a phone, so the first thing they see has to be the answer the Ad promised: VOO struck out beside its Twin SPYL for `pain`, the bank fund's 2.22 % against 0.03 % for `money`. Asking for a contact before that answer would ask for trust the page hasn't earned yet. Asking right after it catches the Visitor at their most engaged.
+2. **Key Insight** (`#key-insight`): why the Visitor's app won't sell them VOO. It comes second because it explains a result the Visitor has already seen. Placed first, it would be a wall of regulation text between the Ad and its promise. It turns "a fund I can buy" into "the better fund for a Czech investor": the same index, no US estate tax, no dividends to report.
+3. **The other Interactive Tool** (`#other-tool`), with its inline Lead Ask. The App Investor also holds money they could compare on fees, and the Bank-Fund Saver also needs to know which fund to buy. This second, independent chance to engage gives a second Lead Ask to a Visitor who has scrolled past the first.
+4. **Lead Magnet and the closing Lead Form** (`#lead-magnet`). This catches the Visitor who has read everything and wants the whole thing. It is where the Sticky CTA leads. The Lead Magnet must be visible before any Lead Ask, so each inline Lead Ask higher up carries its own PDF thumbnail and a three-item contents list.
+5. **Footer** (`#footer`): every Data Source with its verification date, "Nejde o investiční doporučení" and the GDPR link. It is the trust layer a cautious Visitor checks last, so it never sits between the Visitor and a Lead Ask.
+
 ## Commands
 
 Run from the repo root.
@@ -24,7 +34,7 @@ Run from the repo root.
 | `pnpm preview`     | Serve the production build locally                           |
 | `pnpm lint`        | Lint the whole repo with oxlint                              |
 | `pnpm check-types` | Type-check the app and every workspace entry                 |
-| `pnpm test`        | Run every workspace entry's tests                            |
+| `pnpm test`        | Run the app's Vitest tests, then every workspace entry's     |
 | `pnpm claude`      | Start Claude Code in a picked git worktree                   |
 | `pnpm claude-list` | Remove picked git worktrees and their branches               |
 
@@ -34,6 +44,6 @@ A change is done when all of these pass. lefthook runs `pnpm lint` and `pnpm che
 
 1. `pnpm lint`
 2. `pnpm check-types`
-3. `pnpm test`
+3. `pnpm test` (Vitest: the app's pure logic, then every workspace entry)
 4. `pnpm build`
 5. For a UI change: the change works in `pnpm dev` at 375 px phone width.
