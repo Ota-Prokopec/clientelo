@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Worktrees created by `claude --worktree` (`pnpm claude`)
+.claude/worktrees/

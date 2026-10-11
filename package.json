@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check-types": "tsc -b && pnpm -r check-types",
+    "claude": "node scripts/claude/src/index.ts",
+    "claude-list": "node scripts/claude-list/src/index.ts"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -22,5 +25,6 @@
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
-  }
+  },
+  "packageManager": "pnpm@12.8.1"
 }
