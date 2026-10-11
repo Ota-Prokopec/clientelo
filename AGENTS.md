@@ -4,7 +4,7 @@ Each section below says when it applies and which file to read. Read only the se
 
 ## Project
 
-`clientelo` is a mobile-first **lead-magnet landing page** that compares NYSE-traded ETFs for Czech retail investors arriving from an ad. Its job is collecting contacts. Design and copy serve that goal. [`docs/brief.md`](./docs/brief.md) is the assignment and the source of truth for scope. Read it before you change what the page does, or when you review a change against its spec.
+`clientelo` is a mobile-first **lead-magnet landing page** that compares NYSE-traded ETFs for Czech retail investors arriving from an ad. Its job is collecting contacts. Design and copy serve that goal. [`docs/brief.md`](./docs/brief.md) is the assignment and the source of truth for scope. Read it before you change what the page does, or when you review a change against its spec. [`docs/strategy.md`](./docs/strategy.md) defines the personas, the Key Insight, the Lead Magnet and the Lead Ask. Read it before you write copy, design a Section or change the Lead Form.
 
 - **The bar is "could we launch an ad on it tomorrow?"** Every section, interactive element and line of copy has to move the visitor toward the Lead Form.
 - **The visitor gives the page a few seconds, on a phone.** Design at 375 px width first. The First Screen has to deliver the Ad Promise without scrolling.

@@ -2,6 +2,15 @@
 
 A mobile-first lead-magnet landing page comparing NYSE-traded ETFs for Czech retail investors. See [docs/brief.md](./docs/brief.md).
 
+## Strategy
+
+Full reasoning and sources: [docs/strategy.md](./docs/strategy.md).
+
+- **Target group.** Two personas, one per Ad Variant. The **App Investor** (25–40, invests through XTB, Trading 212 or Revolut) was refused VOO by their broker. The **Bank-Fund Saver** pays about 2 % a year for a bank equity fund.
+- **Key Insight.** Those apps can't sell a US ETF to a retail client: its issuer publishes no KID, which EU rules (PRIIPs) require. A European Twin tracks the same index, often for the same fee, with no US estate tax and a simpler Czech tax return. The brokers list these Twins without explaining any of this.
+- **Lead Magnet.** A two-page PDF cheat sheet: the Twin table, Czech taxes, US estate tax, and bank fund vs. ETF over 20 years. One PDF for both personas.
+- **Lead Ask.** Right after each Interactive Tool shows a result, plus a closing Section and the mobile sticky CTA. All of them lead to the single Lead Form.
+
 ## Commands
 
 Run from the repo root.

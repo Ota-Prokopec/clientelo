@@ -30,6 +30,18 @@ _Avoid_: Ad A/B, version.
 What an Ad Variant tells the Visitor they will get by clicking. The First Screen has to repeat and keep it.
 _Avoid_: Hook, headline (a headline is copy on the page).
 
+**App Investor**:
+The persona Ad Variant A targets: invests through XTB, Trading 212 or Revolut, wants a US ETF such as VOO, and has been refused it. See [docs/strategy.md](./docs/strategy.md).
+_Avoid_: Young investor, retail user, target group (alone).
+
+**Bank-Fund Saver**:
+The persona Ad Variant B targets: holds an equity fund from their bank or a robo-advisor, and has never picked an ETF.
+_Avoid_: Bank client, beginner.
+
+**Key Insight**:
+The one fact the page tells the Visitor that their broker doesn't: why they can't buy a US ETF, and that its Twin does the same job. Its wording lives in [docs/strategy.md](./docs/strategy.md).
+_Avoid_: USP, hook, value proposition.
+
 ### Page
 
 **First Screen**:
@@ -87,6 +99,10 @@ _Avoid_: Symbol, code, ISIN (an ISIN is a different identifier).
 **TER**:
 An ETF's total expense ratio: its yearly cost as a percentage of the money invested.
 _Avoid_: Expense ratio, fee (alone), management fee.
+
+**Twin**:
+A UCITS ETF that tracks the same index as an ETF, which a Czech retail investor can buy instead. A fund on a merely similar index is a closest alternative, never a Twin.
+_Avoid_: Equivalent, clone, European version, alternative (for an exact match).
 
 **Data Source**:
 The cited origin of a figure shown on the page, with the date it was taken. Every figure has one.
