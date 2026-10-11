@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "check-types": "tsc -b && pnpm -r check-types",
     "claude": "node scripts/claude/src/index.ts",
-    "claude-list": "node scripts/claude-list/src/index.ts"
+    "claude-list": "node scripts/claude-list/src/index.ts",
+    "test": "pnpm -r test"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -22,6 +23,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "lefthook": "^2.2.1",
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"

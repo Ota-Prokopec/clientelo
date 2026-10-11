@@ -1,2 +1,8 @@
 packages:
+  - conventions
   - scripts/*
+
+# pnpm fails `pnpm install` for any dependency with a build script not listed
+# here. lefthook's postinstall installs the git hooks.
+allowBuilds:
+  lefthook: true

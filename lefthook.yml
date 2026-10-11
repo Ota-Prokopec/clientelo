@@ -1,0 +1,15 @@
+# The fast part of the post-modification checklist (README.md); the build is
+# left to the checklist. Jobs run in order and each one runs even when an
+# earlier one failed, so a commit attempt reports every failure.
+pre-commit:
+  jobs:
+    - name: lint
+      run: pnpm lint
+    - name: check-types
+      run: pnpm check-types
+
+# The commit subject format from docs/agents/git-workflow.md.
+commit-msg:
+  jobs:
+    - name: conventional-subject
+      run: node conventions/src/commitMsg.ts {1}

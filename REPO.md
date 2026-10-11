@@ -1,9 +1,10 @@
 # Repo
 
-The inventory of this pnpm workspace: the root app and every entry under `scripts/*`, and how they depend on each other. Each entry's own `AGENTS.md` holds its technology and rules, so how something _behaves_ belongs there, never here.
+The inventory of this pnpm workspace: the root app, `conventions/` and every entry under `scripts/*`, and how they depend on each other. Each entry's own `AGENTS.md` holds its technology and rules, so how something _behaves_ belongs there, never here.
 
 ```
 /                      (clientelo, private)      — the landing page: Vite + React + React Router app in src/
+conventions/           (@repo/conventions)       — the git and agent rules as hooks (lefthook, Claude Code)
 scripts/
 ├── claude/            (claude, private)         — starts Claude Code in a picked git worktree
 ├── claude-list/       (claude-list, private)    — removes picked git worktrees and their branches
@@ -14,6 +15,7 @@ scripts/
 
 - The landing page depends on no workspace entry, and nothing depends on it.
 - Both scripts read worktrees through `@repo/git-worktrees`. Nothing depends on the scripts.
+- Nothing imports `@repo/conventions`. `lefthook.yml` and `.claude/settings.json` run its hook scripts by path.
 
 ## Scripts
 
