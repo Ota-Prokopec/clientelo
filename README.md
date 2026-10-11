@@ -1,32 +1,27 @@
-# React + TypeScript + Vite
+# clientelo
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A mobile-first lead-magnet landing page comparing NYSE-traded ETFs for Czech retail investors. See [docs/brief.md](./docs/brief.md).
 
-Currently, two official plugins are available:
+## Commands
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Run from the repo root.
 
-## React Compiler
+| Command            | What it does                                                 |
+| ------------------ | ------------------------------------------------------------ |
+| `pnpm install`     | Install dependencies for the app and every workspace entry   |
+| `pnpm dev`         | Start the Vite dev server with HMR                           |
+| `pnpm build`       | Type-check and build the production bundle into `dist/`      |
+| `pnpm preview`     | Serve the production build locally                           |
+| `pnpm lint`        | Lint the whole repo with oxlint                              |
+| `pnpm check-types` | Type-check the app and every workspace entry                 |
+| `pnpm claude`      | Start Claude Code in a picked git worktree                   |
+| `pnpm claude-list` | Remove picked git worktrees and their branches               |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Post-modification checklist
 
-## Expanding the Oxlint configuration
+A change is done when all of these pass:
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+1. `pnpm lint`
+2. `pnpm check-types`
+3. `pnpm build`
+4. For a UI change: the change works in `pnpm dev` at 375 px phone width.
