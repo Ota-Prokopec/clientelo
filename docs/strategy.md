@@ -51,8 +51,8 @@ Every Ticker, index and TER here is **(verify)**. Where a Twin has both an accum
 
 One PDF for both personas, so a difference in Conversion Rate between Ad Variants can be read as the Ad's effect.
 
-- **Working title (draft, final wording in step 2):** *Tahák: evropská dvojčata amerických ETF — stejný index, stejný poplatek, a jak je zdanit v Česku*
-- **Promise:** which European fund to buy instead of the US ETF you can't buy, and how to avoid the tax mistakes, on two pages.
+- **Title:** *Tahák: evropská dvojčata amerických ETF*, subtitled *Co koupit místo VOO, co stojí poplatek bankovního fondu za 20 let a jak na daně v Česku*. The subtitle carries both Ad Promises ([ads.md](./ads.md)): each Ad Variant quotes the half its persona cares about.
+- **Promise:** which European fund to buy instead of the US ETF you can't buy, what a bank fund's TER costs over 20 years compared with an ETF's, and how to avoid the tax mistakes, on two pages.
 - **Length:** two pages. If it runs over, section 6 is cut first, because it goes stale fastest.
 
 Outline:
