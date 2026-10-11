@@ -56,6 +56,14 @@ _Avoid_: Block, panel, slide.
 A section the Visitor operates, such as an ETF comparison, a fee calculator or a portfolio builder. Each one shows part of the value up front and ends in a route to the Lead Form.
 _Avoid_: Widget, calculator (unless it is one), feature.
 
+**Fund Picker**:
+The Interactive Tool where the Visitor picks an ETF and sees its Twin, or its closest alternative where no Twin exists.
+_Avoid_: Fund comparison, selector, search.
+
+**Fee Calculator**:
+The Interactive Tool that shows, in Kč, what a bank fund's TER costs against a Twin's over a number of years, for a one-off amount.
+_Avoid_: Calculator (alone), savings calculator, return calculator.
+
 **Lead Form**:
 The form that turns a Visitor into a Lead, with as few fields as possible. There is one Lead Form, even if several sections open it.
 _Avoid_: Signup form, contact form, opt-in.
@@ -67,6 +75,14 @@ _Avoid_: CTA (a CTA is any button), gate, popup.
 **Delivery**:
 What a Lead receives once the Lead Form is submitted: the on-page confirmation and anything sent to their contact.
 _Avoid_: Thank-you page, reward.
+
+**Segmentation Question**:
+The one optional question a new Lead is asked during Delivery: where they invest.
+_Avoid_: Survey, profiling, onboarding.
+
+**Sticky CTA**:
+The button that stays on screen on a phone and takes the Visitor to the Lead Form from anywhere on the page.
+_Avoid_: Floating button, FAB, sticky bar.
 
 ### Measurement
 
