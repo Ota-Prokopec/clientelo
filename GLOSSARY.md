@@ -109,7 +109,7 @@ An exchange-traded fund listed on the NYSE, identified by its Ticker.
 _Avoid_: Fund (alone), index fund.
 
 **Ticker**:
-The NYSE symbol of an ETF, such as `VOO`.
+The exchange symbol of an ETF, such as `VOO`, or of a UCITS ETF, such as `SPYL`.
 _Avoid_: Symbol, code, ISIN (an ISIN is a different identifier).
 
 **TER**:
@@ -119,6 +119,18 @@ _Avoid_: Expense ratio, fee (alone), management fee.
 **Twin**:
 A UCITS ETF that tracks the same index as an ETF, which a Czech retail investor can buy instead. A fund on a merely similar index is a closest alternative, never a Twin.
 _Avoid_: Equivalent, clone, European version, alternative (for an exact match).
+
+**UCITS ETF**:
+An exchange-traded fund registered under EU rules (UCITS), which a Czech retail investor's app can sell. Each one the page shows is an ETF's Twin or its closest alternative.
+_Avoid_: European ETF, EU fund.
+
+**Substitute**:
+A UCITS ETF standing in for an ETF: either its Twin, or its closest alternative where no Twin exists.
+_Avoid_: Replacement, match.
+
+**Bank Fund**:
+An equity fund a bank sells its clients, such as ČSOB Akciový, whose TER the Fee Calculator compares with a Twin's.
+_Avoid_: Mutual fund, bank product.
 
 **Data Source**:
 The cited origin of a figure shown on the page, with the date it was taken. Every figure has one.

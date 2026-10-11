@@ -1,8 +1,9 @@
+// The app's routes: the landing page at `/` and the privacy-policy page.
 import { createBrowserRouter } from 'react-router'
 import Root from './routes/root.tsx'
 import ErrorPage from './routes/error.tsx'
 import Home from './routes/home.tsx'
-import About, { loader as aboutLoader } from './routes/about.tsx'
+import PrivacyPolicy, { privacyPolicyPath } from './routes/privacyPolicy.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ export const router = createBrowserRouter([
     ErrorBoundary: ErrorPage,
     children: [
       { index: true, Component: Home },
-      { path: 'about', Component: About, loader: aboutLoader },
+      { path: privacyPolicyPath, Component: PrivacyPolicy },
     ],
   },
 ])

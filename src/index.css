@@ -1,60 +1,88 @@
-:root {
-  --text: #1f1d24;
-  --muted: #6b6375;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --accent: #7c3aed;
+/* The design identity's tokens (direction "Bloky", picked in #10) and the page's global styles. */
 
-  font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+:root {
+  /* Colour */
+  --color-cobalt: #2b37f5;
+  --color-coral: #ff6a48;
+  --color-cream: #fff6ea;
+  --color-ink: #11132b;
+  --color-ink-muted: #4a4d6b;
+  --color-rule: #e6dccd;
+
+  /* Type: one family, the scale steps up from a 17 px body for a phone */
+  --font-family: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --font-size-small: 0.8125rem; /* 13 px: Data Sources, chips */
+  --font-size-body: 1.0625rem; /* 17 px */
+  --font-size-lead: 1.25rem; /* 20 px */
+  --font-size-heading: 1.75rem; /* 28 px: Section headings */
+  --font-size-headline: 1.875rem; /* 30 px: First Screen headline */
+  --font-size-giant: 6rem; /* 96 px: the Tickers on the First Screen */
+  --font-weight-body: 400;
+  --font-weight-strong: 700;
+  --font-weight-display: 800;
+  --line-height-tight: 1.05;
+  --line-height-body: 1.55;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem; /* the side gutter at 375 px */
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Shape */
+  --radius-pill: 999px;
+  --border-strong: 3px solid var(--color-ink);
+  --shadow-offset: 4px 4px 0 var(--color-ink);
+
+  color-scheme: light;
+  font-family: var(--font-family);
+  font-size: 100%;
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+  color: var(--color-ink);
+  background: var(--color-cream);
   -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #f3f4f6;
-    --muted: #9ca3af;
-    --bg: #16171d;
-    --border: #2e303a;
-    --accent: #c084fc;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  font-size: var(--font-size-body);
 }
 
-header {
-  border-bottom: 1px solid var(--border);
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: var(--font-weight-display);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
-nav {
-  display: flex;
-  gap: 1rem;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1rem;
+p {
+  margin: 0;
 }
 
-nav a {
-  color: var(--muted);
-  text-decoration: none;
+a {
+  color: inherit;
 }
 
-nav a.active {
-  color: var(--accent);
-  font-weight: 600;
+html {
+  scroll-behavior: smooth;
 }
 
-main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1rem;
-  transition: opacity 150ms;
-}
-
-main.loading {
-  opacity: 0.5;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
