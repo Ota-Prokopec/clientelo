@@ -53,7 +53,7 @@ One PDF for both personas, so a difference in Conversion Rate between Ad Variant
 
 - **Title:** *Tahák: evropská dvojčata amerických ETF*, subtitled *Co koupit místo VOO, co stojí poplatek bankovního fondu za 20 let a jak na daně v Česku*. The subtitle carries both Ad Promises ([ads.md](./ads.md)): each Ad Variant quotes the half its persona cares about.
 - **Promise:** which European fund to buy instead of the US ETF you can't buy, what a bank fund's TER costs over 20 years compared with an ETF's, and how to avoid the tax mistakes, on two pages.
-- **Length:** two pages. If it runs over, section 6 is cut first, because it goes stale fastest.
+- **Length:** two pages. If it runs over, Chapter 6 is cut first, because it goes stale fastest.
 
 Outline:
 
@@ -61,7 +61,7 @@ Outline:
 2. **The Twin table.** ISIN, TER, domicile, distribution policy, and exchange and currency for each Twin. Accumulating share classes first.
 3. **Taxes in the Czech Republic.** The 3-year holding-period exemption, the 100 000 Kč yearly exemption, the 40 M Kč cap on exempt income, and dividends vs. accumulating funds. **(verify)** each.
 4. **Why a US-domiciled fund is riskier for a Czech investor.** US estate tax on US-situs assets above $60 000 **(verify)**.
-5. **Bank fund vs. ETF over 20 years.** What a TER of about 2 % costs compared with 0.03 %, in Kč. This section is the Bank-Fund Saver's reason to download.
+5. **Bank fund vs. ETF over 20 years.** What a TER of about 2 % costs compared with 0.03 %, in Kč. This Chapter is the Bank-Fund Saver's reason to download.
 6. **How to buy a Twin.** One line each for XTB, Trading 212, Revolut and Fio.
 
 The content is written once step 4 has verified the data, and the file is built with Delivery in step 3.

@@ -18,6 +18,10 @@ _Avoid_: Contact, subscriber, conversion (for the person).
 The value the page promises and hands over in exchange for a contact, which the Visitor can see before filling in the Lead Form.
 _Avoid_: Freebie, incentive, gift.
 
+**Chapter**:
+One numbered part of the Lead Magnet PDF, such as the Twin table or the Czech taxes. Every Lead Ask lists Chapters by their number, so the Visitor sees what they get before they type.
+_Avoid_: Section (a Section is a block of the page), page (the PDF has two).
+
 **Ad**:
 A paid social or display ad that sends Visitors to the page. Each one is an Ad Variant, identified on arrival by its UTM parameters.
 _Avoid_: Campaign (a campaign holds many Ads), creative.

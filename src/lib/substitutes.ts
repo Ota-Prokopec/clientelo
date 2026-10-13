@@ -2,9 +2,7 @@
 // A Twin tracks the same index (docs/strategy.md#twins), so the relation is derived from the two indices, never
 // recorded: a fund on a merely similar index can't be called "dvojče" by a slip in the data.
 import { findEtf, findUcitsEtf, substituteTickersByEtfTicker, type Etf, type UcitsEtf } from '@data/figures.ts'
-
-/** How a Substitute stands in for an ETF: a Twin tracks the same index, a closest alternative a similar one. */
-export type SubstituteRelation = 'twin' | 'closest-alternative'
+import type { SubstituteRelation } from '@/types.ts'
 
 /** An ETF with the Substitutes the page shows for it, all sharing one relation. */
 export type EtfSubstitutes = {

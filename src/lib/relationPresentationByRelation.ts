@@ -1,6 +1,6 @@
 // How the Fund Picker's answer reads and looks for a Twin and for a closest alternative, shared by the Substitute it
 // sets giant and the others it lists below.
-import type { SubstituteRelation } from '@lib/substitutes.ts';
+import type { SubstituteRelation } from '@/types.ts';
 
 /** How the answer reads and looks for a Twin and for a closest alternative. */
 export type RelationPresentation = {

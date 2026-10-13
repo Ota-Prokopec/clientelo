@@ -1,6 +1,6 @@
 // The Fee Calculator (`fee-calculator`): what a Bank Fund's TER costs in Kč against a Twin's, for a one-off amount
 // (docs/ads.md, Ad Variant B). It opens the `money` First Screen prefilled and is Section 03 for `pain`. The answer comes
-// first, so it shows on the First Screen without scrolling, and the tool ends in the inline Lead Ask's slot.
+// first, so it shows on the First Screen without scrolling, and the tool ends in the inline Lead Ask.
 import { useState } from 'react'
 import { findUcitsEtf } from '@data/figures.ts'
 import { bankFundOptions, type BankFundOption } from '@lib/bankFundOptions.ts'
@@ -68,9 +68,7 @@ export const FeeCalculator = () => {
       />
       {/* Both Bank Funds' TERs are on screen in the choice, so both are cited. */}
       <DataSourceNote sources={[...bankFundOptions.map((option) => option.bankFund.source), twin.source]} />
-      <LeadAsk>
-        Které ETF koupit místo bankovního fondu, kde ho koupíte a jak ho v Česku zdanit, najdete v taháku zdarma.
-      </LeadAsk>
+      <LeadAsk interactiveTool="fee-calculator" />
     </div>
   )
 }

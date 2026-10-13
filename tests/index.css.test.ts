@@ -47,13 +47,15 @@ const listCustomPropertyNames = (container: Container): string[] => {
  *
  * ```css
  * :root { --brand: #00666c; }                                          → light: ['--brand']
+ * :root, [data-palette='light'] { --brand: #00666c; }                  → light: ['--brand']
  * @media (prefers-color-scheme: dark) { :root { --brand: #7fd0c9; } } → dark: ['--brand']
  * ```
  */
 const listCustomPropertyNamesForMode = (stylesheet: Root, colourMode: ColourMode): string[] => {
   const customPropertyNames: string[] = []
-  stylesheet.walkRules(':root', (rootRule) => {
-    if (isDarkRootRule(rootRule) === (colourMode === 'dark')) customPropertyNames.push(...listCustomPropertyNames(rootRule))
+  stylesheet.walkRules((rule) => {
+    if (!rule.selectors.includes(':root')) return
+    if (isDarkRootRule(rule) === (colourMode === 'dark')) customPropertyNames.push(...listCustomPropertyNames(rule))
   })
   return customPropertyNames
 }
