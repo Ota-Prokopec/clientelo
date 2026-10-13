@@ -1,8 +1,8 @@
 // The page footer: every Data Source, the "not investment advice" disclaimer and the privacy-policy link.
 // Its bottom padding keeps the last Data Source clear of the Sticky CTA.
 import { Link } from 'react-router';
-import { DataSourceNote } from '../components/DataSourceNote.tsx';
-import { listDataSources } from '../data/figures.ts';
+import { DataSourceNote } from '../DataSourceNote.tsx';
+import { listDataSources } from '../../data/figures.ts';
 
 /**
  * Lists the Data Source of every figure, the disclaimer and the GDPR link.

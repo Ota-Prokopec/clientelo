@@ -1,10 +1,10 @@
 // Ad Variant A's First Screen: the ETF the Visitor's app won't sell, struck out over its Twin, deliverable without
 // scrolling at 375 px.
 // The `fund-picker` slot shows the static comparison until #11 makes it interactive.
-import { DataSourceNote } from '../components/DataSourceNote.tsx'
-import { FactGrid } from '../components/FactGrid.tsx'
-import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '../data/figures.ts'
-import { formatPercent } from '../format.ts'
+import { DataSourceNote } from '../DataSourceNote.tsx'
+import { FactGrid } from '../FactGrid.tsx'
+import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '../../data/figures.ts'
+import { formatPercent } from '../../format.ts'
 import { Section } from './Section.tsx'
 
 /**

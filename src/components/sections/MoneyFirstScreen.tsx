@@ -1,10 +1,10 @@
 // Ad Variant B's First Screen: a bank fund's TER against a Twin's, ahead of the Fee Calculator, deliverable without
 // scrolling at 375 px.
 // The `fee-calculator` slot shows the static comparison until #12 makes it interactive.
-import { DataSourceNote } from '../components/DataSourceNote.tsx'
-import { TerRow } from '../components/TerRow.tsx'
-import { csobAkciovy, findUcitsEtf, typicalBankEquityFundTer } from '../data/figures.ts'
-import { formatPercent } from '../format.ts'
+import { DataSourceNote } from '../DataSourceNote.tsx'
+import { TerRow } from '../TerRow.tsx'
+import { csobAkciovy, findUcitsEtf, typicalBankEquityFundTer } from '../../data/figures.ts'
+import { formatPercent } from '../../format.ts'
 import { Section } from './Section.tsx'
 
 /**

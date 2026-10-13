@@ -1,8 +1,8 @@
 // Ad Variant B (`money`): what it puts on the page, from its First Screen to the Interactive Tool in Section 03.
 import type { ComponentType } from 'react';
 import type { AdVariant } from './adVariant.ts';
-import { MoneyFirstScreen } from './sections/MoneyFirstScreen.tsx';
-import { MoneyOtherTool } from './sections/MoneyOtherTool.tsx';
+import { MoneyFirstScreen } from './components/sections/MoneyFirstScreen.tsx';
+import { MoneyOtherTool } from './components/sections/MoneyOtherTool.tsx';
 
 /**
  * Ad Variant B, for the Bank-Fund Saver: the Fee Calculator opens the page, the Fund Picker follows in Section 03.

@@ -2,9 +2,9 @@
 import { useSearchParams } from 'react-router'
 import { resolveAdVariant } from '../adVariant.ts'
 import { StickyCta } from '../components/StickyCta.tsx'
-import { Footer } from '../sections/Footer.tsx'
-import { KeyInsight } from '../sections/KeyInsight.tsx'
-import { LeadMagnetSection, leadMagnetSectionId } from '../sections/LeadMagnetSection.tsx'
+import { Footer } from '../components/sections/Footer.tsx'
+import { KeyInsight } from '../components/sections/KeyInsight.tsx'
+import { LeadMagnetSection, leadMagnetSectionId } from '../components/sections/LeadMagnetSection.tsx'
 
 /**
  * The landing page, its First Screen chosen by `utm_content`.

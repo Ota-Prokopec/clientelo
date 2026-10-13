@@ -1,7 +1,7 @@
 // The Key Insight Section (docs/strategy.md#key-insight): why the Visitor's app won't sell them VOO, and why its Twin is no worse.
-import { DataSourceNote } from '../components/DataSourceNote.tsx'
-import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '../data/figures.ts'
-import { formatAmount, formatPercent } from '../format.ts'
+import { DataSourceNote } from '../DataSourceNote.tsx'
+import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '../../data/figures.ts'
+import { formatAmount, formatPercent } from '../../format.ts'
 import { Section } from './Section.tsx'
 
 /**
