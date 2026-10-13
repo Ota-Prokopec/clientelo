@@ -1,6 +1,6 @@
 // Renders a figure's Data Source and the date it was verified, so every figure on the page cites its origin.
 import type { DataSource } from '../data/figures.ts'
-import { formatIsoDate } from '../format.ts'
+import { formatIsoDate } from '../lib/format.ts'
 
 export type DataSourceNoteArgs = { sources: DataSource[] }
 

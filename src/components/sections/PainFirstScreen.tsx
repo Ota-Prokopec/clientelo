@@ -4,7 +4,7 @@
 import { DataSourceNote } from '../DataSourceNote.tsx'
 import { FactGrid } from '../FactGrid.tsx'
 import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '../../data/figures.ts'
-import { formatPercent } from '../../format.ts'
+import { formatPercent } from '../../lib/format.ts'
 import { Section } from './Section.tsx'
 
 /**

@@ -1,6 +1,6 @@
 // One fund's TER as a ruled row (design-identity.md#layout): the fund's name on the left, its TER set giant on the
 // right. The Money First Screen sets a Bank Fund's row over a Twin's.
-import { formatPercent } from '../format.ts'
+import { formatPercent } from '../lib/format.ts'
 
 /** Whose TER a row shows: a Bank Fund's costs the Visitor, a Twin's is the good number (design-identity.md#colour). */
 export type FundKind = 'bank-fund' | 'twin'
