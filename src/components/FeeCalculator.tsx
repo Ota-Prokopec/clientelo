@@ -10,7 +10,7 @@ import { calculateTerCost } from '@lib/terCost.ts'
 import { AmountField } from './AmountField.tsx'
 import { BankFundChoice } from './BankFundChoice.tsx'
 import { DataSourceNote } from './DataSourceNote.tsx'
-import { FeeCalculatorLeadAsk } from './FeeCalculatorLeadAsk.tsx'
+import { LeadAsk } from './LeadAsk.tsx'
 import { RemainingAmountBar } from './RemainingAmountBar.tsx'
 import { TerCostDifference } from './TerCostDifference.tsx'
 import { TerCostFormula } from './TerCostFormula.tsx'
@@ -68,7 +68,9 @@ export const FeeCalculator = () => {
       />
       {/* Both Bank Funds' TERs are on screen in the choice, so both are cited. */}
       <DataSourceNote sources={[...bankFundOptions.map((option) => option.bankFund.source), twin.source]} />
-      <FeeCalculatorLeadAsk />
+      <LeadAsk>
+        Které ETF koupit místo bankovního fondu, kde ho koupíte a jak ho v Česku zdanit, najdete v taháku zdarma.
+      </LeadAsk>
     </div>
   )
 }
