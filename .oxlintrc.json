@@ -14,6 +14,29 @@
         "react/no-multi-comp": "off",
         "func-style": "off"
       }
+    },
+    {
+      "files": ["src/pdfLeadMagnet/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "@react-pdf/renderer",
+                "importNames": ["Text"],
+                "message": "Import Text from src/pdfLeadMagnet/PdfText.tsx, which never breaks a Czech word."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/pdfLeadMagnet/PdfText.tsx"],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
     }
   ]
 }

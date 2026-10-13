@@ -1,10 +1,9 @@
 // The Lead Magnet's contents list, each Chapter's line under a rule and beside its number in the PDF, so a Lead Ask
 // shows what the Visitor gets before they type. It sits on a Lead Ask's band and takes the band's text colour.
 import type { LeadMagnetChapter } from '@data/leadMagnet.ts'
+import { formatChapterNumber } from '@lib/format.ts'
 
 export type LeadMagnetContentsArgs = { chapters: LeadMagnetChapter[] }
-
-const chapterNumberFormat = new Intl.NumberFormat('cs-CZ', { minimumIntegerDigits: 2 })
 
 /**
  * Lists the given Chapters, numbered as the PDF numbers them.
@@ -24,7 +23,7 @@ export const LeadMagnetContents = ({ chapters }: LeadMagnetContentsArgs) => {
           value={chapter.number}
           className="grid grid-cols-[1.75rem_1fr] border-t-2 border-block-foreground/40 pt-1 text-contents"
         >
-          <span>{chapterNumberFormat.format(chapter.number)}</span>
+          <span>{formatChapterNumber(chapter.number)}</span>
           <span>{chapter.contentsLine}</span>
         </li>
       ))}

@@ -1,7 +1,8 @@
 // Tests the Fund Picker's answer: the Substitutes shown for an ETF, and whether they are Twins or closest alternatives.
+// Also tests the groups the Lead Magnet's Twin table lists them in.
 import { describe, expect, it } from 'vitest'
 import { etfs } from '@data/figures.ts'
-import { findSubstitutes } from '@lib/substitutes.ts'
+import { findSubstitutes, groupEtfsBySubstitutes } from '@lib/substitutes.ts'
 
 describe('findSubstitutes', () => {
   it.each(['VOO', 'IVV', 'SPY'])('answers %s with its S&P 500 Twins, SPYL first', (etfTicker) => {
@@ -32,5 +33,20 @@ describe('findSubstitutes', () => {
     expect(firstDistributingIndex === -1 ? [] : distributionPolicies.slice(firstDistributingIndex)).not.toContain(
       'akumulační',
     )
+  })
+})
+
+describe('groupEtfsBySubstitutes', () => {
+  it('groups the ETFs that share Substitutes, in the data module order, and leaves out an ETF with none yet', () => {
+    const substituteGroups = groupEtfsBySubstitutes().map((substituteGroup) => ({
+      etfTickers: substituteGroup.etfs.map((etf) => etf.ticker),
+      relation: substituteGroup.relation,
+      substituteTickers: substituteGroup.substitutes.map((ucitsEtf) => ucitsEtf.ticker),
+    }))
+
+    expect(substituteGroups).toEqual([
+      { etfTickers: ['VOO', 'IVV', 'SPY'], relation: 'twin', substituteTickers: ['SPYL', 'CSPX', 'VUAA'] },
+      { etfTickers: ['VT'], relation: 'closest-alternative', substituteTickers: ['VWCE', 'FWRA'] },
+    ])
   })
 })

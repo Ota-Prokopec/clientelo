@@ -1,37 +1,21 @@
-// The Lead Magnet's first page in miniature: a white Card that stays in the light palette in both modes
-// (design-identity.md#components). A stand-in until #14 renders the thumbnail from the same build as the PDF, so the
-// preview always matches the file.
+// The Lead Magnet's first page in miniature, drawn from the PDF by the same build that makes the PDF
+// (vite-plugins/pdfLeadMagnetPlugin.ts), so the preview always matches the file. It sits on a white Card that stays in the
+// light palette in both modes, like the PDF itself (design-identity.md#components).
 import { Card } from '@/components/ui/card'
-import { leadMagnetTitle } from '@data/leadMagnet.ts'
-import { findSubstitutes } from '@lib/substitutes.ts'
+import { leadMagnetThumbnailPath } from '@data/leadMagnetFiles.ts'
 
 /**
- * The PDF's first page, small: its title over the first row of its Twin table, VOO struck out beside its first Twin.
+ * The PDF's first page, small.
  *
  * ```tsx
  * <LeadMagnetThumbnail />
- * // <div role="img" aria-label="Náhled první strany taháku" data-palette="light">Tahák: evropská dvojčata amerických ETF
- * //   VOO SPYL</div>
+ * // <div data-palette="light"><img src="/tahak-evropska-dvojcata-americkych-etf.png" alt="Náhled první strany taháku"></div>
  * ```
  */
 export const LeadMagnetThumbnail = () => {
-  const {
-    etf,
-    substitutes: [firstTwin],
-  } = findSubstitutes('VOO')
-
   return (
-    <Card
-      role="img"
-      aria-label="Náhled první strany taháku"
-      data-palette="light"
-      className="aspect-[1/1.414] w-24 gap-2 p-2.5 ring-0"
-    >
-      <p className="text-label text-heading">{leadMagnetTitle}</p>
-      <dl className="grid grid-cols-2 border-t-2 border-heading pt-1">
-        <dt className="text-note text-muted-foreground line-through">{etf.ticker}</dt>
-        <dd className="text-note font-bold text-brand">{firstTwin?.ticker}</dd>
-      </dl>
+    <Card data-palette="light" className="w-24 gap-0 py-0 ring-0">
+      <img src={leadMagnetThumbnailPath} alt="Náhled první strany taháku" className="aspect-[1/1.414] w-full" />
     </Card>
   )
 }

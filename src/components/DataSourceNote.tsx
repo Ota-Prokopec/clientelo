@@ -1,6 +1,6 @@
 // Renders a figure's Data Source and the date it was verified, so every figure on the page cites its origin.
 import type { DataSource } from '@data/figures.ts'
-import { formatIsoDate } from '@lib/format.ts'
+import { formatVerification } from '@lib/format.ts'
 
 export type DataSourceNoteArgs = { sources: DataSource[] }
 
@@ -26,7 +26,7 @@ export const DataSourceNote = ({ sources }: DataSourceNoteArgs) => {
           ) : (
             source.name
           )}{' '}
-          ({source.verifiedOn ? `ověřeno ${formatIsoDate(source.verifiedOn)}` : 'zatím neověřeno'})
+          ({formatVerification(source)})
         </span>
       ))}
     </p>

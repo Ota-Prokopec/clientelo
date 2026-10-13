@@ -1,6 +1,8 @@
 // The Lead Magnet's title and its Chapters (docs/strategy.md#lead-magnet), which every Lead Ask shows before it asks.
 // The contents lines name what each Chapter covers without quoting a figure, so a Lead Ask needs no Data Source of its
-// own.
+// own. Chapter 5's years are the Fee Calculator's, which its body counts with.
+import { feeCalculatorPrefill } from '@lib/feeCalculatorPrefill.ts'
+import { formatYears } from '@lib/format.ts'
 
 /** The Lead Magnet's title, as the PDF and every Lead Ask set it. */
 export const leadMagnetTitle = 'Tahák: evropská dvojčata amerických ETF'
@@ -14,7 +16,10 @@ export const leadMagnetChapters = {
   twinTable: { number: 2, contentsLine: 'Tabulka dvojčat s ISIN, burzou a měnou' },
   czechTaxes: { number: 3, contentsLine: 'Daně v Česku: časový test a dividendy' },
   usEstateTax: { number: 4, contentsLine: 'Americká dědická daň a jak se jí vyhnout' },
-  bankFundVsEtf: { number: 5, contentsLine: 'Bankovní fond vs. ETF za 20 let v korunách' },
+  bankFundVsEtf: {
+    number: 5,
+    contentsLine: `Bankovní fond vs. ETF za ${formatYears(feeCalculatorPrefill.years)} v korunách`,
+  },
   howToBuy: { number: 6, contentsLine: 'Kde dvojče koupit: XTB, Trading 212, Revolut, Fio' },
 } satisfies Record<string, LeadMagnetChapter>
 
