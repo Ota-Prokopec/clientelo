@@ -1,6 +1,6 @@
 // The privacy-policy page the Lead Form's GDPR sentence links to. A draft: its legal check is step 8 of docs/plan.md.
-import type { ReactNode } from 'react'
 import { Link } from 'react-router'
+import { PolicyHeading } from '../components/PolicyHeading.tsx'
 
 /** The privacy-policy route's path. */
 export const privacyPolicyPath = '/ochrana-osobnich-udaju'
@@ -44,15 +44,4 @@ export default function PrivacyPolicy() {
       </p>
     </main>
   )
-}
-
-/**
- * A heading inside the policy, set on a 2 px rule like a Section's label.
- *
- * ```tsx
- * <PolicyHeading>Proč</PolicyHeading> // <h2>Proč</h2>
- * ```
- */
-function PolicyHeading({ children }: { children: ReactNode }) {
-  return <h2 className="mt-4 border-t-2 border-heading pt-1.5 text-fact text-heading">{children}</h2>
 }
