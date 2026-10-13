@@ -6,7 +6,7 @@ import { usEstateTaxThreshold } from '@data/figures.ts';
 import { findSubstitutes, type EtfSubstitutes } from '@lib/substitutes.ts';
 import { ClosestAlternativeNote } from './ClosestAlternativeNote.tsx';
 import { DataSourceNote } from './DataSourceNote.tsx';
-import { FundPickerLeadAsk } from './FundPickerLeadAsk.tsx';
+import { LeadAsk } from './LeadAsk.tsx';
 import { OtherSubstitutes } from './OtherSubstitutes.tsx';
 import { PrimarySubstitute } from './PrimarySubstitute.tsx';
 import { StruckTicker } from './StruckTicker.tsx';
@@ -68,7 +68,9 @@ export const FundPicker = ({ renderHeadline }: FundPickerArgs) => {
           ...(primarySubstitute ? [usEstateTaxThreshold.source] : []),
         ]}
       />
-      <FundPickerLeadAsk />
+      <LeadAsk>
+        Celou tabulku evropských ETF s ISIN, burzou a měnou a návod, jak je v Česku zdanit, najdete v taháku zdarma.
+      </LeadAsk>
     </div>
   );
 };

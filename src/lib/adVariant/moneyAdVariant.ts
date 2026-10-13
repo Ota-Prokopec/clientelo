@@ -8,12 +8,12 @@ import { MoneyOtherTool } from '../../components/sections/MoneyOtherTool.tsx';
  * Ad Variant B, for the Bank-Fund Saver: the Fee Calculator opens the page, the Fund Picker follows in Section 03.
  *
  * ```tsx
- * <MoneyAdVariant.FirstScreen /> // a bank fund's TER over a Twin's, in the `fee-calculator` slot
+ * <MoneyAdVariant.FirstScreen /> // the Fee Calculator, prefilled with ČSOB Akciový against SPYL over 20 years
  * <MoneyAdVariant.OtherTool />   // the Fund Picker in Section 03
  * ```
  */
 export class MoneyAdVariant {
-  /** Section 01, the First Screen: a bank fund's TER over a Twin's, in the `fee-calculator` slot. */
+  /** Section 01, the First Screen: the Fee Calculator, prefilled with ČSOB Akciový against SPYL over 20 years. */
   static readonly FirstScreen: ComponentType = MoneyFirstScreen;
 
   /** Section 03: the Fund Picker, the Interactive Tool the First Screen didn't open. */

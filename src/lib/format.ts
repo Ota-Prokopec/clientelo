@@ -36,3 +36,52 @@ export const formatAmount = (amount: number, unit: string): string => {
 export const formatIsoDate = (isoDate: string): string => {
   return dateFormat.format(new Date(`${isoDate}T00:00:00`))
 }
+
+/** How a number of years reads in Czech: 20 as "20 let". A slider passes it on to a screen reader. */
+export const yearsFormatOptions: Intl.NumberFormatOptions = { style: 'unit', unit: 'year', unitDisplay: 'long' }
+
+/** How an amount in Kč reads in Czech: 100000 as "100 000 Kč". A slider passes it on to a screen reader. */
+export const amountKcFormatOptions: Intl.NumberFormatOptions = {
+  style: 'currency',
+  currency: 'CZK',
+  maximumFractionDigits: 0,
+}
+
+const yearsFormat = new Intl.NumberFormat('cs-CZ', yearsFormatOptions)
+const terFractionFormat = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 6 })
+const ratioFormat = new Intl.NumberFormat('cs-CZ', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+
+/**
+ * A number of years with the Czech word that agrees with it, the same after "za" as on its own.
+ *
+ * ```ts
+ * formatYears(1)  // '1 rok'
+ * formatYears(3)  // '3 roky'
+ * formatYears(20) // '20 let'
+ * ```
+ */
+export const formatYears = (years: number): string => {
+  return yearsFormat.format(years)
+}
+
+/**
+ * A TER in percent as the fraction a formula uses.
+ *
+ * ```ts
+ * formatTerFraction(2.22) // '0,0222'
+ * ```
+ */
+export const formatTerFraction = (terPercent: number): string => {
+  return terFractionFormat.format(terPercent / 100)
+}
+
+/**
+ * A ratio to three decimal places.
+ *
+ * ```ts
+ * formatRatio(0.6421) // '0,642'
+ * ```
+ */
+export const formatRatio = (ratio: number): string => {
+  return ratioFormat.format(ratio)
+}
