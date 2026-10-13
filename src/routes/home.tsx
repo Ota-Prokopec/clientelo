@@ -1,6 +1,6 @@
 // The landing page: the five Sections in the order README.md justifies, opened by the Visitor's Ad Variant.
 import { useSearchParams } from 'react-router'
-import { resolveAdVariant } from '../lib/adVariant/adVariant.ts'
+import { resolveAdVariant } from '@lib/adVariant/adVariant.ts'
 import { StickyCta } from '../components/StickyCta.tsx'
 import { Footer } from '../components/sections/Footer.tsx'
 import { KeyInsight } from '../components/sections/KeyInsight.tsx'

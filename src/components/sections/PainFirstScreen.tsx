@@ -3,8 +3,8 @@
 // The `fund-picker` slot shows the static comparison until #11 makes it interactive.
 import { DataSourceNote } from '../DataSourceNote.tsx'
 import { FactGrid } from '../FactGrid.tsx'
-import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '../../data/figures.ts'
-import { formatPercent } from '../../lib/format.ts'
+import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '@data/figures.ts'
+import { formatPercent } from '@lib/format.ts'
 import { Section } from './Section.tsx'
 
 /**

@@ -15,7 +15,11 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": { "@/*": ["./src/*"] },
+    "paths": {
+      "@/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@data/*": ["./src/data/*"]
+    },
 
     /* Linting */
     "noUnusedLocals": true,

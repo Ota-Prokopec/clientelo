@@ -2,7 +2,7 @@
 // Its bottom padding keeps the last Data Source clear of the Sticky CTA.
 import { Link } from 'react-router';
 import { DataSourceNote } from '../DataSourceNote.tsx';
-import { listDataSources } from '../../data/figures.ts';
+import { listDataSources } from '@data/figures.ts';
 
 /**
  * Lists the Data Source of every figure, the disclaimer and the GDPR link.

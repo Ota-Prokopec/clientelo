@@ -7,8 +7,13 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
-    // `@/` is src/, the alias shadcn's components import through (components.json). tsconfig.app.json mirrors it.
-    alias: { '@': path.resolve(import.meta.dirname, 'src') },
+    // `@/` is src/, the alias shadcn's components import through (components.json). `@lib/` and `@data/` are
+    // shortcuts into src/lib and src/data. tsconfig.app.json mirrors all three.
+    alias: {
+      '@': path.resolve(import.meta.dirname, 'src'),
+      '@lib': path.resolve(import.meta.dirname, 'src/lib'),
+      '@data': path.resolve(import.meta.dirname, 'src/data'),
+    },
   },
   test: {
     include: ['tests/**/*.test.ts'],

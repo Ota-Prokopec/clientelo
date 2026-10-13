@@ -3,8 +3,8 @@
 // The `fee-calculator` slot shows the static comparison until #12 makes it interactive.
 import { DataSourceNote } from '../DataSourceNote.tsx'
 import { TerRow } from '../TerRow.tsx'
-import { csobAkciovy, findUcitsEtf, typicalBankEquityFundTer } from '../../data/figures.ts'
-import { formatPercent } from '../../lib/format.ts'
+import { csobAkciovy, findUcitsEtf, typicalBankEquityFundTer } from '@data/figures.ts'
+import { formatPercent } from '@lib/format.ts'
 import { Section } from './Section.tsx'
 
 /**
