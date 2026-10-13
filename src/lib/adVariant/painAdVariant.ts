@@ -8,12 +8,12 @@ import { PainOtherTool } from '../../components/sections/PainOtherTool.tsx'
  * Ad Variant A, for the App Investor: the Fund Picker opens the page, the Fee Calculator follows in Section 03.
  *
  * ```tsx
- * <PainAdVariant.FirstScreen /> // VOO struck out over its Twin SPYL, in the `fund-picker` slot
+ * <PainAdVariant.FirstScreen /> // the Fund Picker, VOO struck out over its Twin SPYL
  * <PainAdVariant.OtherTool />   // the Fee Calculator in Section 03
  * ```
  */
 export class PainAdVariant {
-  /** Section 01, the First Screen: VOO struck out over its Twin SPYL, in the `fund-picker` slot. */
+  /** Section 01, the First Screen: the Fund Picker, VOO struck out over its Twin SPYL. */
   static readonly FirstScreen: ComponentType = PainFirstScreen
 
   /** Section 03: the Fee Calculator, the Interactive Tool the First Screen didn't open. */

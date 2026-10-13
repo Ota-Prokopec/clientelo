@@ -4,7 +4,8 @@ import { resolveAdVariant } from '@lib/adVariant/adVariant.ts'
 import { StickyCta } from '../components/StickyCta.tsx'
 import { Footer } from '../components/sections/Footer.tsx'
 import { KeyInsight } from '../components/sections/KeyInsight.tsx'
-import { LeadMagnetSection, leadMagnetSectionId } from '../components/sections/LeadMagnetSection.tsx'
+import { LeadMagnetSection } from '../components/sections/LeadMagnetSection.tsx'
+import { leadMagnetSectionId } from '../components/sections/leadMagnetSectionId.ts'
 
 /**
  * The landing page, its First Screen chosen by `utm_content`.

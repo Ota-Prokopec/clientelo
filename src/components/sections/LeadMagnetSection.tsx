@@ -1,8 +1,6 @@
 // The closing Section: the Lead Magnet, then the Lead Form. #13 adds the preview, the contents list and the Lead Form.
+import { leadMagnetSectionId } from './leadMagnetSectionId.ts'
 import { Section } from './Section.tsx'
-
-/** The id the Sticky CTA scrolls to until the Lead Form (#13) exists. */
-export const leadMagnetSectionId = 'lead-magnet'
 
 /**
  * The Lead Magnet's title and promise, ahead of the closing Lead Form.
