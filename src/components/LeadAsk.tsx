@@ -1,32 +1,27 @@
-// The inline Lead Ask each Interactive Tool ends in, right after the answer it extends. #13 turns this slot into the
-// Lead Ask's band, with the PDF thumbnail, the contents list, the email field and the red CTA's own type.
-import type { ReactNode } from 'react'
-import { ArrowRight } from 'lucide-react'
-import { buttonVariants } from '@/components/ui/button-variants'
-import { cn } from '@/lib/utils'
-import { leadMagnetSectionId } from './sections/leadMagnetSectionId.ts'
+// The inline Lead Ask each Interactive Tool ends in, right after the answer it extends: the Lead Ask's band, listing the
+// three Chapters that finish the answer, with a link to the one Lead Form (docs/strategy.md#lead-ask).
+import { leadAskChapters } from '@data/leadMagnet.ts'
+import { LeadAskBand, type InteractiveTool } from './LeadAskBand.tsx'
+import { LeadFormLink } from './LeadFormLink.tsx'
 
 export type LeadAskArgs = {
-  /** What the free cheat sheet adds to the answer above, in the tool's own words. */
-  children: ReactNode
+  /** The Interactive Tool whose answer the Lead Ask extends. */
+  interactiveTool: InteractiveTool
 }
 
 /**
- * Offers the free cheat sheet with what it adds to the answer above, linking to the Lead Magnet's Section.
+ * The band after an Interactive Tool's result, leading to the Lead Form.
  *
  * ```tsx
- * <LeadAsk>Celou tabulku evropských ETF … najdete v taháku zdarma.</LeadAsk>
- * // Celou tabulku evropských ETF … [Chci celý tahák →] (href="#lead-magnet")
+ * <LeadAsk interactiveTool="fund-picker" />
+ * // <div data-lead-ask="fund-picker">… 02 Tabulka dvojčat… 03 Daně v Česku… 04 Americká dědická daň…
+ * //   <a href="#lead-form">Chci tahák zdarma →</a></div>
  * ```
  */
-export const LeadAsk = ({ children }: LeadAskArgs) => {
+export const LeadAsk = ({ interactiveTool }: LeadAskArgs) => {
   return (
-    <div data-lead-ask className="grid gap-3">
-      <p>{children}</p>
-      <a href={`#${leadMagnetSectionId}`} className={cn(buttonVariants({ size: 'lg' }), 'justify-between')}>
-        Chci celý tahák
-        <ArrowRight data-icon="inline-end" aria-hidden="true" />
-      </a>
-    </div>
+    <LeadAskBand placement={interactiveTool} headingLevel={3} chapters={leadAskChapters}>
+      <LeadFormLink />
+    </LeadAskBand>
   )
 }

@@ -28,7 +28,7 @@ clientelo.cz's own palette (its CSS variables `--teal`, `--tint`, `--red`, `--in
 | `secondary-foreground`, `accent-foreground` | `#06322f` | `#ffffff`           | text on a quiet fill                                                                 |
 | `muted-foreground`                          | `#5c6f6e` | `#bfe0dd`           | labels, Data Source notes, the struck-out Ticker                                     |
 | `accent`                                    | `#e2eeee` | `#0d4a44` (derived) | the segmented control's track, the slider's track, the Fee Calculator's bar track    |
-| `destructive`                               | `#8f2728` | `#ef8f8f` (derived) | form errors                                                                          |
+| `destructive`                               | `#8f2728` | `#ef8f8f` (derived) | form errors, and on a Lead Ask's band only the invalid field's border                |
 | `border`, `input`                           | `#dce8e7` | `#306965` (derived) | hairlines inside a control                                                           |
 | `ring`                                      | `#00666c` | `#7fd0c9`           | focus                                                                                |
 | `heading`                                   | `#06322f` | `#ffffff`           | headings, giant figures, the 2 px rules                                              |
@@ -52,6 +52,7 @@ One family: **Schibsted Grotesk** at 400, 700 and 900, self-hosted from Fontsour
 | Section heading, band title  | `title`      | 2.2rem              | 900    | −0.045em |
 | Fact value                   | `fact`       | 18 px               | 700    |          |
 | Body                         | `body`       | 17 px, line 1.55    | 400    |          |
+| Lead Magnet contents line    | `contents`   | 14 px, line 1.2     | 700    |          |
 | Grid label, field label      | `label`      | 12 px               | 700    |          |
 | Fact label, Data Source note | `note`       | 11 px               | 400    |          |
 
@@ -100,9 +101,12 @@ These stay plain, on purpose: a Data Source note is visible inline text (a popov
 
 **The Fee Calculator's bars** show what each fund leaves of the amount. The Twin's bar is full and `brand`, and the Bank Fund's is `signal` and stops at its share of the Twin's amount, the way Ad Variant B's creative draws them ([ads.md](../ads.md#visual-brief-1)).
 
-**A Lead Ask** is a `block` band inset 16 px from the edges, with a 26 px radius. It holds, in order: "Tahák zdarma · PDF, 2 strany", the Lead Magnet's title, the PDF thumbnail beside its three numbered contents items, the email field, the red CTA with its label on the left and an arrow on the right, and the GDPR line.
+**A Lead Ask** is a `block` band inset 16 px from the edges, with a 26 px radius. It holds, in order: "Tahák zdarma · PDF, 2 strany", the Lead Magnet's title, and the PDF thumbnail beside its numbered Chapters, each under a 2 px rule at 40 % `block-foreground`. Then comes what the Visitor does next, in one of two forms:
 
-**The Sticky CTA** is the same red button floating 16 px from the edges and above the safe area. It steps aside while the Lead Form or a Lead Ask is on screen. The page keeps enough bottom padding that it never covers a Data Source note.
+- **After an Interactive Tool**, the band lists the three Chapters that finish the answer (the Twin table, the taxes and the estate tax), and ends in the red CTA as a link to the Lead Form, its label on the left and an arrow on the right. It scrolls to the Lead Form and focuses the email field.
+- **In Section 04**, the band lists every Chapter and holds the one Lead Form: the email field, the red CTA, and the GDPR line. `destructive` can't be read on `block`, so a form error on the band is bold `block-foreground`, and only the invalid field's border is `destructive`.
+
+**The Sticky CTA** is the same red button floating 16 px from the edges and above the safe area. It steps aside while a Lead Ask, Section 04's with the Lead Form included, is on screen. The page keeps enough bottom padding that it never covers a Data Source note.
 
 ## Motion
 

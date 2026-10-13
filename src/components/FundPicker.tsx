@@ -22,7 +22,7 @@ const preselectedEtfTicker = 'VOO';
 
 /**
  * The Fund Picker: a segmented choice of US ETF, the ETF struck out over its Twin or closest alternative with their
- * facts and Data Sources, ending in the inline Lead Ask's slot.
+ * facts and Data Sources, ending in the inline Lead Ask.
  *
  * ```tsx
  * <FundPicker renderHeadline={({ etf }) => <h1>…</h1>} /> // VOO struck out over SPYL, then CSPX and VUAA
@@ -68,9 +68,7 @@ export const FundPicker = ({ renderHeadline }: FundPickerArgs) => {
           ...(primarySubstitute ? [usEstateTaxThreshold.source] : []),
         ]}
       />
-      <LeadAsk>
-        Celou tabulku evropských ETF s ISIN, burzou a měnou a návod, jak je v Česku zdanit, najdete v taháku zdarma.
-      </LeadAsk>
+      <LeadAsk interactiveTool="fund-picker" />
     </div>
   );
 };
