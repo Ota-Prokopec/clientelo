@@ -1,32 +1,29 @@
 // The landing page: the five Sections in the order README.md justifies, opened by the Visitor's Ad Variant.
 import { useSearchParams } from 'react-router'
-import { orderInteractiveTools, resolveAdVariant } from '../adVariant.ts'
+import { resolveAdVariant } from '@lib/adVariant/adVariant.ts'
 import { StickyCta } from '../components/StickyCta.tsx'
-import { FirstScreen } from '../sections/FirstScreen.tsx'
-import { Footer } from '../sections/Footer.tsx'
-import { KeyInsight } from '../sections/KeyInsight.tsx'
-import { LeadMagnetSection, leadMagnetSectionId } from '../sections/LeadMagnetSection.tsx'
-import { OtherTool } from '../sections/OtherTool.tsx'
+import { Footer } from '../components/sections/Footer.tsx'
+import { KeyInsight } from '../components/sections/KeyInsight.tsx'
+import { LeadMagnetSection, leadMagnetSectionId } from '../components/sections/LeadMagnetSection.tsx'
 
 /**
  * The landing page, its First Screen chosen by `utm_content`.
  *
  * ```tsx
- * // /?utm_content=money → First Screen with the Fee Calculator, then the Fund Picker in `#other-tool`
- * // /                   → falls back to `pain`: the Fund Picker first
+ * // /?utm_content=money → MoneyAdVariant: First Screen with the Fee Calculator, then the Fund Picker in `#other-tool`
+ * // /                   → falls back to PainAdVariant: the Fund Picker first
  * ```
  */
-export default function Home() {
+const Home = () => {
   const [searchParams] = useSearchParams()
   const adVariant = resolveAdVariant(searchParams.get('utm_content'))
-  const [, otherInteractiveTool] = orderInteractiveTools(adVariant)
 
   return (
     <>
       <main>
-        <FirstScreen adVariant={adVariant} />
+        <adVariant.FirstScreen />
         <KeyInsight />
-        <OtherTool interactiveTool={otherInteractiveTool} />
+        <adVariant.OtherTool />
         <LeadMagnetSection />
       </main>
       <Footer />
@@ -35,3 +32,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home

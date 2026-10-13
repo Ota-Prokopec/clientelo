@@ -1,88 +1,167 @@
-/* The design identity's tokens (direction "Bloky", picked in #10) and the page's global styles. */
+/* The design identity "Mřížka" (docs/specifications/design-identity.md) as Tailwind v4 theme tokens, and the page's base styles.
+   Each colour role has a light value on :root and a dark one under prefers-color-scheme: dark, so `text-brand` follows the system. */
+@import 'tailwindcss';
+@import 'shadcn/tailwind.css';
+@import '@fontsource/schibsted-grotesk/400.css';
+@import '@fontsource/schibsted-grotesk/700.css';
+@import '@fontsource/schibsted-grotesk/900.css';
 
+@theme inline {
+  /* Colour: every utility reads a role, set per mode below. shadcn's roles first, then the identity's own. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary-hover: var(--primary-hover);
+  --color-heading: var(--heading);
+  --color-brand: var(--brand);
+  --color-signal: var(--signal);
+  --color-block: var(--block);
+  --color-block-foreground: var(--block-foreground);
+
+  /* Shape: clientelo.cz's radii. Vega's controls (Button, Input, Toggle, ToggleGroup) read `md` and its Card `xl`;
+     lg stays Vega's --radius, and 2xl and 4xl keep Vega's ratios. */
+  --radius-sm: 0.625rem; /* 10 px: an option inside a segmented control */
+  --radius-md: var(--radius); /* 12 px: buttons, inputs, the segmented control's track */
+  --radius-lg: var(--radius);
+  --radius-xl: 1rem; /* 16 px: a panel, the PDF thumbnail */
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: 1.625rem; /* 26 px: a Lead Ask's band */
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --font-heading: var(--font-sans);
+}
+
+@theme {
+  /* Type: one family, self-hosted static weights 400, 700 and 900 (the Fontsource @imports above). */
+  --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+
+  /* The type scale at 375 px, each size with its line height, tracking and weight. `cn` doesn't know these names (tailwind.md#tokens). */
+  --text-ticker: 6.5rem; /* a giant Ticker; the longest, VWCE, fits 343 px */
+  --text-ticker--line-height: 0.82;
+  --text-ticker--letter-spacing: -0.06em;
+  --text-ticker--font-weight: 900;
+  --text-ter: 4.5rem; /* a giant TER; the longest, 2,22 %, fits 343 px */
+  --text-ter--line-height: 0.85;
+  --text-ter--letter-spacing: -0.05em;
+  --text-ter--font-weight: 900;
+  --text-difference: 3.4rem; /* the Fee Calculator's Kč difference */
+  --text-difference--line-height: 0.95;
+  --text-difference--letter-spacing: -0.05em;
+  --text-difference--font-weight: 900;
+  --text-headline: 2.5rem; /* the First Screen's headline */
+  --text-headline--line-height: 0.95;
+  --text-headline--letter-spacing: -0.045em;
+  --text-headline--font-weight: 900;
+  --text-title: 2.2rem; /* a Section heading, a Lead Ask's title */
+  --text-title--line-height: 0.95;
+  --text-title--letter-spacing: -0.045em;
+  --text-title--font-weight: 900;
+  --text-fact: 1.125rem; /* a fact's value */
+  --text-fact--line-height: 1.2;
+  --text-fact--font-weight: 700;
+  --text-body: 1.0625rem; /* 17 px */
+  --text-body--line-height: 1.55;
+  --text-label: 0.75rem; /* a grid label, a field label */
+  --text-label--line-height: 1.35;
+  --text-label--font-weight: 700;
+  --text-note: 0.6875rem; /* a fact's label, a Data Source note */
+  --text-note--line-height: 1.4;
+
+  /* No shadow of any kind (the ban list): the scales are emptied, so shadcn's `shadow-xs` renders nothing. */
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+}
+
+/* Light: clientelo.cz's palette (its --bg, --ink, --red, --tint, --line, --teal… variables). */
 :root {
-  /* Colour */
-  --color-cobalt: #2b37f5;
-  --color-coral: #ff6a48;
-  --color-cream: #fff6ea;
-  --color-ink: #11132b;
-  --color-ink-muted: #4a4d6b;
-  --color-rule: #e6dccd;
-
-  /* Type: one family, the scale steps up from a 17 px body for a phone */
-  --font-family: 'Bricolage Grotesque Variable', system-ui, sans-serif;
-  --font-size-small: 0.8125rem; /* 13 px: Data Sources, chips */
-  --font-size-body: 1.0625rem; /* 17 px */
-  --font-size-lead: 1.25rem; /* 20 px */
-  --font-size-heading: 1.75rem; /* 28 px: Section headings */
-  --font-size-headline: 1.875rem; /* 30 px: First Screen headline */
-  --font-size-giant: 6rem; /* 96 px: the Tickers on the First Screen */
-  --font-weight-body: 400;
-  --font-weight-strong: 700;
-  --font-weight-display: 800;
-  --line-height-tight: 1.05;
-  --line-height-body: 1.55;
-
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem; /* the side gutter at 375 px */
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-
-  /* Shape */
-  --radius-pill: 999px;
-  --border-strong: 3px solid var(--color-ink);
-  --shadow-offset: 4px 4px 0 var(--color-ink);
-
-  color-scheme: light;
-  font-family: var(--font-family);
-  font-size: 100%;
-  font-weight: var(--font-weight-body);
-  line-height: var(--line-height-body);
-  color: var(--color-ink);
-  background: var(--color-cream);
-  -webkit-font-smoothing: antialiased;
+  color-scheme: light dark;
+  --radius: 0.75rem;
+  --background: #ffffff;
+  --foreground: #13302e;
+  --card: #ffffff;
+  --card-foreground: #13302e;
+  --popover: #ffffff;
+  --popover-foreground: #13302e;
+  --primary: #b23132;
+  --primary-foreground: #ffffff;
+  --primary-hover: #8f2728;
+  --secondary: #eef5f5;
+  --secondary-foreground: #06322f;
+  --muted: #eef5f5;
+  --muted-foreground: #5c6f6e;
+  --accent: #e2eeee;
+  --accent-foreground: #06322f;
+  --destructive: #8f2728;
+  --border: #dce8e7;
+  --input: #dce8e7;
+  --ring: #00666c;
+  --heading: #06322f;
+  --brand: #00666c;
+  --signal: #b23132;
+  --block: #06322f;
+  --block-foreground: #ffffff;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* Dark: clientelo.cz's dark band (#06322f to #0a3f3a, #7fd0c9, #bfe0dd) as the whole page. "Derived" values appear nowhere on it. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #06322f;
+    --foreground: #ffffff;
+    --card: #0a3f3a;
+    --card-foreground: #ffffff;
+    --popover: #0a3f3a;
+    --popover-foreground: #ffffff;
+    --primary: #b23132;
+    --primary-foreground: #ffffff;
+    --primary-hover: #8f2728;
+    --secondary: #0a3f3a;
+    --secondary-foreground: #ffffff;
+    --muted: #0a3f3a;
+    --muted-foreground: #bfe0dd;
+    --accent: #0d4a44; /* derived */
+    --accent-foreground: #ffffff;
+    --destructive: #ef8f8f; /* derived: a light red that keeps 4.5:1 on the background */
+    --border: #306965; /* derived: #7fd0c9 at 35 % on the background */
+    --input: #306965; /* derived */
+    --ring: #7fd0c9;
+    --heading: #ffffff;
+    --brand: #7fd0c9;
+    --signal: #ef8f8f; /* derived */
+    --block: #00666c; /* the band can't be the page's own colour */
+    --block-foreground: #ffffff;
+  }
 }
 
-body {
-  margin: 0;
-  font-size: var(--font-size-body);
-}
-
-h1,
-h2,
-h3 {
-  margin: 0;
-  font-weight: var(--font-weight-display);
-  line-height: var(--line-height-tight);
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
-
-p {
-  margin: 0;
-}
-
-a {
-  color: inherit;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
   html {
-    scroll-behavior: auto;
+    @apply scroll-smooth font-sans antialiased motion-reduce:scroll-auto;
+  }
+  body {
+    @apply bg-background text-body text-foreground;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply text-balance;
   }
 }

@@ -6,7 +6,11 @@ How to build UI from shadcn components. Read this before you add a control, a fo
 
 - **Every UI primitive is a shadcn component** in `src/components/ui/`, on Base UI with the Vega preset, added with the shadcn command in [README.md](../../README.md#commands). Domain components (`FundPicker`, `FeeCalculator`, `StickyCta`) and Sections are built from these primitives and Tailwind utilities.
 - **No raw `<button>`, `<input>`, `<select>`, `<textarea>` or `<label>` outside `src/components/ui/`.** When shadcn has no primitive for what you need, build one in `src/components/ui/` from Base UI's parts and style it with tokens.
-- **A link that looks like a button** is `<Button nativeButton={false} render={<a href="…" />}>`, so it keeps link semantics.
+- **A new file in `src/components/ui/` gets a top comment** saying what it is for on the page, and `Unedited.` or what was edited.
+- **A file there exports only components**, as oxlint's `react/only-export-components` requires. When shadcn's file exports its `cva` variants beside the component, move them to `<name>-variants.ts` (`button-variants.ts`) and say so in both files' top comments.
+- **A file there keeps all the parts shadcn generated in it** (`card.tsx` holds `Card`, `CardHeader`, `CardTitle`…). Don't split it. `.oxlintrc.json` turns `react/no-multi-comp` off for `src/components/ui/` only, and every other component gets its own file ([react.md](./react.md#one-component-per-file)).
+- **A file there keeps shadcn's `function` declarations.** `.oxlintrc.json` turns `func-style` off for `src/components/ui/` only. Everywhere else, every function is an arrow function.
+- **A link that looks like a button** is an `<a>` styled with `buttonVariants` from `@/components/ui/button-variants` (`className={cn(buttonVariants(), …)}`). Base UI's `Button` rendered as an `<a>` gives it `role="button"`, which takes it out of a screen reader's links.
 
 ## Restyling
 
@@ -21,4 +25,4 @@ How to build UI from shadcn components. Read this before you add a control, a fo
 
 ## Icons
 
-lucide-react only, and only as a functional glyph inside a primitive (a check mark, a chevron). Decorative icons are on the [ban list](../specifications/design-identity.md#ban-list).
+lucide-react only, and only as a functional glyph inside a primitive (a check mark, a chevron) or as the arrow on a CTA ([design-identity.md](../specifications/design-identity.md#icons)). Decorative icons are on the [ban list](../specifications/design-identity.md#ban-list).
