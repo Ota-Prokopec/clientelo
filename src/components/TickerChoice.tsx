@@ -1,7 +1,6 @@
 // The Fund Picker's Ticker choice: the US ETFs as a segmented control (design-identity.md#components), one always picked.
-import { useId } from 'react';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { etfs } from '@data/figures.ts';
+import { SegmentedControl } from './SegmentedControl.tsx';
 
 export type TickerChoiceArgs = {
   pickedEtfTicker: string;
@@ -18,31 +17,13 @@ export type TickerChoiceArgs = {
  * ```
  */
 export const TickerChoice = ({ pickedEtfTicker, onPick }: TickerChoiceArgs) => {
-  const labelId = useId();
-
   return (
-    <div className="grid gap-2">
-      <p id={labelId} className="text-label">
-        Který fond vám aplikace nenabídla?
-      </p>
-      <ToggleGroup
-        aria-labelledby={labelId}
-        value={[pickedEtfTicker]}
-        // Pressing the picked ETF again would leave nothing picked, so an empty value is ignored.
-        onValueChange={([etfTicker]) => etfTicker && onPick(etfTicker)}
-        spacing={1}
-        className="w-full rounded-md bg-accent p-1"
-      >
-        {etfs.map((etf) => (
-          <ToggleGroupItem
-            key={etf.ticker}
-            value={etf.ticker}
-            className="h-11 flex-1 rounded-sm text-heading hover:bg-background/60 aria-pressed:bg-brand aria-pressed:text-background aria-pressed:hover:bg-brand"
-          >
-            <span className="text-fact">{etf.ticker}</span>
-          </ToggleGroupItem>
-        ))}
-      </ToggleGroup>
-    </div>
+    <SegmentedControl
+      label="Který fond vám aplikace nenabídla?"
+      options={etfs.map((etf) => ({ value: etf.ticker, content: <span className="text-fact">{etf.ticker}</span> }))}
+      pickedValue={pickedEtfTicker}
+      onPick={onPick}
+      optionClassName="h-11"
+    />
   );
 };

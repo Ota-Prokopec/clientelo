@@ -136,6 +136,13 @@ export const typicalBankEquityFundTer: NumericFigure = {
   source: unverifiedSource('KID akciových fondů největších českých bank'),
 };
 
+/** Any other bank's equity fund, at the typical TER: the Fee Calculator's "kolem 2 %" option. */
+export const typicalBankEquityFund: BankFund = {
+  name: 'Jiný fond banky',
+  terPercent: typicalBankEquityFundTer.value,
+  source: typicalBankEquityFundTer.source,
+};
+
 export const czechTaxFigures = {
   holdingPeriodExemption: { value: 3, unit: 'let', source: unverifiedSource('Zákon o daních z příjmů, § 4') },
   yearlyIncomeExemption: { value: 100_000, unit: 'Kč', source: unverifiedSource('Zákon o daních z příjmů, § 4') },

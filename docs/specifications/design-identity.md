@@ -27,7 +27,7 @@ clientelo.cz's own palette (its CSS variables `--teal`, `--tint`, `--red`, `--in
 | `secondary`, `muted`                        | `#eef5f5` | `#0a3f3a`           | quiet fills                                                                          |
 | `secondary-foreground`, `accent-foreground` | `#06322f` | `#ffffff`           | text on a quiet fill                                                                 |
 | `muted-foreground`                          | `#5c6f6e` | `#bfe0dd`           | labels, Data Source notes, the struck-out Ticker                                     |
-| `accent`                                    | `#e2eeee` | `#0d4a44` (derived) | the segmented control's track, the slider's track                                    |
+| `accent`                                    | `#e2eeee` | `#0d4a44` (derived) | the segmented control's track, the slider's track, the Fee Calculator's bar track    |
 | `destructive`                               | `#8f2728` | `#ef8f8f` (derived) | form errors                                                                          |
 | `border`, `input`                           | `#dce8e7` | `#306965` (derived) | hairlines inside a control                                                           |
 | `ring`                                      | `#00666c` | `#7fd0c9`           | focus                                                                                |
@@ -69,33 +69,36 @@ Each role is a `--text-*` token in `src/index.css` that carries its line height,
 
 clientelo.cz's radii, as theme tokens that shadcn's Vega components read:
 
-| Radius | Value | Used for                                                                                     |
-| ------ | ----- | -------------------------------------------------------------------------------------------- |
-| `sm`   | 10 px | an option inside a segmented control                                                         |
-| `md`   | 12 px | buttons, inputs, the segmented control's track (`.mm-cta`, `.fq`): Vega's controls read `md` |
-| `xl`   | 16 px | a panel, the PDF thumbnail (`.card`)                                                         |
-| `3xl`  | 26 px | a Lead Ask's band (`.cta-final`)                                                             |
-| `full` | —     | the bar striking out a Ticker, the slider's track and thumb                                  |
+| Radius | Value | Used for                                                                                                                |
+| ------ | ----- | ----------------------------------------------------------------------------------------------------------------------- |
+| `sm`   | 10 px | an option inside a segmented control                                                                                    |
+| `md`   | 12 px | buttons, inputs, the segmented control's track (`.mm-cta`, `.fq`): Vega's controls read `md`; the Fee Calculator's bars |
+| `xl`   | 16 px | a panel, the PDF thumbnail (`.card`)                                                                                    |
+| `3xl`  | 26 px | a Lead Ask's band (`.cta-final`)                                                                                        |
+| `full` | —     | the bar striking out a Ticker, the slider's track and thumb                                                             |
 
 Rules, giant type and the grid stay square. Nothing has a shadow.
 
 ## Components
 
-| On the page                                   | Built from                                                                    |
-| --------------------------------------------- | ----------------------------------------------------------------------------- |
-| Fund Picker: the Ticker choice                | `ToggleGroup`, single-select, as a segmented control                         |
-| Fee Calculator: the amount                    | `InputGroup` (`Input` + "Kč") and a `Slider`                                  |
-| Fee Calculator: the years                     | `Slider`                                                                      |
-| Fee Calculator: the Bank Fund                 | `ToggleGroup` as a segmented control                                          |
-| A Twin's facts (index, TER, estate tax)       | the ruled fact grid                                                           |
-| Lead Form                                     | `Field`, `FieldLabel`, `FieldError`, `Input`, `Button`                        |
-| Segmentation Question                         | `ToggleGroup` as a segmented control                                          |
-| Sticky CTA and every CTA                      | `Button`, or a link styled with its `buttonVariants` where it scrolls         |
-| The PDF preview in a Lead Ask                 | `Card`, white, in the light palette                                           |
+| On the page                             | Built from                                                                 |
+| --------------------------------------- | -------------------------------------------------------------------------- |
+| Fund Picker: the Ticker choice          | `ToggleGroup`, single-select, as a segmented control                       |
+| Fee Calculator: the amount              | `InputGroup` (`Input` + "Kč") and a `Slider`                               |
+| Fee Calculator: the years               | `Slider`                                                                   |
+| Fee Calculator: the Bank Fund           | `ToggleGroup` as a segmented control                                       |
+| Fee Calculator: what each fund leaves   | a ruled row over a bar on an `accent` track, as in Ad Variant B's creative |
+| A Twin's facts (index, TER, estate tax) | the ruled fact grid                                                        |
+| Lead Form                               | `Field`, `FieldLabel`, `FieldError`, `Input`, `Button`                     |
+| Segmentation Question                   | `ToggleGroup` as a segmented control                                       |
+| Sticky CTA and every CTA                | `Button`, or a link styled with its `buttonVariants` where it scrolls      |
+| The PDF preview in a Lead Ask           | `Card`, white, in the light palette                                        |
 
 These stay plain, on purpose: a Data Source note is visible inline text (a popover would hide the trust it builds), the Key Insight's points are a list (an accordion would put the argument behind taps), and Delivery replaces the Lead Form inline (no toast, no dialog).
 
 **The segmented control** is a rounded `accent` track with 4 px of padding, holding rounded options; the selected one is filled `brand` with `background` text.
+
+**The Fee Calculator's bars** show what each fund leaves of the amount. The Twin's bar is full and `brand`, and the Bank Fund's is `signal` and stops at its share of the Twin's amount, the way Ad Variant B's creative draws them ([ads.md](../ads.md#visual-brief-1)).
 
 **A Lead Ask** is a `block` band inset 16 px from the edges, with a 26 px radius. It holds, in order: "Tahák zdarma · PDF, 2 strany", the Lead Magnet's title, the PDF thumbnail beside its three numbered contents items, the email field, the red CTA with its label on the left and an arrow on the right, and the GDPR line.
 

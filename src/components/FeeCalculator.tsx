@@ -1,0 +1,74 @@
+// The Fee Calculator (`fee-calculator`): what a Bank Fund's TER costs in Kč against a Twin's, for a one-off amount
+// (docs/ads.md, Ad Variant B). It opens the `money` First Screen prefilled and is Section 03 for `pain`. The answer comes
+// first, so it shows on the First Screen without scrolling, and the tool ends in the inline Lead Ask's slot.
+import { useState } from 'react'
+import { findUcitsEtf } from '@data/figures.ts'
+import { bankFundOptions, type BankFundOption } from '@lib/bankFundOptions.ts'
+import { feeCalculatorPrefill } from '@lib/feeCalculatorPrefill.ts'
+import { formatPercent } from '@lib/format.ts'
+import { calculateTerCost } from '@lib/terCost.ts'
+import { AmountField } from './AmountField.tsx'
+import { BankFundChoice } from './BankFundChoice.tsx'
+import { DataSourceNote } from './DataSourceNote.tsx'
+import { FeeCalculatorLeadAsk } from './FeeCalculatorLeadAsk.tsx'
+import { RemainingAmountBar } from './RemainingAmountBar.tsx'
+import { TerCostDifference } from './TerCostDifference.tsx'
+import { TerCostFormula } from './TerCostFormula.tsx'
+import { YearsField } from './YearsField.tsx'
+
+/**
+ * The Fee Calculator, prefilled with 100 000 Kč in ČSOB Akciový against the Twin SPYL over 20 years.
+ *
+ * ```tsx
+ * <FeeCalculator />
+ * // <div id="fee-calculator">Za 20 let vám bankovní fond nechá o 35 575 Kč méně než ETF SPYL, i bez růstu trhu.
+ * //   ČSOB Akciový 63 826 Kč, SPYL 99 402 Kč, the amount, years and Bank Fund, the formula, the Lead Ask</div>
+ * ```
+ */
+export const FeeCalculator = () => {
+  const [amountKc, setAmountKc] = useState(feeCalculatorPrefill.amountKc)
+  const [years, setYears] = useState(feeCalculatorPrefill.years)
+  const [pickedBankFundOption, setPickedBankFundOption] = useState<BankFundOption>(bankFundOptions[0])
+  const { bankFund, terLabel } = pickedBankFundOption
+  const twin = findUcitsEtf(feeCalculatorPrefill.twinTicker)
+  const terCost = calculateTerCost({
+    amountKc,
+    years,
+    bankFundTerPercent: bankFund.terPercent,
+    twinTerPercent: twin.terPercent,
+  })
+
+  return (
+    <div id="fee-calculator" className="grid gap-5">
+      <TerCostDifference years={years} differenceKc={terCost.differenceKc} twin={twin} />
+      <div className="grid gap-3">
+        <RemainingAmountBar
+          name={bankFund.name}
+          terLabel={terLabel}
+          amountKc={terCost.bankFundAmountKc}
+          shareOfTwinAmount={terCost.bankFundToTwinRatio}
+          fundKind="bank-fund"
+        />
+        <RemainingAmountBar
+          name={`ETF ${twin.ticker} na ${twin.trackedIndex}`}
+          terLabel={formatPercent(twin.terPercent)}
+          amountKc={terCost.twinAmountKc}
+          shareOfTwinAmount={1}
+          fundKind="twin"
+        />
+      </div>
+      <AmountField amountKc={amountKc} onAmountChange={setAmountKc} />
+      <YearsField years={years} onYearsChange={setYears} />
+      <BankFundChoice pickedBankFundOption={pickedBankFundOption} onPick={setPickedBankFundOption} />
+      <TerCostFormula
+        years={years}
+        bankFundTerPercent={bankFund.terPercent}
+        twinTerPercent={twin.terPercent}
+        bankFundToTwinRatio={terCost.bankFundToTwinRatio}
+      />
+      {/* Both Bank Funds' TERs are on screen in the choice, so both are cited. */}
+      <DataSourceNote sources={[...bankFundOptions.map((option) => option.bankFund.source), twin.source]} />
+      <FeeCalculatorLeadAsk />
+    </div>
+  )
+}
