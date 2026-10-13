@@ -44,6 +44,10 @@ _Avoid_: USP, hook, value proposition.
 
 ### Page
 
+**Page**:
+Everything one route renders, such as the landing page or the privacy policy, in the one centred column every route shares.
+_Avoid_: Screen (a First Screen is only what a phone shows before scrolling), view, layout.
+
 **First Screen**:
 What a Visitor sees on a phone before scrolling. It delivers the Ad Promise and the Lead Magnet. The Ad Variant chooses which First Screen the Visitor sees.
 _Avoid_: Hero, above the fold, header.

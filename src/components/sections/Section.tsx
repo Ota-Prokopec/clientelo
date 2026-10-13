@@ -1,5 +1,5 @@
 // The frame every numbered Section shares (design-identity.md#layout): a 2 px rule, the Section's number in `signal`
-// and its label on the grid's 3 rem left column, then the Section's content in the 16 px gutter.
+// and its label on the grid's 3 rem left column, then the Section's content. The Page sets its width and gutter.
 import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -23,7 +23,7 @@ export type SectionArgs = ComponentProps<'section'> & {
  */
 export const Section = ({ number, label, className, children, ...sectionProps }: SectionArgs) => {
   return (
-    <section className={cn('mx-auto grid max-w-xl gap-5 px-4 pt-12', className)} {...sectionProps}>
+    <section className={cn('grid gap-5 pt-12', className)} {...sectionProps}>
       <p className="grid grid-cols-[3rem_1fr] border-t-2 border-heading pt-1.5 text-label">
         <span className="text-signal">{number}</span>
         <span>{label}</span>

@@ -13,7 +13,7 @@ import { listDataSources } from '@data/figures.ts';
  */
 export const Footer = () => {
   return (
-    <footer id="footer" className="mx-auto mt-16 max-w-xl px-4 pb-[calc(7rem+env(safe-area-inset-bottom))]">
+    <footer id="footer" className="mt-16 pb-[calc(7rem+env(safe-area-inset-bottom))]">
       <div className="grid gap-3 border-t-2 border-heading pt-3">
         <p className="font-bold text-heading">Nejde o investiční doporučení. Investování nese riziko ztráty.</p>
         <DataSourceNote sources={listDataSources()} />
