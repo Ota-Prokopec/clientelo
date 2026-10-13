@@ -1,7 +1,8 @@
 // The inline Lead Ask each Interactive Tool ends in, right after the answer it extends: the Lead Ask's band, listing the
 // three Chapters that finish the answer, with a link to the one Lead Form (docs/strategy.md#lead-ask).
 import { leadAskChapters } from '@data/leadMagnet.ts'
-import { LeadAskBand, type InteractiveTool } from './LeadAskBand.tsx'
+import type { InteractiveTool } from '@/types.ts'
+import { LeadAskBand } from './LeadAskBand.tsx'
 import { LeadFormLink } from './LeadFormLink.tsx'
 
 export type LeadAskArgs = {

@@ -3,11 +3,9 @@
 // Visitor does next: a link to the Lead Form after an Interactive Tool, or the Lead Form itself in Section 04.
 import type { ReactNode } from 'react'
 import { leadMagnetTitle, type LeadMagnetChapter } from '@data/leadMagnet.ts'
+import type { InteractiveTool } from '@/types.ts'
 import { LeadMagnetContents } from './LeadMagnetContents.tsx'
 import { LeadMagnetThumbnail } from './LeadMagnetThumbnail.tsx'
-
-/** An Interactive Tool, by the id step 5's Funnel Events hook onto. */
-export type InteractiveTool = 'fund-picker' | 'fee-calculator'
 
 /** Where a band asks: after one of the Interactive Tools, or in the closing Section with the Lead Form. */
 export type LeadAskPlacement = InteractiveTool | 'lead-magnet'

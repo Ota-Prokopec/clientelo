@@ -3,7 +3,7 @@
 import type { Etf, UcitsEtf } from '@data/figures.ts';
 import { formatPercent } from '@lib/format.ts';
 import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts';
-import type { SubstituteRelation } from '@lib/substitutes.ts';
+import type { SubstituteRelation } from '@/types.ts';
 import { FactGrid } from './FactGrid.tsx';
 
 export type PrimarySubstituteArgs = {

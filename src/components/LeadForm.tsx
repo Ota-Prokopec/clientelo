@@ -3,19 +3,22 @@
 // `data-state` for step 5's Funnel Events, and gives way to Delivery once the Visitor is a Lead. Section 04
 // renders it on the Lead Ask's band, which is why its texts take the band's colour.
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowRight } from 'lucide-react'
-import { useId, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Link } from 'react-router'
 import { Button } from '@/components/ui/button'
-import { Field, FieldError, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
 import { submitLead } from '@/lead/submitLead.ts'
-import { cn } from '@/lib/utils'
 import { leadSchema, type LeadSubmission } from '@/schemas/leadSchema.ts'
 import { Delivery } from './Delivery.tsx'
-import { leadCtaClassName, leadCtaLabel } from './leadCta.ts'
-import { leadFormEmailId, leadFormId } from './leadFormIds.ts'
+import { HoneypotField } from './fields/HoneypotField.tsx'
+import { InputField } from './fields/InputField.tsx'
+import { LeadCta } from './LeadCta.tsx'
+
+/** The Lead Form's id, which every link to the Lead Form targets. Step 5's Funnel Events hook onto it. */
+export const leadFormId = 'lead-form'
+
+/** The id of the Lead Form's email field, which a link to the Lead Form focuses. */
+export const leadFormEmailId = 'lead-form-email'
 
 /** Where the Lead Form is: untouched, being filled in, waiting for submitLead(), done, or failed and ready to retry. */
 export type LeadFormState = 'idle' | 'typing' | 'submitting' | 'success' | 'error'
@@ -28,9 +31,8 @@ export type LeadFormArgs = {
   onLeadFormSubmitted: () => void
 }
 
-const submitLabelByLeadFormState: Record<Exclude<LeadFormState, 'success'>, string> = {
-  idle: leadCtaLabel,
-  typing: leadCtaLabel,
+/** The submit's label while submitLead() runs and after it fails. In every other state, the CTA's own label. */
+const submitLabelByLeadFormState: Partial<Record<LeadFormState, string>> = {
   submitting: 'Odesíláme…',
   error: 'Zkusit znovu',
 }
@@ -47,7 +49,6 @@ const submitLabelByLeadFormState: Record<Exclude<LeadFormState, 'success'>, stri
  * ```
  */
 export const LeadForm = ({ onLeadFormSubmitted }: LeadFormArgs) => {
-  const honeypotId = useId()
   const {
     control,
     handleSubmit,
@@ -58,14 +59,17 @@ export const LeadForm = ({ onLeadFormSubmitted }: LeadFormArgs) => {
   const leadFormState: LeadFormState = isSubmitting ? 'submitting' : (submitOutcome ?? (isDirty ? 'typing' : 'idle'))
 
   /**
-   * Sends a valid Lead Form through submitLead(), and records how it ended.
+   * Handles the form's submit event: validates the Lead Form against leadSchema, sends a valid one through
+   * submitLead(), and records how it ended. An invalid one shows its field errors and sends nothing.
    *
-   * ```ts
-   * await sendLeadForm({ email: 'jana.novakova@seznam.cz', honeypot: '' })
-   * // resolves → "success", and onLeadFormSubmitted() runs; rejects → "error", and the Visitor can retry
+   * ```tsx
+   * <form onSubmit={submitHandler}>
+   * // { email: 'jana.novakova@seznam.cz', honeypot: '' } → submitLead() resolves → "success", and
+   * //   onLeadFormSubmitted() runs; it rejects → "error", and the Visitor can retry
+   * // { email: 'jana@', honeypot: '' } → the email's field error, and submitLead() isn't called
    * ```
    */
-  const sendLeadForm = async (leadSubmission: LeadSubmission) => {
+  const submitHandler = handleSubmit(async (leadSubmission: LeadSubmission) => {
     setSubmitOutcome(null)
     try {
       await submitLead(leadSubmission)
@@ -76,64 +80,36 @@ export const LeadForm = ({ onLeadFormSubmitted }: LeadFormArgs) => {
     setSubmittedEmail(leadSubmission.email)
     setSubmitOutcome('success')
     onLeadFormSubmitted()
-  }
+  })
 
   return (
     <div id={leadFormId} data-state={leadFormState} className="grid scroll-mt-6 gap-4">
       {leadFormState === 'success' ? (
         <Delivery email={submittedEmail} />
       ) : (
-        <form noValidate onSubmit={handleSubmit(sendLeadForm)} className="grid gap-3">
-          <Controller
+        <form noValidate onSubmit={submitHandler} className="grid gap-3">
+          <InputField
+            control={control}
             name="email"
-            control={control}
-            render={({ field, fieldState }) => (
-              // The band is `block`, on which `destructive` can't be read, so an invalid field keeps the band's text
-              // colour and only the input's border turns red.
-              <Field data-invalid={fieldState.invalid} className="gap-2 data-[invalid=true]:text-block-foreground">
-                <FieldLabel htmlFor={leadFormEmailId}>
-                  <span className="text-label">Kam vám tahák poslat?</span>
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id={leadFormEmailId}
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  placeholder="např. jana@seznam.cz"
-                  readOnly={isSubmitting}
-                  aria-invalid={fieldState.invalid}
-                  className="h-12 bg-background text-foreground dark:bg-background"
-                />
-                <FieldError errors={[fieldState.error]} className="font-bold text-block-foreground" />
-              </Field>
-            )}
+            label="Kam vám tahák poslat?"
+            surface="band"
+            id={leadFormEmailId}
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            placeholder="např. jana@seznam.cz"
+            readOnly={isSubmitting}
+            className="h-12"
           />
-          <Controller
-            name="honeypot"
-            control={control}
-            render={({ field }) => (
-              // Hidden from every person, sighted or not, and out of the tab order. A bot that fills in every field
-              // fills this one too, and submitLead() then sends nothing.
-              // The wrapper, not the Field, is `sr-only`: the Field's own `w-full` would outweigh its 1 px width and
-              // stretch the page sideways.
-              <div aria-hidden="true" className="sr-only">
-                <Field>
-                  <FieldLabel htmlFor={honeypotId}>Toto pole nevyplňujte</FieldLabel>
-                  <Input {...field} id={honeypotId} name="website" type="text" tabIndex={-1} autoComplete="off" />
-                </Field>
-              </div>
-            )}
-          />
+          <HoneypotField control={control} name="honeypot" />
           {leadFormState === 'error' && (
             <p role="alert" className="font-bold">
               Tahák se nepodařilo odeslat. Zkontrolujte prosím připojení a zkuste to znovu.
             </p>
           )}
-          <Button type="submit" disabled={isSubmitting} className={cn(leadCtaClassName, 'w-full')}>
+          <LeadCta render={<Button type="submit" disabled={isSubmitting} />} className="w-full">
             {submitLabelByLeadFormState[leadFormState]}
-            <ArrowRight data-icon="inline-end" aria-hidden="true" className="size-5" />
-          </Button>
+          </LeadCta>
         </form>
       )}
       <p className="text-note">

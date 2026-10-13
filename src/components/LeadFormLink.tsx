@@ -2,11 +2,8 @@
 // phone's keyboard is already up. The inline Lead Asks and the Sticky CTA are built on it. Without JavaScript it is a
 // plain link to `#lead-form`.
 import type { ComponentProps, MouseEvent } from 'react'
-import { ArrowRight } from 'lucide-react'
-import { buttonVariants } from '@/components/ui/button-variants'
-import { cn } from '@/lib/utils'
-import { leadCtaClassName, leadCtaLabel } from './leadCta.ts'
-import { leadFormEmailId, leadFormId } from './leadFormIds.ts'
+import { LeadCta } from './LeadCta.tsx'
+import { leadFormEmailId, leadFormId } from './LeadForm.tsx'
 
 export type LeadFormLinkArgs = Omit<ComponentProps<'a'>, 'href' | 'children'>
 
@@ -41,14 +38,6 @@ export const LeadFormLink = ({ className, onClick, ...anchorProps }: LeadFormLin
   }
 
   return (
-    <a
-      href={`#${leadFormId}`}
-      onClick={openLeadForm}
-      className={cn(buttonVariants(), leadCtaClassName, className)}
-      {...anchorProps}
-    >
-      {leadCtaLabel}
-      <ArrowRight data-icon="inline-end" aria-hidden="true" className="size-5" />
-    </a>
+    <LeadCta render={<a href={`#${leadFormId}`} onClick={openLeadForm} {...anchorProps} />} className={className} />
   )
 }

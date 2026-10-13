@@ -2,7 +2,7 @@
 import type { UcitsEtf } from '@data/figures.ts';
 import { formatPercent } from '@lib/format.ts';
 import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts';
-import type { SubstituteRelation } from '@lib/substitutes.ts';
+import type { SubstituteRelation } from '@/types.ts';
 
 export type OtherSubstitutesArgs = {
   substitutes: UcitsEtf[];
