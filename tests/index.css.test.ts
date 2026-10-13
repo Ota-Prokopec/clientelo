@@ -36,7 +36,7 @@ const isDarkRootRule = (rootRule: Rule): boolean =>
  * :root { --brand: #00666c; --heading: #06322f; } → ['--brand', '--heading']
  * ```
  */
-function listCustomPropertyNames(container: Container): string[] {
+const listCustomPropertyNames = (container: Container): string[] => {
   return (container.nodes ?? []).flatMap((childNode) =>
     childNode.type === 'decl' && childNode.prop.startsWith('--') ? [childNode.prop] : [],
   )
@@ -50,7 +50,7 @@ function listCustomPropertyNames(container: Container): string[] {
  * @media (prefers-color-scheme: dark) { :root { --brand: #7fd0c9; } } → dark: ['--brand']
  * ```
  */
-function listCustomPropertyNamesForMode(stylesheet: Root, colourMode: ColourMode): string[] {
+const listCustomPropertyNamesForMode = (stylesheet: Root, colourMode: ColourMode): string[] => {
   const customPropertyNames: string[] = []
   stylesheet.walkRules(':root', (rootRule) => {
     if (isDarkRootRule(rootRule) === (colourMode === 'dark')) customPropertyNames.push(...listCustomPropertyNames(rootRule))
@@ -65,7 +65,7 @@ function listCustomPropertyNamesForMode(stylesheet: Root, colourMode: ColourMode
  * @theme inline { --color-brand: var(--brand); --font-sans: …; } → ['--brand']
  * ```
  */
-function listThemeColourRoleNames(stylesheet: Root): string[] {
+const listThemeColourRoleNames = (stylesheet: Root): string[] => {
   const roleNames: string[] = []
   stylesheet.walkAtRules('theme', (themeAtRule) => {
     themeAtRule.walkDecls(/^--color-/, (colourDeclaration) => {

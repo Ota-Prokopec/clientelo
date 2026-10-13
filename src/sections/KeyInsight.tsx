@@ -11,7 +11,7 @@ import { Section } from './Section.tsx'
  * <KeyInsight /> // <section id="key-insight">02 Pravidla EU …</section>
  * ```
  */
-export function KeyInsight() {
+export const KeyInsight = () => {
   const voo = findEtf('VOO')
   const spyl = findUcitsEtf('SPYL')
 

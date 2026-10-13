@@ -26,7 +26,7 @@ export type TerRowArgs = {
  * // ČSOB Akciový / akciový fond banky ……… 2,22 % (in `signal`)
  * ```
  */
-export function TerRow({ name, description, terPercent, fundKind }: TerRowArgs) {
+export const TerRow = ({ name, description, terPercent, fundKind }: TerRowArgs) => {
   return (
     <div className="grid grid-cols-[1fr_auto] items-end gap-3 border-t-2 border-heading pt-1">
       <dt className="text-label">

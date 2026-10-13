@@ -8,6 +8,8 @@ import { Outlet } from 'react-router'
  * // `/` → <Home />, `/ochrana-osobnich-udaju` → <PrivacyPolicy />
  * ```
  */
-export default function Root() {
+const Root = () => {
   return <Outlet />
 }
+
+export default Root

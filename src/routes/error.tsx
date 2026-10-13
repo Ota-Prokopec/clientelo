@@ -8,7 +8,7 @@ import { isRouteErrorResponse, Link, useRouteError } from 'react-router'
  * // /nic → "Tahle stránka neexistuje"
  * ```
  */
-export default function ErrorPage() {
+const ErrorPage = () => {
   const error = useRouteError()
   const isNotFound = isRouteErrorResponse(error) && error.status === 404
 
@@ -24,3 +24,5 @@ export default function ErrorPage() {
     </main>
   )
 }
+
+export default ErrorPage

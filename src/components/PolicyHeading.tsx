@@ -10,6 +10,6 @@ export type PolicyHeadingArgs = { children: ReactNode }
  * <PolicyHeading>Proč</PolicyHeading> // <h2>Proč</h2>
  * ```
  */
-export function PolicyHeading({ children }: PolicyHeadingArgs) {
+export const PolicyHeading = ({ children }: PolicyHeadingArgs) => {
   return <h2 className="mt-4 border-t-2 border-heading pt-1.5 text-fact text-heading">{children}</h2>
 }

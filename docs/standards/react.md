@@ -11,7 +11,7 @@ How to lay out React components in files. Read this before you add a component, 
 
 ## Where a file goes
 
-- **`src/sections/`**: a Section, and the content it switches between (`FirstScreen.tsx` renders `PainFirstScreen.tsx` or `MoneyFirstScreen.tsx`).
+- **`src/sections/`**: a Section, including each Ad Variant's own First Screen and Section 03 (`PainFirstScreen.tsx`, `PainOtherTool.tsx`).
 - **`src/components/`**: every other domain component, including one that only a single Section or route renders (`TerRow.tsx`, `PolicyHeading.tsx`).
 - **`src/components/ui/`**: shadcn's primitives ([shadcn.md](./shadcn.md)).
 - **`src/routes/`**: only the route components the router mounts, one per file.

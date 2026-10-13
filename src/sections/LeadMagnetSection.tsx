@@ -11,7 +11,7 @@ export const leadMagnetSectionId = 'lead-magnet'
  * <LeadMagnetSection /> // <section id="lead-magnet">04 Tahák zdarma …</section>
  * ```
  */
-export function LeadMagnetSection() {
+export const LeadMagnetSection = () => {
   return (
     <Section id={leadMagnetSectionId} number="04" label="Tahák zdarma">
       <h2 className="text-title text-heading">Tahák: evropská dvojčata amerických ETF</h2>

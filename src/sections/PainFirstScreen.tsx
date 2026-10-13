@@ -1,23 +1,27 @@
-// Ad Variant A's First Screen content: the ETF the Visitor's app won't sell, struck out over its Twin.
+// Ad Variant A's First Screen: the ETF the Visitor's app won't sell, struck out over its Twin, deliverable without
+// scrolling at 375 px.
 // The `fund-picker` slot shows the static comparison until #11 makes it interactive.
 import { DataSourceNote } from '../components/DataSourceNote.tsx'
 import { FactGrid } from '../components/FactGrid.tsx'
 import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '../data/figures.ts'
 import { formatPercent } from '../format.ts'
+import { Section } from './Section.tsx'
 
 /**
- * Ad Variant A: the ETF the Visitor's app won't sell, struck out in grey, over its Twin in `brand`.
+ * Ad Variant A's Section 01: the ETF the Visitor's app won't sell, struck out in grey, over its Twin in `brand`.
  *
  * ```tsx
- * <PainFirstScreen /> // <div id="fund-picker">VOO SPYL, then the Twin's index, TER, estate tax and domicile</div>
+ * <PainFirstScreen />
+ * // <section id="first-screen" data-ad-variant="pain">01 Dvojče k americkému ETF
+ * //   <div id="fund-picker">VOO SPYL, then the Twin's index, TER, estate tax and domicile</div></section>
  * ```
  */
-export function PainFirstScreen() {
+export const PainFirstScreen = () => {
   const voo = findEtf('VOO')
   const spyl = findUcitsEtf('SPYL')
 
   return (
-    <>
+    <Section id="first-screen" number="01" label="Dvojče k americkému ETF" data-ad-variant="pain">
       <h1 className="text-headline text-heading">
         VOO v aplikaci nekoupíte. <span className="text-brand">Dvojče ano.</span>
       </h1>
@@ -42,6 +46,6 @@ export function PainFirstScreen() {
         />
         <DataSourceNote sources={[voo.source, spyl.source, usEstateTaxThreshold.source]} />
       </div>
-    </>
+    </Section>
   )
 }

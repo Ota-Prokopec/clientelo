@@ -1,21 +1,27 @@
 // Tests utm_content → Ad Variant resolution.
 import { describe, expect, it } from 'vitest'
 import { resolveAdVariant } from '../src/adVariant.ts'
+import { MoneyAdVariant } from '../src/moneyAdVariant.ts'
+import { PainAdVariant } from '../src/painAdVariant.ts'
 
 describe('resolveAdVariant', () => {
   it('resolves utm_content=pain to the pain Ad Variant', () => {
-    expect(resolveAdVariant('pain')).toBe('pain')
+    expect(resolveAdVariant('pain')).toBe(PainAdVariant)
   })
 
   it('resolves utm_content=money to the money Ad Variant', () => {
-    expect(resolveAdVariant('money')).toBe('money')
+    expect(resolveAdVariant('money')).toBe(MoneyAdVariant)
   })
 
   it('falls back to pain when utm_content is missing', () => {
-    expect(resolveAdVariant(null)).toBe('pain')
+    expect(resolveAdVariant(null)).toBe(PainAdVariant)
   })
 
   it('falls back to pain when utm_content is unknown', () => {
-    expect(resolveAdVariant('pian')).toBe('pain')
+    expect(resolveAdVariant('pian')).toBe(PainAdVariant)
+  })
+
+  it('falls back to pain when utm_content names an inherited object property', () => {
+    expect(resolveAdVariant('toString')).toBe(PainAdVariant)
   })
 })

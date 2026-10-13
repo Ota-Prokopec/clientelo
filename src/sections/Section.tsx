@@ -21,7 +21,7 @@ export type SectionArgs = ComponentProps<'section'> & {
  * // <section id="key-insight"><p>02 Pravidla EU</p>…</section>
  * ```
  */
-export function Section({ number, label, className, children, ...sectionProps }: SectionArgs) {
+export const Section = ({ number, label, className, children, ...sectionProps }: SectionArgs) => {
   return (
     <section className={cn('mx-auto grid max-w-xl gap-5 px-4 pt-12', className)} {...sectionProps}>
       <p className="grid grid-cols-[3rem_1fr] border-t-2 border-heading pt-1.5 text-label">

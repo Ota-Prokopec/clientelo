@@ -1,22 +1,26 @@
-// Ad Variant B's First Screen content: a bank fund's TER against a Twin's, ahead of the Fee Calculator.
+// Ad Variant B's First Screen: a bank fund's TER against a Twin's, ahead of the Fee Calculator, deliverable without
+// scrolling at 375 px.
 // The `fee-calculator` slot shows the static comparison until #12 makes it interactive.
 import { DataSourceNote } from '../components/DataSourceNote.tsx'
 import { TerRow } from '../components/TerRow.tsx'
 import { csobAkciovy, findUcitsEtf, typicalBankEquityFundTer } from '../data/figures.ts'
 import { formatPercent } from '../format.ts'
+import { Section } from './Section.tsx'
 
 /**
- * Ad Variant B: the bank fund's TER in `signal` over a Twin's in `brand`, ahead of the Fee Calculator.
+ * Ad Variant B's Section 01: the bank fund's TER in `signal` over a Twin's in `brand`, ahead of the Fee Calculator.
  *
  * ```tsx
- * <MoneyFirstScreen /> // <div id="fee-calculator">ČSOB Akciový 2,22 %, SPYL 0,03 %</div>
+ * <MoneyFirstScreen />
+ * // <section id="first-screen" data-ad-variant="money">01 Poplatek banky vs ETF
+ * //   <div id="fee-calculator">ČSOB Akciový 2,22 %, SPYL 0,03 %</div></section>
  * ```
  */
-export function MoneyFirstScreen() {
+export const MoneyFirstScreen = () => {
   const spyl = findUcitsEtf('SPYL')
 
   return (
-    <>
+    <Section id="first-screen" number="01" label="Poplatek banky vs ETF" data-ad-variant="money">
       <h1 className="text-headline text-heading">
         <span className="text-signal">{formatPercent(typicalBankEquityFundTer.value)}</span> nebo{' '}
         <span className="text-brand">{formatPercent(spyl.terPercent)}</span> ročně? Spočítejte si rozdíl za 20 let.
@@ -38,6 +42,6 @@ export function MoneyFirstScreen() {
         </dl>
         <DataSourceNote sources={[typicalBankEquityFundTer.source, csobAkciovy.source, spyl.source]} />
       </div>
-    </>
+    </Section>
   )
 }

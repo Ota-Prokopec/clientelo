@@ -14,7 +14,7 @@ export type FactGridArgs = { facts: Fact[] }
  * // <dl><div><dt>Stejný index</dt><dd>S&P 500</dd></div></dl>
  * ```
  */
-export function FactGrid({ facts }: FactGridArgs) {
+export const FactGrid = ({ facts }: FactGridArgs) => {
   return (
     <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
       {facts.map((fact) => (

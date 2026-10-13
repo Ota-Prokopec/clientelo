@@ -176,7 +176,7 @@ export const usEstateTaxThreshold: NumericFigure = {
  * findEtf('XYZ')            // throws
  * ```
  */
-export function findEtf(ticker: string): Etf {
+export const findEtf = (ticker: string): Etf => {
   const etf = etfs.find((candidate) => candidate.ticker === ticker)
   if (!etf) throw new Error(`No ETF with Ticker ${ticker}`)
   return etf
@@ -190,7 +190,7 @@ export function findEtf(ticker: string): Etf {
  * findUcitsEtf('VOO')           // throws: VOO is an ETF, not a UCITS ETF
  * ```
  */
-export function findUcitsEtf(ticker: string): UcitsEtf {
+export const findUcitsEtf = (ticker: string): UcitsEtf => {
   const ucitsEtf = ucitsEtfs.find((candidate) => candidate.ticker === ticker)
   if (!ucitsEtf) throw new Error(`No UCITS ETF with Ticker ${ticker}`)
   return ucitsEtf
@@ -203,7 +203,7 @@ export function findUcitsEtf(ticker: string): UcitsEtf {
  * listDataSources()[0] // { name: 'Vanguard, stránka fondu VOO', url: null, verifiedOn: null }
  * ```
  */
-export function listDataSources(): DataSource[] {
+export const listDataSources = (): DataSource[] => {
   const allSources = [
     ...etfs.map((etf) => etf.source),
     ...ucitsEtfs.map((ucitsEtf) => ucitsEtf.source),

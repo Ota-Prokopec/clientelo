@@ -20,8 +20,8 @@ export type StickyCtaArgs = {
  * <StickyCta targetId="lead-magnet" isLead />         // nothing
  * ```
  */
-export function StickyCta({ targetId, isLead }: StickyCtaArgs) {
-  const isLeadFormOrLeadAskOnScreen = useIsAnyOnScreen(`#${targetId}, #lead-form, [data-lead-ask]`);
+export const StickyCta = ({ targetId, isLead }: StickyCtaArgs) => {
+  const { isAnyOnScreen: isLeadFormOrLeadAskOnScreen } = useIsAnyOnScreen(`#${targetId}, #lead-form, [data-lead-ask]`);
 
   if (isLead) return null;
 
@@ -41,4 +41,4 @@ export function StickyCta({ targetId, isLead }: StickyCtaArgs) {
       <ArrowRight data-icon="inline-end" aria-hidden="true" className="size-5" />
     </a>
   );
-}
+};

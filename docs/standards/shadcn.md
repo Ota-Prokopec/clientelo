@@ -9,6 +9,7 @@ How to build UI from shadcn components. Read this before you add a control, a fo
 - **A new file in `src/components/ui/` gets a top comment** saying what it is for on the page, and `Unedited.` or what was edited.
 - **A file there exports only components**, as oxlint's `react/only-export-components` requires. When shadcn's file exports its `cva` variants beside the component, move them to `<name>-variants.ts` (`button-variants.ts`) and say so in both files' top comments.
 - **A file there keeps all the parts shadcn generated in it** (`card.tsx` holds `Card`, `CardHeader`, `CardTitle`…). Don't split it. `.oxlintrc.json` turns `react/no-multi-comp` off for `src/components/ui/` only, and every other component gets its own file ([react.md](./react.md#one-component-per-file)).
+- **A file there keeps shadcn's `function` declarations.** `.oxlintrc.json` turns `func-style` off for `src/components/ui/` only. Everywhere else, every function is an arrow function.
 - **A link that looks like a button** is an `<a>` styled with `buttonVariants` from `@/components/ui/button-variants` (`className={cn(buttonVariants(), …)}`). Base UI's `Button` rendered as an `<a>` gives it `role="button"`, which takes it out of a screen reader's links.
 
 ## Restyling

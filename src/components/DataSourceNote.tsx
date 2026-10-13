@@ -12,7 +12,7 @@ export type DataSourceNoteArgs = { sources: DataSource[] }
  * <DataSourceNote sources={[unverified]} /> // Zdroj: … (zatím neověřeno)
  * ```
  */
-export function DataSourceNote({ sources }: DataSourceNoteArgs) {
+export const DataSourceNote = ({ sources }: DataSourceNoteArgs) => {
   return (
     <p className="text-note text-muted-foreground">
       {sources.length > 1 ? 'Zdroje: ' : 'Zdroj: '}

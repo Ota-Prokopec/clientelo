@@ -11,7 +11,7 @@ const dateFormat = new Intl.DateTimeFormat('cs-CZ', { day: 'numeric', month: 'nu
  * formatPercent(0.0945) // '0,0945 %'
  * ```
  */
-export function formatPercent(percent: number): string {
+export const formatPercent = (percent: number): string => {
   return `${percentFormat.format(percent)} %`
 }
 
@@ -22,7 +22,7 @@ export function formatPercent(percent: number): string {
  * formatAmount(60000, 'USD') // '60 000 USD'
  * ```
  */
-export function formatAmount(amount: number, unit: string): string {
+export const formatAmount = (amount: number, unit: string): string => {
   return `${amountFormat.format(amount)} ${unit}`
 }
 
@@ -33,6 +33,6 @@ export function formatAmount(amount: number, unit: string): string {
  * formatIsoDate('2026-10-11') // '11. 10. 2026'
  * ```
  */
-export function formatIsoDate(isoDate: string): string {
+export const formatIsoDate = (isoDate: string): string => {
   return dateFormat.format(new Date(`${isoDate}T00:00:00`))
 }
