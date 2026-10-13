@@ -2,6 +2,9 @@
    Each colour role has a light value on :root and a dark one under prefers-color-scheme: dark, so `text-brand` follows the system. */
 @import 'tailwindcss';
 @import 'shadcn/tailwind.css';
+@import '@fontsource/schibsted-grotesk/400.css';
+@import '@fontsource/schibsted-grotesk/700.css';
+@import '@fontsource/schibsted-grotesk/900.css';
 
 @theme inline {
   /* Colour: every utility reads a role, set per mode below. shadcn's roles first, then the identity's own. */
@@ -44,7 +47,7 @@
 }
 
 @theme {
-  /* Type: one family, self-hosted static weights 400, 700 and 900 (src/main.tsx). */
+  /* Type: one family, self-hosted static weights 400, 700 and 900 (the Fontsource @imports above). */
   --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
 
   /* The type scale at 375 px, each size with its line height, tracking and weight. `cn` doesn't know these names (tailwind.md#tokens). */

@@ -1,7 +1,4 @@
-// The app's entry point: loads the self-hosted font and global styles, sets up Motion, and mounts the router.
-import '@fontsource/schibsted-grotesk/400.css'
-import '@fontsource/schibsted-grotesk/700.css'
-import '@fontsource/schibsted-grotesk/900.css'
+// The app's entry point: loads the global styles (with the self-hosted font), sets up Motion, and mounts the router.
 import { LazyMotion, MotionConfig } from 'motion/react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
