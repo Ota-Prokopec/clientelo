@@ -29,12 +29,6 @@ export type UcitsEtf = {
   source: DataSource;
 };
 
-/** How a UCITS ETF stands in for an ETF: a Twin tracks the same index, a closest alternative a similar one. */
-export type Substitute = {
-  ucitsTicker: string;
-  relation: 'twin' | 'closest-alternative';
-};
-
 /** A bank's equity fund the Bank-Fund Saver holds. */
 export type BankFund = {
   name: string;
@@ -119,27 +113,13 @@ export const ucitsEtfs: UcitsEtf[] = [
   },
 ];
 
-// VTI's closest alternative is chosen in step 4.
-export const substitutesByEtfTicker: Record<string, Substitute[]> = {
-  VOO: [
-    { ucitsTicker: 'SPYL', relation: 'twin' },
-    { ucitsTicker: 'CSPX', relation: 'twin' },
-    { ucitsTicker: 'VUAA', relation: 'twin' },
-  ],
-  IVV: [
-    { ucitsTicker: 'SPYL', relation: 'twin' },
-    { ucitsTicker: 'CSPX', relation: 'twin' },
-    { ucitsTicker: 'VUAA', relation: 'twin' },
-  ],
-  SPY: [
-    { ucitsTicker: 'SPYL', relation: 'twin' },
-    { ucitsTicker: 'CSPX', relation: 'twin' },
-    { ucitsTicker: 'VUAA', relation: 'twin' },
-  ],
-  VT: [
-    { ucitsTicker: 'VWCE', relation: 'closest-alternative' },
-    { ucitsTicker: 'FWRA', relation: 'closest-alternative' },
-  ],
+// The UCITS ETF Tickers that stand in for each ETF. Whether one is the ETF's Twin or its closest alternative is derived
+// from the two indices (src/lib/substitutes.ts), never recorded here. VTI's closest alternative is chosen in step 4.
+export const substituteTickersByEtfTicker: Record<string, string[]> = {
+  VOO: ['SPYL', 'CSPX', 'VUAA'],
+  IVV: ['SPYL', 'CSPX', 'VUAA'],
+  SPY: ['SPYL', 'CSPX', 'VUAA'],
+  VT: ['VWCE', 'FWRA'],
   VTI: [],
 };
 
