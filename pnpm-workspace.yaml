@@ -6,3 +6,8 @@ packages:
 # here. lefthook's postinstall installs the git hooks.
 allowBuilds:
   lefthook: true
+
+# The app lives at the workspace root, and the shadcn CLI installs a component's
+# dependencies with a plain `pnpm add`, which pnpm refuses at a workspace root
+# without `-w`. This lets it add them where the app is.
+ignoreWorkspaceRootCheck: true

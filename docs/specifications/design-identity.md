@@ -14,45 +14,48 @@ How the page looks. Read this before you design a Section, style a component or 
 
 clientelo.cz's own palette (its CSS variables `--teal`, `--tint`, `--red`, `--ink`, `--line`…) mapped onto shadcn's tokens, plus the roles shadcn has no token for. clientelo.cz has no dark mode: the dark values come from its dark band (`#06322f` to `#0a3f3a`, `#7fd0c9`, `#bfe0dd`), and the three marked _derived_ appear nowhere on it.
 
-| Token                  | Light     | Dark                | Used for                                                      |
-| ---------------------- | --------- | ------------------- | ------------------------------------------------------------- |
-| `background`           | `#ffffff` | `#06322f`           | the page                                                      |
-| `card`                 | `#ffffff` | `#0a3f3a`           | a panel                                                       |
-| `foreground`           | `#13302e` | `#ffffff`           | body text                                                     |
-| `primary`              | `#b23132` | `#b23132`           | the CTA button (clientelo.cz's `.btn-primary`)                |
-| `primary-hover`        | `#8f2728` | `#8f2728`           | the CTA button's hover                                        |
-| `primary-foreground`   | `#ffffff` | `#ffffff`           | text on the CTA                                               |
-| `secondary`, `muted`   | `#eef5f5` | `#0a3f3a`           | quiet fills                                                   |
-| `muted-foreground`     | `#5c6f6e` | `#bfe0dd`           | labels, Data Source notes, the struck-out Ticker              |
-| `accent`               | `#e2eeee` | `#0d4a44` (derived) | the segmented control's track, the slider's track             |
-| `destructive`          | `#8f2728` | `#ef8f8f` (derived) | form errors                                                   |
-| `border`, `input`      | `#dce8e7` | `#306965` (derived) | hairlines inside a control                                    |
-| `ring`                 | `#00666c` | `#7fd0c9`           | focus                                                         |
-| `heading`              | `#06322f` | `#ffffff`           | headings, giant figures, the 2 px rules                       |
-| `brand`                | `#00666c` | `#7fd0c9`           | the Twin, its TER, the selected option, "Dvojče ano."         |
-| `signal`               | `#b23132` | `#ef8f8f`           | the struck-out Ticker's bar, a Bank Fund's TER, a fee in Kč, Section numbers |
-| `block`                | `#06322f` | `#00666c`           | a Lead Ask's band                                             |
-| `block-foreground`     | `#ffffff` | `#ffffff`           | text on the band                                              |
+| Token                                       | Light     | Dark                | Used for                                                                             |
+| ------------------------------------------- | --------- | ------------------- | ------------------------------------------------------------------------------------ |
+| `background`                                | `#ffffff` | `#06322f`           | the page                                                                             |
+| `card`                                      | `#ffffff` | `#0a3f3a`           | a panel                                                                              |
+| `card-foreground`                           | `#13302e` | `#ffffff`           | text on a panel                                                                      |
+| `popover`, `popover-foreground`             | as `card` | as `card`           | a popup, which the page doesn't use; set so a primitive reading it isn't transparent |
+| `foreground`                                | `#13302e` | `#ffffff`           | body text                                                                            |
+| `primary`                                   | `#b23132` | `#b23132`           | the CTA button (clientelo.cz's `.btn-primary`)                                       |
+| `primary-hover`                             | `#8f2728` | `#8f2728`           | the CTA button's hover                                                               |
+| `primary-foreground`                        | `#ffffff` | `#ffffff`           | text on the CTA                                                                      |
+| `secondary`, `muted`                        | `#eef5f5` | `#0a3f3a`           | quiet fills                                                                          |
+| `secondary-foreground`, `accent-foreground` | `#06322f` | `#ffffff`           | text on a quiet fill                                                                 |
+| `muted-foreground`                          | `#5c6f6e` | `#bfe0dd`           | labels, Data Source notes, the struck-out Ticker                                     |
+| `accent`                                    | `#e2eeee` | `#0d4a44` (derived) | the segmented control's track, the slider's track                                    |
+| `destructive`                               | `#8f2728` | `#ef8f8f` (derived) | form errors                                                                          |
+| `border`, `input`                           | `#dce8e7` | `#306965` (derived) | hairlines inside a control                                                           |
+| `ring`                                      | `#00666c` | `#7fd0c9`           | focus                                                                                |
+| `heading`                                   | `#06322f` | `#ffffff`           | headings, giant figures, the 2 px rules                                              |
+| `brand`                                     | `#00666c` | `#7fd0c9`           | the Twin, its TER, the selected option, "Dvojče ano."                                |
+| `signal`                                    | `#b23132` | `#ef8f8f`           | the struck-out Ticker's bar, a Bank Fund's TER, a fee in Kč, Section numbers         |
+| `block`                                     | `#06322f` | `#00666c`           | a Lead Ask's band                                                                    |
+| `block-foreground`                          | `#ffffff` | `#ffffff`           | text on the band                                                                     |
 
 Dark mode follows the system (`prefers-color-scheme`) with no toggle. Every colour role has both values; a new role gets both in the same change. The Lead Magnet PDF and its thumbnail on the page stay in the light palette in both modes.
 
 ## Type
 
-One family: **Schibsted Grotesk** at 400, 700 and 900, self-hosted from Fontsource as static files (they cover Czech, and the PDF embeds the same files). Figures use `tabular-nums`.
+One family: **Schibsted Grotesk** at 400, 700 and 900, self-hosted from Fontsource as static files (they cover Czech, and the PDF embeds the same files). A figure that changes as the Visitor moves a control (the Kč difference) uses `tabular-nums`, so it doesn't jitter; a static figure stays proportional, because tabular figures set the decimal comma a digit wide (`2 , 22 %`).
 
-| Role                          | Size at 375 px      | Weight | Tracking  |
-| ----------------------------- | ------------------- | ------ | --------- |
-| Giant Ticker                  | 6.5rem, fits 343 px | 900    | −0.06em   |
-| Giant TER                     | 4.5rem              | 900    | −0.05em   |
-| Kč difference                 | 3.4rem              | 900    | −0.05em   |
-| First Screen headline         | 2.5–2.75rem         | 900    | −0.045em  |
-| Section heading, band title   | 2.1–2.2rem          | 900    | −0.045em  |
-| Fact value                    | 18 px               | 700    |           |
-| Body                          | 17 px, line 1.55    | 400    |           |
-| Grid label, field label       | 12 px               | 700    |           |
-| Fact label, Data Source note  | 11 px               | 400    |           |
+| Role                         | Token        | Size at 375 px      | Weight | Tracking |
+| ---------------------------- | ------------ | ------------------- | ------ | -------- |
+| Giant Ticker                 | `ticker`     | 6.5rem, fits 343 px | 900    | −0.06em  |
+| Giant TER                    | `ter`        | 4.5rem              | 900    | −0.05em  |
+| Kč difference                | `difference` | 3.4rem              | 900    | −0.05em  |
+| First Screen headline        | `headline`   | 2.5rem              | 900    | −0.045em |
+| Section heading, band title  | `title`      | 2.2rem              | 900    | −0.045em |
+| Fact value                   | `fact`       | 18 px               | 700    |          |
+| Body                         | `body`       | 17 px, line 1.55    | 400    |          |
+| Grid label, field label      | `label`      | 12 px               | 700    |          |
+| Fact label, Data Source note | `note`       | 11 px               | 400    |          |
 
-A giant figure must fit the 343 px between the gutters at 375 px, so the longest one shown (`VWCE`, `2,22 %`) sets the size.
+Each role is a `--text-*` token in `src/index.css` that carries its line height, tracking and weight, so `text-ticker` alone sets a giant Ticker. A giant figure must fit the 343 px between the gutters at 375 px, so the longest one shown (`VWCE`, `2,22 %`) sets the size.
 
 ## Layout
 
@@ -65,13 +68,13 @@ A giant figure must fit the 343 px between the gutters at 375 px, so the longest
 
 clientelo.cz's radii, as theme tokens that shadcn's Vega components read:
 
-| Radius     | Value | Used for                                                          |
-| ---------- | ----- | ----------------------------------------------------------------- |
-| `md`       | 10 px | an option inside a segmented control                              |
-| `lg`       | 12 px | buttons, inputs, the segmented control's track (`.mm-cta`, `.fq`) |
-| `xl`       | 16 px | a panel, the PDF thumbnail (`.card`)                              |
-| `3xl`      | 26 px | a Lead Ask's band (`.cta-final`)                                  |
-| `full`     | —     | the bar striking out a Ticker, the slider's track and thumb       |
+| Radius | Value | Used for                                                                                     |
+| ------ | ----- | -------------------------------------------------------------------------------------------- |
+| `sm`   | 10 px | an option inside a segmented control                                                         |
+| `md`   | 12 px | buttons, inputs, the segmented control's track (`.mm-cta`, `.fq`): Vega's controls read `md` |
+| `xl`   | 16 px | a panel, the PDF thumbnail (`.card`)                                                         |
+| `3xl`  | 26 px | a Lead Ask's band (`.cta-final`)                                                             |
+| `full` | —     | the bar striking out a Ticker, the slider's track and thumb                                  |
 
 Rules, giant type and the grid stay square. Nothing has a shadow.
 
@@ -86,7 +89,7 @@ Rules, giant type and the grid stay square. Nothing has a shadow.
 | A Twin's facts (index, TER, estate tax)       | the ruled fact grid                                                           |
 | Lead Form                                     | `Field`, `FieldLabel`, `FieldError`, `Input`, `Button`                        |
 | Segmentation Question                         | `ToggleGroup` as a segmented control                                          |
-| Sticky CTA and every CTA                      | `Button`, rendered as a link where it scrolls                                 |
+| Sticky CTA and every CTA                      | `Button`, or a link styled with its `buttonVariants` where it scrolls         |
 | The PDF preview in a Lead Ask                 | `Card`, white, in the light palette                                           |
 
 These stay plain, on purpose: a Data Source note is visible inline text (a popover would hide the trust it builds), the Key Insight's points are a list (an accordion would put the argument behind taps), and Delivery replaces the Lead Form inline (no toast, no dialog).
@@ -103,7 +106,7 @@ Motion only answers the Visitor's input: the Twin slides in when a Ticker is pic
 
 ## Icons
 
-A lucide icon appears only where a primitive needs a functional glyph, such as a check mark or a chevron. Arrows on buttons are the `→` character.
+A lucide icon appears only where a primitive needs a functional glyph, such as a check mark or a chevron. The arrow on a CTA is lucide's `ArrowRight`, marked `data-icon="inline-end"` and `aria-hidden`.
 
 ## Ban list
 

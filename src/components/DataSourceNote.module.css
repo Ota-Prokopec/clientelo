@@ -1,6 +1,0 @@
-/* A Data Source citation: small, quiet, never competing with the figure it cites. */
-.note {
-  font-size: var(--font-size-small);
-  line-height: 1.4;
-  opacity: 0.75;
-}
