@@ -47,6 +47,7 @@ Step 8 runs the full check against Meta's policies. The copy already follows the
 
 The creative shows the refusal, then the Twin. The search for VOO comes up empty, and the Twin appears beside it at the same TER.
 
+- **Look.** The page's identity ([design-identity.md](./specifications/design-identity.md)), so the Ad and the First Screen read as one piece: Schibsted Grotesk Black on white, type in deep teal (`#06322f`). On the card, "VOO" is grey and crossed out by a rounded red bar (`#b23132`), and "SPYL" is set huge in teal (`#00666c`). The overlay text uses the same face. No gradients and no shadows.
 - **Feed (4:5).** A phone in a hand, held in portrait. On its screen, a generic, unbranded investment app with "VOO" typed into the search and an empty result ("Nenalezeno"). A card rises out of the phone with **SPYL**, "S&P 500" and "0,03 % ročně", next to a struck-out "VOO · 0,03 %". The only overlay text is "Stejný index. Stejný poplatek."
 - **Stories/Reels (9:16).** The same story told top to bottom, or as three frames of about 1.5 s each: (1) "VOO" typed into the search, (2) the empty result, (3) the SPYL card with "Stejný index. Stejný poplatek." Text and key visuals stay inside Meta's safe zone, clear of the profile bar at the top and the caption and CTA at the bottom.
 
@@ -94,6 +95,7 @@ The creative shows the refusal, then the Twin. The search for VOO comes up empty
 
 The creative shows what remains after 20 years, not how the money grows. A growth curve would suggest a return, and the comparison doesn't need one.
 
+- **Look.** The page's identity ([design-identity.md](./specifications/design-identity.md)): Schibsted Grotesk Black on white, type in deep teal (`#06322f`). The bank-fund bar and its "2 % ročně" are red (`#b23132`), the ETF bar and its "0,03 % ročně" are teal (`#00666c`), and both bars have 12 px rounded corners. No gradients and no shadows.
 - **Feed (4:5).** Two vertical bars side by side, both labelled "po 20 letech". The ETF bar ("0,03 % ročně") is full height and marked 100 %. The bank-fund bar ("2 % ročně") stops at about two thirds, and the missing third is drawn as an empty outline labelled "poplatky". Footnote, small: "Jednorázová investice, stejný vývoj trhu. Ilustrace."
 - **Stories/Reels (9:16).** The same two bars, animated: both start equal and the bank-fund bar shrinks year by year to two thirds while a counter runs from "rok 1" to "rok 20". The last frame holds "2 % nebo 0,03 % ročně?" Text stays inside Meta's safe zone.
 
