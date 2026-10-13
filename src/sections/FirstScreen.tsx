@@ -1,10 +1,10 @@
 // The First Screen: the Ad Variant's Ad Promise and its Interactive Tool, deliverable without scrolling at 375 px.
 // The tool slots (`fund-picker`, `fee-calculator`) show the static comparison until #11 and #12 make them interactive.
-import { orderInteractiveTools, type AdVariant } from '../adVariant.ts'
+import type { AdVariant } from '../adVariant.ts'
+import { findInteractiveToolSectionLabel, listInteractiveToolsInPageOrder } from '../interactiveTool.ts'
 import { MoneyFirstScreen } from './MoneyFirstScreen.tsx'
 import { PainFirstScreen } from './PainFirstScreen.tsx'
 import { Section } from './Section.tsx'
-import { sectionLabelByInteractiveTool } from './sectionLabelByInteractiveTool.ts'
 
 export type FirstScreenArgs = { adVariant: AdVariant }
 
@@ -17,13 +17,13 @@ export type FirstScreenArgs = { adVariant: AdVariant }
  * ```
  */
 export function FirstScreen({ adVariant }: FirstScreenArgs) {
-  const [firstInteractiveTool] = orderInteractiveTools(adVariant)
+  const [firstInteractiveTool] = listInteractiveToolsInPageOrder(adVariant)
 
   return (
     <Section
       id="first-screen"
       number="01"
-      label={sectionLabelByInteractiveTool[firstInteractiveTool]}
+      label={findInteractiveToolSectionLabel(firstInteractiveTool)}
       data-ad-variant={adVariant}
     >
       {adVariant === 'money' ? <MoneyFirstScreen /> : <PainFirstScreen />}

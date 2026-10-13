@@ -1,6 +1,6 @@
-// Tests utm_content → Ad Variant resolution and the Interactive Tool order it implies.
+// Tests utm_content → Ad Variant resolution.
 import { describe, expect, it } from 'vitest'
-import { orderInteractiveTools, resolveAdVariant } from './adVariant.ts'
+import { resolveAdVariant } from './adVariant.ts'
 
 describe('resolveAdVariant', () => {
   it('resolves utm_content=pain to the pain Ad Variant', () => {
@@ -17,15 +17,5 @@ describe('resolveAdVariant', () => {
 
   it('falls back to pain when utm_content is unknown', () => {
     expect(resolveAdVariant('pian')).toBe('pain')
-  })
-})
-
-describe('orderInteractiveTools', () => {
-  it('puts the Fund Picker first for the pain Ad Variant', () => {
-    expect(orderInteractiveTools('pain')).toEqual(['fund-picker', 'fee-calculator'])
-  })
-
-  it('puts the Fee Calculator first for the money Ad Variant', () => {
-    expect(orderInteractiveTools('money')).toEqual(['fee-calculator', 'fund-picker'])
   })
 })

@@ -1,7 +1,8 @@
 // The landing page: the five Sections in the order README.md justifies, opened by the Visitor's Ad Variant.
 import { useSearchParams } from 'react-router'
-import { orderInteractiveTools, resolveAdVariant } from '../adVariant.ts'
+import { resolveAdVariant } from '../adVariant.ts'
 import { StickyCta } from '../components/StickyCta.tsx'
+import { listInteractiveToolsInPageOrder } from '../interactiveTool.ts'
 import { FirstScreen } from '../sections/FirstScreen.tsx'
 import { Footer } from '../sections/Footer.tsx'
 import { KeyInsight } from '../sections/KeyInsight.tsx'
@@ -19,7 +20,7 @@ import { OtherTool } from '../sections/OtherTool.tsx'
 export default function Home() {
   const [searchParams] = useSearchParams()
   const adVariant = resolveAdVariant(searchParams.get('utm_content'))
-  const [, otherInteractiveTool] = orderInteractiveTools(adVariant)
+  const [, otherInteractiveTool] = listInteractiveToolsInPageOrder(adVariant)
 
   return (
     <>
