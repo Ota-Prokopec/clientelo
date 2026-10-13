@@ -2,40 +2,40 @@
 // and sent through the submitLead() seam. It moves through idle, typing, submitting, and success or error, shown on
 // `data-state` for step 5's Funnel Events, and gives way to Delivery once the Visitor is a Lead. Section 04
 // renders it on the Lead Ask's band, which is why its texts take the band's colour.
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link } from 'react-router'
-import { Button } from '@/components/ui/button'
-import { submitLead } from '@/lead/submitLead.ts'
-import { leadSchema, type LeadSubmission } from '@/schemas/leadSchema.ts'
-import { Delivery } from './Delivery.tsx'
-import { HoneypotField } from './fields/HoneypotField.tsx'
-import { InputField } from './fields/InputField.tsx'
-import { LeadCta } from './LeadCta.tsx'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router';
+import { Button } from '@/components/ui/button';
+import { submitLead } from '@/lead/submitLead.ts';
+import { leadSchema, type LeadSubmission } from '@/schemas/leadSchema.ts';
+import { Delivery } from './Delivery.tsx';
+import { HoneypotField } from './fields/HoneypotField.tsx';
+import { InputField } from './fields/InputField.tsx';
+import { LeadCta } from './LeadCta.tsx';
 
 /** The Lead Form's id, which every link to the Lead Form targets. Step 5's Funnel Events hook onto it. */
-export const leadFormId = 'lead-form'
+export const leadFormId = 'lead-form';
 
 /** The id of the Lead Form's email field, which a link to the Lead Form focuses. */
-export const leadFormEmailId = 'lead-form-email'
+export const leadFormEmailId = 'lead-form-email';
 
 /** Where the Lead Form is: untouched, being filled in, waiting for submitLead(), done, or failed and ready to retry. */
-export type LeadFormState = 'idle' | 'typing' | 'submitting' | 'success' | 'error'
+export type LeadFormState = 'idle' | 'typing' | 'submitting' | 'success' | 'error';
 
 /** How the last submit ended, until the next one starts. */
-type SubmitOutcome = Extract<LeadFormState, 'success' | 'error'>
+type SubmitOutcome = Extract<LeadFormState, 'success' | 'error'>;
 
 export type LeadFormArgs = {
   /** Called once submitLead() resolves: the Visitor is now a Lead. */
-  onLeadFormSubmitted: () => void
-}
+  onLeadFormSubmitted: () => void;
+};
 
 /** The submit's label while submitLead() runs and after it fails. In every other state, the CTA's own label. */
 const submitLabelByLeadFormState: Partial<Record<LeadFormState, string>> = {
   submitting: 'Odesíláme…',
   error: 'Zkusit znovu',
-}
+};
 
 /**
  * The Lead Form. It checks the email when the Visitor submits, then again as they correct it, and keeps an error
@@ -53,10 +53,10 @@ export const LeadForm = ({ onLeadFormSubmitted }: LeadFormArgs) => {
     control,
     handleSubmit,
     formState: { isDirty, isSubmitting },
-  } = useForm({ resolver: zodResolver(leadSchema), defaultValues: { email: '', honeypot: '' } })
-  const [submitOutcome, setSubmitOutcome] = useState<SubmitOutcome | null>(null)
-  const [submittedEmail, setSubmittedEmail] = useState('')
-  const leadFormState: LeadFormState = isSubmitting ? 'submitting' : (submitOutcome ?? (isDirty ? 'typing' : 'idle'))
+  } = useForm({ resolver: zodResolver(leadSchema), defaultValues: { email: '', honeypot: '' } });
+  const [submitOutcome, setSubmitOutcome] = useState<SubmitOutcome | null>(null);
+  const [submittedEmail, setSubmittedEmail] = useState('');
+  const leadFormState: LeadFormState = isSubmitting ? 'submitting' : (submitOutcome ?? (isDirty ? 'typing' : 'idle'));
 
   /**
    * Handles the form's submit event: validates the Lead Form against leadSchema, sends a valid one through
@@ -70,17 +70,17 @@ export const LeadForm = ({ onLeadFormSubmitted }: LeadFormArgs) => {
    * ```
    */
   const submitHandler = handleSubmit(async (leadSubmission: LeadSubmission) => {
-    setSubmitOutcome(null)
+    setSubmitOutcome(null);
     try {
-      await submitLead(leadSubmission)
+      await submitLead(leadSubmission);
     } catch {
-      setSubmitOutcome('error')
-      return
+      setSubmitOutcome('error');
+      return;
     }
-    setSubmittedEmail(leadSubmission.email)
-    setSubmitOutcome('success')
-    onLeadFormSubmitted()
-  })
+    setSubmittedEmail(leadSubmission.email);
+    setSubmitOutcome('success');
+    onLeadFormSubmitted();
+  });
 
   return (
     <div id={leadFormId} data-state={leadFormState} className="grid scroll-mt-6 gap-4">
@@ -121,5 +121,5 @@ export const LeadForm = ({ onLeadFormSubmitted }: LeadFormArgs) => {
         ).
       </p>
     </div>
-  )
-}
+  );
+};
