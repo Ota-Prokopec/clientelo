@@ -60,6 +60,7 @@ Each role is a `--text-*` token in `src/index.css` that carries its line height,
 ## Layout
 
 - **Mobile first at 375 px**, with a 16 px gutter.
+- **One column per Page.** Every route renders its content inside `Page` (`src/components/Page.tsx`), which alone sets the column's width (`max-w-xl`, centred) and the 16 px gutter. A Section, the Footer or a route never sets its own.
 - **The left grid column** (3 rem) carries the Section number in `signal` and, beside it, the Section's label in bold 12 px: `01` First Screen, `02` Key Insight, `03` the other Interactive Tool, `04` the Lead Magnet and the closing Lead Form. An inline Lead Ask and the Footer carry no number.
 - **2 px rules** in `heading` separate figures, the way a Swiss grid separates columns. Facts sit in a two-column grid, each a small grey label over a bold value under its rule.
 - No cards: a Section is type on the page, divided by rules, never a box.

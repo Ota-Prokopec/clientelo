@@ -1,6 +1,7 @@
 // The landing page: the five Sections in the order README.md justifies, opened by the Visitor's Ad Variant.
 import { useSearchParams } from 'react-router'
 import { resolveAdVariant } from '@lib/adVariant/adVariant.ts'
+import { Page } from '../components/Page.tsx'
 import { StickyCta } from '../components/StickyCta.tsx'
 import { Footer } from '../components/sections/Footer.tsx'
 import { KeyInsight } from '../components/sections/KeyInsight.tsx'
@@ -19,7 +20,7 @@ const Home = () => {
   const adVariant = resolveAdVariant(searchParams.get('utm_content'))
 
   return (
-    <>
+    <Page>
       <main>
         <adVariant.FirstScreen />
         <KeyInsight />
@@ -29,7 +30,7 @@ const Home = () => {
       <Footer />
       {/* #13 points this at the Lead Form and sets isLead once it is submitted. */}
       <StickyCta targetId={leadMagnetSectionId} isLead={false} />
-    </>
+    </Page>
   )
 }
 
