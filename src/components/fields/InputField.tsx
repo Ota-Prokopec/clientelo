@@ -1,16 +1,11 @@
 // A form's one-line field, wired to react-hook-form (shadcn.md#forms): its label, its Input and its error, read from
 // the form's `control` by `name`. `type` makes it a text, email, number… field. The Lead Form's email is one.
 import { useId, type ComponentProps, type ReactNode } from 'react'
-import {
-  Controller,
-  type Control,
-  type ControllerRenderProps,
-  type FieldPathByValue,
-  type FieldValues,
-} from 'react-hook-form'
+import { Controller, type ControllerRenderProps, type FieldPathByValue, type FieldValues } from 'react-hook-form'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
+import type { FieldArgs } from './types.ts'
 
 /** What a field sits on: the page, or a Lead Ask's `block` band (design-identity.md#components). */
 export type FieldSurface = 'page' | 'band'
@@ -19,15 +14,12 @@ export type InputFieldArgs<
   TFieldValues extends FieldValues,
   TName extends FieldPathByValue<TFieldValues, string | number>,
   TTransformedValues = TFieldValues,
-> = Omit<ComponentProps<typeof Input>, keyof ControllerRenderProps | 'aria-invalid'> & {
-  /** The form's control, from useForm(), which the field reads its value and its error from. */
-  control: Control<TFieldValues, unknown, TTransformedValues>
-  /** The form value the field edits. */
-  name: TName
-  label: ReactNode
-  /** Defaults to `page`. */
-  surface?: FieldSurface
-}
+> = FieldArgs<TFieldValues, TName, TTransformedValues> &
+  Omit<ComponentProps<typeof Input>, keyof ControllerRenderProps | 'aria-invalid'> & {
+    label: ReactNode
+    /** Defaults to `page`. */
+    surface?: FieldSurface
+  }
 
 type SurfaceClassNames = { field: string; input: string; error: string }
 

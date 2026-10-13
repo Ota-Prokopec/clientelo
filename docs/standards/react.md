@@ -16,6 +16,6 @@ How to lay out React components in files. Read this before you add a component, 
 
 - **`src/components/sections/`**: a Section, including each Ad Variant's own First Screen and Section 03 (`PainFirstScreen.tsx`, `PainOtherTool.tsx`).
 - **`src/components/`**: every other domain component, including one that only a single Section or route renders (`RemainingAmountBar.tsx`, `PolicyHeading.tsx`).
-- **`src/components/fields/`**: a form field wired to react-hook-form, generic over the form that renders it (`InputField.tsx`, `HoneypotField.tsx`) ([shadcn.md](./shadcn.md#forms)).
+- **`src/components/fields/`**: a form field wired to react-hook-form, generic over the form that renders it (`InputField.tsx`, `HoneypotField.tsx`) ([shadcn.md](./shadcn.md#forms)), and `types.ts`, the types every field shares.
 - **`src/components/ui/`**: shadcn's primitives ([shadcn.md](./shadcn.md)).
 - **`src/routes/`**: only the route components the router mounts, one per file.

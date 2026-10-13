@@ -1,20 +1,17 @@
 // A form's honeypot, wired to react-hook-form like InputField: a field hidden from every person, which a bot that
 // fills in every field fills too. The Lead Form's `honeypot` is one, and submitLead() sends nothing once it's filled.
 import { useId } from 'react'
-import { Controller, type Control, type FieldPathByValue, type FieldValues } from 'react-hook-form'
+import { Controller, type FieldPathByValue, type FieldValues } from 'react-hook-form'
 import { Field, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import type { FieldArgs } from './types.ts'
 
+/** The honeypot needs nothing beyond what every field takes. Its `name` is the form value a bot fills. */
 export type HoneypotFieldArgs<
   TFieldValues extends FieldValues,
   TName extends FieldPathByValue<TFieldValues, string>,
   TTransformedValues = TFieldValues,
-> = {
-  /** The form's control, from useForm(), which the field writes a bot's input to. */
-  control: Control<TFieldValues, unknown, TTransformedValues>
-  /** The form value a bot fills. */
-  name: TName
-}
+> = FieldArgs<TFieldValues, TName, TTransformedValues>
 
 /**
  * The honeypot: an Input named `website`, a name a bot fills, out of sight and out of the tab order.
