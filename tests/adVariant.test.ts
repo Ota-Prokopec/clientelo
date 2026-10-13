@@ -1,6 +1,6 @@
 // Tests utm_content → Ad Variant resolution.
 import { describe, expect, it } from 'vitest'
-import { resolveAdVariant } from './adVariant.ts'
+import { resolveAdVariant } from '../src/adVariant.ts'
 
 describe('resolveAdVariant', () => {
   it('resolves utm_content=pain to the pain Ad Variant', () => {

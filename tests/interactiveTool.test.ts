@@ -1,6 +1,6 @@
 // Tests the Interactive Tool order each Ad Variant implies and the label each tool's Section carries.
 import { describe, expect, it } from 'vitest'
-import { findInteractiveToolSectionLabel, listInteractiveToolsInPageOrder } from './interactiveTool.ts'
+import { findInteractiveToolSectionLabel, listInteractiveToolsInPageOrder } from '../src/interactiveTool.ts'
 
 describe('listInteractiveToolsInPageOrder', () => {
   it('puts the Fund Picker first for the pain Ad Variant', () => {

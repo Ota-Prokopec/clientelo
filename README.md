@@ -34,7 +34,7 @@ Run from the repo root.
 | `pnpm preview`                     | Serve the production build locally                                                       |
 | `pnpm lint`                        | Lint the whole repo with oxlint                                                          |
 | `pnpm check-types`                 | Type-check the app and every workspace entry                                             |
-| `pnpm test`                        | Run the app's Vitest tests, then every workspace entry's                                 |
+| `pnpm test`                        | Run the app's Vitest tests in `tests/`, then every workspace entry's                     |
 | `pnpm exec shadcn add <component>` | Add a shadcn component to `src/components/ui/` ([shadcn.md](./docs/standards/shadcn.md)) |
 | `pnpm claude`                      | Start Claude Code in a picked git worktree                                               |
 | `pnpm claude-list`                 | Remove picked git worktrees and their branches                                           |
@@ -45,6 +45,6 @@ A change is done when all of these pass. lefthook runs `pnpm lint` and `pnpm che
 
 1. `pnpm lint`
 2. `pnpm check-types`
-3. `pnpm test` (Vitest: the app's pure logic, then every workspace entry)
+3. `pnpm test` (Vitest: the app's pure logic in `tests/`, then every workspace entry)
 4. `pnpm build`
 5. For a UI change: the change works in `pnpm dev` at 375 px phone width.

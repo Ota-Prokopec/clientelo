@@ -1,7 +1,7 @@
 // Tests that src/index.css gives every colour role a light and a dark value (design-identity.md#colour).
 import postcss, { type AtRule, type Container, type Node, type Root, type Rule } from 'postcss'
 import { describe, expect, it } from 'vitest'
-import stylesheetSource from './index.css?raw'
+import stylesheetSource from '../src/index.css?raw'
 
 const stylesheet = postcss.parse(stylesheetSource)
 
