@@ -10,7 +10,7 @@ export type DataSource = {
 };
 
 /** The index an ETF or a Twin tracks. */
-export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap' | 'Morningstar US Total Market' | 'FTSE All-World';
+export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap' | 'FTSE All-World';
 
 /** An NYSE-listed ETF a Czech retail investor's app won't sell them. */
 export type Etf = {
@@ -86,17 +86,6 @@ export const etfs: Etf[] = [
     source: {
       name: 'SPDR, stránka fondu SPY',
       url: 'https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy',
-      verifiedOn: '2026-10-14',
-    },
-  },
-  {
-    ticker: 'VTI',
-    // The CRSP US Total Market Index, renamed in 2026 after Morningstar bought CRSP. Its method is unchanged.
-    trackedIndex: 'Morningstar US Total Market',
-    terPercent: 0.03,
-    source: {
-      name: 'Vanguard, stránka fondu VTI',
-      url: 'https://investor.vanguard.com/investment-products/etfs/profile/vti',
       verifiedOn: '2026-10-14',
     },
   },
@@ -191,13 +180,13 @@ export const ucitsEtfs: UcitsEtf[] = [
 ];
 
 // The UCITS ETF Tickers that stand in for each ETF. Whether one is the ETF's Twin or its closest alternative is derived
-// from the two indices (src/lib/substitutes.ts), never recorded here. VTI's closest alternative is chosen in step 4.
+// from the two indices (src/lib/substitutes.ts), never recorded here. Every ETF has at least one, which is why VTI isn't
+// offered (docs/strategy.md#twins).
 export const substituteTickersByEtfTicker: Record<string, string[]> = {
   VOO: ['SPYL', 'CSPX', 'VUAA'],
   IVV: ['SPYL', 'CSPX', 'VUAA'],
   SPY: ['SPYL', 'CSPX', 'VUAA'],
   VT: ['VWCE', 'FWRA'],
-  VTI: [],
 };
 
 export const csobAkciovy: BankFund = {

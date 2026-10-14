@@ -12,7 +12,7 @@ export type TickerChoiceProps = {
  *
  * ```tsx
  * <TickerChoice pickedEtfTicker="VOO" onPick={setPickedEtfTicker} />
- * // Který fond vám aplikace nenabídla? [VOO] IVV SPY VTI VT
+ * // Který fond vám aplikace nenabídla? [VOO] IVV SPY VT
  * // pressing SPY calls onPick('SPY'); pressing VOO again calls nothing
  * ```
  */

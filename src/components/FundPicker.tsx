@@ -50,9 +50,7 @@ export const FundPicker = ({ renderHeadline }: FundPickerProps) => {
             transition={{ type: 'spring', stiffness: 500, damping: 40 }}
             className="grid gap-5"
           >
-            {primarySubstitute && (
-              <PrimarySubstitute etf={etf} substitute={primarySubstitute} relation={relation} />
-            )}
+            <PrimarySubstitute etf={etf} substitute={primarySubstitute} relation={relation} />
             {relation === 'closest-alternative' && (
               <ClosestAlternativeNote etf={etf} closestAlternative={primarySubstitute} />
             )}
@@ -64,8 +62,7 @@ export const FundPicker = ({ renderHeadline }: FundPickerProps) => {
         sources={[
           etf.source,
           ...substitutes.map((substitute) => substitute.source),
-          // The estate tax is a fact about a Substitute, so it is cited only when one is shown.
-          ...(primarySubstitute ? [usEstateTaxThreshold.source] : []),
+          usEstateTaxThreshold.source,
         ]}
       />
       <LeadAsk interactiveTool="fund-picker" />

@@ -16,16 +16,12 @@ export const PainFirstScreen = () => {
   return (
     <Section id="first-screen" number="01" label="Dvojče k americkému ETF" data-ad-variant="pain">
       <FundPicker
-        renderHeadline={({ etf, relation, substitutes }) => (
+        renderHeadline={({ etf, relation }) => (
           // Three lines are kept for every pick, so a shorter or longer answer never moves the picker under the
           // Visitor's finger. Only a Twin's answer is set in `brand` (design-identity.md#colour).
           <h1 className="min-h-[3lh] text-headline text-heading">
             {etf.ticker} v aplikaci nekoupíte.{' '}
-            {relation === 'twin' ? (
-              <span className="text-brand">Dvojče ano.</span>
-            ) : (
-              substitutes.length > 0 && 'Alternativa ano.'
-            )}
+            {relation === 'twin' ? <span className="text-brand">Dvojče ano.</span> : 'Alternativa ano.'}
           </h1>
         )}
       />
