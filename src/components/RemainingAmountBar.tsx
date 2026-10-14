@@ -16,7 +16,7 @@ const fillClassNameByFundKind: Record<FundKind, string> = {
   twin: 'bg-brand',
 }
 
-export type RemainingAmountBarArgs = {
+export type RemainingAmountBarProps = {
   name: string
   /** The TER as the page names it, such as "2,22 %" or "kolem 2 %". */
   terLabel: string
@@ -35,7 +35,7 @@ export type RemainingAmountBarArgs = {
  * // [█████████████░░░░░░░] a `signal` bar across 64.2 % of the row
  * ```
  */
-export const RemainingAmountBar = ({ name, terLabel, amountKc, shareOfTwinAmount, fundKind }: RemainingAmountBarArgs) => {
+export const RemainingAmountBar = ({ name, terLabel, amountKc, shareOfTwinAmount, fundKind }: RemainingAmountBarProps) => {
   // A custom property isn't one of CSSProperties' keys, so the object is widened to it (tailwind.md#one-way-to-style).
   const shareStyle = { '--share': shareOfTwinAmount } as CSSProperties
 

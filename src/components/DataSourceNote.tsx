@@ -2,7 +2,7 @@
 import type { DataSource } from '@data/figures.ts'
 import { formatVerification } from '@lib/format.ts'
 
-export type DataSourceNoteArgs = { sources: DataSource[] }
+export type DataSourceNoteProps = { sources: DataSource[] }
 
 /**
  * Cites one or more Data Sources, each with its verification date.
@@ -12,7 +12,7 @@ export type DataSourceNoteArgs = { sources: DataSource[] }
  * <DataSourceNote sources={[unverified]} /> // Zdroj: … (zatím neověřeno)
  * ```
  */
-export const DataSourceNote = ({ sources }: DataSourceNoteArgs) => {
+export const DataSourceNote = ({ sources }: DataSourceNoteProps) => {
   return (
     <p className="text-note text-muted-foreground">
       {sources.length > 1 ? 'Zdroje: ' : 'Zdroj: '}

@@ -5,12 +5,12 @@ import { PDFDocument } from 'pdf-lib'
 import { runnerImport, type AliasOptions, type Plugin } from 'vite'
 import { leadMagnetPageCount, leadMagnetPdfFileName, leadMagnetPdfPath } from '../src/data/leadMagnetFiles.ts'
 
-export type PdfLeadMagnetPluginArgs = {
+export type PdfLeadMagnetPluginProps = {
   /** The app's `resolve.alias`, which src/pdfLeadMagnet/ imports through. */
   alias: AliasOptions
 }
 
-export type BuildLeadMagnetPdfArgs = PdfLeadMagnetPluginArgs & {
+export type BuildLeadMagnetPdfProps = PdfLeadMagnetPluginProps & {
   /** The app's root, which the module runner resolves src/pdfLeadMagnet/ from. */
   root: string
 }
@@ -25,7 +25,7 @@ type RenderLeadMagnetPdfModule = { renderLeadMagnetPdf: () => Promise<Uint8Array
  * await buildLeadMagnetPdf({ root, alias }) // Uint8Array, 2 pages
  * ```
  */
-const buildLeadMagnetPdf = async ({ root, alias }: BuildLeadMagnetPdfArgs): Promise<Uint8Array> => {
+const buildLeadMagnetPdf = async ({ root, alias }: BuildLeadMagnetPdfProps): Promise<Uint8Array> => {
   const { module } = await runnerImport<RenderLeadMagnetPdfModule>('/src/pdfLeadMagnet/renderLeadMagnetPdf.tsx', {
     root,
     resolve: { alias },
@@ -52,7 +52,7 @@ const buildLeadMagnetPdf = async ({ root, alias }: BuildLeadMagnetPdfArgs): Prom
  * // dist/tahak-evropska-dvojcata-americkych-etf.pdf
  * ```
  */
-export const pdfLeadMagnetPlugin = ({ alias }: PdfLeadMagnetPluginArgs): Plugin => {
+export const pdfLeadMagnetPlugin = ({ alias }: PdfLeadMagnetPluginProps): Plugin => {
   let root = process.cwd()
 
   return {

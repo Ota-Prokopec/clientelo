@@ -6,7 +6,7 @@ import type { LeadMagnetChapter } from '@data/leadMagnet.ts'
 import { formatChapterNumber } from '@lib/format.ts'
 import { NumberedLabel } from './NumberedLabel.tsx'
 
-export type UnlockedChapterArgs = {
+export type UnlockedChapterProps = {
   chapter: LeadMagnetChapter
   children: ReactNode
 }
@@ -20,7 +20,7 @@ export type UnlockedChapterArgs = {
  * // <h3>Tabulka dvojčat s ISIN, burzou a měnou</h3> …
  * ```
  */
-export const UnlockedChapter = ({ chapter, children }: UnlockedChapterArgs) => {
+export const UnlockedChapter = ({ chapter, children }: UnlockedChapterProps) => {
   return (
     <div className="grid gap-4">
       <NumberedLabel number={formatChapterNumber(chapter.number)} label="Odemčeno z taháku" />

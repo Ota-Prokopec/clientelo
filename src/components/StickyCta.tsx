@@ -4,7 +4,7 @@
 import { useIsAnyOnScreen } from '@/hooks/useIsAnyOnScreen';
 import { LeadFormLink } from './LeadFormLink.tsx';
 
-export type StickyCtaArgs = {
+export type StickyCtaProps = {
   isLead: boolean;
 };
 
@@ -16,7 +16,7 @@ export type StickyCtaArgs = {
  * <StickyCta isLead />         // nothing
  * ```
  */
-export const StickyCta = ({ isLead }: StickyCtaArgs) => {
+export const StickyCta = ({ isLead }: StickyCtaProps) => {
   // Every Lead Ask's band carries `data-lead-ask`, Section 04's with the Lead Form included.
   const { isAnyOnScreen } = useIsAnyOnScreen('[data-lead-ask]');
 

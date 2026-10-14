@@ -27,7 +27,7 @@ export const leadFormEmailId = 'lead-form-email';
  */
 export type LeadFormState = 'idle' | 'typing' | 'submitting' | 'success' | 'error' | 'remembered';
 
-export type LeadFormArgs = {
+export type LeadFormProps = {
   /** The Visitor as a Lead once they are one, or null while they are a Visitor. */
   lead: Lead | null;
   /** Called once submitLead() resolves, with the email the new Lead left. */
@@ -59,7 +59,7 @@ const submitLabelByLeadFormState: Partial<Record<LeadFormState, string>> = {
  * // <div id="lead-form" data-state="remembered"><Delivery /> E-mail použijeme…</div>
  * ```
  */
-export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormArgs) => {
+export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
   const {
     control,
     handleSubmit,

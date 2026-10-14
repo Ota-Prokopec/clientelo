@@ -20,7 +20,7 @@ import {
 /** The menu value of the "create a new worktree" entry; no path can equal it. */
 const CREATE_WORKTREE = Symbol('create-worktree');
 
-type LaunchClaudeArgs = {
+type LaunchClaudeProps = {
   cwd: string;
   /** Arguments appended after the forwarded ones. */
   args: string[];
@@ -31,7 +31,7 @@ type LaunchClaudeArgs = {
  * last because `--worktree`'s name is optional: a forwarded prompt placed after
  * a bare `--worktree` would be taken as the name.
  */
-const launchClaude = ({ cwd, args }: LaunchClaudeArgs): never => {
+const launchClaude = ({ cwd, args }: LaunchClaudeProps): never => {
   const { error, status } = spawnSync(
     'claude',
     ['--dangerously-skip-permissions', ...process.argv.slice(2), ...args],

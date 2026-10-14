@@ -1,6 +1,6 @@
 // The struck-out Ticker (design-identity.md#colour): the ETF the Visitor's app won't sell, set giant in grey under a
 // `signal` bar.
-export type StruckTickerArgs = { ticker: string };
+export type StruckTickerProps = { ticker: string };
 
 /**
  * A giant Ticker struck out by a slanted `signal` bar.
@@ -9,7 +9,7 @@ export type StruckTickerArgs = { ticker: string };
  * <StruckTicker ticker="VOO" /> // <s>VOO</s>, grey, under a red bar
  * ```
  */
-export const StruckTicker = ({ ticker }: StruckTickerArgs) => {
+export const StruckTicker = ({ ticker }: StruckTickerProps) => {
   return (
     <s className="relative w-fit text-ticker text-muted-foreground no-underline">
       {ticker}

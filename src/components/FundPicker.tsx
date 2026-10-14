@@ -12,7 +12,7 @@ import { PrimarySubstitute } from './PrimarySubstitute.tsx';
 import { StruckTicker } from './StruckTicker.tsx';
 import { TickerChoice } from './TickerChoice.tsx';
 
-export type FundPickerArgs = {
+export type FundPickerProps = {
   /** The First Screen's headline, which follows the picked ETF; a Section passes none, since its own heading leads. */
   renderHeadline?: (etfSubstitutes: EtfSubstitutes) => ReactNode;
 };
@@ -29,7 +29,7 @@ const preselectedEtfTicker = 'VOO';
  * <FundPicker />                                          // the same, under the Section's own heading
  * ```
  */
-export const FundPicker = ({ renderHeadline }: FundPickerArgs) => {
+export const FundPicker = ({ renderHeadline }: FundPickerProps) => {
   const [pickedEtfTicker, setPickedEtfTicker] = useState<string>(preselectedEtfTicker);
   const etfSubstitutes = findSubstitutes(pickedEtfTicker);
   const { etf, relation, substitutes } = etfSubstitutes;

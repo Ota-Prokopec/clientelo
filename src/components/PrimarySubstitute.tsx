@@ -6,7 +6,7 @@ import { relationPresentationByRelation } from '@lib/relationPresentationByRelat
 import type { SubstituteRelation } from '@/types.ts';
 import { FactGrid } from './FactGrid.tsx';
 
-export type PrimarySubstituteArgs = {
+export type PrimarySubstituteProps = {
   etf: Etf;
   substitute: UcitsEtf;
   relation: SubstituteRelation;
@@ -22,7 +22,7 @@ export type PrimarySubstituteArgs = {
  * // Nejbližší alternativa VWCE (in `heading`) / Podobný index FTSE All-World · …
  * ```
  */
-export const PrimarySubstitute = ({ etf, substitute, relation }: PrimarySubstituteArgs) => {
+export const PrimarySubstitute = ({ etf, substitute, relation }: PrimarySubstituteProps) => {
   const relationPresentation = relationPresentationByRelation[relation];
 
   return (

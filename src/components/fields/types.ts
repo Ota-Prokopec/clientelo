@@ -1,5 +1,5 @@
-// The types every field in src/components/fields/ shares. Each field's own Args extends FieldArgs and narrows `name` to
-// the values that field can edit, so a form can hand a field only one of its own values.
+// The types every field in src/components/fields/ shares. Each field's own Props extends FieldProps and narrows `name`
+// to the values that field can edit, so a form can hand a field only one of its own values.
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
 
 /**
@@ -12,7 +12,7 @@ import type { Control, FieldPath, FieldValues } from 'react-hook-form'
  * <InputField control={control} name="phone" label="Telefon" /> // type error: the form has no `phone`
  * ```
  */
-export type FieldArgs<
+export type FieldProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
   TTransformedValues = TFieldValues,

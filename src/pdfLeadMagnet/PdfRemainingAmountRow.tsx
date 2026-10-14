@@ -19,7 +19,7 @@ const fillClassNameByFundKind: Record<FundKind, string> = {
   twin: 'bg-brand',
 }
 
-export type PdfRemainingAmountRowArgs = {
+export type PdfRemainingAmountRowProps = {
   name: string
   terLabel: string
   /** The Data Source of the fund's TER, which the TER and the amount counted from it are marked by while unverified. */
@@ -47,7 +47,7 @@ export const PdfRemainingAmountRow = ({
   amountKc,
   shareOfTwinAmount,
   fundKind,
-}: PdfRemainingAmountRowArgs) => {
+}: PdfRemainingAmountRowProps) => {
   return (
     <View style={pdfTw('gap-1 border-t border-heading pt-1')}>
       <View style={pdfTw('flex-row items-baseline justify-between')}>

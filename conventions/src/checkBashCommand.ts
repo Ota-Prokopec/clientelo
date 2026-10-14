@@ -1,7 +1,7 @@
 /**
  * The git and GitHub rules from `docs/agents/git-workflow.md` that a Bash
  * command can break, checked before Claude Code runs it. Pure: the current
- * branch and file contents come in through `CheckBashCommandArgs`.
+ * branch and file contents come in through `CheckBashCommandProps`.
  */
 import { resolve } from 'node:path';
 import { parse } from 'shell-quote';
@@ -110,7 +110,7 @@ const checkBranch = (branch: string | undefined, reasons: Set<string>): void => 
 const checkGit = (
   words: string[],
   state: GitState,
-  args: CheckBashCommandArgs,
+  args: CheckBashCommandProps,
   reasons: Set<string>,
 ): GitState => {
   const git = parseGit(words, state.directory, reasons);
@@ -168,7 +168,7 @@ const checkGit = (
 const checkGh = (
   words: string[],
   command: string,
-  args: CheckBashCommandArgs,
+  args: CheckBashCommandProps,
   reasons: Set<string>,
 ): void => {
   const action = `${words[1] ?? ''} ${words[2] ?? ''}`;
@@ -200,7 +200,7 @@ const checkGh = (
   }
 };
 
-export type CheckBashCommandArgs = {
+export type CheckBashCommandProps = {
   command: string;
   /** The directory the command starts in. */
   cwd: string;
@@ -211,7 +211,7 @@ export type CheckBashCommandArgs = {
 };
 
 /** Every rule `command` breaks, each as the instruction to follow; empty when it may run. */
-export const checkBashCommand = (args: CheckBashCommandArgs): string[] => {
+export const checkBashCommand = (args: CheckBashCommandProps): string[] => {
   const reasons = new Set<string>();
   let state: GitState = { directory: args.cwd, branch: undefined };
   for (const words of splitCommands(args.command)) {

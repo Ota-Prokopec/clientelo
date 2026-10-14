@@ -1,7 +1,7 @@
 // Why the Fund Picker shows a closest alternative instead of a Twin: no UCITS ETF tracks the ETF's own index.
 import type { Etf, UcitsEtf } from '@data/figures.ts';
 
-export type ClosestAlternativeNoteArgs = {
+export type ClosestAlternativeNoteProps = {
   etf: Etf;
   /** The closest alternative, or none until one is chosen for the ETF. */
   closestAlternative?: UcitsEtf;
@@ -17,7 +17,7 @@ export type ClosestAlternativeNoteArgs = {
  * // Evropské ETF na index CRSP US Total Market, který sleduje VTI, neexistuje. Nejbližší alternativu doplníme …
  * ```
  */
-export const ClosestAlternativeNote = ({ etf, closestAlternative }: ClosestAlternativeNoteArgs) => {
+export const ClosestAlternativeNote = ({ etf, closestAlternative }: ClosestAlternativeNoteProps) => {
   return (
     <p>
       Evropské ETF na index {etf.trackedIndex}, který sleduje {etf.ticker}, neexistuje.{' '}

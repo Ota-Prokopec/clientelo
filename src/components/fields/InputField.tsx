@@ -5,16 +5,16 @@ import { Controller, type ControllerRenderProps, type FieldPathByValue, type Fie
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import type { FieldArgs } from './types.ts'
+import type { FieldProps } from './types.ts'
 
 /** What a field sits on: the page, or a Lead Ask's `block` band (design-identity.md#components). */
 export type FieldSurface = 'page' | 'band'
 
-export type InputFieldArgs<
+export type InputFieldProps<
   TFieldValues extends FieldValues,
   TName extends FieldPathByValue<TFieldValues, string | number>,
   TTransformedValues = TFieldValues,
-> = FieldArgs<TFieldValues, TName, TTransformedValues> &
+> = FieldProps<TFieldValues, TName, TTransformedValues> &
   Omit<ComponentProps<typeof Input>, keyof ControllerRenderProps | 'aria-invalid'> & {
     label: ReactNode
     /** Defaults to `page`. */
@@ -59,8 +59,8 @@ export const InputField = <
   id,
   type,
   className,
-  ...inputArgs
-}: InputFieldArgs<TFieldValues, TName, TTransformedValues>) => {
+  ...inputProps
+}: InputFieldProps<TFieldValues, TName, TTransformedValues>) => {
   const generatedId = useId()
   const inputId = id ?? generatedId
   const surfaceClassNames = surfaceClassNamesBySurface[surface]
@@ -75,7 +75,7 @@ export const InputField = <
             <span className="text-label">{label}</span>
           </FieldLabel>
           <Input
-            {...inputArgs}
+            {...inputProps}
             {...field}
             value={Number.isNaN(field.value) ? '' : field.value}
             onChange={(event) =>

@@ -4,7 +4,7 @@ import { formatPercent } from '@lib/format.ts';
 import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts';
 import type { SubstituteRelation } from '@/types.ts';
 
-export type OtherSubstitutesArgs = {
+export type OtherSubstitutesProps = {
   substitutes: UcitsEtf[];
   relation: SubstituteRelation;
 };
@@ -17,7 +17,7 @@ export type OtherSubstitutesArgs = {
  * // Další dvojčata / CSPX S&P 500 0,07 % ročně / VUAA S&P 500 0,07 % ročně
  * ```
  */
-export const OtherSubstitutes = ({ substitutes, relation }: OtherSubstitutesArgs) => {
+export const OtherSubstitutes = ({ substitutes, relation }: OtherSubstitutesProps) => {
   const relationPresentation = relationPresentationByRelation[relation];
 
   return (

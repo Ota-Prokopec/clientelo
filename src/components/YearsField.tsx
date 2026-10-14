@@ -3,7 +3,7 @@ import { useId } from 'react'
 import { formatYears, yearsFormatOptions } from '@lib/format.ts'
 import { FeeCalculatorSlider } from './FeeCalculatorSlider.tsx'
 
-export type YearsFieldArgs = {
+export type YearsFieldProps = {
   years: number
   onYearsChange: (years: number) => void
 }
@@ -19,7 +19,7 @@ const yearsSliderRange = { min: 1, max: 40, step: 1 }
  * // ————————●———
  * ```
  */
-export const YearsField = ({ years, onYearsChange }: YearsFieldArgs) => {
+export const YearsField = ({ years, onYearsChange }: YearsFieldProps) => {
   const labelId = useId()
 
   return (

@@ -5,7 +5,7 @@ import type { ComponentProps, MouseEvent } from 'react'
 import { LeadCta } from './LeadCta.tsx'
 import { leadFormEmailId, leadFormId } from './LeadForm.tsx'
 
-export type LeadFormLinkArgs = Omit<ComponentProps<'a'>, 'href' | 'children'>
+export type LeadFormLinkProps = Omit<ComponentProps<'a'>, 'href' | 'children'>
 
 /**
  * The red CTA as a link to the Lead Form, its label on the left and the arrow on the right. A `className` merges with
@@ -16,7 +16,7 @@ export type LeadFormLinkArgs = Omit<ComponentProps<'a'>, 'href' | 'children'>
  * // <a href="#lead-form">Chci tahák zdarma →</a>; a click scrolls to the Lead Form and focuses its email field
  * ```
  */
-export const LeadFormLink = ({ className, onClick, ...anchorProps }: LeadFormLinkArgs) => {
+export const LeadFormLink = ({ className, onClick, ...anchorProps }: LeadFormLinkProps) => {
   /**
    * Scrolls to the Lead Form and focuses its email field, both within the tap, which is the only time a phone opens
    * its keyboard for a field. The link's own jump to `#lead-form` would take the focus away again, so it is cancelled.

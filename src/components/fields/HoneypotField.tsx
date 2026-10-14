@@ -4,14 +4,14 @@ import { useId } from 'react'
 import { Controller, type FieldPathByValue, type FieldValues } from 'react-hook-form'
 import { Field, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import type { FieldArgs } from './types.ts'
+import type { FieldProps } from './types.ts'
 
 /** The honeypot needs nothing beyond what every field takes. Its `name` is the form value a bot fills. */
-export type HoneypotFieldArgs<
+export type HoneypotFieldProps<
   TFieldValues extends FieldValues,
   TName extends FieldPathByValue<TFieldValues, string>,
   TTransformedValues = TFieldValues,
-> = FieldArgs<TFieldValues, TName, TTransformedValues>
+> = FieldProps<TFieldValues, TName, TTransformedValues>
 
 /**
  * The honeypot: an Input named `website`, a name a bot fills, out of sight and out of the tab order.
@@ -29,7 +29,7 @@ export const HoneypotField = <
 >({
   control,
   name,
-}: HoneypotFieldArgs<TFieldValues, TName, TTransformedValues>) => {
+}: HoneypotFieldProps<TFieldValues, TName, TTransformedValues>) => {
   const inputId = useId()
 
   return (

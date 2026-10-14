@@ -3,7 +3,7 @@
 // Variant B's "jednorázová investice, stejný vývoj trhu".
 import { formatRatio, formatTerFraction, formatYears } from '@lib/format.ts'
 
-export type TerCostFormulaArgs = {
+export type TerCostFormulaProps = {
   years: number
   bankFundTerPercent: number
   twinTerPercent: number
@@ -20,7 +20,7 @@ export type TerCostFormulaArgs = {
  * // = 0,642
  * ```
  */
-export const TerCostFormula = ({ years, bankFundTerPercent, twinTerPercent, bankFundToTwinRatio }: TerCostFormulaArgs) => {
+export const TerCostFormula = ({ years, bankFundTerPercent, twinTerPercent, bankFundToTwinRatio }: TerCostFormulaProps) => {
   return (
     <div className="grid gap-2">
       <p className="text-label">Jak počítáme</p>
