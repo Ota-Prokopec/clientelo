@@ -58,6 +58,8 @@ One family: **Schibsted Grotesk** at 400, 700 and 900, self-hosted from Fontsour
 
 Each role is a `--text-*` token in `src/index.css` that carries its line height, tracking and weight, so `text-ticker` alone sets a giant Ticker. A giant figure must fit the 343 px between the gutters at 375 px, so the longest one shown (`VWCE`, `2,22 %`) sets the size.
 
+The Lead Magnet PDF sets the roles it uses at A4 scale, in points, with the same weights and tracking (`src/pdfLeadMagnet/pdfTw.ts`).
+
 ## Layout
 
 - **Mobile first at 375 px**, with a 16 px gutter.

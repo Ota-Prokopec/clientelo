@@ -1,4 +1,5 @@
-// Formats figures the Czech way for the page: decimal comma, a non-breaking space before the unit.
+// Formats figures the Czech way for the page and the Lead Magnet PDF: decimal comma, a non-breaking space before the unit.
+import type { DataSource } from '@data/figures.ts'
 
 const percentFormat = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 4 })
 const amountFormat = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 0 })
@@ -37,6 +38,18 @@ export const formatIsoDate = (isoDate: string): string => {
   return dateFormat.format(new Date(`${isoDate}T00:00:00`))
 }
 
+/**
+ * Whether a Data Source has been verified, and when, as the note beside its name says it.
+ *
+ * ```ts
+ * formatVerification({ name: 'Vanguard, stránka fondu VOO', url: '…', verifiedOn: '2026-10-11' }) // 'ověřeno 11. 10. 2026'
+ * formatVerification({ name: 'Vanguard, stránka fondu VOO', url: null, verifiedOn: null })       // 'zatím neověřeno'
+ * ```
+ */
+export const formatVerification = (source: DataSource): string => {
+  return source.verifiedOn ? `ověřeno ${formatIsoDate(source.verifiedOn)}` : 'zatím neověřeno'
+}
+
 /** How a number of years reads in Czech: 20 as "20 let". A slider passes it on to a screen reader. */
 export const yearsFormatOptions: Intl.NumberFormatOptions = { style: 'unit', unit: 'year', unitDisplay: 'long' }
 
@@ -48,6 +61,7 @@ export const amountKcFormatOptions: Intl.NumberFormatOptions = {
 }
 
 const yearsFormat = new Intl.NumberFormat('cs-CZ', yearsFormatOptions)
+const chapterNumberFormat = new Intl.NumberFormat('cs-CZ', { minimumIntegerDigits: 2 })
 const terFractionFormat = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 6 })
 const ratioFormat = new Intl.NumberFormat('cs-CZ', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
 
@@ -84,4 +98,15 @@ export const formatTerFraction = (terPercent: number): string => {
  */
 export const formatRatio = (ratio: number): string => {
   return ratioFormat.format(ratio)
+}
+
+/**
+ * A Chapter's number as the Lead Magnet PDF and every Lead Ask set it, two digits like a Section number.
+ *
+ * ```ts
+ * formatChapterNumber(2) // '02'
+ * ```
+ */
+export const formatChapterNumber = (chapterNumber: number): string => {
+  return chapterNumberFormat.format(chapterNumber)
 }

@@ -16,3 +16,9 @@ How to style the page. Read this before you write a `className` or touch `src/in
 - **A new role gets a light and a dark value in the same change.** Dark mode is the system's `prefers-color-scheme`. Prefer a token whose value changes with the mode over a `dark:` override at the call site. `tests/index.css.test.ts` fails when a role misses either value.
 - **Content that stays light in dark mode** (the PDF thumbnail) is scoped to the light token values, not painted with raw hex: mark it `data-palette="light"`, which `src/index.css` gives the light values alongside `:root`.
 - **`src/design/tokens.ts` mirrors** the light palette in hex and the fonts, for the PDF ([ADR-0003](../adr/0003-tailwind-and-shadcn-replace-css-modules.md)). Change a mirrored token in both files in the same commit; the sync test fails otherwise.
+
+## The Lead Magnet PDF
+
+- **The PDF takes the page's class names through `pdfTw()`** from `src/pdfLeadMagnet/pdfTw.ts` (`style={pdfTw('text-title text-heading')}`), which throws on a class it can't resolve, so a typo fails the build. Its type roles carry the page's names (`text-title`, `text-note`), sized in points for A4.
+- **A `style` object is only for what no class can carry:** the font family list, which `Page` sets once (`registerPdfFonts.ts`), and a computed width, such as a bar's share.
+- **Text comes from `PdfText` in `src/pdfLeadMagnet/PdfText.tsx`**, never straight from `@react-pdf/renderer`, so a line never breaks inside a Czech word. oxlint enforces it.

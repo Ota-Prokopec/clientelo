@@ -3,9 +3,8 @@
 import type { CSSProperties } from 'react'
 import { cn } from '@/lib/utils'
 import { formatAmount } from '@lib/format.ts'
+import type { FundKind } from '@/types.ts'
 
-/** Whose amount a bar shows: a Bank Fund's TER costs the Visitor, a Twin's is the good number (design-identity.md#colour). */
-export type FundKind = 'bank-fund' | 'twin'
 
 const terClassNameByFundKind: Record<FundKind, string> = {
   'bank-fund': 'text-signal',

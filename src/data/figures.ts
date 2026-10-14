@@ -22,10 +22,15 @@ export type Etf = {
 /** A UCITS ETF a Czech retail investor can buy instead of an ETF. */
 export type UcitsEtf = {
   ticker: string;
+  isin: string;
   trackedIndex: TrackedIndex;
   terPercent: number;
   domicile: 'Irsko';
   distributionPolicy: 'akumulační' | 'distribuční';
+  /** The exchange the Ticker is listed under: the same fund has another Ticker on another exchange. */
+  exchange: 'Xetra' | 'LSE';
+  /** The currency the fund trades in on that exchange. */
+  currency: 'EUR' | 'USD';
   source: DataSource;
 };
 
@@ -73,42 +78,57 @@ export const etfs: Etf[] = [
 export const ucitsEtfs: UcitsEtf[] = [
   {
     ticker: 'SPYL',
+    isin: 'IE000XZSV718',
     trackedIndex: 'S&P 500',
     terPercent: 0.03,
     domicile: 'Irsko',
     distributionPolicy: 'akumulační',
+    exchange: 'Xetra',
+    currency: 'EUR',
     source: unverifiedSource('SPDR, stránka fondu SPYL a KID'),
   },
   {
     ticker: 'CSPX',
+    isin: 'IE00B5BMR087',
     trackedIndex: 'S&P 500',
     terPercent: 0.07,
     domicile: 'Irsko',
     distributionPolicy: 'akumulační',
+    exchange: 'LSE',
+    currency: 'USD',
     source: unverifiedSource('iShares, stránka fondu CSPX a KID'),
   },
   {
     ticker: 'VUAA',
+    isin: 'IE00BFMXXD54',
     trackedIndex: 'S&P 500',
     terPercent: 0.07,
     domicile: 'Irsko',
     distributionPolicy: 'akumulační',
+    exchange: 'Xetra',
+    currency: 'EUR',
     source: unverifiedSource('Vanguard, stránka fondu VUAA a KID'),
   },
   {
     ticker: 'VWCE',
+    isin: 'IE00BK5BQT80',
     trackedIndex: 'FTSE All-World',
     terPercent: 0.19,
     domicile: 'Irsko',
     distributionPolicy: 'akumulační',
+    exchange: 'Xetra',
+    currency: 'EUR',
     source: unverifiedSource('Vanguard, stránka fondu VWCE a KID'),
   },
   {
     ticker: 'FWRA',
+    isin: 'IE000716YHJ7',
     trackedIndex: 'FTSE All-World',
     terPercent: 0.15,
     domicile: 'Irsko',
     distributionPolicy: 'akumulační',
+    exchange: 'LSE',
+    currency: 'USD',
     source: unverifiedSource('Invesco, stránka fondu FWRA a KID'),
   },
 ];
@@ -149,6 +169,16 @@ export const czechTaxFigures = {
   exemptIncomeCap: { value: 40_000_000, unit: 'Kč', source: unverifiedSource('Zákon o daních z příjmů, § 4') },
 } satisfies Record<string, NumericFigure>;
 
+/**
+ * The rules and statements the Key Insight rests on (docs/strategy.md#key-insight): why the apps won't sell a US ETF,
+ * and why Fio e-Broker and Patria may. Not figures, but cited wherever the Lead Magnet explains the block.
+ */
+export const keyInsightSources = {
+  priips: unverifiedSource('Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13'),
+  xtbHelpCentre: unverifiedSource('XTB, centrum nápovědy: ETF z USA bez dokumentu KID'),
+  cnbExecutionOnly: unverifiedSource('ČNB, stanovisko RS2018-12, část B.2'),
+} satisfies Record<string, DataSource>;
+
 export const usEstateTaxThreshold: NumericFigure = {
   value: 60_000,
   unit: 'USD',
@@ -186,6 +216,29 @@ export const findUcitsEtf = (ticker: string): UcitsEtf => {
 };
 
 /**
+ * Whether a Data Source has been verified (step 4 of docs/plan.md).
+ *
+ * ```ts
+ * isVerified({ name: 'Vanguard, stránka fondu VOO', url: '…', verifiedOn: '2026-10-11' }) // true
+ * isVerified({ name: 'Vanguard, stránka fondu VOO', url: null, verifiedOn: null })       // false
+ * ```
+ */
+export const isVerified = (source: DataSource): boolean => source.verifiedOn !== null;
+
+/**
+ * Each Data Source once, by name, in the order first given.
+ *
+ * ```ts
+ * listDistinctDataSources([voo.source, spyl.source, voo.source]) // [voo.source, spyl.source]
+ * ```
+ */
+export const listDistinctDataSources = (sources: DataSource[]): DataSource[] => {
+  const sourceByName = new Map(sources.map((source) => [source.name, source]));
+
+  return [...sourceByName.values()];
+};
+
+/**
  * Every distinct Data Source the data module cites, in module order, for the footer.
  *
  * ```ts
@@ -202,7 +255,5 @@ export const listDataSources = (): DataSource[] => {
     usEstateTaxThreshold.source,
   ];
 
-  const sourceByName = new Map(allSources.map((source) => [source.name, source]));
-
-  return [...sourceByName.values()];
+  return listDistinctDataSources(allSources);
 };

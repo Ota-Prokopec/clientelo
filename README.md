@@ -30,7 +30,7 @@ Run from the repo root.
 | ---------------------------------- | ---------------------------------------------------------------------------------------- |
 | `pnpm install`                     | Install dependencies and the lefthook git hooks                                          |
 | `pnpm dev`                         | Start the Vite dev server with HMR                                                       |
-| `pnpm build`                       | Type-check and build the production bundle into `dist/`                                  |
+| `pnpm build`                       | Type-check and build the production bundle and the Lead Magnet PDF into `dist/`          |
 | `pnpm preview`                     | Serve the production build locally                                                       |
 | `pnpm lint`                        | Lint the whole repo with oxlint                                                          |
 | `pnpm check-types`                 | Type-check the app and every workspace entry                                             |
@@ -48,3 +48,4 @@ A change is done when all of these pass. lefthook runs `pnpm lint` and `pnpm che
 3. `pnpm test` (Vitest: the app's pure logic in `tests/`, then every workspace entry)
 4. `pnpm build`
 5. For a UI change: the change works in `pnpm dev` at 375 px phone width. Until step 7 wires `/api/lead`, `submitLead()` is a stub: open the page with `?submit-lead=fail` (dev only) to reach the Lead Form's error state.
+6. For a change to the Lead Magnet PDF or a figure in it: `/tahak-evropska-dvojcata-americkych-etf.pdf` in `pnpm dev` still reads well on its two pages. The build already fails on any other page count.
