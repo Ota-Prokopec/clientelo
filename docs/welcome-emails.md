@@ -32,7 +32,7 @@ Sent at once, so the Lead has the PDF in their inbox even if the download on the
 >
 > Krátce, proč vám XTB, Trading 212 ani Revolut VOO nenabídnou **(verify Trading 212 and Revolut)**: pravidla EU (nařízení PRIIPs) dovolují prodat fond drobnému investorovi, jen když k němu existuje dokument KID. Američtí emitenti jako Vanguard ho nevydávají.
 >
-> O index S&P 500 tím ale nepřicházíte. Evropské dvojče SPYL, fond registrovaný v Irsku, sleduje stejný index za stejný poplatek: SPYL i VOO stojí 0,03 % ročně **(verify)**. A protože sídlí v Evropě, vašim dědicům u něj nehrozí americká dědická daň, která u fondu z USA dopadá na majetek nad 60 000 USD **(verify)**.
+> O index S&P 500 tím ale nepřicházíte. Evropské dvojče SPYL, fond registrovaný v Irsku, sleduje stejný index za stejný poplatek: SPYL i VOO stojí 0,03 % ročně **(verify SPYL)**. A protože sídlí v Evropě, vašim dědicům u něj nehrozí americká dědická daň, která u fondu z USA dopadá na majetek nad 60 000 USD **(verify)**.
 >
 > V taháku najdete tabulku všech dvojčat s ISIN, burzou a měnou, daně v Česku a co stojí poplatek bankovního fondu za 20 let.
 >

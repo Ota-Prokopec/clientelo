@@ -68,7 +68,7 @@ The creative shows the refusal, then the Twin. The search for VOO comes up empty
 | The block is the missing KID (PRIIPs) **(verify)**       | Regulation (EU) No 1286/2014, Art. 5 and 13                                                 |
 | SPYL tracks the S&P 500 **(verify)**                     | SPDR's SPYL fund page or KID                                                                |
 | SPYL's TER is 0.03 % **(verify)**                        | SPDR's SPYL fund page or KID                                                                |
-| VOO's TER is 0.03 % **(verify)**                         | Vanguard's VOO fund page                                                                    |
+| VOO's TER is 0.03 %                                      | Vanguard's VOO fund page                                                                    |
 | SPYL carries no US estate tax risk **(verify)**          | IRS guidance on estate tax for non-resident aliens (US-situs assets), and SPYL's Irish domicile |
 
 ## Ad Variant B (money)

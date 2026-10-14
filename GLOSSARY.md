@@ -129,7 +129,7 @@ The exchange symbol of an ETF, such as `VOO`, or of a UCITS ETF, such as `SPYL`.
 _Avoid_: Symbol, code, ISIN (an ISIN is a different identifier).
 
 **TER**:
-An ETF's total expense ratio: its yearly cost as a percentage of the money invested.
+An ETF's total expense ratio: its yearly cost as a percentage of the money invested. A Bank Fund's TER is its KID's ongoing costs, without entry fees or transaction costs.
 _Avoid_: Expense ratio, fee (alone), management fee.
 
 **Twin**:
@@ -149,5 +149,5 @@ An equity fund a bank sells its clients, such as ČSOB Akciový, whose TER the F
 _Avoid_: Mutual fund, bank product.
 
 **Data Source**:
-The cited origin of a figure shown on the page, with the date it was taken. Every figure has one.
+The primary source of a figure the page, the Lead Magnet, the Ads or the Welcome Emails show: the party that sets or publishes it, such as the issuer's fund page for an ETF. It holds the date the figure was verified there, or none while it is unverified. An aggregator such as justETF is never one. Every figure has one. See [ADR-0004](./docs/adr/0004-figures-verified-against-primary-sources.md).
 _Avoid_: Reference, provider.
