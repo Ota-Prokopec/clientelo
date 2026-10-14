@@ -1,5 +1,6 @@
 // The single module holding every figure the page and the Lead Magnet show, each with its Data Source (ADR-0002).
-// Step 4 of docs/plan.md verifies each figure and fills `url` and `verifiedOn`; until then they stay null.
+// A verified figure's Data Source is its primary source, read on `verifiedOn` (ADR-0004); an unverified one keeps both
+// `url` and `verifiedOn` null.
 
 /** Where a figure comes from, and the ISO date (`2026-10-11`) it was verified, or null while unverified. */
 export type DataSource = {
@@ -9,7 +10,7 @@ export type DataSource = {
 };
 
 /** The index an ETF or a Twin tracks. */
-export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap' | 'CRSP US Total Market' | 'FTSE All-World';
+export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap' | 'Morningstar US Total Market' | 'FTSE All-World';
 
 /** An NYSE-listed ETF a Czech retail investor's app won't sell them. */
 export type Etf = {
@@ -58,20 +59,56 @@ export type NumericFigure = {
 const unverifiedSource = (name: string): DataSource => ({ name, url: null, verifiedOn: null });
 
 export const etfs: Etf[] = [
-  { ticker: 'VOO', trackedIndex: 'S&P 500', terPercent: 0.03, source: unverifiedSource('Vanguard, stránka fondu VOO') },
-  { ticker: 'IVV', trackedIndex: 'S&P 500', terPercent: 0.03, source: unverifiedSource('iShares, stránka fondu IVV') },
-  { ticker: 'SPY', trackedIndex: 'S&P 500', terPercent: 0.0945, source: unverifiedSource('SPDR, stránka fondu SPY') },
+  {
+    ticker: 'VOO',
+    trackedIndex: 'S&P 500',
+    terPercent: 0.03,
+    source: {
+      name: 'Vanguard, stránka fondu VOO',
+      url: 'https://investor.vanguard.com/investment-products/etfs/profile/voo',
+      verifiedOn: '2026-10-14',
+    },
+  },
+  {
+    ticker: 'IVV',
+    trackedIndex: 'S&P 500',
+    terPercent: 0.03,
+    source: {
+      name: 'iShares, stránka fondu IVV',
+      url: 'https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf',
+      verifiedOn: '2026-10-14',
+    },
+  },
+  {
+    ticker: 'SPY',
+    trackedIndex: 'S&P 500',
+    terPercent: 0.0945,
+    source: {
+      name: 'SPDR, stránka fondu SPY',
+      url: 'https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy',
+      verifiedOn: '2026-10-14',
+    },
+  },
   {
     ticker: 'VTI',
-    trackedIndex: 'CRSP US Total Market',
+    // The CRSP US Total Market Index, renamed in 2026 after Morningstar bought CRSP. Its method is unchanged.
+    trackedIndex: 'Morningstar US Total Market',
     terPercent: 0.03,
-    source: unverifiedSource('Vanguard, stránka fondu VTI'),
+    source: {
+      name: 'Vanguard, stránka fondu VTI',
+      url: 'https://investor.vanguard.com/investment-products/etfs/profile/vti',
+      verifiedOn: '2026-10-14',
+    },
   },
   {
     ticker: 'VT',
     trackedIndex: 'FTSE Global All Cap',
     terPercent: 0.06,
-    source: unverifiedSource('Vanguard, stránka fondu VT'),
+    source: {
+      name: 'Vanguard, stránka fondu VT',
+      url: 'https://investor.vanguard.com/investment-products/etfs/profile/vt',
+      verifiedOn: '2026-10-14',
+    },
   },
 ];
 
@@ -242,7 +279,7 @@ export const listDistinctDataSources = (sources: DataSource[]): DataSource[] => 
  * Every distinct Data Source the data module cites, in module order, for the footer.
  *
  * ```ts
- * listDataSources()[0] // { name: 'Vanguard, stránka fondu VOO', url: null, verifiedOn: null }
+ * listDataSources()[0] // { name: 'Vanguard, stránka fondu VOO', url: 'https://investor.vanguard.com/…/voo', verifiedOn: '2026-10-14' }
  * ```
  */
 export const listDataSources = (): DataSource[] => {

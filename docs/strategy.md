@@ -25,7 +25,7 @@ Fio e-Broker and Patria clients are deliberately left out: those brokers sell US
 
 ## Key Insight
 
-> The investment apps Czechs use most (XTB, Trading 212, Revolut) won't sell retail clients a US ETF, because its issuer doesn't publish the KID that EU rules (PRIIPs) require. Each one has a European Twin: a UCITS ETF tracking the same index, often for the same fee (SPYL vs. VOO: 0.03 % each **(verify)**). The Twin is also simpler for a Czech investor: there is no US estate tax, and an accumulating Twin leaves no dividends to report. The brokers list these funds without explaining any of this.
+> The investment apps Czechs use most (XTB, Trading 212, Revolut) won't sell retail clients a US ETF, because its issuer doesn't publish the KID that EU rules (PRIIPs) require. Each one has a European Twin: a UCITS ETF tracking the same index, often for the same fee (SPYL vs. VOO: 0.03 % each **(verify SPYL)**). The Twin is also simpler for a Czech investor: there is no US estate tax, and an accumulating Twin leaves no dividends to report. The brokers list these funds without explaining any of this.
 
 What backs it (researched 2026-10-11):
 
@@ -39,13 +39,13 @@ What backs it (researched 2026-10-11):
 
 A Twin tracks the **same index** as the US ETF. Where no UCITS ETF tracks the same index, the page shows the closest alternative and labels it as such. It never presents it as a Twin.
 
-| US ETF        | Index                | Twins (accumulating first)                        |
-| ------------- | -------------------- | ------------------------------------------------- |
-| VOO, IVV, SPY | S&P 500              | SPYL, CSPX, VUAA                                  |
-| VT            | FTSE Global All Cap  | closest alternatives: VWCE, FWRA (FTSE All-World) |
-| VTI           | CRSP US Total Market | closest alternative, chosen in step 4             |
+| US ETF        | Index                       | Twins (accumulating first)                        |
+| ------------- | --------------------------- | ------------------------------------------------- |
+| VOO, IVV, SPY | S&P 500                     | SPYL, CSPX, VUAA                                  |
+| VT            | FTSE Global All Cap         | closest alternatives: VWCE, FWRA (FTSE All-World) |
+| VTI           | Morningstar US Total Market | closest alternative, chosen in step 4             |
 
-Every Ticker, index and TER here is **(verify)**. Where a Twin has both an accumulating and a distributing share class, the accumulating one leads: it pays no dividends, so there is no dividend income for the Czech tax return.
+The UCITS ETFs' Tickers, indices and TERs here are **(verify)**. Where a Twin has both an accumulating and a distributing share class, the accumulating one leads: it pays no dividends, so there is no dividend income for the Czech tax return.
 
 ## Lead Magnet
 

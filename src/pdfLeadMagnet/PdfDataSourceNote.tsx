@@ -13,7 +13,7 @@ export type PdfDataSourceNoteProps = { sources: DataSource[] }
  *
  * ```tsx
  * <PdfDataSourceNote sources={[voo.source, spyl.source, voo.source]} />
- * // Zdroje: Vanguard, stránka fondu VOO (zatím neověřeno); SPDR, stránka fondu SPYL a KID (zatím neověřeno)
+ * // Zdroje: Vanguard, stránka fondu VOO (ověřeno 14. 10. 2026); SPDR, stránka fondu SPYL a KID (zatím neověřeno)
  * ```
  */
 export const PdfDataSourceNote = ({ sources }: PdfDataSourceNoteProps) => {
