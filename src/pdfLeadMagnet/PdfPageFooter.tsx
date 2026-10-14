@@ -6,7 +6,7 @@ import { leadMagnetPageCount } from '@data/leadMagnetFiles.ts'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
 
-export type PdfPageFooterArgs = { pageNumber: number }
+export type PdfPageFooterProps = { pageNumber: number }
 
 /**
  * Sits in the page's bottom margin.
@@ -15,7 +15,7 @@ export type PdfPageFooterArgs = { pageNumber: number }
  * <PdfPageFooter pageNumber={1} /> // Nejde o investiční doporučení. Investování nese riziko ztráty.        1 / 2
  * ```
  */
-export const PdfPageFooter = ({ pageNumber }: PdfPageFooterArgs) => {
+export const PdfPageFooter = ({ pageNumber }: PdfPageFooterProps) => {
   return (
     <View
       fixed

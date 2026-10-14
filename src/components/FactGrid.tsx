@@ -5,7 +5,7 @@ import { RuledFact } from './RuledFact.tsx'
 /** One fact: what it is, and its value as Czech copy. */
 export type Fact = { label: string; value: string }
 
-export type FactGridArgs = { facts: Fact[] }
+export type FactGridProps = { facts: Fact[] }
 
 /**
  * Lays facts out two to a row, as a description list.
@@ -15,7 +15,7 @@ export type FactGridArgs = { facts: Fact[] }
  * // <dl><div><dt>Stejný index</dt><dd>S&P 500</dd></div></dl>
  * ```
  */
-export const FactGrid = ({ facts }: FactGridArgs) => {
+export const FactGrid = ({ facts }: FactGridProps) => {
   return (
     <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
       {facts.map((fact) => (

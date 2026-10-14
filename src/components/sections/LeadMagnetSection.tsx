@@ -10,7 +10,7 @@ import { TwinTable } from '../TwinTable.tsx'
 import { UnlockedChapter } from '../UnlockedChapter.tsx'
 import { Section } from './Section.tsx'
 
-export type LeadMagnetSectionArgs = {
+export type LeadMagnetSectionProps = {
   /** The Visitor as a Lead once they are one, or null while they are a Visitor. */
   lead: Lead | null
   /** Called once the Lead Form is submitted, with the email the new Lead left. */
@@ -29,7 +29,7 @@ export type LeadMagnetSectionArgs = {
  * //   03 Odemčeno z taháku <h3>Daně v Česku…</h3> …</section>
  * ```
  */
-export const LeadMagnetSection = ({ lead, onLeadFormSubmitted }: LeadMagnetSectionArgs) => {
+export const LeadMagnetSection = ({ lead, onLeadFormSubmitted }: LeadMagnetSectionProps) => {
   return (
     // The label isn't "Tahák zdarma", which the band's own first line says right below it.
     <Section id="lead-magnet" number="04" label="Celý tahák">

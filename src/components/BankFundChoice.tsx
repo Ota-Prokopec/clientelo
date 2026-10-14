@@ -3,7 +3,7 @@
 import { bankFundOptions, type BankFundOption } from '@lib/bankFundOptions.ts'
 import { SegmentedControl } from './SegmentedControl.tsx'
 
-export type BankFundChoiceArgs = {
+export type BankFundChoiceProps = {
   pickedBankFundOption: BankFundOption
   onPick: (bankFundOption: BankFundOption) => void
 }
@@ -17,7 +17,7 @@ export type BankFundChoiceArgs = {
  * // pressing "Jiný fond banky" calls onPick(bankFundOptions[1]); pressing ČSOB Akciový again calls nothing
  * ```
  */
-export const BankFundChoice = ({ pickedBankFundOption, onPick }: BankFundChoiceArgs) => {
+export const BankFundChoice = ({ pickedBankFundOption, onPick }: BankFundChoiceProps) => {
   return (
     <SegmentedControl
       label="Bankovní fond"

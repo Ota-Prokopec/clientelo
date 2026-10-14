@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 import type { Lead } from '@/types.ts'
 import { SegmentationQuestion } from './SegmentationQuestion.tsx'
 
-export type DeliveryArgs = { lead: Lead }
+export type DeliveryProps = { lead: Lead }
 
 /**
  * Moves focus to a new Lead's Delivery as it appears, so a Lead on a keyboard or a screen reader isn't left on the form
@@ -34,7 +34,7 @@ const focusDelivery = (delivery: HTMLDivElement | null) => {
  * // Tahák už máte. … [Stáhnout tahák (PDF) ↓] Tabulku dvojčat a daně máte odemčené…
  * ```
  */
-export const Delivery = ({ lead }: DeliveryArgs) => {
+export const Delivery = ({ lead }: DeliveryProps) => {
   const isNewLead = lead.kind === 'new'
 
   return (

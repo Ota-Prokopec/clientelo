@@ -5,7 +5,7 @@ import type { InteractiveTool } from '@/types.ts'
 import { LeadAskBand } from './LeadAskBand.tsx'
 import { LeadFormLink } from './LeadFormLink.tsx'
 
-export type LeadAskArgs = {
+export type LeadAskProps = {
   /** The Interactive Tool whose answer the Lead Ask extends. */
   interactiveTool: InteractiveTool
 }
@@ -19,7 +19,7 @@ export type LeadAskArgs = {
  * //   <a href="#lead-form">Chci tahák zdarma →</a></div>
  * ```
  */
-export const LeadAsk = ({ interactiveTool }: LeadAskArgs) => {
+export const LeadAsk = ({ interactiveTool }: LeadAskProps) => {
   return (
     <LeadAskBand placement={interactiveTool} headingLevel={3} chapters={leadAskChapters}>
       <LeadFormLink />

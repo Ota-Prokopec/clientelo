@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label'
 import { amountKcFormatOptions } from '@lib/format.ts'
 import { FeeCalculatorSlider } from './FeeCalculatorSlider.tsx'
 
-export type AmountFieldArgs = {
+export type AmountFieldProps = {
   /** The amount in Kč, or NaN while the Visitor has cleared the field. */
   amountKc: number
   onAmountChange: (amountKc: number) => void
@@ -23,7 +23,7 @@ const amountSliderRange = { min: 10_000, max: 1_000_000, step: 10_000 }
  * // typing 250000 calls onAmountChange(250000); clearing the field calls onAmountChange(NaN)
  * ```
  */
-export const AmountField = ({ amountKc, onAmountChange }: AmountFieldArgs) => {
+export const AmountField = ({ amountKc, onAmountChange }: AmountFieldProps) => {
   const labelId = useId()
   const inputId = useId()
 

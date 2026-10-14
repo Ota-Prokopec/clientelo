@@ -11,7 +11,7 @@ import { SegmentedControl } from './SegmentedControl.tsx'
 /** Where the question is: not answered yet, waiting for submitSegment(), answered, or failed and ready to answer again. */
 export type SegmentationQuestionState = 'unanswered' | 'submitting' | 'answered' | 'error'
 
-export type SegmentationQuestionArgs = {
+export type SegmentationQuestionProps = {
   /** The new Lead's email, which their Segment is stored with. */
   email: string
 }
@@ -56,7 +56,7 @@ const isSegment = (optionValue: string): optionValue is Segment => Object.hasOwn
  * // pnpm dev, /?submit-segment=fail → "error", and no option stays picked, so the Lead can pick again
  * ```
  */
-export const SegmentationQuestion = ({ email }: SegmentationQuestionArgs) => {
+export const SegmentationQuestion = ({ email }: SegmentationQuestionProps) => {
   const [pickedSegment, setPickedSegment] = useState<Segment | null>(null)
   const [segmentationQuestionState, setSegmentationQuestionState] = useState<SegmentationQuestionState>('unanswered')
 

@@ -2,7 +2,7 @@
 // what the value means for the Visitor below it. The fact grid sets these two to a row; the tax rules a Lead unlocks set
 // them one to a row with their explanation.
 
-export type RuledFactArgs = {
+export type RuledFactProps = {
   label: string
   /** The value as Czech copy. */
   value: string
@@ -20,7 +20,7 @@ export type RuledFactArgs = {
  * // <div><dt>Časový test</dt><dd>více než 3 roky</dd><dd>Držíte-li fond déle než 3 roky, …</dd></div>
  * ```
  */
-export const RuledFact = ({ label, value, explanation }: RuledFactArgs) => {
+export const RuledFact = ({ label, value, explanation }: RuledFactProps) => {
   return (
     <div className="border-t-2 border-heading pt-1.5">
       <dt className="text-note text-muted-foreground">{label}</dt>

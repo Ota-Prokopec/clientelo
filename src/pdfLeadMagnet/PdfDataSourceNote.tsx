@@ -6,7 +6,7 @@ import { formatVerification } from '@lib/format.ts'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
 
-export type PdfDataSourceNoteArgs = { sources: DataSource[] }
+export type PdfDataSourceNoteProps = { sources: DataSource[] }
 
 /**
  * Cites each distinct Data Source once, in the order given.
@@ -16,7 +16,7 @@ export type PdfDataSourceNoteArgs = { sources: DataSource[] }
  * // Zdroje: Vanguard, stránka fondu VOO (zatím neověřeno); SPDR, stránka fondu SPYL a KID (zatím neověřeno)
  * ```
  */
-export const PdfDataSourceNote = ({ sources }: PdfDataSourceNoteArgs) => {
+export const PdfDataSourceNote = ({ sources }: PdfDataSourceNoteProps) => {
   const distinctSources = listDistinctDataSources(sources)
 
   return (

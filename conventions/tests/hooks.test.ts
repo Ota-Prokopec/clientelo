@@ -5,7 +5,7 @@ import { checkEditedPath } from '../src/checkEditedPath.ts';
 
 const REPO = '/repo' as const;
 
-type RunArgs = {
+type RunProps = {
   branch?: string | undefined;
   branches?: Record<string, string>;
   files?: Record<string, string>;
@@ -14,7 +14,7 @@ type RunArgs = {
 /** The reasons `command` is denied, run from `/repo` checked out on `branch` (`feat/thing` by default). */
 const check = (
   command: string,
-  { branch = 'feat/thing', branches = {}, files = {} }: RunArgs = {},
+  { branch = 'feat/thing', branches = {}, files = {} }: RunProps = {},
 ): string[] => {
   return checkBashCommand({
     command,
@@ -61,7 +61,7 @@ describe('checkBashCommand', () => {
     ['git checkout main && git commit -m "fix: x"', {}],
     ['git -C /other commit -m "fix: x"', { branches: { '/other': 'main' } }],
     ['cd /other && git commit -m "fix: x"', { branches: { '/other': 'main' } }],
-  ])('denies committing or pushing to main: `%s`', (command, args: RunArgs) => {
+  ])('denies committing or pushing to main: `%s`', (command, args: RunProps) => {
     expect(check(command, args)).toEqual([
       expect.stringContaining('never commit on or push to `main`'),
     ]);

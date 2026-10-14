@@ -10,7 +10,7 @@ import { LeadMagnetThumbnail } from './LeadMagnetThumbnail.tsx'
 /** Where a band asks: after one of the Interactive Tools, or in the closing Section with the Lead Form. */
 export type LeadAskPlacement = InteractiveTool | 'lead-magnet'
 
-export type LeadAskBandArgs = {
+export type LeadAskBandProps = {
   /** Set as `data-lead-ask`, which the Sticky CTA steps aside for and step 5's Funnel Events hook onto. */
   placement: LeadAskPlacement
   /** The title's heading level: 2 where the band is its Section's heading, 3 inside a tool under its Section's own. */
@@ -32,7 +32,7 @@ export type LeadAskBandArgs = {
  * //   [thumbnail] 02 Tabulka dvojčat… 03 Daně v Česku… 04 Americká dědická daň… [Chci tahák zdarma →]</div>
  * ```
  */
-export const LeadAskBand = ({ placement, headingLevel, chapters, children }: LeadAskBandArgs) => {
+export const LeadAskBand = ({ placement, headingLevel, chapters, children }: LeadAskBandProps) => {
   const TitleHeading = headingLevel === 2 ? 'h2' : 'h3'
 
   return (

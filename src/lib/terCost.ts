@@ -2,7 +2,7 @@
 // Variant B). The market return is the same for both funds, so it cancels out and is never assumed: each TER is taken
 // off once a year.
 
-export type CalculateTerCostArgs = {
+export type CalculateTerCostProps = {
   amountKc: number
   years: number
   bankFundTerPercent: number
@@ -41,7 +41,7 @@ const clampToNonNegativeAmountKc = (amountKc: number): number => (amountKc > 0 ?
  * // { bankFundAmountKc: 0, twinAmountKc: 0, differenceKc: 0, bankFundToTwinRatio: 0.642… }
  * ```
  */
-export const calculateTerCost = ({ years, bankFundTerPercent, twinTerPercent, ...args }: CalculateTerCostArgs): TerCost => {
+export const calculateTerCost = ({ years, bankFundTerPercent, twinTerPercent, ...args }: CalculateTerCostProps): TerCost => {
   const amountKc = clampToNonNegativeAmountKc(args.amountKc)
   // The share of the amount each fund keeps after one year's TER.
   const bankFundYearlyShare = 1 - bankFundTerPercent / 100

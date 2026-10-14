@@ -3,7 +3,7 @@
 import type { UcitsEtf } from '@data/figures.ts'
 import { formatAmount, formatYears } from '@lib/format.ts'
 
-export type TerCostDifferenceArgs = {
+export type TerCostDifferenceProps = {
   years: number
   differenceKc: number
   twin: UcitsEtf
@@ -17,7 +17,7 @@ export type TerCostDifferenceArgs = {
  * // Za 20 let vám bankovní fond nechá o / 35 575 Kč / méně než ETF SPYL, i bez růstu trhu.
  * ```
  */
-export const TerCostDifference = ({ years, differenceKc, twin }: TerCostDifferenceArgs) => {
+export const TerCostDifference = ({ years, differenceKc, twin }: TerCostDifferenceProps) => {
   return (
     <div aria-live="polite" aria-atomic="true" className="grid gap-1">
       <p>Za {formatYears(years)} vám bankovní fond nechá o</p>

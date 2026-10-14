@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 /** One option: the value picking it reports, and what its button shows. */
 export type SegmentedControlOption = { value: string; content: ReactNode }
 
-export type SegmentedControlArgs = {
+export type SegmentedControlProps = {
   label: string
   options: SegmentedControlOption[]
   /** The picked option's value, or null while none is picked yet. */
@@ -30,7 +30,7 @@ export type SegmentedControlArgs = {
  * // pickedValue={null} → Bankovní fond A B, none filled until one is pressed
  * ```
  */
-export const SegmentedControl = ({ label, options, pickedValue, onPick, optionClassName }: SegmentedControlArgs) => {
+export const SegmentedControl = ({ label, options, pickedValue, onPick, optionClassName }: SegmentedControlProps) => {
   const labelId = useId()
 
   return (

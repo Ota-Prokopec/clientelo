@@ -3,7 +3,7 @@
 import type { LeadMagnetChapter } from '@data/leadMagnet.ts'
 import { formatChapterNumber } from '@lib/format.ts'
 
-export type LeadMagnetContentsArgs = { chapters: LeadMagnetChapter[] }
+export type LeadMagnetContentsProps = { chapters: LeadMagnetChapter[] }
 
 /**
  * Lists the given Chapters, numbered as the PDF numbers them.
@@ -14,7 +14,7 @@ export type LeadMagnetContentsArgs = { chapters: LeadMagnetChapter[] }
  * // 03 Daně v Česku: časový test a dividendy
  * ```
  */
-export const LeadMagnetContents = ({ chapters }: LeadMagnetContentsArgs) => {
+export const LeadMagnetContents = ({ chapters }: LeadMagnetContentsProps) => {
   return (
     <ol className="grid content-start gap-2">
       {chapters.map((chapter) => (

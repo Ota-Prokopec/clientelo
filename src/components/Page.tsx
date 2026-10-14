@@ -2,7 +2,7 @@
 // (design-identity.md#layout). It alone sets the column's width, so no Section, Footer or route sets its own.
 import type { ReactNode } from 'react'
 
-export type PageArgs = { children: ReactNode }
+export type PageProps = { children: ReactNode }
 
 /**
  * Everything one route renders, centred in a column at most 36 rem wide and 16 px in from the screen's edges.
@@ -12,6 +12,6 @@ export type PageArgs = { children: ReactNode }
  * // <div class="mx-auto max-w-xl px-4"><main>…</main><footer id="footer">…</footer></div>
  * ```
  */
-export const Page = ({ children }: PageArgs) => {
+export const Page = ({ children }: PageProps) => {
   return <div className="mx-auto max-w-xl px-4">{children}</div>
 }

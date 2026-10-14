@@ -7,7 +7,7 @@ import { formatChapterNumber } from '@lib/format.ts'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
 
-export type PdfChapterArgs = {
+export type PdfChapterProps = {
   chapter: LeadMagnetChapter
   children: ReactNode
 }
@@ -22,7 +22,7 @@ export type PdfChapterArgs = {
  * //     …
  * ```
  */
-export const PdfChapter = ({ chapter, children }: PdfChapterArgs) => {
+export const PdfChapter = ({ chapter, children }: PdfChapterProps) => {
   return (
     <View wrap={false} style={pdfTw('flex-row gap-3 border-t-2 border-heading pt-1.5')}>
       <PdfText style={pdfTw('w-6 text-label text-signal')}>{formatChapterNumber(chapter.number)}</PdfText>

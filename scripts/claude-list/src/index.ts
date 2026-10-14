@@ -37,13 +37,13 @@ type Failure = {
 
 const MAIN_BRANCH = 'main' as const;
 
-type CountNounArgs = {
+type CountNounProps = {
   count: number;
   singular: string;
   plural: string;
 };
 
-const countNoun = ({ count, singular, plural }: CountNounArgs): string => {
+const countNoun = ({ count, singular, plural }: CountNounProps): string => {
   return `${count} ${count === 1 ? singular : plural}`;
 };
 
@@ -90,14 +90,14 @@ const hintEntry = (entry: Entry): string => {
   return tags.filter((tag) => tag !== false).join(' · ');
 };
 
-type TryGitArgs = {
+type TryGitProps = {
   args: string[];
   /** What the call does, completing "Could not …" in the summary. */
   subject: string;
 };
 
 /** Runs `git`, turning a failure into a `Failure` for the summary instead of a throw. */
-const tryGit = ({ args, subject }: TryGitArgs): Failure | undefined => {
+const tryGit = ({ args, subject }: TryGitProps): Failure | undefined => {
   try {
     git(args);
     return undefined;

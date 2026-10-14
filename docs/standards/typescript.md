@@ -36,12 +36,12 @@ Every function has a JSDoc comment (`/** */`) directly above it that tells a rea
 
 A type's suffix says its role:
 
-- **`Args`**: a function's parameters, wrapped into one descriptive object type.
+- **`Props`**: a function's parameters, wrapped into one descriptive object type.
 - **`Options`**: a class's constructor or initialization options.
 - **`Payload`**: a complex return type that only that one function returns. Reach for it last (see [Using types](#using-types)).
 
 ```typescript
-type RegisterUserArgs = {
+type RegisterUserProps = {
   email: string;
   username: string;
 };

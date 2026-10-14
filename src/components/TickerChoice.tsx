@@ -2,7 +2,7 @@
 import { etfs } from '@data/figures.ts';
 import { SegmentedControl } from './SegmentedControl.tsx';
 
-export type TickerChoiceArgs = {
+export type TickerChoiceProps = {
   pickedEtfTicker: string;
   onPick: (etfTicker: string) => void;
 };
@@ -16,7 +16,7 @@ export type TickerChoiceArgs = {
  * // pressing SPY calls onPick('SPY'); pressing VOO again calls nothing
  * ```
  */
-export const TickerChoice = ({ pickedEtfTicker, onPick }: TickerChoiceArgs) => {
+export const TickerChoice = ({ pickedEtfTicker, onPick }: TickerChoiceProps) => {
   return (
     <SegmentedControl
       label="Který fond vám aplikace nenabídla?"

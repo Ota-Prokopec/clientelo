@@ -8,14 +8,14 @@ const MEMORY =
 
 const SKILL_PATH = /^(?<root>.*)\/\.(?:agents|claude)\/skills\/(?<name>[^/]+)/;
 
-type IsInstalledSkillArgs = {
+type IsInstalledSkillProps = {
   root: string;
   name: string;
-  readFile: CheckEditedPathArgs['readFile'];
+  readFile: CheckEditedPathProps['readFile'];
 };
 
 /** Whether `root`'s `skills-lock.json` lists the skill `name`; true when the lock can't be read, so the guard fails closed. */
-const isInstalledSkill = ({ root, name, readFile }: IsInstalledSkillArgs): boolean => {
+const isInstalledSkill = ({ root, name, readFile }: IsInstalledSkillProps): boolean => {
   try {
     const lock: unknown = JSON.parse(readFile(`${root}/skills-lock.json`) ?? '');
     const skills =
@@ -26,14 +26,14 @@ const isInstalledSkill = ({ root, name, readFile }: IsInstalledSkillArgs): boole
   }
 };
 
-export type CheckEditedPathArgs = {
+export type CheckEditedPathProps = {
   path: string;
   cwd: string;
   readFile: (path: string) => string | undefined;
 };
 
 /** Every rule editing `path` (resolved against `cwd`) breaks; empty when the edit may run. */
-export const checkEditedPath = ({ path, cwd, readFile }: CheckEditedPathArgs): string[] => {
+export const checkEditedPath = ({ path, cwd, readFile }: CheckEditedPathProps): string[] => {
   const absolute = resolve(cwd, path).split(sep).join('/');
   const reasons: string[] = [];
   const skill = SKILL_PATH.exec(absolute)?.groups;
