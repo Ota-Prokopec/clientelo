@@ -1,26 +1,19 @@
 // Chapter 2 of the Lead Magnet PDF: the Twin table. One group per list of Substitutes, under the ETFs it replaces struck
 // out, and per UCITS ETF its ISIN, TER, distribution policy, domicile, and exchange with currency. Twins are set in
-// `brand`; a closest alternative stays in `heading`, so it never looks like a Twin (docs/strategy.md#twins).
+// `brand`; a closest alternative stays in `heading`, so it never looks like a Twin (docs/strategy.md#twins). The page's
+// TwinTable, which a Lead unlocks, lists the same groups.
 import { Fragment } from 'react'
 import { View } from '@react-pdf/renderer'
 import { isVerified } from '@data/figures.ts'
 import { leadMagnetChapters } from '@data/leadMagnet.ts'
 import { formatPercent } from '@lib/format.ts'
-import { groupEtfsBySubstitutes } from '@lib/substitutes.ts'
-import type { SubstituteRelation } from '@/types.ts'
+import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts'
+import { groupEtfsBySubstitutes, listSubstituteGroupSources } from '@lib/substitutes.ts'
 import { PdfChapter } from './PdfChapter.tsx'
 import { PdfDataSourceNote } from './PdfDataSourceNote.tsx'
 import { PdfSourcedFigure } from './PdfSourcedFigure.tsx'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
-
-/** How a group's heading names its Substitutes, and the colour of their Tickers and TERs. */
-type RelationLabel = { substitutesLabel: string; colourClassName: 'text-brand' | 'text-heading' }
-
-const relationLabelByRelation: Record<SubstituteRelation, RelationLabel> = {
-  twin: { substitutesLabel: 'Dvojčata na stejný index', colourClassName: 'text-brand' },
-  'closest-alternative': { substitutesLabel: 'Nejbližší alternativy na podobný index', colourClassName: 'text-heading' },
-}
 
 // One column of the table: its heading, and its width in the row.
 const tableColumns = [
@@ -44,10 +37,7 @@ const tableColumns = [
  */
 export const PdfTwinTableChapter = () => {
   const substituteGroups = groupEtfsBySubstitutes()
-  const tableSources = substituteGroups.flatMap(({ etfs, substitutes }) => [
-    ...substitutes.map((ucitsEtf) => ucitsEtf.source),
-    ...etfs.map((etf) => etf.source),
-  ])
+  const tableSources = listSubstituteGroupSources(substituteGroups)
 
   return (
     <PdfChapter chapter={leadMagnetChapters.twinTable}>
@@ -64,13 +54,13 @@ export const PdfTwinTableChapter = () => {
           ))}
         </View>
         {substituteGroups.map(({ etfs, relation, substitutes }) => {
-          const { substitutesLabel, colourClassName } = relationLabelByRelation[relation]
+          const { substituteGroupLabel, colorClassName } = relationPresentationByRelation[relation]
           const [firstSubstitute] = substitutes
 
           return (
             <View key={etfs.map((etf) => etf.ticker).join()} style={pdfTw('pt-2')}>
               <PdfText style={pdfTw('text-label text-heading')}>
-                {substitutesLabel} {firstSubstitute?.trackedIndex} místo{' '}
+                {substituteGroupLabel} {firstSubstitute?.trackedIndex} místo{' '}
                 {etfs.map((etf, etfIndex) => (
                   <Fragment key={etf.ticker}>
                     {etfIndex > 0 && ' · '}
@@ -83,11 +73,11 @@ export const PdfTwinTableChapter = () => {
               </PdfText>
               {substitutes.map((ucitsEtf) => (
                 <View key={ucitsEtf.ticker} style={pdfTw('flex-row items-baseline border-b border-border py-1')}>
-                  <PdfText style={pdfTw(`w-[54pt] text-fact ${colourClassName}`)}>
+                  <PdfText style={pdfTw(`w-[54pt] text-fact ${colorClassName}`)}>
                     <PdfSourcedFigure sources={[ucitsEtf.source]}>{ucitsEtf.ticker}</PdfSourcedFigure>
                   </PdfText>
                   <PdfText style={pdfTw('w-[80pt] text-body')}>{ucitsEtf.isin}</PdfText>
-                  <PdfText style={pdfTw(`w-[52pt] text-body font-bold ${colourClassName}`)}>
+                  <PdfText style={pdfTw(`w-[52pt] text-body font-bold ${colorClassName}`)}>
                     {formatPercent(ucitsEtf.terPercent)}
                   </PdfText>
                   <PdfText style={pdfTw('w-[60pt] text-body')}>{ucitsEtf.distributionPolicy}</PdfText>

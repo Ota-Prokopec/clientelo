@@ -3,7 +3,7 @@
 // a PDF with a page count other than the one every Lead Ask promises, fails the build.
 import { PDFDocument } from 'pdf-lib'
 import { runnerImport, type AliasOptions, type Plugin } from 'vite'
-import { leadMagnetPageCount, leadMagnetPdfPath } from '../src/data/leadMagnetFiles.ts'
+import { leadMagnetPageCount, leadMagnetPdfFileName, leadMagnetPdfPath } from '../src/data/leadMagnetFiles.ts'
 
 export type PdfLeadMagnetPluginArgs = {
   /** The app's `resolve.alias`, which src/pdfLeadMagnet/ imports through. */
@@ -95,7 +95,7 @@ export const pdfLeadMagnetPlugin = ({ alias }: PdfLeadMagnetPluginArgs): Plugin 
     /** Emits the PDF into dist/ beside the page. A thrown error fails `vite build`. */
     async generateBundle() {
       const builtPdf = await buildLeadMagnetPdf({ root, alias })
-      this.emitFile({ type: 'asset', fileName: leadMagnetPdfPath.slice(1), source: builtPdf })
+      this.emitFile({ type: 'asset', fileName: leadMagnetPdfFileName, source: builtPdf })
     },
   }
 }

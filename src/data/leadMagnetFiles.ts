@@ -4,5 +4,8 @@
 /** How many pages the Lead Magnet PDF has, as every Lead Ask promises. The build fails when the PDF has another count. */
 export const leadMagnetPageCount = 2
 
-/** Where the PDF is served, under the file name a Lead finds in their downloads. */
-export const leadMagnetPdfPath = '/tahak-evropska-dvojcata-americkych-etf.pdf'
+/** The file name a Lead finds in their downloads. */
+export const leadMagnetPdfFileName = 'tahak-evropska-dvojcata-americkych-etf.pdf'
+
+/** Where the PDF is served, under its file name. */
+export const leadMagnetPdfPath = `/${leadMagnetPdfFileName}`

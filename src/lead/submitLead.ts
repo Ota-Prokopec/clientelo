@@ -2,24 +2,7 @@
 // to /api/lead. In `pnpm dev`, opening the page with `?submit-lead=fail` makes every send fail, so the Lead Form's
 // error state can be reached.
 import type { LeadSubmission } from '@/schemas/leadSchema.ts'
-
-/** How long the stub takes, about as long as a real request, so the Lead Form's submitting state shows. */
-const stubbedSendDurationMs = 600
-
-/**
- * Whether the dev toggle asks the stub to fail. Always false in a production build.
- *
- * ```ts
- * // pnpm dev, /?utm_content=money&submit-lead=fail → true
- * // pnpm dev, /?utm_content=money                  → false
- * // pnpm build                                     → false
- * ```
- */
-const isFailureSimulated = (): boolean => {
-  if (!import.meta.env.DEV) return false
-  // `location` is missing outside a browser, such as in a test that doesn't set it.
-  return new URLSearchParams(globalThis.location?.search).get('submit-lead') === 'fail'
-}
+import { awaitStubbedRequest } from './stubbedRequest.ts'
 
 /**
  * Sends the Lead's email on. The stub sends nothing: it waits as a request would, then resolves, or rejects behind
@@ -31,8 +14,7 @@ const isFailureSimulated = (): boolean => {
  * ```
  */
 const sendLead = async (_email: string): Promise<void> => {
-  await new Promise((resolve) => setTimeout(resolve, stubbedSendDurationMs))
-  if (isFailureSimulated()) throw new Error('submitLead() failed: simulated by ?submit-lead=fail')
+  await awaitStubbedRequest('submit-lead')
 }
 
 /**

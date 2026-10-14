@@ -1,7 +1,16 @@
 // The Fund Picker's answer: the Substitutes the page shows for an ETF, and whether they are Twins, and the groups the
 // Lead Magnet's Twin table lists them in. A Twin tracks the same index (docs/strategy.md#twins), so the relation is derived from the two indices, never
 // recorded: a fund on a merely similar index can't be called "dvojče" by a slip in the data.
-import { etfs, findEtf, findUcitsEtf, substituteTickersByEtfTicker, type Etf, type UcitsEtf } from '@data/figures.ts'
+import {
+  etfs,
+  findEtf,
+  findUcitsEtf,
+  listDistinctDataSources,
+  substituteTickersByEtfTicker,
+  type DataSource,
+  type Etf,
+  type UcitsEtf,
+} from '@data/figures.ts'
 import type { SubstituteRelation } from '@/types.ts'
 
 /** An ETF with the Substitutes the page shows for it, all sharing one relation. */
@@ -75,4 +84,22 @@ export const groupEtfsBySubstitutes = (): SubstituteGroup[] => {
   }
 
   return [...substituteGroupBySubstitutesKey.values()]
+}
+
+/**
+ * The Data Sources of every row of the Twin table, each once: each Substitute's, then the ETFs' it replaces, group by
+ * group.
+ *
+ * ```ts
+ * listSubstituteGroupSources(groupEtfsBySubstitutes())
+ * // [SPYL's, CSPX's, VUAA's, VOO's, IVV's, SPY's, VWCE's, FWRA's, VT's Data Source]
+ * ```
+ */
+export const listSubstituteGroupSources = (substituteGroups: SubstituteGroup[]): DataSource[] => {
+  return listDistinctDataSources(
+    substituteGroups.flatMap(({ etfs, substitutes }) => [
+      ...substitutes.map((ucitsEtf) => ucitsEtf.source),
+      ...etfs.map((etf) => etf.source),
+    ]),
+  )
 }
