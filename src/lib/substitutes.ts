@@ -43,7 +43,6 @@ const rankDistributionPolicy = (ucitsEtf: UcitsEtf): number => (ucitsEtf.distrib
  * ```ts
  * findSubstitutes('VOO') // { etf: VOO, relation: 'twin', substitutes: [SPYL, CSPX, VUAA] }
  * findSubstitutes('VT')  // { etf: VT, relation: 'closest-alternative', substitutes: [VWCE, FWRA] }
- * findSubstitutes('VTI') // { etf: VTI, relation: 'closest-alternative', substitutes: [] } until step 4 picks one
  * ```
  */
 export const findSubstitutes = (etfTicker: string): EtfSubstitutes => {
@@ -60,13 +59,12 @@ export const findSubstitutes = (etfTicker: string): EtfSubstitutes => {
 }
 
 /**
- * Every ETF with Substitutes, grouped with the ETFs that share them, in the data module's order. An ETF whose
- * Substitute isn't chosen yet is left out, so the Twin table never lists an empty row.
+ * Every ETF, grouped with the ETFs that share its Substitutes, in the data module's order.
  *
  * ```ts
  * groupEtfsBySubstitutes()
  * // [{ etfs: [VOO, IVV, SPY], relation: 'twin', substitutes: [SPYL, CSPX, VUAA] },
- * //  { etfs: [VT], relation: 'closest-alternative', substitutes: [VWCE, FWRA] }]  (VTI has none yet)
+ * //  { etfs: [VT], relation: 'closest-alternative', substitutes: [VWCE, FWRA] }]
  * ```
  */
 export const groupEtfsBySubstitutes = (): SubstituteGroup[] => {
@@ -75,7 +73,6 @@ export const groupEtfsBySubstitutes = (): SubstituteGroup[] => {
 
   for (const etf of etfs) {
     const { relation, substitutes } = findSubstitutes(etf.ticker)
-    if (substitutes.length === 0) continue
     const substitutesKey = [relation, ...substitutes.map((ucitsEtf) => ucitsEtf.ticker)].join(' ')
     const substituteGroup = substituteGroupBySubstitutesKey.get(substitutesKey)
 

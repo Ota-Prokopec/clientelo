@@ -39,13 +39,20 @@ What backs it (researched 2026-10-11):
 
 A Twin tracks the **same index** as the US ETF. Where no UCITS ETF tracks the same index, the page shows the closest alternative and labels it as such. It never presents it as a Twin.
 
-| US ETF        | Index                       | Twins (accumulating first)                        |
-| ------------- | --------------------------- | ------------------------------------------------- |
-| VOO, IVV, SPY | S&P 500                     | SPYL, CSPX, VUAA                                  |
-| VT            | FTSE Global All Cap         | closest alternatives: VWCE, FWRA (FTSE All-World) |
-| VTI           | Morningstar US Total Market | closest alternative, chosen in step 4             |
+| US ETF        | Index               | Twins (accumulating first)                        |
+| ------------- | ------------------- | ------------------------------------------------- |
+| VOO, IVV, SPY | S&P 500             | SPYL, CSPX, VUAA                                  |
+| VT            | FTSE Global All Cap | closest alternatives: VWCE, FWRA (FTSE All-World) |
 
 Where a Twin has both an accumulating and a distributing share class, the accumulating one leads: it pays no dividends, so there is no dividend income for the Czech tax return.
+
+The page doesn't offer VTI (researched 2026-10-14). Neither [XTB's](https://www.xtb.com/cz/specifikace-instrumentu) nor [Trading 212's](https://www.trading212.com/trading-instruments/invest) public instrument list carries a UCITS ETF on its index, the Morningstar US Total Market, so it has no Twin. Its closest alternative would be the accumulating UCITS ETF on the broadest US index that XTB, Trading 212 and Revolut all list, and no candidate can be shown to meet that rule:
+
+- The broadest index, the Russell 3000, covers about 98 % of the US market ([LSEG](https://www.lseg.com/en/ftse-russell/indices/russell-3000-index)). Its one UCITS ETF, from SPDR, is on neither app's list.
+- The MSCI USA funds come next, at about 85 % ([MSCI](https://www.msci.com/indexes/index/984000)). Both lists carry them, but Revolut can't be checked.
+- Revolut publishes no list of the ETFs it offers. Its [help centre](https://help.revolut.com/en-CZ/help/wealth/stocks/getting-started-with-etf-s/etfs-investment-plans/) points to the search in the app, which can't be cited.
+
+An ETF with no Substitute would leave the Visitor without an answer, so VTI is left out rather than shown empty.
 
 ## Lead Magnet
 

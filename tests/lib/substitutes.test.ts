@@ -4,6 +4,8 @@ import { describe, expect, it } from 'vitest'
 import { etfs } from '@data/figures.ts'
 import { findSubstitutes, groupEtfsBySubstitutes } from '@lib/substitutes.ts'
 
+const etfTickers = etfs.map((etf) => etf.ticker)
+
 describe('findSubstitutes', () => {
   it.each(['VOO', 'IVV', 'SPY'])('answers %s with its S&P 500 Twins, SPYL first', (etfTicker) => {
     const etfSubstitutes = findSubstitutes(etfTicker)
@@ -19,14 +21,11 @@ describe('findSubstitutes', () => {
     expect(etfSubstitutes.substitutes.map((ucitsEtf) => ucitsEtf.ticker)).toEqual(['VWCE', 'FWRA'])
   })
 
-  it('answers VTI as a closest alternative while no fund for it is chosen yet', () => {
-    const etfSubstitutes = findSubstitutes('VTI')
-
-    expect(etfSubstitutes.relation).toBe('closest-alternative')
-    expect(etfSubstitutes.substitutes).toEqual([])
+  it.each(etfTickers)('answers %s with at least one Substitute', (etfTicker) => {
+    expect(findSubstitutes(etfTicker).substitutes).not.toEqual([])
   })
 
-  it.each(etfs.map((etf) => etf.ticker))('lists the accumulating Substitutes of %s ahead of distributing ones', (etfTicker) => {
+  it.each(etfTickers)('lists the accumulating Substitutes of %s ahead of distributing ones', (etfTicker) => {
     const distributionPolicies = findSubstitutes(etfTicker).substitutes.map((ucitsEtf) => ucitsEtf.distributionPolicy)
     const firstDistributingIndex = distributionPolicies.indexOf('distribuční')
 
@@ -37,7 +36,7 @@ describe('findSubstitutes', () => {
 })
 
 describe('groupEtfsBySubstitutes', () => {
-  it('groups the ETFs that share Substitutes, in the data module order, and leaves out an ETF with none yet', () => {
+  it('groups the ETFs that share Substitutes, in the data module order', () => {
     const substituteGroups = groupEtfsBySubstitutes().map((substituteGroup) => ({
       etfTickers: substituteGroup.etfs.map((etf) => etf.ticker),
       relation: substituteGroup.relation,
