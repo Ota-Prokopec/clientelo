@@ -66,10 +66,10 @@ The creative shows the refusal, then the Twin. The search for VOO comes up empty
 | ------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | XTB, Trading 212 and Revolut don't sell VOO **(verify)** | Each broker's own help page (XTB's is cited in [strategy.md](./strategy.md#key-insight))    |
 | The block is the missing KID (PRIIPs) **(verify)**       | Regulation (EU) No 1286/2014, Art. 5 and 13                                                 |
-| SPYL tracks the S&P 500 **(verify)**                     | SPDR's SPYL fund page or KID                                                                |
-| SPYL's TER is 0.03 % **(verify)**                        | SPDR's SPYL fund page or KID                                                                |
+| SPYL tracks the S&P 500                                  | SPDR's SPYL fund page                                                                       |
+| SPYL's TER is 0.03 %                                     | SPDR's SPYL fund page                                                                       |
 | VOO's TER is 0.03 %                                      | Vanguard's VOO fund page                                                                    |
-| SPYL carries no US estate tax risk **(verify)**          | IRS guidance on estate tax for non-resident aliens (US-situs assets), and SPYL's Irish domicile |
+| SPYL carries no US estate tax risk **(verify the IRS guidance)** | IRS guidance on estate tax for non-resident aliens (US-situs assets), and SPYL's Irish domicile |
 
 ## Ad Variant B (money)
 
@@ -113,5 +113,5 @@ The creative shows what remains after 20 years, not how the money grows. A growt
 | Claim in the copy                                                    | Data Source it needs                                                                                      |
 | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | Bank equity funds charge about 2 % a year **(verify)**                | The KIDs of the equity funds of the largest Czech banks, e.g. ČSOB Akciový (TER 2.22 % in [strategy.md](./strategy.md#bank-fund-saver-ad-variant-b-money)) |
-| An S&P 500 ETF costs from 0.03 % a year **(verify)**                  | SPDR's SPYL fund page or KID (a fund the Visitor can buy)                                                  |
+| An S&P 500 ETF costs from 0.03 % a year                               | SPDR's SPYL fund page (a fund the Visitor can buy)                                                         |
 | About a third less after 20 years at the same market return, for a one-off investment **(verify)** | Derived: ((1 − 0.02) / (1 − 0.0003))^20 ≈ 0.67, from the two TERs above (0.64 at ČSOB Akciový's 2.22 %). Monthly contributions narrow the gap, so the copy says one-off. The page shows the formula next to the calculator |

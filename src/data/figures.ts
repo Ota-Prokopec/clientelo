@@ -122,7 +122,11 @@ export const ucitsEtfs: UcitsEtf[] = [
     distributionPolicy: 'akumulační',
     exchange: 'Xetra',
     currency: 'EUR',
-    source: unverifiedSource('SPDR, stránka fondu SPYL a KID'),
+    source: {
+      name: 'SPDR, stránka fondu SPYL',
+      url: 'https://www.ssga.com/cz/en_gb/institutional/etfs/state-street-spdr-sp-500-ucits-etf-acc-spyl-gy',
+      verifiedOn: '2026-10-14',
+    },
   },
   {
     ticker: 'CSPX',
@@ -133,7 +137,11 @@ export const ucitsEtfs: UcitsEtf[] = [
     distributionPolicy: 'akumulační',
     exchange: 'LSE',
     currency: 'USD',
-    source: unverifiedSource('iShares, stránka fondu CSPX a KID'),
+    source: {
+      name: 'iShares, stránka fondu CSPX',
+      url: 'https://www.ishares.com/uk/individual/en/products/253743/ishares-sp-500-b-ucits-etf-acc-fund',
+      verifiedOn: '2026-10-14',
+    },
   },
   {
     ticker: 'VUAA',
@@ -144,18 +152,26 @@ export const ucitsEtfs: UcitsEtf[] = [
     distributionPolicy: 'akumulační',
     exchange: 'Xetra',
     currency: 'EUR',
-    source: unverifiedSource('Vanguard, stránka fondu VUAA a KID'),
+    source: {
+      name: 'Vanguard, stránka fondu VUAA',
+      url: 'https://global.vanguard.com/de-de/investment-products/etf/equities/9694/sp-500-ucits-etf-usd-accumulating',
+      verifiedOn: '2026-10-14',
+    },
   },
   {
     ticker: 'VWCE',
     isin: 'IE00BK5BQT80',
     trackedIndex: 'FTSE All-World',
-    terPercent: 0.19,
+    terPercent: 0.14,
     domicile: 'Irsko',
     distributionPolicy: 'akumulační',
     exchange: 'Xetra',
     currency: 'EUR',
-    source: unverifiedSource('Vanguard, stránka fondu VWCE a KID'),
+    source: {
+      name: 'Vanguard, stránka fondu VWCE',
+      url: 'https://global.vanguard.com/de-de/investment-products/etf/equities/9679/ftse-all-world-ucits-etf-usd-accumulating',
+      verifiedOn: '2026-10-14',
+    },
   },
   {
     ticker: 'FWRA',
@@ -166,7 +182,11 @@ export const ucitsEtfs: UcitsEtf[] = [
     distributionPolicy: 'akumulační',
     exchange: 'LSE',
     currency: 'USD',
-    source: unverifiedSource('Invesco, stránka fondu FWRA a KID'),
+    source: {
+      name: 'Invesco, stránka fondu FWRA',
+      url: 'https://www.invesco.com/uk/en/financial-products/etfs/invesco-ftse-all-world-ucits-etf-acc.html',
+      verifiedOn: '2026-10-14',
+    },
   },
 ];
 
