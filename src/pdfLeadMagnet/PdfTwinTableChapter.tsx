@@ -32,7 +32,7 @@ const tableColumns = [
  * <PdfTwinTableChapter />
  * // 02 Tabulka dvojčat s ISIN, burzou a měnou
  * // Dvojčata na stejný index S&P 500 místo VOO 0,03 % · IVV 0,03 % · SPY 0,0945 %  (Tickers struck)
- * // SPYL*  IE000XZSV718  0,03 %  akumulační  Irsko  Xetra, EUR  …
+ * // SPYL  IE000XZSV718  0,03 %  akumulační  Irsko  Xetra, EUR  …
  * ```
  */
 export const PdfTwinTableChapter = () => {

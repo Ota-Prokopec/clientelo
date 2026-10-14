@@ -12,8 +12,8 @@ export type PdfDataSourceNoteProps = { sources: DataSource[] }
  * Cites each distinct Data Source once, in the order given.
  *
  * ```tsx
- * <PdfDataSourceNote sources={[voo.source, spyl.source, voo.source]} />
- * // Zdroje: Vanguard, stránka fondu VOO (ověřeno 14. 10. 2026); SPDR, stránka fondu SPYL a KID (zatím neověřeno)
+ * <PdfDataSourceNote sources={[voo.source, csobAkciovy.source, voo.source]} />
+ * // Zdroje: Vanguard, stránka fondu VOO (ověřeno 14. 10. 2026); ČSOB, KID fondu ČSOB Akciový (zatím neověřeno)
  * ```
  */
 export const PdfDataSourceNote = ({ sources }: PdfDataSourceNoteProps) => {

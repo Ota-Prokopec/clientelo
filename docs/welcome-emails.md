@@ -32,13 +32,13 @@ Sent at once, so the Lead has the PDF in their inbox even if the download on the
 >
 > Krátce, proč vám XTB, Trading 212 ani Revolut VOO nenabídnou **(verify Trading 212 and Revolut)**: pravidla EU (nařízení PRIIPs) dovolují prodat fond drobnému investorovi, jen když k němu existuje dokument KID. Američtí emitenti jako Vanguard ho nevydávají.
 >
-> O index S&P 500 tím ale nepřicházíte. Evropské dvojče SPYL, fond registrovaný v Irsku, sleduje stejný index za stejný poplatek: SPYL i VOO stojí 0,03 % ročně **(verify SPYL)**. A protože sídlí v Evropě, vašim dědicům u něj nehrozí americká dědická daň, která u fondu z USA dopadá na majetek nad 60 000 USD **(verify)**.
+> O index S&P 500 tím ale nepřicházíte. Evropské dvojče SPYL, fond registrovaný v Irsku, sleduje stejný index za stejný poplatek: SPYL i VOO stojí 0,03 % ročně. A protože sídlí v Evropě, vašim dědicům u něj nehrozí americká dědická daň, která u fondu z USA dopadá na majetek nad 60 000 USD **(verify)**.
 >
 > V taháku najdete tabulku všech dvojčat s ISIN, burzou a měnou, daně v Česku a co stojí poplatek bankovního fondu za 20 let.
 >
 > Za dva dny vám pošleme, kdy z prodeje ETF neplatíte žádnou daň.
 >
-> Zdroje: Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13; XTB, centrum nápovědy: ETF z USA bez dokumentu KID; Vanguard, stránka fondu VOO; SPDR, stránka fondu SPYL a KID; IRS, estate tax pro nerezidenty (US-situs assets).
+> Zdroje: Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13; XTB, centrum nápovědy: ETF z USA bez dokumentu KID; Vanguard, stránka fondu VOO; SPDR, stránka fondu SPYL; IRS, estate tax pro nerezidenty (US-situs assets).
 >
 > Nejde o investiční doporučení. Investování nese riziko ztráty.
 > [Odhlásit se z odběru]({{unsubscribe_url}})
@@ -82,7 +82,7 @@ Every variant opens with "Dobrý den," and closes with:
 
 > Celou tabulku dvojčat najdete v taháku: [Stáhnout tahák (PDF)]({{pdf_url}})
 >
-> Zdroj: SPDR, stránka fondu SPYL a KID.
+> Zdroj: SPDR, stránka fondu SPYL.
 >
 > Nejde o investiční doporučení. Investování nese riziko ztráty.
 > [Odhlásit se z odběru]({{unsubscribe_url}})
@@ -96,8 +96,8 @@ Every variant opens with "Dobrý den," and closes with:
 > V XTB najdete dvojče podle tickeru, jen si u něj ohlídejte burzu:
 >
 > 1. Ve vyhledávání zadejte ticker z tabulky v taháku, třeba SPYL.
-> 2. Zkontrolujte, že burza a měna odpovídají řádku v tabulce: SPYL se obchoduje na Xetře v eurech **(verify)**. Stejný fond má na jiné burze jiný ticker.
-> 3. Než nákup potvrdíte, porovnejte ISIN fondu s tabulkou. U SPYL je to IE000XZSV718 **(verify)**.
+> 2. Zkontrolujte, že burza a měna odpovídají řádku v tabulce: SPYL se obchoduje na Xetře v eurech. Stejný fond má na jiné burze jiný ticker.
+> 3. Než nákup potvrdíte, porovnejte ISIN fondu s tabulkou. U SPYL je to IE000XZSV718.
 
 ### `trading-212`
 
@@ -107,7 +107,7 @@ Every variant opens with "Dobrý den," and closes with:
 
 > V Trading 212 vyhledejte ticker nebo název fondu z tabulky v taháku, třeba SPYL.
 >
-> Když aplikace najde víc tříd téhož fondu, hledejte v názvu zkratku „Acc“: značí akumulační třídu, která dividendy nevyplácí, takže vám žádné nepřidá do přiznání. Jistotu dává ISIN: u SPYL je to IE000XZSV718 **(verify)**.
+> Když aplikace najde víc tříd téhož fondu, hledejte v názvu zkratku „Acc“: značí akumulační třídu, která dividendy nevyplácí, takže vám žádné nepřidá do přiznání. Jistotu dává ISIN: u SPYL je to IE000XZSV718.
 
 ### `revolut`
 
@@ -117,7 +117,7 @@ Every variant opens with "Dobrý den," and closes with:
 
 > V Revolutu vyhledejte ticker nebo název fondu z tabulky v taháku, třeba SPYL.
 >
-> Když aplikace najde víc fondů s podobným názvem, rozhodne ISIN: u SPYL je to IE000XZSV718 **(verify)**. Ticker se mezi burzami liší, ISIN ne.
+> Když aplikace najde víc fondů s podobným názvem, rozhodne ISIN: u SPYL je to IE000XZSV718. Ticker se mezi burzami liší, ISIN ne.
 
 ### `fio-patria`
 
@@ -129,7 +129,7 @@ Every variant opens with "Dobrý den," and closes with:
 >
 > Dvojče přesto vychází lépe. U irského fondu vašim dědicům nehrozí americká dědická daň nad 60 000 USD **(verify)**, a akumulační třída vám nepřidá dividendy do přiznání.
 >
-> Ve Fiu i v Patrii hledejte dvojče podle ISIN z tabulky v taháku. U SPYL je to IE000XZSV718 **(verify)**.
+> Ve Fiu i v Patrii hledejte dvojče podle ISIN z tabulky v taháku. U SPYL je to IE000XZSV718.
 
 This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, estate tax pro nerezidenty (US-situs assets)" in its "Zdroje" line.
 
@@ -143,7 +143,7 @@ This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, estat
 >
 > Chcete-li sami držet konkrétní fond, třeba SPYL, potřebujete účet u brokera. V taháku najdete, jak dvojče najít v XTB, Trading 212, Revolutu a Fiu.
 >
-> Než se rozhodnete, porovnejte celkové roční náklady: poplatek robo-advisora a TER fondů, které drží, proti TER dvojčete. SPYL stojí 0,03 % ročně **(verify)**.
+> Než se rozhodnete, porovnejte celkové roční náklady: poplatek robo-advisora a TER fondů, které drží, proti TER dvojčete. SPYL stojí 0,03 % ročně.
 
 ### `bank-fund`
 
@@ -151,7 +151,7 @@ This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, estat
 
 **Preheader:** Co stojí rozdíl v poplatku a na co myslet před prodejem.
 
-> Akciový fond banky, jako ČSOB Akciový, stojí 2,22 % ročně **(verify)**. Dvojče SPYL 0,03 % **(verify)**. Kolik ten rozdíl dělá v korunách za 20 let, ukazuje kapitola 5 taháku.
+> Akciový fond banky, jako ČSOB Akciový, stojí 2,22 % ročně **(verify)**. Dvojče SPYL 0,03 %. Kolik ten rozdíl dělá v korunách za 20 let, ukazuje kapitola 5 taháku.
 >
 > Dvojče koupíte přes aplikaci brokera. V taháku najdete, jak ho najít v XTB, Trading 212, Revolutu a Fiu.
 >
@@ -169,7 +169,7 @@ This variant also cites "ČSOB, KID fondu ČSOB Akciový" and "Zákon o daních 
 >
 > 1. Založte si účet u brokera. V taháku najdete, jak dvojče najít v XTB, Trading 212, Revolutu a Fiu.
 > 2. Pošlete na účet peníze z banky.
-> 3. Vyhledejte dvojče podle ISIN z tabulky v taháku. U SPYL je to IE000XZSV718 **(verify)**.
+> 3. Vyhledejte dvojče podle ISIN z tabulky v taháku. U SPYL je to IE000XZSV718.
 
 ### No Segment
 
