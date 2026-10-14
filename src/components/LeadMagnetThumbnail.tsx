@@ -1,21 +1,37 @@
-// The Lead Magnet's first page in miniature, drawn from the PDF by the same build that makes the PDF
-// (vite-plugins/pdfLeadMagnetPlugin.ts), so the preview always matches the file. It sits on a white Card that stays in the
-// light palette in both modes, like the PDF itself (design-identity.md#components).
+// The Lead Magnet's first page in miniature: a white Card that stays in the light palette in both modes
+// (design-identity.md#components). It's drawn in markup, not as an image of the PDF, and reads the title and the Twin
+// from the same data module the PDF renders, so the preview never names anything the file doesn't.
 import { Card } from '@/components/ui/card'
-import { leadMagnetThumbnailPath } from '@data/leadMagnetFiles.ts'
+import { leadMagnetTitle } from '@data/leadMagnet.ts'
+import { findSubstitutes } from '@lib/substitutes.ts'
 
 /**
- * The PDF's first page, small.
+ * The PDF's first page, small: its title over the first row of its Twin table, VOO struck out beside its first Twin.
  *
  * ```tsx
  * <LeadMagnetThumbnail />
- * // <div data-palette="light"><img src="/tahak-evropska-dvojcata-americkych-etf.png" alt="Náhled první strany taháku"></div>
+ * // <div role="img" aria-label="Náhled první strany taháku" data-palette="light">Tahák: evropská dvojčata amerických ETF
+ * //   VOO SPYL</div>
  * ```
  */
 export const LeadMagnetThumbnail = () => {
+  const {
+    etf,
+    substitutes: [firstTwin],
+  } = findSubstitutes('VOO')
+
   return (
-    <Card data-palette="light" className="w-24 gap-0 py-0 ring-0">
-      <img src={leadMagnetThumbnailPath} alt="Náhled první strany taháku" className="aspect-[1/1.414] w-full" />
+    <Card
+      role="img"
+      aria-label="Náhled první strany taháku"
+      data-palette="light"
+      className="aspect-[1/1.414] w-24 gap-2 p-2.5 ring-0"
+    >
+      <p className="text-label text-heading">{leadMagnetTitle}</p>
+      <dl className="grid grid-cols-2 border-t-2 border-heading pt-1">
+        <dt className="text-note text-muted-foreground line-through">{etf.ticker}</dt>
+        <dd className="text-note font-bold text-brand">{firstTwin?.ticker}</dd>
+      </dl>
     </Card>
   )
 }
