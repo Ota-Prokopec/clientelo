@@ -11,7 +11,7 @@ A person on the page who hasn't submitted the Lead Form yet. They are assumed to
 _Avoid_: User, customer, client.
 
 **Lead**:
-A Visitor who has submitted the Lead Form, together with the contact they left.
+A Visitor who has submitted the Lead Form, together with the contact they left. A new Lead submitted it on this visit; a returning Lead is one the page remembers from an earlier visit, by a flag in their browser that holds no contact.
 _Avoid_: Contact, subscriber, conversion (for the person).
 
 **Lead Magnet**:
@@ -81,12 +81,20 @@ The moment and place the page asks for the contact, chosen so the Lead Magnet's 
 _Avoid_: CTA (a CTA is any button), gate, popup.
 
 **Delivery**:
-What a Lead receives once the Lead Form is submitted: the on-page confirmation and anything sent to their contact.
+What a Lead receives once the Lead Form is submitted: the PDF's download and its link, Chapters 2 and 3 unlocked on the page, the Segmentation Question, and the Welcome Emails sent to their contact.
 _Avoid_: Thank-you page, reward.
 
 **Segmentation Question**:
-The one optional question a new Lead is asked during Delivery: where they invest.
+The one optional question a new Lead is asked during Delivery: where they invest. Their answer is their Segment.
 _Avoid_: Survey, profiling, onboarding.
+
+**Segment**:
+A Lead's answer to the Segmentation Question, such as XTB, a bank fund or "Zatím nikde". It picks their Day 5 Welcome Email.
+_Avoid_: Answer, category, broker (a bank fund and "nowhere yet" are Segments too).
+
+**Welcome Email**:
+One of the three emails a new Lead receives during Delivery, on day 0, 2 and 5. Their copy is in [docs/welcome-emails.md](./docs/welcome-emails.md).
+_Avoid_: Newsletter, drip, nurture sequence.
 
 **Sticky CTA**:
 The button that stays on screen on a phone and takes the Visitor to the Lead Form from anywhere on the page.

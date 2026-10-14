@@ -2,6 +2,7 @@
 // and its label on the grid's 3 rem left column, then the Section's content. The Page sets its width and gutter.
 import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
+import { NumberedLabel } from '../NumberedLabel.tsx'
 
 /** A Section's number on the grid: 01 First Screen, 02 Key Insight, 03 the other Interactive Tool, 04 the Lead Magnet. */
 export type SectionNumber = '01' | '02' | '03' | '04'
@@ -24,10 +25,7 @@ export type SectionArgs = ComponentProps<'section'> & {
 export const Section = ({ number, label, className, children, ...sectionProps }: SectionArgs) => {
   return (
     <section className={cn('grid gap-5 pt-12', className)} {...sectionProps}>
-      <p className="grid grid-cols-[3rem_1fr] border-t-2 border-heading pt-1.5 text-label">
-        <span className="text-signal">{number}</span>
-        <span>{label}</span>
-      </p>
+      <NumberedLabel number={number} label={label} />
       {children}
     </section>
   )

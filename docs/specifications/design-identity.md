@@ -93,13 +93,15 @@ Rules, giant type and the grid stay square. Nothing has a shadow.
 | Fee Calculator: what each fund leaves   | a ruled row over a bar on an `accent` track, as in Ad Variant B's creative |
 | A Twin's facts (index, TER, estate tax) | the ruled fact grid                                                        |
 | Lead Form                               | `Field`, `FieldLabel`, `FieldError`, `Input`, `Button`                     |
-| Segmentation Question                   | `ToggleGroup` as a segmented control                                       |
+| Delivery: the PDF's link                | a link styled with `buttonVariants`' `secondary` variant                   |
+| Segmentation Question                   | `ToggleGroup` as a segmented control, its options wrapping onto rows       |
+| The Chapters a Lead unlocks             | ruled rows and the ruled fact list, numbered like a Section                |
 | Sticky CTA and every CTA                | `Button`, or a link styled with its `buttonVariants` where it scrolls      |
 | The PDF preview in a Lead Ask           | `Card`, white, in the light palette                                        |
 
 These stay plain, on purpose: a Data Source note is visible inline text (a popover would hide the trust it builds), the Key Insight's points are a list (an accordion would put the argument behind taps), and Delivery replaces the Lead Form inline (no toast, no dialog).
 
-**The segmented control** is a rounded `accent` track with 4 px of padding, holding rounded options; the selected one is filled `brand` with `background` text.
+**The segmented control** is a rounded `accent` track with 4 px of padding, holding rounded options; the selected one is filled `brand` with `background` text. Options share a row equally, and wrap onto the next row when one row can't hold them. The Segmentation Question's control starts with no option selected.
 
 **The Fee Calculator's bars** show what each fund leaves of the amount. The Twin's bar is full and `brand`, and the Bank Fund's is `signal` and stops at its share of the Twin's amount, the way Ad Variant B's creative draws them ([ads.md](../ads.md#visual-brief-1)).
 
@@ -107,6 +109,8 @@ These stay plain, on purpose: a Data Source note is visible inline text (a popov
 
 - **After an Interactive Tool**, the band lists the three Chapters that finish the answer (the Twin table, the taxes and the estate tax), and ends in the red CTA as a link to the Lead Form, its label on the left and an arrow on the right. It scrolls to the Lead Form and focuses the email field.
 - **In Section 04**, the band lists every Chapter and holds the one Lead Form: the email field, the red CTA, and the GDPR line. `destructive` can't be read on `block`, so a form error on the band is bold `block-foreground`, and only the invalid field's border is `destructive`.
+
+**Delivery** replaces the Lead Form on Section 04's band. For a new Lead it reads "Hotovo. Tahák se stahuje.", then the PDF's link as a `secondary` button, light on the band so it never competes with the red CTA, then the Segmentation Question, whose error is bold `block-foreground` like the form's. A returning Lead gets the link alone. Below the band, Chapters 2 and 3 unlock on the page, each framed like a Section: a 2 px rule, its number in `signal`, "Odemčeno z taháku", and its contents line as the heading. The Twin table lists each UCITS ETF as a ruled row with its facts two to a line, since 375 px can't hold the PDF's six columns, and the taxes are one ruled fact to a row.
 
 **The Sticky CTA** is the same red button floating 16 px from the edges and above the safe area. It steps aside while a Lead Ask, Section 04's with the Lead Form included, is on screen. The page keeps enough bottom padding that it never covers a Data Source note.
 
@@ -116,7 +120,7 @@ Motion only answers the Visitor's input: the Twin slides in when a Ticker is pic
 
 ## Icons
 
-A lucide icon appears only where a primitive needs a functional glyph, such as a check mark or a chevron. The arrow on a CTA is lucide's `ArrowRight`, marked `data-icon="inline-end"` and `aria-hidden`.
+A lucide icon appears only where a primitive needs a functional glyph, such as a check mark or a chevron. The arrow on a CTA is lucide's `ArrowRight`, marked `data-icon="inline-end"` and `aria-hidden`; on Delivery's PDF link, which downloads rather than moves on, it is `ArrowDown`.
 
 ## Ban list
 
