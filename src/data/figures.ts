@@ -209,10 +209,29 @@ export const typicalBankEquityFund: BankFund = {
   source: typicalBankEquityFundTer.source,
 };
 
+/**
+ * The Czech tax figures Chapter 3 states. The holding-period test exempts income of any amount: the act in force caps
+ * exempt income at 40 000 000 Kč for crypto-assets only (§ 4 odst. 3), so no cap on a fund's sale is held here.
+ */
 export const czechTaxFigures = {
-  holdingPeriodExemption: { value: 3, unit: 'let', source: unverifiedSource('Zákon o daních z příjmů, § 4') },
-  yearlyIncomeExemption: { value: 100_000, unit: 'Kč', source: unverifiedSource('Zákon o daních z příjmů, § 4') },
-  exemptIncomeCap: { value: 40_000_000, unit: 'Kč', source: unverifiedSource('Zákon o daních z příjmů, § 4') },
+  holdingPeriodExemption: {
+    value: 3,
+    unit: 'let',
+    source: {
+      name: 'Zákon o daních z příjmů, § 4 odst. 1 písm. u)',
+      url: 'https://e-sbirka.gov.cz/sb/1992/586#par_4-odst_1-pism_u',
+      verifiedOn: '2026-10-14',
+    },
+  },
+  yearlyIncomeExemption: {
+    value: 100_000,
+    unit: 'Kč',
+    source: {
+      name: 'Zákon o daních z příjmů, § 4 odst. 1 písm. t)',
+      url: 'https://e-sbirka.gov.cz/sb/1992/586#par_4-odst_1-pism_t',
+      verifiedOn: '2026-10-14',
+    },
+  },
 } satisfies Record<string, NumericFigure>;
 
 /**
@@ -249,10 +268,19 @@ export const keyInsightSources = {
   },
 } satisfies Record<string, DataSource>;
 
+/**
+ * The US estate-tax threshold for a nonresident. Its source states the threshold, and that stock of a non-US
+ * corporation, such as an Irish Twin, lies outside the USA. The "Americká dědická daň žádná" said of a Twin rests on
+ * both.
+ */
 export const usEstateTaxThreshold: NumericFigure = {
   value: 60_000,
   unit: 'USD',
-  source: unverifiedSource('IRS, estate tax pro nerezidenty (US-situs assets)'),
+  source: {
+    name: 'IRS, pokyny k formuláři 706-NA',
+    url: 'https://www.irs.gov/instructions/i706na',
+    verifiedOn: '2026-10-14',
+  },
 };
 
 /**

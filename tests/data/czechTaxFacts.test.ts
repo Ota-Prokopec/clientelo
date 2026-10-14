@@ -12,7 +12,7 @@ describe('czechTaxFacts', () => {
     expect(czechTaxFacts.map((czechTaxFact) => czechTaxFact.label)).toEqual([
       'Časový test',
       'Malé prodeje',
-      'Strop osvobození',
+      'Strop časového testu',
       'Dividendy',
     ])
   })
@@ -35,12 +35,12 @@ describe('czechTaxFacts', () => {
     })
   })
 
-  it('states the cap on income the holding-period test exempts', () => {
+  it('states that the holding-period test exempts any amount, citing the same provision', () => {
     expect(czechTaxFacts[2]).toEqual({
-      label: 'Strop osvobození',
-      figure: `40${nbsp}000${nbsp}000${nbsp}Kč ročně`,
-      explanation: `Časový test osvobodí příjem z prodeje nejvýš 40${nbsp}000${nbsp}000${nbsp}Kč za rok. Co je nad tuto hranici, zdaníte.`,
-      source: czechTaxFigures.exemptIncomeCap.source,
+      label: 'Strop časového testu',
+      figure: 'žádný',
+      explanation: 'Časový test osvobodí příjem z prodeje v jakékoli výši, i kdyby šlo o desítky milionů korun.',
+      source: czechTaxFigures.holdingPeriodExemption.source,
     })
   })
 
@@ -56,7 +56,10 @@ describe('czechTaxFacts', () => {
 })
 
 describe('czechTaxSources', () => {
-  it('cites the income tax act once, though three of the rules come from it', () => {
-    expect(czechTaxSources.map((source) => source.name)).toEqual(['Zákon o daních z příjmů, § 4'])
+  it('cites each provision of the income tax act once, though the holding-period test backs two rules', () => {
+    expect(czechTaxSources.map((source) => source.name)).toEqual([
+      'Zákon o daních z příjmů, § 4 odst. 1 písm. u)',
+      'Zákon o daních z příjmů, § 4 odst. 1 písm. t)',
+    ])
   })
 })

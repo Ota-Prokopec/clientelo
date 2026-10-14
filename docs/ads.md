@@ -62,14 +62,14 @@ The creative shows the refusal, then the Twin. The search for VOO comes up empty
 
 ### Figures flagged
 
-| Claim in the copy                           | Data Source it needs                                                                                                                        |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| XTB, Trading 212 and Revolut don't sell VOO | XTB's and Revolut's help centres, and the Trading 212 team's reply on its community, as cited in [strategy.md](./strategy.md#key-insight) |
-| The block is the missing KID (PRIIPs)       | Regulation (EU) No 1286/2014, Art. 5 and 13                                                                                                 |
-| SPYL tracks the S&P 500                     | SPDR's SPYL fund page                                                                                                                       |
-| SPYL's TER is 0.03 %                        | SPDR's SPYL fund page                                                                                                                       |
-| VOO's TER is 0.03 %                         | Vanguard's VOO fund page                                                                                                                    |
-| SPYL carries no US estate tax risk **(verify the IRS guidance)** | IRS guidance on estate tax for non-resident aliens (US-situs assets), and SPYL's Irish domicile |
+| Claim in the copy                           | Data Source it needs                                                                                                                                                  |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| XTB, Trading 212 and Revolut don't sell VOO | XTB's and Revolut's help centres, and the Trading 212 team's reply on its community, as cited in [strategy.md](./strategy.md#key-insight)                             |
+| The block is the missing KID (PRIIPs)       | Regulation (EU) No 1286/2014, Art. 5 and 13                                                                                                                           |
+| SPYL tracks the S&P 500                     | SPDR's SPYL fund page                                                                                                                                                 |
+| SPYL's TER is 0.03 %                        | SPDR's SPYL fund page                                                                                                                                                 |
+| VOO's TER is 0.03 %                         | Vanguard's VOO fund page                                                                                                                                              |
+| SPYL carries no US estate tax risk          | The IRS's Instructions for Form 706-NA (US estate tax applies to US-situs assets; stock of a non-US corporation is located outside the US), and SPYL's Irish domicile |
 
 ## Ad Variant B (money)
 
