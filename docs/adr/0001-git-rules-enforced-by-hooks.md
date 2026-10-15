@@ -7,5 +7,5 @@ We enforce them with hooks in a workspace package, [`@repo/conventions`](../../c
 ## Consequences
 
 - `git-workflow.md` stays the full statement of the rules: the Claude Code hooks bind only Claude Code, and `--no-verify` still skips lefthook for a human.
-- A commit takes as long as `pnpm lint` plus `pnpm check-types`. The build stays in the checklist, not the hook.
+- A commit takes as long as `pnpm lint` plus `pnpm check-types`. The build stays in the checklist, not the hook, and CI (`.github/workflows/ci.yml`) runs it with the rest of the automated checklist on every PR, which also catches a skipped hook.
 - The hook scripts are TypeScript run by Node's type stripping, with no build step, like the rest of `scripts/`.
