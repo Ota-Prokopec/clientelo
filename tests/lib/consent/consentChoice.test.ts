@@ -1,8 +1,8 @@
 // Tests the Visitor's choice in the Consent Bar: it is remembered with its date, counts as none once it is 12 months
 // old so the bar asks again, and a browser whose storage throws or holds a garbled record gets no choice, never an error.
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { readConsentChoice, rememberConsentChoice } from '../../src/consent/consentChoice.ts'
-import { createMemoryStorage } from '../memoryStorage.ts'
+import { readConsentChoice, rememberConsentChoice } from '../../../src/lib/consent/consentChoice.ts'
+import { createMemoryStorage } from '../../memoryStorage.ts'
 
 describe('readConsentChoice', () => {
   afterEach(() => {

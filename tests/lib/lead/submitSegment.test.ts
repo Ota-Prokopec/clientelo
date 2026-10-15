@@ -1,7 +1,7 @@
 // Tests the stubbed submitSegment() seam: it accepts a new Lead's Segment, and fails behind the dev toggle so the
 // Segmentation Question's error state can be reached.
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { submitSegment } from '../../src/lead/submitSegment.ts'
+import { submitSegment } from '../../../src/lib/lead/submitSegment.ts'
 
 describe('submitSegment', () => {
   afterEach(() => {

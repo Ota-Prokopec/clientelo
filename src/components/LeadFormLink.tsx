@@ -2,8 +2,8 @@
 // phone's keyboard is already up. The inline Lead Asks and the Sticky CTA are built on it, and each tap on it is a
 // lead_ask_click Funnel Event naming where it was. Without JavaScript it is a plain link to `#lead-form`.
 import type { ComponentProps, MouseEvent } from 'react'
-import type { LeadAskClickPlacement } from '@/funnel/funnelEvent.ts'
-import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
+import type { LeadAskClickPlacement } from '@lib/funnel/funnelEvent.ts'
+import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
 import { LeadCta } from './LeadCta.tsx'
 import { LEAD_FORM_EMAIL_ID, LEAD_FORM_ID } from './LeadForm.tsx'
 

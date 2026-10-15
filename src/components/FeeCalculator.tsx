@@ -4,7 +4,7 @@
 // change to the amount, the years or the Bank Fund is its interactive_tool_use Funnel Event; the prefill isn't use.
 import { useState } from 'react'
 import { findUcitsEtf } from '@data/figures.ts'
-import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
+import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
 import { bankFundOptions, type BankFundOption } from '@lib/bankFundOptions.ts'
 import { feeCalculatorPrefill } from '@lib/feeCalculatorPrefill.ts'
 import { formatPercent } from '@lib/format.ts'

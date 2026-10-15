@@ -1,6 +1,6 @@
 // Tests when a Section counts as viewed: half of it on screen, or, for a Section taller than the screen, half the screen.
 import { describe, expect, it } from 'vitest'
-import { isSectionViewed } from '@/funnel/sectionView.ts'
+import { isSectionViewed } from '@lib/funnel/sectionView.ts'
 
 // An iPhone SE-sized viewport: 375 × 667 px.
 const VIEWPORT_HEIGHT = 667

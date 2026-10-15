@@ -5,7 +5,7 @@ import { AnimatePresence, m } from 'motion/react';
 import { useState, type ReactNode } from 'react';
 import { usEstateTaxThreshold } from '@data/figures.ts';
 import { findSubstitutes, type EtfSubstitutes } from '@lib/substitutes.ts';
-import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts';
+import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts';
 import { ClosestAlternativeNote } from './ClosestAlternativeNote.tsx';
 import { DataSourceNote } from './DataSourceNote.tsx';
 import { LeadAsk } from './LeadAsk.tsx';

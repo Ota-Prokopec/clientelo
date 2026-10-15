@@ -5,8 +5,8 @@
 // answered or error on `data-state`. Each answer submitted is a segment_answer Funnel Event, which carries the Segment
 // and never the email.
 import { useState } from 'react'
-import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
-import { submitSegment } from '@/lead/submitSegment.ts'
+import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
+import { submitSegment } from '@lib/lead/submitSegment.ts'
 import type { Segment } from '@/types.ts'
 import { SegmentedControl } from './SegmentedControl.tsx'
 

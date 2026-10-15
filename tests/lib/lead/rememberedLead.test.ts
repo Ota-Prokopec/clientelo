@@ -1,8 +1,8 @@
 // Tests the remembered Lead: a Lead stays a Lead across a reload, and a browser whose storage throws falls back to a
 // Visitor with the content locked, instead of breaking the page.
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { readRememberedLead, rememberLead } from '../../src/lead/rememberedLead.ts'
-import { createMemoryStorage } from '../memoryStorage.ts'
+import { readRememberedLead, rememberLead } from '../../../src/lib/lead/rememberedLead.ts'
+import { createMemoryStorage } from '../../memoryStorage.ts'
 
 describe('readRememberedLead', () => {
   afterEach(() => {
