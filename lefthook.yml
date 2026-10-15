@@ -3,6 +3,14 @@
 # earlier one failed, so a commit attempt reports every failure.
 pre-commit:
   jobs:
+    # Formats the staged files with Prettier and stages the result, so a commit
+    # never carries unformatted code. `--ignore-unknown` skips files Prettier
+    # can't parse, and .prettierignore keeps the installed skills and shadcn's
+    # generated primitives as they are.
+    - name: format
+      glob: '*'
+      run: pnpm exec prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
     - name: lint
       run: pnpm lint
     - name: check-types

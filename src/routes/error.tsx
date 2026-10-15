@@ -1,6 +1,6 @@
 // The error page a route renders when it fails or doesn't exist, in the page's Czech voice.
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router'
-import { Page } from '../components/Page.tsx'
+import { Page } from '@/components/Page.tsx'
 
 /**
  * The Czech error page: a 404 says the page doesn't exist, anything else asks for a reload.

@@ -1,7 +1,7 @@
 // The Fee Calculator's one-off amount: a field in Kč for an exact figure, and a slider under it for a quick one.
 import { useId } from 'react'
-import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '@/components/ui/input-group'
-import { Label } from '@/components/ui/label'
+import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '@/components/ui/input-group.tsx'
+import { Label } from '@/components/ui/label.tsx'
 import { amountKcFormatOptions } from '@lib/format.ts'
 import { FeeCalculatorSlider } from './FeeCalculatorSlider.tsx'
 

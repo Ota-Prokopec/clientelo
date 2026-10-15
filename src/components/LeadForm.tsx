@@ -4,54 +4,54 @@
 // reload never reads as a submit. Each step is a Funnel Event, from lead_form_seen to lead_form_success or
 // lead_form_error, and a filled honeypot records none of them. Section 04 renders it on the Lead Ask's band, which is
 // why its texts take the band's colour.
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState, type FormEvent } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
-import { Button } from '@/components/ui/button';
-import { shutOutBot, trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts';
-import { useOnFirstView, type ElementVisibility } from '@/hooks/useOnFirstView.ts';
-import { submitLead } from '@lib/lead/submitLead.ts';
-import { leadSchema, type LeadSubmission } from '@/schemas/leadSchema.ts';
-import type { Lead } from '@/types.ts';
-import { Delivery } from './Delivery.tsx';
-import { HoneypotField } from './fields/HoneypotField.tsx';
-import { InputField } from './fields/InputField.tsx';
-import { LeadCta } from './LeadCta.tsx';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState, type FormEvent } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link } from 'react-router'
+import { Button } from '@/components/ui/button.tsx'
+import { shutOutBot, trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
+import { useOnFirstView, type ElementVisibility } from '@/hooks/useOnFirstView.ts'
+import { submitLead } from '@lib/lead/submitLead.ts'
+import { leadSchema, type LeadSubmission } from '@/schemas/leadSchema.ts'
+import type { Lead } from '@/types.ts'
+import { Delivery } from './Delivery.tsx'
+import { HoneypotField } from './fields/HoneypotField.tsx'
+import { InputField } from './fields/InputField.tsx'
+import { LeadCta } from './LeadCta.tsx'
 
 /** The Lead Form's id, which every link to the Lead Form targets. Step 5's Funnel Events hook onto it. */
-export const LEAD_FORM_ID = 'lead-form';
+export const LEAD_FORM_ID = 'lead-form'
 
 /** The id of the Lead Form's email field, which a link to the Lead Form focuses. */
-export const LEAD_FORM_EMAIL_ID = 'lead-form-email';
+export const LEAD_FORM_EMAIL_ID = 'lead-form-email'
 
 /**
  * Where the Lead Form is: untouched, being filled in, waiting for submitLead(), submitted on this visit, failed and
  * ready to retry, or gone because an earlier visit remembers the Lead.
  */
-export type LeadFormState = 'idle' | 'typing' | 'submitting' | 'success' | 'error' | 'remembered';
+export type LeadFormState = 'idle' | 'typing' | 'submitting' | 'success' | 'error' | 'remembered'
 
 export type LeadFormProps = {
   /** The Visitor as a Lead once they are one, or null while they are a Visitor. */
-  lead: Lead | null;
+  lead: Lead | null
   /** Called once submitLead() resolves, with the email the new Lead left. */
-  onLeadFormSubmitted: (email: string) => void;
-};
+  onLeadFormSubmitted: (email: string) => void
+}
 
 /** The Lead Form's state once the Visitor is a Lead: a new Lead's submit succeeded, a returning Lead's is remembered. */
 const leadFormStateByLeadKind: Record<Lead['kind'], LeadFormState> = {
   new: 'success',
   returning: 'remembered',
-};
+}
 
 /** The submit's label while submitLead() runs and after it fails. In every other state, the CTA's own label. */
 const submitLabelByLeadFormState: Partial<Record<LeadFormState, string>> = {
   submitting: 'Odesíláme…',
   error: 'Zkusit znovu',
-};
+}
 
 /** The Lead Form's id, as the observer behind lead_form_seen watches it. */
-const leadFormIds = [LEAD_FORM_ID] as const;
+const leadFormIds = [LEAD_FORM_ID] as const
 
 /**
  * Whether the Lead Form counts as seen: at least half of it on screen.
@@ -60,7 +60,7 @@ const leadFormIds = [LEAD_FORM_ID] as const;
  * isLeadFormSeen({ visibleRatio: 0.5, visibleHeight: 160, viewportHeight: 667 }) // true
  * ```
  */
-const isLeadFormSeen = ({ visibleRatio }: ElementVisibility) => visibleRatio >= 0.5;
+const isLeadFormSeen = ({ visibleRatio }: ElementVisibility) => visibleRatio >= 0.5
 
 /**
  * Records the Lead Form's first view.
@@ -70,8 +70,8 @@ const isLeadFormSeen = ({ visibleRatio }: ElementVisibility) => visibleRatio >= 
  * ```
  */
 const trackLeadFormSeen = () => {
-  trackFunnelEvent({ event: 'lead_form_seen' });
-};
+  trackFunnelEvent({ event: 'lead_form_seen' })
+}
 
 /**
  * Records the first keystroke in the email field; the once-per-Visit rule drops every later one.
@@ -81,8 +81,8 @@ const trackLeadFormSeen = () => {
  * ```
  */
 const trackLeadFormStart = () => {
-  trackFunnelEvent({ event: 'lead_form_start' });
-};
+  trackFunnelEvent({ event: 'lead_form_start' })
+}
 
 /**
  * Records a submit that leadSchema rejected, before anything is sent.
@@ -92,8 +92,8 @@ const trackLeadFormStart = () => {
  * ```
  */
 const trackInvalidEmail = () => {
-  trackFunnelEvent({ event: 'lead_form_error', reason: 'invalid-email' });
-};
+  trackFunnelEvent({ event: 'lead_form_error', reason: 'invalid-email' })
+}
 
 /**
  * The Lead Form, or Delivery once the Visitor is a Lead. It checks the email when the Visitor submits, then again as
@@ -114,9 +114,9 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
     handleSubmit,
     getValues,
     formState: { isDirty, isSubmitting },
-  } = useForm({ resolver: zodResolver(leadSchema), defaultValues: { email: '', honeypot: '' } });
-  const [hasSubmitFailed, setHasSubmitFailed] = useState(false);
-  useOnFirstView({ elementIds: leadFormIds, isViewed: isLeadFormSeen, onFirstView: trackLeadFormSeen });
+  } = useForm({ resolver: zodResolver(leadSchema), defaultValues: { email: '', honeypot: '' } })
+  const [hasSubmitFailed, setHasSubmitFailed] = useState(false)
+  useOnFirstView({ elementIds: leadFormIds, isViewed: isLeadFormSeen, onFirstView: trackLeadFormSeen })
   const leadFormState: LeadFormState = lead
     ? leadFormStateByLeadKind[lead.kind]
     : isSubmitting
@@ -125,7 +125,7 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
         ? 'error'
         : isDirty
           ? 'typing'
-          : 'idle';
+          : 'idle'
 
   /**
    * Handles the form's submit event: validates the Lead Form against leadSchema, sends a valid one through
@@ -140,17 +140,17 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
    * ```
    */
   const submitHandler = handleSubmit(async (leadSubmission: LeadSubmission) => {
-    setHasSubmitFailed(false);
+    setHasSubmitFailed(false)
     try {
-      await submitLead(leadSubmission);
+      await submitLead(leadSubmission)
     } catch {
-      trackFunnelEvent({ event: 'lead_form_error', reason: 'submit-failed' });
-      setHasSubmitFailed(true);
-      return;
+      trackFunnelEvent({ event: 'lead_form_error', reason: 'submit-failed' })
+      setHasSubmitFailed(true)
+      return
     }
-    trackFunnelEvent({ event: 'lead_form_success' });
-    onLeadFormSubmitted(leadSubmission.email);
-  }, trackInvalidEmail);
+    trackFunnelEvent({ event: 'lead_form_success' })
+    onLeadFormSubmitted(leadSubmission.email)
+  }, trackInvalidEmail)
 
   /**
    * Records every submit attempt, then submits. A filled honeypot means a bot, which records nothing from here on, not
@@ -163,10 +163,10 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
    * ```
    */
   const submitLeadForm = (event: FormEvent<HTMLFormElement>) => {
-    if (getValues('honeypot') !== '') shutOutBot();
-    trackFunnelEvent({ event: 'lead_form_submit' });
-    return submitHandler(event);
-  };
+    if (getValues('honeypot') !== '') shutOutBot()
+    trackFunnelEvent({ event: 'lead_form_submit' })
+    return submitHandler(event)
+  }
 
   return (
     <div id={LEAD_FORM_ID} data-state={leadFormState} className="grid scroll-mt-6 gap-4">
@@ -210,5 +210,5 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
         ).
       </p>
     </div>
-  );
-};
+  )
+}

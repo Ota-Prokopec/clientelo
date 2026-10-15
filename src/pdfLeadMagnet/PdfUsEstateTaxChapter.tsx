@@ -27,7 +27,9 @@ export const PdfUsEstateTaxChapter = () => {
         </PdfText>
         , vaši dědicové by z nich mohli platit americkou dědickou daň. Fond se sídlem v Irsku americkým majetkem není,
         takže se ho tato daň netýká.{' '}
-        <PdfText style={pdfTw('font-bold text-brand')}>Jak se jí vyhnout: držte dvojče místo amerického originálu.</PdfText>
+        <PdfText style={pdfTw('font-bold text-brand')}>
+          Jak se jí vyhnout: držte dvojče místo amerického originálu.
+        </PdfText>
       </PdfText>
       <PdfDataSourceNote sources={[usEstateTaxThreshold.source]} />
     </PdfChapter>

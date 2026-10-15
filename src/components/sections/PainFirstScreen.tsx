@@ -1,6 +1,6 @@
 // Ad Variant A's First Screen: the Fund Picker with VOO struck out over its Twin SPYL, deliverable without scrolling
 // at 375 px. Its headline follows the ETF the Visitor picks.
-import { FundPicker } from '../FundPicker.tsx'
+import { FundPicker } from '@/components/FundPicker.tsx'
 import { Section } from './Section.tsx'
 
 /**

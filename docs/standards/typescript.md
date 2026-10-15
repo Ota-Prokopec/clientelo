@@ -32,14 +32,14 @@ When a constant fills a property, only the case differs, so the name still stays
 
 ```typescript
 // Right
-const STUBBED_REQUEST_DURATION_MS = 600;
-export const SHARE_IMAGE_FILE_NAME = 'share-image.png';
-export const SHARE_IMAGE_PATH = `/${SHARE_IMAGE_FILE_NAME}`;
-const percentFormat = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 4 });
+const STUBBED_REQUEST_DURATION_MS = 600
+export const SHARE_IMAGE_FILE_NAME = 'share-image.png'
+export const SHARE_IMAGE_PATH = `/${SHARE_IMAGE_FILE_NAME}`
+const percentFormat = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 4 })
 
 // Wrong
-export const shareImageMaxBytes = 300_000;
-const FUNNEL_EVENT_LISTENERS = new Set<FunnelEventListener>();
+export const shareImageMaxBytes = 300_000
+const FUNNEL_EVENT_LISTENERS = new Set<FunnelEventListener>()
 ```
 
 ## Header comments
@@ -73,22 +73,22 @@ A type's suffix says its role:
 
 ```typescript
 type RegisterUserProps = {
-  email: string;
-  username: string;
-};
+  email: string
+  username: string
+}
 
 type LoggerOptions = {
-  level: string;
-  silent: boolean;
-};
+  level: string
+  silent: boolean
+}
 
 class Logger {
   constructor(options: LoggerOptions) {}
 }
 
 type CalculateTotalPayload = {
-  result: number;
-};
+  result: number
+}
 ```
 
 ## Naming a class's module
@@ -112,25 +112,30 @@ export class TsMorphProject {}
 
 ```typescript
 // Wrong: the annotation is only writeDestination's own payload type.
-const writtenDestination: WriteDestinationPayload = await writeDestination(args);
+const writtenDestination: WriteDestinationPayload = await writeDestination(args)
 
 // Right: `Destination` is a broad type describing the value itself, which writeDestination returns.
-const writtenDestination: Destination = await writeDestination(args);
+const writtenDestination: Destination = await writeDestination(args)
 
 // Right: no broad type fits, so the payload type is inferred.
-const writtenDestination = await writeDestination(args);
+const writtenDestination = await writeDestination(args)
 ```
 
 - **Narrow with type guards and type predicates**, starting from `unknown` where a type is genuinely unknown, so the compiler checks the narrowing an assertion would only claim.
 
 ```typescript
-type Admin = { role: 'admin' };
-type Guest = { role: 'guest' };
+type Admin = { role: 'admin' }
+type Guest = { role: 'guest' }
 
 const isAdmin = (user: Admin | Guest): user is Admin => {
-  return user.role === 'admin';
-};
+  return user.role === 'admin'
+}
 ```
+
+## Import specifiers
+
+- **Import a module from another folder through an alias, with its file extension:** `@lib/` for `src/lib/`, `@data/` for `src/data/`, and `@/` for the rest of `src/` (`@/components/LeadForm.tsx`, `@/hooks/useOnFirstView.ts`). A module in the same folder is `./` (`./FactGrid.tsx`). Never climb with `../` in `src/`; a test reaches the helpers in `tests/` relatively.
+- **shadcn's generated files in `src/components/ui/` keep the imports shadcn writes** (`@/lib/utils`, no extension), so `shadcn add --overwrite` diffs stay readable ([shadcn.md](./shadcn.md)).
 
 ## Importing Node built-ins
 
@@ -138,12 +143,12 @@ const isAdmin = (user: Admin | Guest): user is Admin => {
 
 ```typescript
 // Wrong
-import { resolve } from 'node:path';
-const absolutePath = resolve(rootPath, 'src');
+import { resolve } from 'node:path'
+const absolutePath = resolve(rootPath, 'src')
 
 // Right
-import * as path from 'node:path';
-const absolutePath = path.resolve(rootPath, 'src');
+import * as path from 'node:path'
+const absolutePath = path.resolve(rootPath, 'src')
 ```
 
 ## Barrels

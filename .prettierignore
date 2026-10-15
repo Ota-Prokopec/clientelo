@@ -1,0 +1,8 @@
+# Installed skills stay exactly as installed (AGENTS.md#skills).
+.agents/
+.claude/
+# shadcn's generated primitives keep shadcn's own formatting, so `shadcn add --overwrite` diffs stay readable
+# (docs/standards/shadcn.md).
+src/components/ui/
+pnpm-lock.yaml
+dist/

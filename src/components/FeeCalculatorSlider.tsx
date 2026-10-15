@@ -1,6 +1,6 @@
 // The Fee Calculator's slider for one value, the amount or the years, in the design identity (design-identity.md#shape):
 // an `accent` track filled `brand` up to a round thumb large enough to drag with a thumb on a phone.
-import { Slider } from '@/components/ui/slider'
+import { Slider } from '@/components/ui/slider.tsx'
 
 export type FeeCalculatorSliderProps = {
   value: number
@@ -24,7 +24,14 @@ export type FeeCalculatorSliderProps = {
  * <FeeCalculatorSlider value={5_000_000} min={10_000} max={1_000_000} … /> // the thumb sits at 1 000 000
  * ```
  */
-export const FeeCalculatorSlider = ({ value, min, max, labelId, onValueChange, ...sliderProps }: FeeCalculatorSliderProps) => {
+export const FeeCalculatorSlider = ({
+  value,
+  min,
+  max,
+  labelId,
+  onValueChange,
+  ...sliderProps
+}: FeeCalculatorSliderProps) => {
   // A cleared field is NaN, which `||` turns into the start of the track.
   const thumbValue = Math.min(Math.max(value || min, min), max)
 

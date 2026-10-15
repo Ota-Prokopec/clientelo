@@ -24,7 +24,9 @@ const isAtRule = (stylesheetNode: Node | undefined): stylesheetNode is AtRule =>
  * ```
  */
 export const isDarkRootRule = (rootRule: Rule): boolean =>
-  isAtRule(rootRule.parent) && rootRule.parent.name === 'media' && /prefers-color-scheme:\s*dark/.test(rootRule.parent.params)
+  isAtRule(rootRule.parent) &&
+  rootRule.parent.name === 'media' &&
+  /prefers-color-scheme:\s*dark/.test(rootRule.parent.params)
 
 /**
  * The roles Tailwind's colour utilities read: what each `--color-*` in `@theme` points at.

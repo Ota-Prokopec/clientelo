@@ -1,11 +1,11 @@
 // The Fund Picker's Ticker choice: the US ETFs as a segmented control (design-identity.md#components), one always picked.
-import { etfs } from '@data/figures.ts';
-import { SegmentedControl } from './SegmentedControl.tsx';
+import { etfs } from '@data/figures.ts'
+import { SegmentedControl } from './SegmentedControl.tsx'
 
 export type TickerChoiceProps = {
-  pickedEtfTicker: string;
-  onPick: (etfTicker: string) => void;
-};
+  pickedEtfTicker: string
+  onPick: (etfTicker: string) => void
+}
 
 /**
  * A labelled segmented control of every ETF's Ticker, the picked one filled `brand`.
@@ -25,5 +25,5 @@ export const TickerChoice = ({ pickedEtfTicker, onPick }: TickerChoiceProps) => 
       onPick={onPick}
       optionClassName="h-11"
     />
-  );
-};
+  )
+}

@@ -1,8 +1,8 @@
 // Tests the remembered Visit: `clientelo:visited` is stored only while the Visitor's consent is given, so a later Visit
 // counts them as a returning Visitor, and it is removed once they refuse or withdraw it.
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { rememberConsentChoice } from '../../../src/lib/consent/consentChoice.ts'
-import { readHasVisitedBefore, syncRememberedVisit } from '../../../src/lib/consent/rememberedVisit.ts'
+import { rememberConsentChoice } from '@lib/consent/consentChoice.ts'
+import { readHasVisitedBefore, syncRememberedVisit } from '@lib/consent/rememberedVisit.ts'
 import { createMemoryStorage } from '../../memoryStorage.ts'
 
 const firstVisitDate = new Date('2026-10-15T10:00:00Z')

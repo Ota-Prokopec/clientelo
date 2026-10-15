@@ -3,7 +3,7 @@
 // every Data Source the module exports is verified and in that list, so no unverified or uncited figure ships.
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
-import * as figuresModule from '../../src/data/figures.ts'
+import * as figuresModule from '@data/figures.ts'
 import {
   calculateTypicalTerPercent,
   isVerified,
@@ -13,7 +13,7 @@ import {
   typicalBankEquityFundTer,
   type BankFund,
   type DataSource,
-} from '../../src/data/figures.ts'
+} from '@data/figures.ts'
 
 /** A Bank Fund at the given TER, whose name and Data Source don't matter to the computation. */
 const createBankFund = (terPercent: number): BankFund => ({

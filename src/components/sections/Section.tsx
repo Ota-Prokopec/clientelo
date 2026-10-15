@@ -1,9 +1,9 @@
 // The frame every numbered Section shares (design-identity.md#layout): a 2 px rule, the Section's number in `signal`
 // and its label on the grid's 3 rem left column, then the Section's content. The Page sets its width and gutter.
 import type { ComponentProps } from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '@lib/utils.ts'
 import type { SectionId } from '@/types.ts'
-import { NumberedLabel } from '../NumberedLabel.tsx'
+import { NumberedLabel } from '@/components/NumberedLabel.tsx'
 
 /** A Section's number on the grid: 01 First Screen, 02 Key Insight, 03 the other Interactive Tool, 04 the Lead Magnet. */
 export type SectionNumber = '01' | '02' | '03' | '04'

@@ -1,16 +1,16 @@
 // The page footer: every Data Source, the "not investment advice" disclaimer, the privacy-policy link, and "Nastavení
 // cookies", which reopens the Consent Bar so withdrawing consent is as easy as giving it.
 // Its bottom padding keeps the last Data Source clear of the Sticky CTA.
-import { Link } from 'react-router';
-import { Button } from '@/components/ui/button';
-import { CONSENT_BAR_ID } from '../ConsentBar.tsx';
-import { DataSourceNote } from '../DataSourceNote.tsx';
-import { listDataSources } from '@data/figures.ts';
+import { Link } from 'react-router'
+import { Button } from '@/components/ui/button.tsx'
+import { CONSENT_BAR_ID } from '@/components/ConsentBar.tsx'
+import { DataSourceNote } from '@/components/DataSourceNote.tsx'
+import { listDataSources } from '@data/figures.ts'
 
 export type FooterProps = {
   /** Reopens the Consent Bar. */
-  onConsentSettingsOpen: () => void;
-};
+  onConsentSettingsOpen: () => void
+}
 
 /**
  * Lists the Data Source of every figure, the disclaimer, the GDPR link and the way back to the Consent Bar.
@@ -43,5 +43,5 @@ export const Footer = ({ onConsentSettingsOpen }: FooterProps) => {
         </p>
       </div>
     </footer>
-  );
-};
+  )
+}

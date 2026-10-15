@@ -1,6 +1,6 @@
 // The struck-out Ticker (design-identity.md#colour): the ETF the Visitor's app won't sell, set giant in grey under a
 // `signal` bar.
-export type StruckTickerProps = { ticker: string };
+export type StruckTickerProps = { ticker: string }
 
 /**
  * A giant Ticker struck out by a slanted `signal` bar.
@@ -15,5 +15,5 @@ export const StruckTicker = ({ ticker }: StruckTickerProps) => {
       {ticker}
       <span aria-hidden="true" className="absolute -inset-x-2 top-[46%] h-3 -rotate-6 rounded-full bg-signal" />
     </s>
-  );
-};
+  )
+}

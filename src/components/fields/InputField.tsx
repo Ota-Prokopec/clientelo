@@ -2,9 +2,9 @@
 // the form's `control` by `name`. `type` makes it a text, email, number… field. The Lead Form's email is one.
 import { useId, type ComponentProps, type ReactNode } from 'react'
 import { Controller, type ControllerRenderProps, type FieldPathByValue, type FieldValues } from 'react-hook-form'
-import { Field, FieldError, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field.tsx'
+import { Input } from '@/components/ui/input.tsx'
+import { cn } from '@lib/utils.ts'
 import type { FieldProps } from './types.ts'
 
 /** What a field sits on: the page, or a Lead Ask's `block` band (design-identity.md#components). */

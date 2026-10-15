@@ -1,10 +1,9 @@
 // What one fund leaves of the amount, as a ruled row over a bar, like the bars in Ad Variant B's creative (docs/ads.md):
 // the Twin's bar is full, and the Bank Fund's stops at its share of the Twin's amount.
 import type { CSSProperties } from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '@lib/utils.ts'
 import { formatAmount } from '@lib/format.ts'
 import type { FundKind } from '@/types.ts'
-
 
 const terClassNameByFundKind: Record<FundKind, string> = {
   'bank-fund': 'text-signal',
@@ -35,7 +34,13 @@ export type RemainingAmountBarProps = {
  * // [████████████░░░░░░░░] a `signal` bar across 59.5 % of the row
  * ```
  */
-export const RemainingAmountBar = ({ name, terLabel, amountKc, shareOfTwinAmount, fundKind }: RemainingAmountBarProps) => {
+export const RemainingAmountBar = ({
+  name,
+  terLabel,
+  amountKc,
+  shareOfTwinAmount,
+  fundKind,
+}: RemainingAmountBarProps) => {
   // A custom property isn't one of CSSProperties' keys, so the object is widened to it (tailwind.md#one-way-to-style).
   const shareStyle = { '--share': shareOfTwinAmount } as CSSProperties
 

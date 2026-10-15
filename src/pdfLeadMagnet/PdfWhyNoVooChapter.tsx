@@ -35,8 +35,8 @@ export const PdfWhyNoVooChapter = () => {
         <PdfText style={pdfTw('font-bold text-brand')}>
           {spyl.ticker} <PdfSourcedFigure sources={[spyl.source]}>{formatPercent(spyl.terPercent)}</PdfSourcedFigure>
         </PdfText>
-        , stejně jako {voo.ticker} <PdfSourcedFigure sources={[voo.source]}>{formatPercent(voo.terPercent)}</PdfSourcedFigure>{' '}
-        ročně.
+        , stejně jako {voo.ticker}{' '}
+        <PdfSourcedFigure sources={[voo.source]}>{formatPercent(voo.terPercent)}</PdfSourcedFigure> ročně.
       </PdfText>
       <PdfText style={pdfTw('text-body text-muted-foreground')}>
         Výjimkou je Fio e-Broker: když jen provede váš pokyn a nic vám nedoporučuje, povinnost KID se na něj podle ČNB

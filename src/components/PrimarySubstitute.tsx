@@ -1,16 +1,16 @@
 // The Substitute the Fund Picker sets giant under the struck-out ETF: its Twin, or its closest alternative, with the
 // ruled facts that make the case for it.
-import type { Etf, UcitsEtf } from '@data/figures.ts';
-import { formatPercent } from '@lib/format.ts';
-import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts';
-import type { SubstituteRelation } from '@/types.ts';
-import { FactGrid } from './FactGrid.tsx';
+import type { Etf, UcitsEtf } from '@data/figures.ts'
+import { formatPercent } from '@lib/format.ts'
+import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts'
+import type { SubstituteRelation } from '@/types.ts'
+import { FactGrid } from './FactGrid.tsx'
 
 export type PrimarySubstituteProps = {
-  etf: Etf;
-  substitute: UcitsEtf;
-  relation: SubstituteRelation;
-};
+  etf: Etf
+  substitute: UcitsEtf
+  relation: SubstituteRelation
+}
 
 /**
  * The Substitute's label and giant Ticker, over its index, its TER beside the ETF's own, and the estate tax it avoids.
@@ -23,7 +23,7 @@ export type PrimarySubstituteProps = {
  * ```
  */
 export const PrimarySubstitute = ({ etf, substitute, relation }: PrimarySubstituteProps) => {
-  const relationPresentation = relationPresentationByRelation[relation];
+  const relationPresentation = relationPresentationByRelation[relation]
 
   return (
     <>
@@ -42,5 +42,5 @@ export const PrimarySubstitute = ({ etf, substitute, relation }: PrimarySubstitu
         ]}
       />
     </>
-  );
-};
+  )
+}

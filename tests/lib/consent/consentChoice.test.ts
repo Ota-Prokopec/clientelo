@@ -1,7 +1,7 @@
 // Tests the Visitor's choice in the Consent Bar: it is remembered with its date, counts as none once it is 12 months
 // old so the bar asks again, and a browser whose storage throws or holds a garbled record gets no choice, never an error.
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { readConsentChoice, rememberConsentChoice } from '../../../src/lib/consent/consentChoice.ts'
+import { readConsentChoice, rememberConsentChoice } from '@lib/consent/consentChoice.ts'
 import { createMemoryStorage } from '../../memoryStorage.ts'
 
 describe('readConsentChoice', () => {
@@ -49,16 +49,13 @@ describe('readConsentChoice', () => {
     'not json',
     '{"consentChoice":"maybe","chosenAt":"2026-10-15T10:00:00.000Z"}',
     '{"consentChoice":"granted"}',
-  ])(
-    'finds no choice in a garbled record (%s), so the Consent Bar asks again',
-    (storedConsentRecord) => {
-      const storage = createMemoryStorage()
-      storage.setItem('clientelo:consent', storedConsentRecord)
-      vi.stubGlobal('localStorage', storage)
+  ])('finds no choice in a garbled record (%s), so the Consent Bar asks again', (storedConsentRecord) => {
+    const storage = createMemoryStorage()
+    storage.setItem('clientelo:consent', storedConsentRecord)
+    vi.stubGlobal('localStorage', storage)
 
-      expect(readConsentChoice(new Date('2026-10-15T10:00:00Z'))).toBeNull()
-    },
-  )
+    expect(readConsentChoice(new Date('2026-10-15T10:00:00Z'))).toBeNull()
+  })
 
   it('finds no choice, and doesn’t throw, when the browser blocks storage', () => {
     // A browser that blocks site data throws as soon as the page reads `localStorage`.

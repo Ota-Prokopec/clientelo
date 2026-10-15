@@ -1,5 +1,5 @@
 // The Key Insight Section (docs/strategy.md#key-insight): why the Visitor's app won't sell them VOO, and why its Twin is no worse.
-import { DataSourceNote } from '../DataSourceNote.tsx'
+import { DataSourceNote } from '@/components/DataSourceNote.tsx'
 import {
   czechDividendTaxSource,
   findEtf,
@@ -31,9 +31,9 @@ export const KeyInsight = () => {
         {spy.ticker} nenabízejí.
       </p>
       <p>
-        K oběma ale existuje evropské dvojče: fond registrovaný v Irsku, který sleduje stejný index. Často za
-        stejný poplatek: {spyl.ticker} i {voo.ticker} stojí {formatPercent(spyl.terPercent)} ročně. Vaše aplikace ho
-        nabízí, jen vám neřekne proč.
+        K oběma ale existuje evropské dvojče: fond registrovaný v Irsku, který sleduje stejný index. Často za stejný
+        poplatek: {spyl.ticker} i {voo.ticker} stojí {formatPercent(spyl.terPercent)} ročně. Vaše aplikace ho nabízí,
+        jen vám neřekne proč.
       </p>
       <ul className="grid gap-4">
         <li className="border-t-2 border-heading pt-1.5">

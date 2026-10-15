@@ -1,6 +1,6 @@
 // Ad Variant B's First Screen: the Ad Promise's headline over the prefilled Fee Calculator, whose Kč difference shows
 // without scrolling at 375 px.
-import { FeeCalculator } from '../FeeCalculator.tsx'
+import { FeeCalculator } from '@/components/FeeCalculator.tsx'
 import { findUcitsEtf, typicalBankEquityFundTer } from '@data/figures.ts'
 import { feeCalculatorPrefill } from '@lib/feeCalculatorPrefill.ts'
 import { formatPercent, formatYears } from '@lib/format.ts'

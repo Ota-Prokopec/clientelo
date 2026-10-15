@@ -1,4 +1,4 @@
-# Items 1–4 of the post-modification checklist (README.md) on every PR and on
+# Items 1–5 of the post-modification checklist (README.md) on every PR and on
 # every push to main. Each check runs even when an earlier one failed, so a run
 # reports every failure. Node comes from engines.node and pnpm from
 # packageManager, both in package.json.
@@ -29,6 +29,9 @@ jobs:
           cache: pnpm
       - id: install
         run: pnpm install --frozen-lockfile
+      - name: format
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: pnpm format:check
       - name: lint
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: pnpm lint

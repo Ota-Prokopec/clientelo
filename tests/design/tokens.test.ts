@@ -2,7 +2,7 @@
 // weights the page loads, so the Lead Magnet PDF can't drift from the page's look (ADR-0003).
 import type { Root } from 'postcss'
 import { describe, expect, it } from 'vitest'
-import { fontFamilyByRole, fontWeights, lightColourByRole } from '../../src/design/tokens.ts'
+import { fontFamilyByRole, fontWeights, lightColourByRole } from '@/design/tokens.ts'
 import { indexCssStylesheet, isDarkRootRule, listThemeColourRoleNames } from '../indexCssStylesheet.ts'
 
 /**
@@ -35,7 +35,10 @@ const readFirstFontFamily = (stylesheet: Root, fontTokenName: string): string | 
   let firstFontFamily: string | undefined
   stylesheet.walkAtRules('theme', (themeAtRule) => {
     themeAtRule.walkDecls(fontTokenName, (fontDeclaration) => {
-      firstFontFamily = fontDeclaration.value.split(',')[0]?.trim().replaceAll(/^['"]|['"]$/g, '')
+      firstFontFamily = fontDeclaration.value
+        .split(',')[0]
+        ?.trim()
+        .replaceAll(/^['"]|['"]$/g, '')
     })
   })
   return firstFontFamily

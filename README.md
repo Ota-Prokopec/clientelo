@@ -113,6 +113,7 @@ Tři A/B Hypotheses seřazené podle očekávaného dopadu. Každá porovnává 
   | `money`    | „2 % nebo 0,03 % ročně? Spočítejte si rozdíl za 20 let.“ | „Při stejném vývoji trhu vám v bankovním fondu zůstane za 20 let zhruba o třetinu méně peněz než v ETF.“ |
 
   Testované headlines tvrdí jen to, co kryjí Data Sources. VOO i SPYL sledují S&P 500 a oba mají TER 0,03 % (stránky fondů od Vanguard a SPDR). Headline `pain` platí pro VOO, se kterým First Screen otevírá. U jiného vybraného ETF jmenuje jeho Substitute a stejný poplatek uvádí jen tam, kde TER opravdu sedí. „Zhruba o třetinu“ je stejné tvrzení jako v Ad Variant B ([docs/ads.md](./docs/ads.md)): Bank Fund „kolem 2 %“ (medián čtyř Bank Funds podle jejich KID, 2,06 %, zaokrouhlený na 2 %) proti SPYL, ((1 − 0,02) / (1 − 0,0003))^20 ≈ 0,67, a platí pro jakýkoli výnos trhu.
+
 - **Krok Funnel:** `arrival` → `lead_form_seen`. Headline rozhoduje, jestli Visitor zůstane i po prvních sekundách.
 - **Očekávaný lift:** +15 % (12 → 13,8 %). Headline s výsledkem dá odpověď i tomu, kdo nástroj nečte.
 - **Visitors na skupinu:** ~5 400 v každé Ad Variant.
@@ -170,6 +171,8 @@ Spouštějte z kořene repa.
 | `pnpm build`                       | Zkontroluje typy a sestaví produkční bundle, Lead Magnet PDF a Share Image                |
 | `pnpm preview`                     | Lokálně servíruje produkční build                                                         |
 | `pnpm lint`                        | Zkontroluje celé repo oxlintem                                                            |
+| `pnpm format`                      | Naformátuje celé repo Prettierem (`.prettierrc.json`, výjimky v `.prettierignore`)        |
+| `pnpm format:check`                | Zkontroluje, že je celé repo naformátované Prettierem                                     |
 | `pnpm check-types`                 | Zkontroluje typy aplikace a všech položek workspace                                       |
 | `pnpm test`                        | Spustí Vitest testy aplikace v `tests/` a pak testy všech položek workspace               |
 | `pnpm exec shadcn add <component>` | Přidá shadcn komponentu do `src/components/ui/` ([shadcn.md](./docs/standards/shadcn.md)) |
@@ -180,12 +183,13 @@ Spouštějte z kořene repa.
 
 ## Kontrolní seznam po úpravě
 
-Změna je hotová, když projde všechno níže. lefthook při každém commitu spustí `pnpm lint` a `pnpm check-types` a zkontroluje předmět commitu ([ADR-0001](./docs/adr/0001-git-rules-enforced-by-hooks.md)). CI ([`.github/workflows/ci.yml`](./.github/workflows/ci.yml)) spustí body 1–4 na každém PR a po každém pushi do `main`.
+Změna je hotová, když projde všechno níže. lefthook při každém commitu naformátuje stagované soubory Prettierem a výsledek přidá do commitu, spustí `pnpm lint` a `pnpm check-types` a zkontroluje předmět commitu ([ADR-0001](./docs/adr/0001-git-rules-enforced-by-hooks.md)). CI ([`.github/workflows/ci.yml`](./.github/workflows/ci.yml)) spustí body 1–5 na každém PR a po každém pushi do `main`.
 
-1. `pnpm lint`
-2. `pnpm check-types`
-3. `pnpm test` (Vitest: čistá logika aplikace v `tests/`, pak všechny položky workspace)
-4. `pnpm build`
-5. U změny UI: změna funguje v `pnpm dev` při šířce telefonu 375 px a Funnel Events se ukazují v konzoli. `submitLead()` a `submitSegment()` jsou trvalé stuby, které nic neposílají, protože stránka je jen frontend: chybový stav Lead Form nebo Segmentation Question zobrazíte otevřením stránky s `?submit-lead=fail` nebo `?submit-segment=fail` (jen v dev). Odeslaný Lead se pamatuje v `localStorage` pod `clientelo:lead`: smažte ho a uvidíte stránku znovu jako Visitor. Smažte `clientelo:consent` a znovu se ukáže Consent Bar, smažte `clientelo:visited` a přijdete jako `new_visitor`.
-6. U změny Lead Magnet PDF nebo čísla v něm: `/tahak-evropska-dvojcata-americkych-etf.pdf` se v `pnpm dev` na svých dvou stránkách pořád dobře čte. Build sám selže při jakémkoli jiném počtu stran.
-7. U změny Share Image: `/share-image.png` v `pnpm dev` se dá přečíst na první pohled v plné velikosti i zmenšený na 600 × 314 a písmena s háčky se vykreslí. Build sám selže u obrázku nad 300 kB.
+1. `pnpm format:check`
+2. `pnpm lint`
+3. `pnpm check-types`
+4. `pnpm test` (Vitest: čistá logika aplikace v `tests/`, pak všechny položky workspace)
+5. `pnpm build`
+6. U změny UI: změna funguje v `pnpm dev` při šířce telefonu 375 px a Funnel Events se ukazují v konzoli. `submitLead()` a `submitSegment()` jsou trvalé stuby, které nic neposílají, protože stránka je jen frontend: chybový stav Lead Form nebo Segmentation Question zobrazíte otevřením stránky s `?submit-lead=fail` nebo `?submit-segment=fail` (jen v dev). Odeslaný Lead se pamatuje v `localStorage` pod `clientelo:lead`: smažte ho a uvidíte stránku znovu jako Visitor. Smažte `clientelo:consent` a znovu se ukáže Consent Bar, smažte `clientelo:visited` a přijdete jako `new_visitor`.
+7. U změny Lead Magnet PDF nebo čísla v něm: `/tahak-evropska-dvojcata-americkych-etf.pdf` se v `pnpm dev` na svých dvou stránkách pořád dobře čte. Build sám selže při jakémkoli jiném počtu stran.
+8. U změny Share Image: `/share-image.png` v `pnpm dev` se dá přečíst na první pohled v plné velikosti i zmenšený na 600 × 314 a písmena s háčky se vykreslí. Build sám selže u obrázku nad 300 kB.

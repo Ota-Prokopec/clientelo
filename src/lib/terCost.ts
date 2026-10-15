@@ -41,7 +41,12 @@ const clampToNonNegativeAmountKc = (amountKc: number): number => (amountKc > 0 ?
  * // { bankFundAmountKc: 0, twinAmountKc: 0, differenceKc: 0, bankFundToTwinRatio: 0.595… }
  * ```
  */
-export const calculateTerCost = ({ years, bankFundTerPercent, twinTerPercent, ...args }: CalculateTerCostProps): TerCost => {
+export const calculateTerCost = ({
+  years,
+  bankFundTerPercent,
+  twinTerPercent,
+  ...args
+}: CalculateTerCostProps): TerCost => {
   const amountKc = clampToNonNegativeAmountKc(args.amountKc)
   // The share of the amount each fund keeps after one year's TER.
   const bankFundYearlyShare = 1 - bankFundTerPercent / 100

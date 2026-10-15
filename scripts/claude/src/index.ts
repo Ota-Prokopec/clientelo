@@ -6,25 +6,20 @@
  * which places it under `.claude/worktrees/`). Arguments given to the script
  * are forwarded to `claude`, so `pnpm claude --continue` works.
  */
-import { spawnSync } from 'node:child_process';
-import { basename } from 'node:path';
-import { styleText } from 'node:util';
-import { cancel, intro, isCancel, log, outro, select, text } from '@clack/prompts';
-import {
-  getCurrentWorktreePath,
-  getMainCheckoutPath,
-  listWorktrees,
-  type Worktree,
-} from '@repo/git-worktrees';
+import { spawnSync } from 'node:child_process'
+import { basename } from 'node:path'
+import { styleText } from 'node:util'
+import { cancel, intro, isCancel, log, outro, select, text } from '@clack/prompts'
+import { getCurrentWorktreePath, getMainCheckoutPath, listWorktrees, type Worktree } from '@repo/git-worktrees'
 
 /** The menu value of the "create a new worktree" entry; no path can equal it. */
-const CREATE_WORKTREE = Symbol('create-worktree');
+const CREATE_WORKTREE = Symbol('create-worktree')
 
 type LaunchClaudeProps = {
-  cwd: string;
+  cwd: string
   /** Arguments appended after the forwarded ones. */
-  args: string[];
-};
+  args: string[]
+}
 
 /**
  * Hands the terminal to `claude` and exits with its status. The extra `args` go
@@ -32,39 +27,32 @@ type LaunchClaudeProps = {
  * a bare `--worktree` would be taken as the name.
  */
 const launchClaude = ({ cwd, args }: LaunchClaudeProps): never => {
-  const { error, status } = spawnSync(
-    'claude',
-    ['--dangerously-skip-permissions', ...process.argv.slice(2), ...args],
-    {
-      cwd,
-      stdio: 'inherit',
-    },
-  );
+  const { error, status } = spawnSync('claude', ['--dangerously-skip-permissions', ...process.argv.slice(2), ...args], {
+    cwd,
+    stdio: 'inherit',
+  })
   if (error !== undefined) {
-    log.error(`Could not start claude: ${error.message}`);
-    process.exit(1);
+    log.error(`Could not start claude: ${error.message}`)
+    process.exit(1)
   }
-  process.exit(status ?? 1);
-};
+  process.exit(status ?? 1)
+}
 
-const currentPath = getCurrentWorktreePath();
-const mainCheckoutPath = getMainCheckoutPath();
+const currentPath = getCurrentWorktreePath()
+const mainCheckoutPath = getMainCheckoutPath()
 
 const labelWorktree = (worktree: Worktree): string => {
-  const tags = [
-    worktree.path === mainCheckoutPath && 'main checkout',
-    worktree.path === currentPath && 'current',
-  ];
-  return [basename(worktree.path), ...tags.filter((tag) => tag !== false)].join(' · ');
-};
+  const tags = [worktree.path === mainCheckoutPath && 'main checkout', worktree.path === currentPath && 'current']
+  return [basename(worktree.path), ...tags.filter((tag) => tag !== false)].join(' · ')
+}
 
-const worktrees = listWorktrees();
+const worktrees = listWorktrees()
 const orderedWorktrees = [
   ...worktrees.filter((worktree) => worktree.path === currentPath),
   ...worktrees.filter((worktree) => worktree.path !== currentPath),
-];
+]
 
-intro('Claude Code');
+intro('Claude Code')
 
 const choice = await select<string | typeof CREATE_WORKTREE>({
   message: 'Which worktree should Claude Code work in?',
@@ -80,32 +68,32 @@ const choice = await select<string | typeof CREATE_WORKTREE>({
       hint: 'under .claude/worktrees/',
     },
   ],
-});
+})
 
 if (isCancel(choice)) {
-  cancel('Claude Code was not started.');
-  process.exit(0);
+  cancel('Claude Code was not started.')
+  process.exit(0)
 }
 
 if (choice !== CREATE_WORKTREE) {
-  outro(`Starting Claude Code in ${choice}`);
-  launchClaude({ cwd: choice, args: [] });
+  outro(`Starting Claude Code in ${choice}`)
+  launchClaude({ cwd: choice, args: [] })
 }
 
 const name = await text({
   message: 'Name of the new worktree',
   placeholder: 'leave empty for a generated name',
   defaultValue: '',
-});
+})
 
 if (isCancel(name)) {
-  cancel('Claude Code was not started.');
-  process.exit(0);
+  cancel('Claude Code was not started.')
+  process.exit(0)
 }
 
-outro('Starting Claude Code in a new worktree');
+outro('Starting Claude Code in a new worktree')
 // Run from the main checkout so the worktree lands in its `.claude/worktrees/`, not nested inside the current one.
 launchClaude({
   cwd: mainCheckoutPath,
   args: name.trim() === '' ? ['--worktree'] : ['--worktree', name.trim()],
-});
+})

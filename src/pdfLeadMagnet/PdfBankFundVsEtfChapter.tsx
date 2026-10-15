@@ -70,8 +70,9 @@ export const PdfBankFundVsEtfChapter = () => {
       <PdfText style={pdfTw('text-body')}>
         Každý fond si každý rok strhne svůj poplatek (TER) z celé částky. Z každých 100 Kč, které vám za{' '}
         {formatYears(years)} nechá dvojče, vám tak bankovní fond nechá jen{' '}
-        <PdfSourcedFigure sources={terSources}>{formatAmount(bankFundToTwinRatio * 100, 'Kč')}</PdfSourcedFigure>. Trh se u obou vyvíjí stejně, a když roste, je rozdíl v korunách
-        ještě větší. Akciové fondy bank si obvykle strhávají kolem{' '}
+        <PdfSourcedFigure sources={terSources}>{formatAmount(bankFundToTwinRatio * 100, 'Kč')}</PdfSourcedFigure>. Trh
+        se u obou vyvíjí stejně, a když roste, je rozdíl v korunách ještě větší. Akciové fondy bank si obvykle strhávají
+        kolem{' '}
         <PdfSourcedFigure sources={typicalBankEquityFundTer.sources}>
           {formatPercent(typicalBankEquityFundTer.value)}
         </PdfSourcedFigure>{' '}

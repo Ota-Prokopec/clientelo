@@ -3,7 +3,7 @@
 import { parse, type HTMLElement } from 'node-html-parser'
 import { build, type Rolldown } from 'vite'
 import { beforeAll, describe, expect, it } from 'vitest'
-import { SHARE_IMAGE_FILE_NAME } from '../../src/data/shareImageFile.ts'
+import { SHARE_IMAGE_FILE_NAME } from '@data/shareImageFile.ts'
 
 /** The built files, keyed by their path in dist/. */
 type BuiltFileByName = Map<string, Uint8Array | string>

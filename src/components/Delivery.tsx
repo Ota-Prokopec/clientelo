@@ -5,9 +5,9 @@
 // pdf_download Funnel Event.
 import { ArrowDown } from 'lucide-react'
 import { LEAD_MAGNET_PDF_PATH } from '@data/leadMagnetFiles.ts'
-import { buttonVariants } from '@/components/ui/button-variants'
+import { buttonVariants } from '@/components/ui/button-variants.ts'
 import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
-import { cn } from '@/lib/utils'
+import { cn } from '@lib/utils.ts'
 import type { Lead } from '@/types.ts'
 import { SegmentationQuestion } from './SegmentationQuestion.tsx'
 
