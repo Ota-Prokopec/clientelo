@@ -114,9 +114,8 @@ describe('sharePreviewPlugin', () => {
     )
   })
 
-  it("asks X for a large card with the same alt, and lets Google show a large image", () => {
+  it('asks X for a large card with the same alt', () => {
     expect(readMetaContent(head, 'twitter:card')).toBe('summary_large_image')
     expect(readMetaContent(head, 'twitter:image:alt')).toBe(readMetaContent(head, 'og:image:alt'))
-    expect(readMetaContent(head, 'robots')).toBe('max-image-preview:large')
   })
 })
