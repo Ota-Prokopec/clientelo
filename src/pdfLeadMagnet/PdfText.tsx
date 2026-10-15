@@ -7,7 +7,7 @@ import { Text as ReactPdfText } from '@react-pdf/renderer'
 export type PdfTextProps = ComponentProps<typeof ReactPdfText>
 
 // textkit's "infinity": its line breaker never takes a break with this penalty.
-const forbiddenBreakPenalty = 10_000
+const FORBIDDEN_BREAK_PENALTY = 10_000
 
 /**
  * A react-pdf Text whose lines break only between words.
@@ -17,5 +17,5 @@ const forbiddenBreakPenalty = 10_000
  * ```
  */
 export const PdfText = (props: PdfTextProps) => {
-  return <ReactPdfText hyphenationPenalty={forbiddenBreakPenalty} {...props} />
+  return <ReactPdfText hyphenationPenalty={FORBIDDEN_BREAK_PENALTY} {...props} />
 }

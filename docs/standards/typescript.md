@@ -1,6 +1,6 @@
 # TypeScript
 
-How to write TypeScript in this repo. `pnpm lint` enforces the mechanical rules, and its messages say what to do; this file holds the judgment calls. Enums and constants have their own file: [enums-and-constants.md](../specification/enums-and-constants.md).
+How to write TypeScript in this repo. `pnpm lint` enforces the mechanical rules, and its messages say what to do; this file holds the judgment calls.
 
 ## Naming functions and variables
 
@@ -10,6 +10,37 @@ A reader must know from the name alone what a function does or what a variable h
 - **A variable's name says what the value is, not its shape or where it came from:** `moduleSpecifier`, not `raw`; `importBindings`, not `imports`; `scannedTargetPath`, not `target`. Never `context`, `entry`, `node`, `data`, `item` or `result` alone.
 - **A map is named `<value>By<Key>`:** `finalNameByOriginKey`, `moduleContextByPath`.
 - **A name stays the same across the code it passes through:** a value named `exportedName` in one function isn't `name` in the next, and a destructured property keeps its name.
+
+## Naming constants
+
+A real constant is named in `UPPER_SNAKE_CASE`: `SHARE_IMAGE_MAX_BYTES`, `LEAD_FORM_ID`, `CONSENT_CHOICE_STORAGE_KEY`. It is a module-level `const` whose value is fixed in the source and never changes:
+
+- **A primitive** (a number, string or boolean), a **regular expression** or a **symbol**.
+- **A value built only from literals and other constants**, by an operator or a call: `` `/${SHARE_IMAGE_FILE_NAME}` ``, `SHARE_IMAGE_HEIGHT - 2 * 48`, `Symbol('create-worktree')`, `JSON.stringify({ version: 1 })`.
+- **A `Set` of primitives that no code adds to or deletes from**, used as a lookup: `GH_TITLED_COMMANDS`.
+
+Every other `const` stays `camelCase`, even at module level:
+
+- **An object or array**, even a readonly one: a lookup map (`segmentLabelBySegment`), a data record (`etfs`), a config object (`amountSliderRange`), a list (`fontWeights`) or a style object.
+- **An instance with behaviour**, such as a formatter (`new Intl.NumberFormat(…)`) or a schema (`z.object(…)`).
+- **A value computed from data or read at runtime**: `formatYears(holdingPeriodExemption.value)`, `readHookInput()`, `Date.now()`.
+- **Mutable state**, such as a listener `Set` that code adds to.
+- **A function or component.**
+- **A local `const` inside a function.**
+
+When a constant fills a property, only the case differs, so the name still stays the same: `isSectionViewed({ viewportHeight: VIEWPORT_HEIGHT })`.
+
+```typescript
+// Right
+const STUBBED_REQUEST_DURATION_MS = 600;
+export const SHARE_IMAGE_FILE_NAME = 'share-image.png';
+export const SHARE_IMAGE_PATH = `/${SHARE_IMAGE_FILE_NAME}`;
+const percentFormat = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 4 });
+
+// Wrong
+export const shareImageMaxBytes = 300_000;
+const FUNNEL_EVENT_LISTENERS = new Set<FunnelEventListener>();
+```
 
 ## Header comments
 

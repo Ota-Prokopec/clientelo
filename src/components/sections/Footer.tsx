@@ -3,7 +3,7 @@
 // Its bottom padding keeps the last Data Source clear of the Sticky CTA.
 import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
-import { consentBarId } from '../ConsentBar.tsx';
+import { CONSENT_BAR_ID } from '../ConsentBar.tsx';
 import { DataSourceNote } from '../DataSourceNote.tsx';
 import { listDataSources } from '@data/figures.ts';
 
@@ -34,7 +34,7 @@ export const Footer = ({ onConsentSettingsOpen }: FooterProps) => {
           {/* A button, since it opens the bar rather than going anywhere, set like the link beside it. */}
           <Button
             variant="link"
-            aria-controls={consentBarId}
+            aria-controls={CONSENT_BAR_ID}
             onClick={onConsentSettingsOpen}
             className="h-auto p-0 text-foreground underline underline-offset-2"
           >

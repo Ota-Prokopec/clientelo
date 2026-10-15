@@ -3,7 +3,7 @@
 import { parse, type HTMLElement } from 'node-html-parser'
 import { build, type Rolldown } from 'vite'
 import { beforeAll, describe, expect, it } from 'vitest'
-import { shareImageFileName } from '../../src/data/shareImageFile.ts'
+import { SHARE_IMAGE_FILE_NAME } from '../../src/data/shareImageFile.ts'
 
 /** The built files, keyed by their path in dist/. */
 type BuiltFileByName = Map<string, Uint8Array | string>
@@ -78,7 +78,7 @@ describe('sharePreviewPlugin', () => {
   }, 60_000)
 
   it('emits the Share Image at 1200 × 630, small enough for WhatsApp', () => {
-    const shareImage = builtFileByName.get(shareImageFileName)
+    const shareImage = builtFileByName.get(SHARE_IMAGE_FILE_NAME)
 
     expect(shareImage).toBeInstanceOf(Uint8Array)
     if (!(shareImage instanceof Uint8Array)) return
@@ -105,7 +105,7 @@ describe('sharePreviewPlugin', () => {
 
     expect(isCleanAbsoluteUrl(shareImageUrl)).toBe(true)
     expect(new URL(shareImageUrl).origin).toBe(new URL(readMetaContent(head, 'og:url')).origin)
-    expect(new URL(shareImageUrl).pathname).toBe(`/${shareImageFileName}`)
+    expect(new URL(shareImageUrl).pathname).toBe(`/${SHARE_IMAGE_FILE_NAME}`)
     expect(readMetaContent(head, 'og:image:width')).toBe('1200')
     expect(readMetaContent(head, 'og:image:height')).toBe('630')
     expect(readMetaContent(head, 'og:image:type')).toBe('image/png')

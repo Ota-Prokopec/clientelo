@@ -4,7 +4,7 @@
 // gets the link again. Either way, Section 04 shows Chapters 2 and 3 unlocked below the band. A tap on the link is a
 // pdf_download Funnel Event.
 import { ArrowDown } from 'lucide-react'
-import { leadMagnetPdfPath } from '@data/leadMagnetFiles.ts'
+import { LEAD_MAGNET_PDF_PATH } from '@data/leadMagnetFiles.ts'
 import { buttonVariants } from '@/components/ui/button-variants'
 import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
 import { cn } from '@/lib/utils'
@@ -75,7 +75,7 @@ export const Delivery = ({ lead }: DeliveryProps) => {
       </div>
       {/* The same file the download started, for a browser that refused a download no tap started directly. */}
       <a
-        href={leadMagnetPdfPath}
+        href={LEAD_MAGNET_PDF_PATH}
         download
         onClick={trackPdfLinkDownload}
         className={cn(buttonVariants({ variant: 'secondary' }), 'h-12 justify-between px-5')}

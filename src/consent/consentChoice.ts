@@ -4,10 +4,10 @@
 import { z } from 'zod'
 
 /** The localStorage key of the record, namespaced like `clientelo:lead`. */
-const consentChoiceStorageKey = 'clientelo:consent'
+const CONSENT_CHOICE_STORAGE_KEY = 'clientelo:consent'
 
 /** How long a choice holds before the Consent Bar asks again. */
-const consentValidityMonths = 12
+const CONSENT_VALIDITY_MONTHS = 12
 
 const consentChoiceSchema = z.enum(['granted', 'denied'])
 
@@ -36,7 +36,7 @@ export type RememberConsentChoiceProps = {
  */
 export const rememberConsentChoice = ({ consentChoice, chosenAt }: RememberConsentChoiceProps): void => {
   try {
-    localStorage.setItem(consentChoiceStorageKey, JSON.stringify({ consentChoice, chosenAt: chosenAt.toISOString() }))
+    localStorage.setItem(CONSENT_CHOICE_STORAGE_KEY, JSON.stringify({ consentChoice, chosenAt: chosenAt.toISOString() }))
   } catch {
     // Without storage the choice is forgotten on the next reload, so the Consent Bar only asks again.
   }
@@ -56,7 +56,7 @@ export const rememberConsentChoice = ({ consentChoice, chosenAt }: RememberConse
 export const readConsentChoice = (now: Date): ConsentChoice | null => {
   let storedConsentRecord: string | null
   try {
-    storedConsentRecord = localStorage.getItem(consentChoiceStorageKey)
+    storedConsentRecord = localStorage.getItem(CONSENT_CHOICE_STORAGE_KEY)
   } catch {
     return null
   }
@@ -72,6 +72,6 @@ export const readConsentChoice = (now: Date): ConsentChoice | null => {
   if (!consentRecordParse.success) return null
 
   const consentExpiry = new Date(consentRecordParse.data.chosenAt)
-  consentExpiry.setUTCMonth(consentExpiry.getUTCMonth() + consentValidityMonths)
+  consentExpiry.setUTCMonth(consentExpiry.getUTCMonth() + CONSENT_VALIDITY_MONTHS)
   return now < consentExpiry ? consentRecordParse.data.consentChoice : null
 }

@@ -5,7 +5,7 @@ import { czechTaxFacts, czechTaxSources } from '../../src/data/czechTaxFacts.ts'
 import { czechDividendTaxSource, czechTaxFigures } from '../../src/data/figures.ts'
 
 /** A non-breaking space, which the page's Czech amounts put between digit groups and before the unit. */
-const nbsp = '\u00a0'
+const NBSP = '\u00a0'
 
 describe('czechTaxFacts', () => {
   it('lists the four rules in the PDF’s order', () => {
@@ -29,8 +29,8 @@ describe('czechTaxFacts', () => {
   it('states the yearly exemption for small sales in Kč', () => {
     expect(czechTaxFacts[1]).toEqual({
       label: 'Malé prodeje',
-      figure: `do 100${nbsp}000${nbsp}Kč ročně`,
-      explanation: `Když za rok prodáte cenné papíry celkem nejvýš za 100${nbsp}000${nbsp}Kč, příjem je osvobozený i bez časového testu.`,
+      figure: `do 100${NBSP}000${NBSP}Kč ročně`,
+      explanation: `Když za rok prodáte cenné papíry celkem nejvýš za 100${NBSP}000${NBSP}Kč, příjem je osvobozený i bez časového testu.`,
       source: czechTaxFigures.yearlyIncomeExemption.source,
     })
   })

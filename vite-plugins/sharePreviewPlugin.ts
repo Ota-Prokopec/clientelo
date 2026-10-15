@@ -3,7 +3,7 @@
 // need as absolute URLs. `vite build` emits the image into dist/, and `pnpm dev` serves it, rendered again after any
 // file changes. A render error, or an image too large for WhatsApp, fails the build.
 import { runnerImport, type AliasOptions, type Plugin } from 'vite'
-import { shareImageFileName, shareImageMaxBytes, shareImagePath } from '../src/data/shareImageFile.ts'
+import { SHARE_IMAGE_FILE_NAME, SHARE_IMAGE_MAX_BYTES, SHARE_IMAGE_PATH } from '../src/data/shareImageFile.ts'
 
 export type SharePreviewPluginProps = {
   /** The app's `resolve.alias`, which src/shareImage/ imports through. */
@@ -19,10 +19,10 @@ export type BuildShareImageProps = SharePreviewPluginProps & {
 type RenderShareImageModule = { renderShareImage: () => Promise<Uint8Array> }
 
 /** The placeholder index.html writes before every absolute URL, replaced with the origin at build time. */
-const siteOriginPlaceholder = '%SITE_ORIGIN%'
+const SITE_ORIGIN_PLACEHOLDER = '%SITE_ORIGIN%'
 
 /** Where `pnpm preview` serves a local build, the origin when Vercel's isn't set. */
-const localPreviewOrigin = 'http://localhost:4173'
+const LOCAL_PREVIEW_ORIGIN = 'http://localhost:4173'
 
 /**
  * The origin the page is shared from: Vercel's production domain, or `pnpm preview`'s when the build runs elsewhere.
@@ -33,7 +33,7 @@ const localPreviewOrigin = 'http://localhost:4173'
  * ```
  */
 const resolveSiteOrigin = (productionHostname: string | undefined): string =>
-  productionHostname ? `https://${productionHostname}` : localPreviewOrigin
+  productionHostname ? `https://${productionHostname}` : LOCAL_PREVIEW_ORIGIN
 
 /**
  * Renders the Share Image. Throws when it's larger than WhatsApp shows.
@@ -50,9 +50,9 @@ const buildShareImage = async ({ root, alias }: BuildShareImageProps): Promise<U
   })
   const shareImage = await module.renderShareImage()
 
-  if (shareImage.byteLength > shareImageMaxBytes) {
+  if (shareImage.byteLength > SHARE_IMAGE_MAX_BYTES) {
     throw new Error(
-      `The Share Image is ${shareImage.byteLength} bytes, but WhatsApp drops one over ${shareImageMaxBytes}. ` +
+      `The Share Image is ${shareImage.byteLength} bytes, but WhatsApp drops one over ${SHARE_IMAGE_MAX_BYTES}. ` +
         'Simplify it (docs/specifications/design-identity.md#share-image).',
     )
   }
@@ -89,7 +89,7 @@ export const sharePreviewPlugin = ({ alias }: SharePreviewPluginProps): Plugin =
      */
     transformIndexHtml: {
       order: 'pre',
-      handler: (indexHtml) => indexHtml.replaceAll(siteOriginPlaceholder, siteOrigin),
+      handler: (indexHtml) => indexHtml.replaceAll(SITE_ORIGIN_PLACEHOLDER, siteOrigin),
     },
     /**
      * Serves the Share Image in `pnpm dev`, rendered on the first request and again on the first one after any file
@@ -107,7 +107,7 @@ export const sharePreviewPlugin = ({ alias }: SharePreviewPluginProps): Plugin =
       })
 
       server.middlewares.use((request, response, next) => {
-        if (request.url?.split('?')[0] !== shareImagePath) return next()
+        if (request.url?.split('?')[0] !== SHARE_IMAGE_PATH) return next()
 
         shareImage ??= buildShareImage({ root, alias })
         shareImage.then(
@@ -125,7 +125,7 @@ export const sharePreviewPlugin = ({ alias }: SharePreviewPluginProps): Plugin =
     /** Emits the Share Image into dist/ beside the page. A thrown error fails `vite build`. */
     async generateBundle() {
       const builtShareImage = await buildShareImage({ root, alias })
-      this.emitFile({ type: 'asset', fileName: shareImageFileName, source: builtShareImage })
+      this.emitFile({ type: 'asset', fileName: SHARE_IMAGE_FILE_NAME, source: builtShareImage })
     },
   }
 }

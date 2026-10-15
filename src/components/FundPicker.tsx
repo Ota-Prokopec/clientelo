@@ -20,7 +20,7 @@ export type FundPickerProps = {
 };
 
 /** The ETF preselected for `pain`, its fallback and Section 03: the one Ad Variant A names. */
-const preselectedEtfTicker = 'VOO';
+const PRESELECTED_ETF_TICKER = 'VOO';
 
 /**
  * The Fund Picker: a segmented choice of US ETF, the ETF struck out over its Twin or closest alternative with their
@@ -32,7 +32,7 @@ const preselectedEtfTicker = 'VOO';
  * ```
  */
 export const FundPicker = ({ renderHeadline }: FundPickerProps) => {
-  const [pickedEtfTicker, setPickedEtfTicker] = useState<string>(preselectedEtfTicker);
+  const [pickedEtfTicker, setPickedEtfTicker] = useState<string>(PRESELECTED_ETF_TICKER);
   const etfSubstitutes = findSubstitutes(pickedEtfTicker);
   const { etf, relation, substitutes } = etfSubstitutes;
   const [primarySubstitute, ...otherSubstitutes] = substitutes;

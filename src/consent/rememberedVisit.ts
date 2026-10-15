@@ -5,7 +5,7 @@
 import { readConsentChoice } from './consentChoice.ts'
 
 /** The localStorage key of the flag, namespaced like `clientelo:lead`. */
-const rememberedVisitStorageKey = 'clientelo:visited'
+const REMEMBERED_VISIT_STORAGE_KEY = 'clientelo:visited'
 
 /**
  * Brings the flag in line with the Visitor's consent: stores it while consent is given, and removes it otherwise, after
@@ -18,8 +18,8 @@ const rememberedVisitStorageKey = 'clientelo:visited'
  */
 export const syncRememberedVisit = (now: Date): void => {
   try {
-    if (readConsentChoice(now) === 'granted') localStorage.setItem(rememberedVisitStorageKey, '1')
-    else localStorage.removeItem(rememberedVisitStorageKey)
+    if (readConsentChoice(now) === 'granted') localStorage.setItem(REMEMBERED_VISIT_STORAGE_KEY, '1')
+    else localStorage.removeItem(REMEMBERED_VISIT_STORAGE_KEY)
   } catch {
     // Without storage the Visit is forgotten, so the next one counts as a new Visitor's.
   }
@@ -37,7 +37,7 @@ export const syncRememberedVisit = (now: Date): void => {
 export const readHasVisitedBefore = (now: Date): boolean => {
   if (readConsentChoice(now) !== 'granted') return false
   try {
-    return localStorage.getItem(rememberedVisitStorageKey) === '1'
+    return localStorage.getItem(REMEMBERED_VISIT_STORAGE_KEY) === '1'
   } catch {
     return false
   }

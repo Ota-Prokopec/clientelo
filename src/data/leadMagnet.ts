@@ -5,7 +5,7 @@ import { feeCalculatorPrefill } from '@lib/feeCalculatorPrefill.ts'
 import { formatYears } from '@lib/format.ts'
 
 /** The Lead Magnet's title, as the PDF and every Lead Ask set it. */
-export const leadMagnetTitle = 'Tahák: evropská dvojčata amerických ETF'
+export const LEAD_MAGNET_TITLE = 'Tahák: evropská dvojčata amerických ETF'
 
 /** One Chapter of the Lead Magnet PDF: its number in the PDF, and its line in the contents list. */
 export type LeadMagnetChapter = { number: number; contentsLine: string }

@@ -11,7 +11,7 @@ export type PdfSourcedFigureProps = {
 }
 
 /** The marker an unverified figure carries, which the PDF's header explains. */
-export const unverifiedMarker = '*'
+export const UNVERIFIED_MARKER = '*'
 
 /**
  * The figure as given, with the marker unless every Data Source it comes from is verified. It takes the surrounding
@@ -26,7 +26,7 @@ export const PdfSourcedFigure = ({ sources, children }: PdfSourcedFigureProps) =
   return (
     <PdfText>
       {children}
-      {sources.every(isVerified) ? '' : unverifiedMarker}
+      {sources.every(isVerified) ? '' : UNVERIFIED_MARKER}
     </PdfText>
   )
 }

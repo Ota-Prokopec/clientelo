@@ -7,7 +7,7 @@ import type { ConsentChoice } from '@/consent/consentChoice.ts'
 import { cn } from '@/lib/utils'
 
 /** The bar's id, which the footer's "Nastavení cookies" names as the element it opens. */
-export const consentBarId = 'consent-bar'
+export const CONSENT_BAR_ID = 'consent-bar'
 
 export type ConsentBarProps = {
   /** Whether the Sticky CTA is on the page, so the bar sits above it; once the Visitor is a Lead, it is gone. */
@@ -28,7 +28,7 @@ export type ConsentBarProps = {
 export const ConsentBar = ({ isAboveStickyCta, onChoose }: ConsentBarProps) => {
   return (
     <section
-      id={consentBarId}
+      id={CONSENT_BAR_ID}
       aria-label="Nastavení cookies"
       className={cn(
         'fixed inset-x-4 z-40 mx-auto grid max-w-md gap-3 rounded-xl bg-block p-4 text-block-foreground',

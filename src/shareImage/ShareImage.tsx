@@ -3,13 +3,13 @@
 // flexbox styles instead of Tailwind classes, from the same tokens. It carries no figure, since a figure on it couldn't
 // carry its Data Source.
 import type { CSSProperties } from 'react'
-import { shareImageHeight, shareImageWidth } from '@data/shareImageFile.ts'
+import { SHARE_IMAGE_HEIGHT, SHARE_IMAGE_WIDTH } from '@data/shareImageFile.ts'
 import { fontFileFamilies } from '@/design/fontFiles.ts'
 import { lightColourByRole } from '@/design/tokens.ts'
 import { findSubstitutes } from '@lib/substitutes.ts'
 
 /** The column everything sits in, inside the central square that WhatsApp and iMessage crop to, with a margin. */
-const contentWidth = shareImageHeight - 2 * 48
+const CONTENT_WIDTH = SHARE_IMAGE_HEIGHT - 2 * 48
 
 /** A giant Ticker: the page's `ticker` role, scaled up to the image. */
 const tickerStyle: CSSProperties = {
@@ -21,9 +21,9 @@ const tickerStyle: CSSProperties = {
 
 /** A 2 px rule in `heading` run out to both edges, the way the page's grid separates figures (design-identity.md#layout). */
 const ruleStyle: CSSProperties = {
-  width: shareImageWidth,
+  width: SHARE_IMAGE_WIDTH,
   height: 2,
-  marginLeft: -(shareImageWidth - contentWidth) / 2,
+  marginLeft: -(SHARE_IMAGE_WIDTH - CONTENT_WIDTH) / 2,
   backgroundColor: lightColourByRole.heading,
 }
 
@@ -47,13 +47,13 @@ export const ShareImage = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: shareImageWidth,
-        height: shareImageHeight,
+        width: SHARE_IMAGE_WIDTH,
+        height: SHARE_IMAGE_HEIGHT,
         backgroundColor: lightColourByRole.background,
         fontFamily: fontFileFamilies.map(({ family }) => `'${family}'`).join(', '),
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', width: contentWidth }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: CONTENT_WIDTH }}>
         <div style={{ display: 'flex', position: 'relative', alignSelf: 'flex-start', paddingBottom: 20 }}>
           <span style={{ ...tickerStyle, color: lightColourByRole['muted-foreground'] }}>{etf.ticker}</span>
           <div

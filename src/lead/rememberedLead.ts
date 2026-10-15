@@ -4,7 +4,7 @@
 import type { Lead } from '@/types.ts'
 
 /** The localStorage key of the flag, namespaced so it can't collide with another app on the same origin. */
-const rememberedLeadStorageKey = 'clientelo:lead'
+const REMEMBERED_LEAD_STORAGE_KEY = 'clientelo:lead'
 
 /**
  * Sets the flag. Does nothing when the browser blocks storage or refuses the write.
@@ -15,7 +15,7 @@ const rememberedLeadStorageKey = 'clientelo:lead'
  */
 export const rememberLead = (): void => {
   try {
-    localStorage.setItem(rememberedLeadStorageKey, '1')
+    localStorage.setItem(REMEMBERED_LEAD_STORAGE_KEY, '1')
   } catch {
     // Without storage the Lead is forgotten on the next reload, which only locks the content again.
   }
@@ -31,7 +31,7 @@ export const rememberLead = (): void => {
  */
 export const readRememberedLead = (): Lead | null => {
   try {
-    return localStorage.getItem(rememberedLeadStorageKey) === '1' ? { kind: 'returning' } : null
+    return localStorage.getItem(REMEMBERED_LEAD_STORAGE_KEY) === '1' ? { kind: 'returning' } : null
   } catch {
     return null
   }

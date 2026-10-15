@@ -2,7 +2,7 @@
 // (design-identity.md#components). It's drawn in markup, not as an image of the PDF, and reads the title and the Twin
 // from the same data module the PDF renders, so the preview never names anything the file doesn't.
 import { Card } from '@/components/ui/card'
-import { leadMagnetTitle } from '@data/leadMagnet.ts'
+import { LEAD_MAGNET_TITLE } from '@data/leadMagnet.ts'
 import { findSubstitutes } from '@lib/substitutes.ts'
 
 /**
@@ -27,7 +27,7 @@ export const LeadMagnetThumbnail = () => {
       data-palette="light"
       className="aspect-[1/1.414] w-24 gap-2 p-2.5 ring-0"
     >
-      <p className="text-label text-heading">{leadMagnetTitle}</p>
+      <p className="text-label text-heading">{LEAD_MAGNET_TITLE}</p>
       <dl className="grid grid-cols-2 border-t-2 border-heading pt-1">
         <dt className="text-note text-muted-foreground line-through">{etf.ticker}</dt>
         <dd className="text-note font-bold text-brand">{firstTwin?.ticker}</dd>
