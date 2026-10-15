@@ -2,6 +2,7 @@
 // that every other Lead Ask and the Sticky CTA lead to. Once the Visitor is a Lead, Delivery replaces the Lead Form on
 // the band, and Chapters 2 and 3 unlock below it.
 import { leadMagnetChapters } from '@data/leadMagnet.ts'
+import type { LeadSubmission } from '@/schemas/leadSchema.ts'
 import type { Lead } from '@/types.ts'
 import { CzechTaxFactList } from '@/components/CzechTaxFactList.tsx'
 import { LeadAskBand } from '@/components/LeadAskBand.tsx'
@@ -14,7 +15,7 @@ export type LeadMagnetSectionProps = {
   /** The Visitor as a Lead once they are one, or null while they are a Visitor. */
   lead: Lead | null
   /** Called once the Lead Form is submitted, with the email the new Lead left. */
-  onLeadFormSubmitted: (email: string) => void
+  onLeadFormSubmitted: (leadSubmission: LeadSubmission) => void
 }
 
 /**

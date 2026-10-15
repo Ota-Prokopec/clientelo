@@ -81,11 +81,11 @@ The moment and place the page asks for the contact, chosen so the Lead Magnet's 
 _Avoid_: CTA (a CTA is any button), gate, popup.
 
 **Delivery**:
-What a Lead receives once the Lead Form is submitted: the PDF's download and its link, Chapters 2 and 3 unlocked on the page, the Segmentation Question, and the Welcome Emails sent to their contact.
+What a Lead receives once the Lead Form is submitted: the PDF's download and its link, Chapters 2 and 3 unlocked on the page, and the Welcome Emails sent to their contact, with the Segmentation Question when they gave the Welcome Emails Consent.
 _Avoid_: Thank-you page, reward.
 
 **Segmentation Question**:
-The one optional question a new Lead is asked during Delivery: where they invest. Their answer is their Segment.
+The one optional question a new Lead who gave the Welcome Emails Consent is asked during Delivery: where they invest. Their answer is their Segment.
 _Avoid_: Survey, profiling, onboarding.
 
 **Segment**:
@@ -93,8 +93,12 @@ A Lead's answer to the Segmentation Question, such as XTB, a bank fund or "Zatí
 _Avoid_: Answer, category, broker (a bank fund and "nowhere yet" are Segments too).
 
 **Welcome Email**:
-One of the three emails a new Lead receives during Delivery, on day 0, 2 and 5. Their copy is in [docs/welcome-emails.md](./docs/welcome-emails.md).
+One of the three emails a new Lead receives during Delivery, on day 0, 2 and 5. Day 0 carries the PDF and goes to every new Lead; day 2 and 5 only to a Lead who gave the Welcome Emails Consent. Their copy is in [docs/welcome-emails.md](./docs/welcome-emails.md).
 _Avoid_: Newsletter, drip, nurture sequence.
+
+**Welcome Emails Consent**:
+The Lead Form's unticked checkbox by which a Visitor asks for the day 2 and day 5 Welcome Emails. The PDF never depends on it, and ignoring it is no consent. Only a Lead who gave it is asked the Segmentation Question.
+_Avoid_: Marketing consent, newsletter opt-in, GDPR checkbox.
 
 **Sticky CTA**:
 The button that stays on screen on a phone and takes the Visitor to the Lead Form from anywhere on the page.

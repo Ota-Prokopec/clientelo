@@ -14,10 +14,11 @@ export type FundKind = 'bank-fund' | 'twin'
 export type SubstituteRelation = 'twin' | 'closest-alternative'
 
 /**
- * A Lead as the page knows them: a new one, who submitted the Lead Form on this visit with their email, or a returning
- * one, whom an earlier visit remembers. The page never stores the email, so a returning Lead has none.
+ * A Lead as the page knows them: a new one, who submitted the Lead Form on this visit with their email and their answer
+ * to the Welcome Emails Consent, or a returning one, whom an earlier visit remembers. The page never stores the email,
+ * so a returning Lead has none.
  */
-export type Lead = { kind: 'new'; email: string } | { kind: 'returning' }
+export type Lead = { kind: 'new'; email: string; hasWelcomeEmailsConsent: boolean } | { kind: 'returning' }
 
 /** A new Lead's answer to the Segmentation Question: where they invest. It picks their Day 5 Welcome Email. */
 export type Segment = 'xtb' | 'trading-212' | 'revolut' | 'fio-patria' | 'robo-advisor' | 'bank-fund' | 'nowhere-yet'

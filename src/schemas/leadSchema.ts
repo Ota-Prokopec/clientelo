@@ -10,7 +10,12 @@ export const leadSchema = z.object({
     .min(1, 'Vyplňte prosím e-mail, na který vám tahák pošleme.')
     .pipe(z.email('Tohle nevypadá jako e-mail. Zkontrolujte ho prosím.')),
   honeypot: z.string(),
+  // The Welcome Emails Consent: an unticked checkbox, so only a tick consents to the Day 2 and Day 5 Welcome Emails.
+  welcomeEmailsConsent: z.boolean(),
 })
 
-/** What the Lead Form submits once it is valid: the Visitor's trimmed email and the honeypot a person never fills. */
+/**
+ * What the Lead Form submits once it is valid: the Visitor's trimmed email, the honeypot a person never fills, and
+ * whether they ticked the Welcome Emails Consent.
+ */
 export type LeadSubmission = z.output<typeof leadSchema>
