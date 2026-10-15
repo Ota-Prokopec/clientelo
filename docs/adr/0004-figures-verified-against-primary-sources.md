@@ -12,7 +12,7 @@ The page, the Lead Magnet PDF, the Ads and the Welcome Emails show figures (a TE
   | US estate tax         | irs.gov                                                                                                                                |
   | PRIIPs                | EUR-Lex                                                                                                                                |
   | ČNB                   | cnb.cz                                                                                                                                 |
-  | What a broker sells   | That broker's own help centre                                                                                                          |
+  | What a broker sells   | That broker's own help centre or, when it is silent, its team's reply on its own community, dated in the source's name                 |
 
 - **A figure is verified by reading it there.** `url` holds the page it was read on, and `verifiedOn` the ISO date it was read. A figure that can't be read there, for example behind a country or investor-type gate, stays unverified. It is never taken from a secondary site instead.
 - **The evidence is a verbatim quote in the PR** that verifies the figure: the URL and the line that states it.

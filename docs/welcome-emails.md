@@ -30,7 +30,7 @@ Sent at once, so the Lead has the PDF in their inbox even if the download on the
 >
 > tady je slíbený tahák: [Stáhnout tahák (PDF, 2 strany)]({{pdf_url}})
 >
-> Krátce, proč vám XTB, Trading 212 ani Revolut VOO nenabídnou **(verify Trading 212 and Revolut)**: pravidla EU (nařízení PRIIPs) dovolují prodat fond drobnému investorovi, jen když k němu existuje dokument KID. Američtí emitenti jako Vanguard ho nevydávají.
+> Krátce, proč vám XTB, Trading 212 ani Revolut VOO nenabídnou: pravidla EU (nařízení PRIIPs) dovolují prodat fond drobnému investorovi, jen když k němu existuje dokument KID. Američtí emitenti jako Vanguard ho nevydávají.
 >
 > O index S&P 500 tím ale nepřicházíte. Evropské dvojče SPYL, fond registrovaný v Irsku, sleduje stejný index za stejný poplatek: SPYL i VOO stojí 0,03 % ročně. A protože sídlí v Evropě, vašim dědicům u něj nehrozí americká dědická daň, která u fondu z USA dopadá na majetek nad 60 000 USD **(verify)**.
 >
@@ -38,7 +38,7 @@ Sent at once, so the Lead has the PDF in their inbox even if the download on the
 >
 > Za dva dny vám pošleme, kdy z prodeje ETF neplatíte žádnou daň.
 >
-> Zdroje: Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13; XTB, centrum nápovědy: ETF z USA bez dokumentu KID; Vanguard, stránka fondu VOO; SPDR, stránka fondu SPYL; IRS, estate tax pro nerezidenty (US-situs assets).
+> Zdroje: Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13; XTB, centrum nápovědy: ETF z USA bez dokumentu KID; Trading 212, odpověď týmu v komunitě z 2. 8. 2024: ETF z USA bez souladu s PRIIPs; Revolut, centrum nápovědy: jen ETF registrované v EU; Vanguard, stránka fondu VOO; SPDR, stránka fondu SPYL; IRS, estate tax pro nerezidenty (US-situs assets).
 >
 > Nejde o investiční doporučení. Investování nese riziko ztráty.
 > [Odhlásit se z odběru]({{unsubscribe_url}})
