@@ -8,8 +8,11 @@ export type RelationPresentation = {
   substituteLabel: string;
   indexLabel: string;
   otherSubstitutesLabel: string;
-  /** The Twin table's heading for a group of Substitutes, followed by their index and the ETFs they replace. */
-  substituteGroupLabel: string;
+  /**
+   * The Twin table's heading for a group of Substitutes, followed by their index and the ETFs they replace: `one` for a
+   * group of a single Substitute, `many` for more.
+   */
+  substituteGroupLabel: { one: string; many: string };
   /** The colour of the Substitute's label, Ticker and TER, joined to a size in a plain string, never through `cn`. */
   colorClassName: 'text-brand' | 'text-heading';
 };
@@ -21,14 +24,14 @@ export const relationPresentationByRelation: Record<SubstituteRelation, Relation
     substituteLabel: 'Dvojče',
     indexLabel: 'Stejný index',
     otherSubstitutesLabel: 'Další dvojčata',
-    substituteGroupLabel: 'Dvojčata na stejný index',
+    substituteGroupLabel: { one: 'Dvojče na stejný index', many: 'Dvojčata na stejný index' },
     colorClassName: 'text-brand',
   },
   'closest-alternative': {
     substituteLabel: 'Nejbližší alternativa',
     indexLabel: 'Podobný index',
     otherSubstitutesLabel: 'Další alternativy',
-    substituteGroupLabel: 'Nejbližší alternativy na podobný index',
+    substituteGroupLabel: { one: 'Nejbližší alternativa na podobný index', many: 'Nejbližší alternativy na podobný index' },
     colorClassName: 'text-heading',
   },
 };

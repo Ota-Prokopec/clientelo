@@ -118,6 +118,8 @@ describe('listDataSources', () => {
         'Trading 212, odpověď týmu v komunitě z 2. 8. 2024: ETF z USA bez souladu s PRIIPs',
         'Revolut, centrum nápovědy: jen ETF registrované v EU',
         'ČNB, stanovisko RS2018-12, část B.2',
+        'Fio banka, stránka ETF: obchodování i s americkými ETF',
+        'Zákon o daních z příjmů, § 8 odst. 1 písm. a) a odst. 4',
       ]),
     )
   })

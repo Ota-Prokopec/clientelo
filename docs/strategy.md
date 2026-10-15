@@ -15,7 +15,7 @@ Two personas, one per Ad Variant. Each Ad Variant speaks to one persona, and its
 - Tried to buy one of them and got refused, or saw that the app doesn't list it. Doesn't know why, and suspects they're missing out.
 - Wants: the fund they can actually buy that does the same thing, at the same fee, without getting the taxes wrong.
 
-Fio e-Broker and Patria clients are deliberately left out: those brokers sell US ETFs to retail clients, so these investors never meet the refusal Ad A is built on.
+Fio e-Broker and Patria clients are deliberately left out: those brokers let retail clients trade US ETFs, so these investors never meet the refusal Ad A is built on. Only Fio says so on its own pages, so the page and the Lead Magnet name Fio alone (see the exception below).
 
 ### Bank-Fund Saver (Ad Variant B, "money")
 
@@ -30,7 +30,7 @@ Fio e-Broker and Patria clients are deliberately left out: those brokers sell US
 What backs it (researched 2026-10-11):
 
 - **The block.** PRIIPs ([Regulation (EU) No 1286/2014](https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:32014R1286)) Art. 5 and 13 require a KID before a PRIIP is sold to a retail investor; US issuers don't publish one. XTB states it directly: "We are unable to offer ETFs from the United States (due to the lack of KIDs documentation)" ([XTB help centre](https://www.xtb.com/int/help-center/stocks-and-etfs/adding-a-new-instrument-to-the-offer)). Trading 212's team said on 2 August 2024 that it "can't offer US ETFs that are not PRIIPS compliant/UCITS certified" ([Trading 212 community](https://community.trading212.com/t/view-only-instrument/73602/7)); its help centre doesn't cover it. Revolut offers Czech clients only "non-complex ETFs that are registered in the European Union" ([Revolut help centre](https://help.revolut.com/en-CZ/help/wealth/stocks/getting-started-with-etf-s/which-types-of-etf-are-available-in-the-revolut-app/)).
-- **The exception.** ČNB's Q&A [RS2018-12](https://www.cnb.cz/cs/dohled-financni-trh/legislativni-zakladna/stanoviska-k-regulaci-financniho-trhu/RS2018-12/) (section B.2) says an execution-only broker is not bound by the KID duty, so Fio e-Broker ([fio.cz](https://www.fio.cz/akcie-investice/etf)) and Patria sell US ETFs to retail clients. The page and the Lead Magnet say so openly (see below).
+- **The exception.** ČNB's Q&A [RS2018-12](https://www.cnb.cz/cs/dohled-financni-trh/legislativni-zakladna/stanoviska-k-regulaci-financniho-trhu/RS2018-12/) (section B.2) says an execution-only broker is not bound by the KID duty. Fio states on its own ETF page (read 2026-10-15) that clients can trade US ETFs there: "U nás můžete obchodovat i s americkými ETF" ([fio.cz](https://www.fio.cz/akcie-investice/etf)). Patria's own pages describe execution-only ETF trading but never say a US-domiciled ETF is among them, and only aggregators do, so the page and the Lead Magnet name Fio alone and say so openly (see below).
 - **No change in sight.** The EU Retail Investment Strategy agreed in December 2025 changes the KID's format, not the requirement, and does not yet apply.
 - **Why "the brokers don't explain it", not "nobody does".** Czech education sites (finex.cz, finzi.cz, warengo.com) already explain the switch from VOO to CSPX. The brokers the App Investor uses list the Twins without the reason: XTB's Czech ETF guide shows CSPX with no mention of PRIIPs or the KID. The page's edge is putting the refused fund and its Twin side by side, in the app the Visitor already uses.
 - **Not an argument.** US dividend withholding is not a reason to prefer the Twin: a Czech holder of VOO with a W-8BEN on file pays 15 %, the same rate an Irish fund pays. The page doesn't use it.
@@ -42,7 +42,9 @@ A Twin tracks the **same index** as the US ETF. Where no UCITS ETF tracks the sa
 | US ETF        | Index               | Twins (accumulating first)                        |
 | ------------- | ------------------- | ------------------------------------------------- |
 | VOO, IVV, SPY | S&P 500             | SPYL, CSPX, VUAA                                  |
-| VT            | FTSE Global All Cap | closest alternatives: VWCE, FWRA (FTSE All-World) |
+| VT            | FTSE Global All Cap | VGLA                                              |
+
+VT had no Twin until Vanguard launched VGLA, its FTSE Global All-Cap UCITS ETF, on 18 August 2026 (read 2026-10-15). Before that the page showed VWCE and FWRA, on the similar FTSE All-World, as closest alternatives. A fund on a similar index is never shown beside a Twin, so they left the data module with VGLA's arrival.
 
 Where a Twin has both an accumulating and a distributing share class, the accumulating one leads: it pays no dividends, so there is no dividend income for the Czech tax return.
 
@@ -64,12 +66,12 @@ One PDF for both personas, so a difference in Conversion Rate between Ad Variant
 
 Outline:
 
-1. **Why your broker won't sell you VOO.** PRIIPs and the KID in three sentences, plus the Fio and Patria exception: they will sell US ETFs, but the Twin still wins on estate tax and a simpler tax return.
+1. **Why your broker won't sell you VOO.** PRIIPs and the KID in three sentences, plus the Fio exception: it lets you trade US ETFs, but the Twin still wins on estate tax and a simpler tax return.
 2. **The Twin table.** ISIN, TER, domicile, distribution policy, and exchange and currency for each Twin. Accumulating share classes first.
 3. **Taxes in the Czech Republic.** The 3-year holding-period exemption, the 100 000 Kč yearly exemption, the absence of any cap on what the 3-year test exempts, and dividends vs. accumulating funds.
 4. **Why a US-domiciled fund is riskier for a Czech investor.** US estate tax on US-situs assets above $60 000. Stock of a non-US corporation, such as an Irish Twin, isn't one.
 5. **Bank fund vs. ETF over 20 years.** What a TER of about 2 % costs compared with 0.03 %, in Kč. This Chapter is the Bank-Fund Saver's reason to download.
-6. **How to buy a Twin.** One line each for XTB, Trading 212, Revolut and Fio.
+6. **How to buy a Twin.** One line each for XTB, Trading 212, Revolut and Fio: what the broker itself says it sells, cited, and how to find the Twin.
 
 The content is written once step 4 has verified the data, and the file is built with Delivery in step 3.
 

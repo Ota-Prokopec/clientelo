@@ -28,7 +28,7 @@ export const PdfCzechTaxesChapter = () => {
           <View key={label} style={pdfTw('w-[47%] gap-0.5 border-t border-heading pt-1')}>
             <PdfText style={pdfTw('text-note text-muted-foreground')}>{label}</PdfText>
             <PdfText style={pdfTw('text-fact text-heading')}>
-              {source ? <PdfSourcedFigure sources={[source]}>{figure}</PdfSourcedFigure> : figure}
+              <PdfSourcedFigure sources={[source]}>{figure}</PdfSourcedFigure>
             </PdfText>
             <PdfText style={pdfTw('text-body')}>{explanation}</PdfText>
           </View>

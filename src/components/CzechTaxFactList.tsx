@@ -12,7 +12,7 @@ import { RuledFact } from './RuledFact.tsx'
  * <CzechTaxFactList />
  * // Časový test / více než 3 roky / Držíte-li fond déle než 3 roky, … · Malé prodeje / do 100 000 Kč ročně / … ·
  * // Strop časového testu / žádný / … · Dividendy / akumulační dvojče / … ·
- * // Zdroje: Zákon o daních z příjmů, § 4 odst. 1 písm. u) (ověřeno 14. 10. 2026); … písm. t) (ověřeno 14. 10. 2026)
+ * // Zdroje: Zákon o daních z příjmů, § 4 odst. 1 písm. u) (ověřeno 15. 10. 2026); … písm. t) (…); … § 8 … (…)
  * ```
  */
 export const CzechTaxFactList = () => {

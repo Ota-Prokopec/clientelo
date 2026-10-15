@@ -1,5 +1,5 @@
 // Chapter 1 of the Lead Magnet PDF (docs/strategy.md#lead-magnet): PRIIPs and the KID in three sentences, then the Fio
-// and Patria exception with the reason ČNB gives for it, and the rules it rests on as its Data Sources.
+// exception with the reason ČNB gives for it, and the rules and fund pages it rests on as its Data Sources.
 import { findEtf, findUcitsEtf, keyInsightSources } from '@data/figures.ts'
 import { leadMagnetChapters } from '@data/leadMagnet.ts'
 import { formatPercent } from '@lib/format.ts'
@@ -18,6 +18,8 @@ import { pdfTw } from './pdfTw.ts'
  */
 export const PdfWhyNoVooChapter = () => {
   const voo = findEtf('VOO')
+  // The three ETFs the text names, so each one's issuer page is cited.
+  const namedEtfs = [voo, findEtf('IVV'), findEtf('SPY')]
   const spyl = findUcitsEtf('SPYL')
 
   return (
@@ -37,11 +39,13 @@ export const PdfWhyNoVooChapter = () => {
         ročně.
       </PdfText>
       <PdfText style={pdfTw('text-body text-muted-foreground')}>
-        Výjimkou jsou Fio e-Broker a Patria: když jen provedou váš pokyn a nic vám nedoporučují, povinnost KID se na ně
-        podle ČNB nevztahuje, a americká ETF proto prodávají. I u nich ale dvojče vychází lépe: nehrozí u něj americká
-        dědická daň (kapitola 4) a akumulační třída vám nepřidá dividendy do přiznání (kapitola 3).
+        Výjimkou je Fio e-Broker: když jen provede váš pokyn a nic vám nedoporučuje, povinnost KID se na něj podle ČNB
+        nevztahuje, a americká ETF u něj proto koupíte. I tam ale dvojče vychází lépe: nehrozí u něj americká dědická
+        daň (kapitola 4) a akumulační třída vám nepřidá dividendy do přiznání (kapitola 3).
       </PdfText>
-      <PdfDataSourceNote sources={[...Object.values(keyInsightSources), spyl.source, voo.source]} />
+      <PdfDataSourceNote
+        sources={[...Object.values(keyInsightSources), ...namedEtfs.map((etf) => etf.source), spyl.source]}
+      />
     </PdfChapter>
   )
 }

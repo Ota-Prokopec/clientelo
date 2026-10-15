@@ -42,7 +42,7 @@ const rankDistributionPolicy = (ucitsEtf: UcitsEtf): number => (ucitsEtf.distrib
  *
  * ```ts
  * findSubstitutes('VOO') // { etf: VOO, relation: 'twin', substitutes: [SPYL, CSPX, VUAA] }
- * findSubstitutes('VT')  // { etf: VT, relation: 'closest-alternative', substitutes: [VWCE, FWRA] }
+ * findSubstitutes('VT')  // { etf: VT, relation: 'twin', substitutes: [VGLA] }
  * ```
  */
 export const findSubstitutes = (etfTicker: string): EtfSubstitutes => {
@@ -64,7 +64,7 @@ export const findSubstitutes = (etfTicker: string): EtfSubstitutes => {
  * ```ts
  * groupEtfsBySubstitutes()
  * // [{ etfs: [VOO, IVV, SPY], relation: 'twin', substitutes: [SPYL, CSPX, VUAA] },
- * //  { etfs: [VT], relation: 'closest-alternative', substitutes: [VWCE, FWRA] }]
+ * //  { etfs: [VT], relation: 'twin', substitutes: [VGLA] }]
  * ```
  */
 export const groupEtfsBySubstitutes = (): SubstituteGroup[] => {
@@ -89,7 +89,7 @@ export const groupEtfsBySubstitutes = (): SubstituteGroup[] => {
  *
  * ```ts
  * listSubstituteGroupSources(groupEtfsBySubstitutes())
- * // [SPYL's, CSPX's, VUAA's, VOO's, IVV's, SPY's, VWCE's, FWRA's, VT's Data Source]
+ * // [SPYL's, CSPX's, VUAA's, VOO's, IVV's, SPY's, VGLA's, VT's Data Source]
  * ```
  */
 export const listSubstituteGroupSources = (substituteGroups: SubstituteGroup[]): DataSource[] => {

@@ -14,11 +14,11 @@ describe('findSubstitutes', () => {
     expect(etfSubstitutes.substitutes.map((ucitsEtf) => ucitsEtf.ticker)).toEqual(['SPYL', 'CSPX', 'VUAA'])
   })
 
-  it('answers VT with FTSE All-World funds as closest alternatives, never as Twins', () => {
+  it('answers VT with its FTSE Global All Cap Twin', () => {
     const etfSubstitutes = findSubstitutes('VT')
 
-    expect(etfSubstitutes.relation).toBe('closest-alternative')
-    expect(etfSubstitutes.substitutes.map((ucitsEtf) => ucitsEtf.ticker)).toEqual(['VWCE', 'FWRA'])
+    expect(etfSubstitutes.relation).toBe('twin')
+    expect(etfSubstitutes.substitutes.map((ucitsEtf) => ucitsEtf.ticker)).toEqual(['VGLA'])
   })
 
   it.each(etfTickers)('answers %s with at least one Substitute', (etfTicker) => {
@@ -45,7 +45,7 @@ describe('groupEtfsBySubstitutes', () => {
 
     expect(substituteGroups).toEqual([
       { etfTickers: ['VOO', 'IVV', 'SPY'], relation: 'twin', substituteTickers: ['SPYL', 'CSPX', 'VUAA'] },
-      { etfTickers: ['VT'], relation: 'closest-alternative', substituteTickers: ['VWCE', 'FWRA'] },
+      { etfTickers: ['VT'], relation: 'twin', substituteTickers: ['VGLA'] },
     ])
   })
 })

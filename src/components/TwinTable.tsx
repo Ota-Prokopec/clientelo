@@ -53,7 +53,7 @@ export const TwinTable = () => {
         return (
           <div key={etfs.map((etf) => etf.ticker).join()} className="grid gap-3">
             <h4 className="text-label">
-              {substituteGroupLabel} {firstSubstitute?.trackedIndex} místo{' '}
+              {substituteGroupLabel[substitutes.length === 1 ? 'one' : 'many']} {firstSubstitute?.trackedIndex} místo{' '}
               {etfs.map((etf, etfIndex) => (
                 <Fragment key={etf.ticker}>
                   {etfIndex > 0 && ' · '}

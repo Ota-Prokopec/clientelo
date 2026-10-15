@@ -60,7 +60,7 @@ export const PdfTwinTableChapter = () => {
           return (
             <View key={etfs.map((etf) => etf.ticker).join()} style={pdfTw('pt-2')}>
               <PdfText style={pdfTw('text-label text-heading')}>
-                {substituteGroupLabel} {firstSubstitute?.trackedIndex} místo{' '}
+                {substituteGroupLabel[substitutes.length === 1 ? 'one' : 'many']} {firstSubstitute?.trackedIndex} místo{' '}
                 {etfs.map((etf, etfIndex) => (
                   <Fragment key={etf.ticker}>
                     {etfIndex > 0 && ' · '}
