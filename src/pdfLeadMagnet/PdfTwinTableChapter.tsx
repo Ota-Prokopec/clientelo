@@ -6,6 +6,7 @@ import { Fragment } from 'react'
 import { View } from '@react-pdf/renderer'
 import { isVerified } from '@data/figures.ts'
 import { leadMagnetChapters } from '@data/leadMagnet.ts'
+import { colorClassNameByRelation } from '@lib/colorClassNameByRelation.ts'
 import { formatPercent } from '@lib/format.ts'
 import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts'
 import { groupEtfsBySubstitutes, listSubstituteGroupSources } from '@lib/substitutes.ts'
@@ -54,7 +55,8 @@ export const PdfTwinTableChapter = () => {
           ))}
         </View>
         {substituteGroups.map(({ etfs, relation, substitutes }) => {
-          const { substituteGroupLabel, colorClassName } = relationPresentationByRelation[relation]
+          const { substituteGroupLabel } = relationPresentationByRelation[relation]
+          const colorClassName = colorClassNameByRelation[relation]
           const [firstSubstitute] = substitutes
 
           return (

@@ -10,6 +10,7 @@ import { relationPresentationByRelation } from '@lib/relationPresentationByRelat
 import { groupEtfsBySubstitutes, listSubstituteGroupSources } from '@lib/substitutes.ts'
 import type { Fact } from './FactGrid.tsx'
 import { DataSourceNote } from './DataSourceNote.tsx'
+import { SubstituteFigure } from './SubstituteFigure.tsx'
 
 /**
  * A UCITS ETF's facts below its Ticker and TER, labelled as the PDF's columns are.
@@ -47,7 +48,7 @@ export const TwinTable = () => {
         dividendy nevyplácí, ale rovnou je investuje.
       </p>
       {substituteGroups.map(({ etfs, relation, substitutes }) => {
-        const { substituteGroupLabel, colorClassName } = relationPresentationByRelation[relation]
+        const { substituteGroupLabel } = relationPresentationByRelation[relation]
         const [firstSubstitute] = substitutes
 
         return (
@@ -66,8 +67,12 @@ export const TwinTable = () => {
               {substitutes.map((ucitsEtf) => (
                 <li key={ucitsEtf.ticker} className="grid gap-2 border-t-2 border-heading pt-1.5">
                   <p className="flex items-baseline justify-between gap-3">
-                    <span className={`text-fact ${colorClassName}`}>{ucitsEtf.ticker}</span>
-                    <span className={`text-fact ${colorClassName}`}>{formatPercent(ucitsEtf.terPercent)} ročně</span>
+                    <SubstituteFigure relation={relation} render={<span className="text-fact" />}>
+                      {ucitsEtf.ticker}
+                    </SubstituteFigure>
+                    <SubstituteFigure relation={relation} render={<span className="text-fact" />}>
+                      {formatPercent(ucitsEtf.terPercent)} ročně
+                    </SubstituteFigure>
                   </p>
                   <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                     {listUcitsEtfFacts(ucitsEtf).map((fact) => (

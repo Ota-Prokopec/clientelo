@@ -1,6 +1,6 @@
 // The properties every Funnel Event carries, which describe the Visit: the Ad Variant whose First Screen opened the
 // page, the raw UTM parameters, and what kind of Visitor arrived. A Visit is one page load, so they are built once.
-import { resolveAdVariantUtmContent, type AdVariantUtmContent } from '@lib/adVariant/adVariant.ts'
+import { resolveAdVariantUtmContent, type AdVariantUtmContent } from '@lib/adVariantUtmContent.ts'
 import type { Lead } from '@/types.ts'
 
 /**

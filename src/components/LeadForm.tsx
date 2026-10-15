@@ -44,6 +44,38 @@ const leadFormStateByLeadKind: Record<Lead['kind'], LeadFormState> = {
   returning: 'remembered',
 }
 
+export type ResolveLeadFormStateProps = {
+  lead: Lead | null
+  /** submitLead() is running. */
+  isSubmitting: boolean
+  /** The last submit failed, and no submit has started since. */
+  hasSubmitFailed: boolean
+  /** The Visitor has typed into the Lead Form. */
+  isDirty: boolean
+}
+
+/**
+ * The Lead Form's state, the first that applies: a Lead's, submitting, a failed submit, typing, or idle.
+ *
+ * ```ts
+ * resolveLeadFormState({ lead: { kind: 'returning' }, isSubmitting: false, hasSubmitFailed: false, isDirty: false })
+ * // 'remembered'
+ * resolveLeadFormState({ lead: null, isSubmitting: false, hasSubmitFailed: true, isDirty: true }) // 'error'
+ * resolveLeadFormState({ lead: null, isSubmitting: false, hasSubmitFailed: false, isDirty: true }) // 'typing'
+ * ```
+ */
+const resolveLeadFormState = ({
+  lead,
+  isSubmitting,
+  hasSubmitFailed,
+  isDirty,
+}: ResolveLeadFormStateProps): LeadFormState => {
+  if (lead) return leadFormStateByLeadKind[lead.kind]
+  if (isSubmitting) return 'submitting'
+  if (hasSubmitFailed) return 'error'
+  return isDirty ? 'typing' : 'idle'
+}
+
 /** The submit's label while submitLead() runs and after it fails. In every other state, the CTA's own label. */
 const submitLabelByLeadFormState: Partial<Record<LeadFormState, string>> = {
   submitting: 'Odesíláme…',
@@ -117,16 +149,7 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
   } = useForm({ resolver: zodResolver(leadSchema), defaultValues: { email: '', honeypot: '' } })
   const [hasSubmitFailed, setHasSubmitFailed] = useState(false)
   useOnFirstView({ elementIds: leadFormIds, isViewed: isLeadFormSeen, onFirstView: trackLeadFormSeen })
-  const leadFormState: LeadFormState = lead
-    ? leadFormStateByLeadKind[lead.kind]
-    : isSubmitting
-      ? 'submitting'
-      : hasSubmitFailed
-        ? 'error'
-        : isDirty
-          ? 'typing'
-          : 'idle'
-
+  const leadFormState = resolveLeadFormState({ lead, isSubmitting, hasSubmitFailed, isDirty })
   /**
    * Handles the form's submit event: validates the Lead Form against leadSchema, sends a valid one through
    * submitLead(), and reports the new Lead or records the failure. An invalid one shows its field errors and sends

@@ -1,6 +1,6 @@
 // Calls back the first time each of a few elements, found by id, counts as viewed, through one IntersectionObserver.
 // The section_view and lead_form_seen Funnel Events hook onto the Section anchors and `#lead-form` with it.
-import { useEffect } from 'react'
+import { useEffect, useEffectEvent } from 'react'
 
 /** How much of an element is on screen, as an IntersectionObserver entry reports it. */
 export type ElementVisibility = {
@@ -17,7 +17,7 @@ export type UseOnFirstViewProps<TElementId extends string> = {
   elementIds: readonly TElementId[]
   /** Whether an element counts as viewed, from how much of it is on screen. */
   isViewed: (elementVisibility: ElementVisibility) => boolean
-  /** Called once per element, the first time it counts as viewed. Pass a module-level function, as for `elementIds`. */
+  /** Called once per element, the first time it counts as viewed. */
   onFirstView: (elementId: TElementId) => void
 }
 
@@ -38,6 +38,10 @@ export const useOnFirstView = <TElementId extends string>({
   isViewed,
   onFirstView,
 }: UseOnFirstViewProps<TElementId>): void => {
+  // Effect Events read the latest callbacks without restarting the observer, so callers may pass inline functions.
+  const isElementViewed = useEffectEvent(isViewed)
+  const reportFirstView = useEffectEvent(onFirstView)
+
   useEffect(() => {
     const elementIdByElement = new Map<Element, TElementId>()
     const observer = new IntersectionObserver(
@@ -49,9 +53,9 @@ export const useOnFirstView = <TElementId extends string>({
             visibleHeight: intersectionEntry.intersectionRect.height,
             viewportHeight: intersectionEntry.rootBounds?.height ?? window.innerHeight,
           }
-          if (elementId === undefined || !isViewed(elementVisibility)) continue
+          if (elementId === undefined || !isElementViewed(elementVisibility)) continue
           observer.unobserve(intersectionEntry.target)
-          onFirstView(elementId)
+          reportFirstView(elementId)
         }
       },
       { threshold: visibilityThresholds },
@@ -63,5 +67,5 @@ export const useOnFirstView = <TElementId extends string>({
       observer.observe(element)
     }
     return () => observer.disconnect()
-  }, [elementIds, isViewed, onFirstView])
+  }, [elementIds])
 }
