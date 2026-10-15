@@ -70,7 +70,7 @@ They go to the in-page `dataLayer` only: no GA4, no Meta Pixel and no endpoint o
 
 ## 7. Deployment
 
-Push the repo to GitHub and import it into Vercel (free tier). A serverless function `/api/lead` forwards each Lead to an email tool, such as Ecomail or SmartEmailing.
+Push the repo to GitHub and import it into Vercel (free tier). The page is frontend only, with no backend and no email tool: `submitLead()` and `submitSegment()` are final stubs that send nothing.
 
 ## 8. Before launching the Ad
 

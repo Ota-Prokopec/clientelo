@@ -4,7 +4,7 @@ The page shell from #10 is styled with CSS Modules and hand-written `<input type
 
 The same change settles four choices that hang off it:
 
-- **Forms** use shadcn's `Field` components with react-hook-form's `Controller` and `zodResolver`. On Base UI, shadcn has no `<Form>` wrapper: its `form` registry item is empty there, and shadcn's React Hook Form guide uses this pattern. The Lead's zod schema lives in `src/schemas/leadSchema.ts`, so the Lead Form and step 7's `/api/lead` validate against the same rules.
+- **Forms** use shadcn's `Field` components with react-hook-form's `Controller` and `zodResolver`. On Base UI, shadcn has no `<Form>` wrapper: its `form` registry item is empty there, and shadcn's React Hook Form guide uses this pattern. The Lead's zod schema lives in `src/schemas/leadSchema.ts`, apart from the Lead Form, so its rules are tested on their own.
 - **Motion** comes from the `motion` package (`motion/react`), loaded through `LazyMotion` with the `domAnimation` features, so its upfront cost on the First Screen stays small.
 - **Dark mode** follows the system's `prefers-color-scheme`, with no toggle: the page has no navigation, and a toggle would be chrome that leads nowhere near the Lead Form.
 - **The Lead Magnet PDF** ([ADR-0002](./0002-lead-magnet-pdf-generated-from-data-module.md)) is styled with Tailwind classes through `react-pdf-tailwind`. Its `createTw()` takes the theme as a JS object and can't read `@theme`, and it passes colours through unconverted, so `src/design/tokens.ts` mirrors the light palette in hex and the fonts, and a Vitest test fails when it drifts from `@theme`. The PDF is light-only.

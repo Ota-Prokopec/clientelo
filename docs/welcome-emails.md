@@ -1,6 +1,6 @@
 # Welcome emails
 
-The three Welcome Emails a new Lead receives as part of Delivery, after the PDF has already downloaded on the page. This is the copy only: step 7 of [plan.md](./plan.md) sets up the sending through `/api/lead` and the email tool. Terms are defined in [GLOSSARY.md](../GLOSSARY.md).
+The three Welcome Emails a new Lead receives as part of Delivery, after the PDF has already downloaded on the page. This is the copy only: the page is frontend only, and `submitLead()` is a final stub that sends nothing, so nothing on the page sends these emails ([plan.md](./plan.md#7-deployment)). Terms are defined in [GLOSSARY.md](../GLOSSARY.md).
 
 Figures marked **(verify)** are not yet checked against a primary source. Step 4 verifies each one and records its Data Source. No Welcome Email is sent before it does.
 
@@ -11,9 +11,9 @@ Figures marked **(verify)** are not yet checked against a primary source. Step 4
 - **Formal address (_vykání_)** and the page's voice: the same words as the page and the PDF (dvojče, tahák, časový test), plural "we" for the sender, and no gendered verb forms that would need the Lead's gender.
 - **Every figure is the page's figure.** Each one comes from `src/data/figures.ts`, and each email that states a figure ends with a "Zdroj" line naming the same Data Source the page cites. The copy is static, so when step 4 verifies or changes a figure, this file changes in the same commit.
 - **Every email ends** with the risk note "Nejde o investiční doporučení. Investování nese riziko ztráty." and a one-click unsubscribe link, which the Lead Form's GDPR line promises.
-- **Merge fields**, which step 7 maps to the email tool's own syntax:
+- **Merge fields**, which an email tool sending this copy would map to its own syntax:
   - `{{pdf_url}}`: the absolute URL of `/tahak-evropska-dvojcata-americkych-etf.pdf` on the deployed domain.
-  - `{{unsubscribe_url}}`: the email tool's unsubscribe link.
+  - `{{unsubscribe_url}}`: that tool's unsubscribe link.
   - `{{segment}}`: the Lead's Segment, which picks the Day 5 email. It is empty when the Lead skipped the Segmentation Question.
 
 ## Day 0: the PDF and the Key Insight

@@ -1,4 +1,4 @@
-// Tests the Lead Form's validation rules, which step 7's /api/lead shares: the email and the honeypot.
+// Tests the Lead Form's validation rules: the email and the honeypot.
 import { describe, expect, it } from 'vitest'
 import { leadSchema } from '@/schemas/leadSchema.ts'
 

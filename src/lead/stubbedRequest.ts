@@ -1,6 +1,6 @@
-// The stand-in for a request to step 7's API, which the submitLead() and submitSegment() seams wait on until step 7 of
-// docs/plan.md replaces each with a real request. In `pnpm dev`, opening the page with `?<toggle>=fail` makes one
-// seam's stand-in fail, so the error state of what calls it can be reached.
+// The stand-in for a request, which the submitLead() and submitSegment() seams wait on instead of sending anything,
+// since the page is frontend only (docs/plan.md#7-deployment). In `pnpm dev`, opening the page with `?<toggle>=fail`
+// makes one seam's stand-in fail, so the error state of what calls it can be reached.
 
 /** How long the stand-in takes, about as long as a real request, so a form's submitting state shows. */
 const stubbedRequestDurationMs = 600

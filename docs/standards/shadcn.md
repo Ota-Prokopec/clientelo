@@ -22,7 +22,7 @@ How to build UI from shadcn components. Read this before you add a control, a fo
 
 - **A form is `Field`, `FieldLabel` and `FieldError` around shadcn inputs**, wired with react-hook-form's `Controller` and `zodResolver`. shadcn's `<Form>` wrapper doesn't exist on Base UI.
 - **A form renders its fields from `src/components/fields/`**, never its own `Controller`. A field's `Props` type extends `FieldProps` from `src/components/fields/types.ts`, the form's `control` and the `name` of the value it edits, and the field reads its value and its error from them: `InputField` is any one-line Input, its `type` picking text, email or number, and `surface="band"` sets it on a Lead Ask's band. A field no component there covers gets its own file there.
-- **A form's zod schema lives in `src/schemas/`** (`leadSchema.ts`), with Czech error messages, so the server validates against the same rules.
+- **A form's zod schema lives in `src/schemas/`** (`leadSchema.ts`), with Czech error messages, apart from the form, so its rules are tested on their own.
 
 ## Icons
 

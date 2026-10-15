@@ -1,5 +1,5 @@
-// The Lead Form's validation rules, with Czech messages. Step 7's /api/lead validates against the same schema, so the
-// form and the server accept and reject the same input (ADR-0003, shadcn.md#forms).
+// The Lead Form's validation rules, with Czech messages, kept apart from the form so they are tested on their own
+// (ADR-0003, shadcn.md#forms).
 import { z } from 'zod'
 
 export const leadSchema = z.object({
