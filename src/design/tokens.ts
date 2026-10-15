@@ -1,7 +1,8 @@
 // The design identity's light palette and font (docs/specifications/design-identity.md), mirrored from src/index.css
-// for the Lead Magnet PDF: react-pdf-tailwind's createTw() takes its theme as a JS object and can't read `@theme`
-// (ADR-0003). The PDF is light-only, so only the light values are here. tests/design/tokens.test.ts fails when this
-// file and src/index.css drift apart, so change a mirrored token in both in the same commit.
+// for the Lead Magnet PDF and the Share Image: react-pdf-tailwind's createTw() and satori take their theme as a JS
+// object and can't read `@theme` (ADR-0003). Both are light-only, so only the light values are here.
+// tests/design/tokens.test.ts fails when this file and src/index.css drift apart, so change a mirrored token in both in
+// the same commit.
 
 /** Every colour role's light value, keyed by its name in src/index.css without the `--`. */
 export const lightColourByRole = {

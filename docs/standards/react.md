@@ -19,4 +19,5 @@ How to lay out React components in files. Read this before you add a component, 
 - **`src/components/fields/`**: a form field wired to react-hook-form, generic over the form that renders it (`InputField.tsx`, `HoneypotField.tsx`) ([shadcn.md](./shadcn.md#forms)), and `types.ts`, the types every field shares.
 - **`src/components/ui/`**: shadcn's primitives ([shadcn.md](./shadcn.md)).
 - **`src/routes/`**: only the route components the router mounts, one per file.
+- **`src/shareImage/`**: the Share Image, laid out by `satori` with inline flexbox styles instead of Tailwind classes: the image's component and the renderer that turns it into a PNG. `vite-plugins/sharePreviewPlugin.ts` renders it at build time.
 - **`src/pdfLeadMagnet/`**: the Lead Magnet PDF, written with `@react-pdf/renderer`'s components instead of the DOM's: the Document, one file per Chapter, and the parts they share. `vite-plugins/pdfLeadMagnetPlugin.ts` renders it at build time ([ADR-0002](../adr/0002-lead-magnet-pdf-generated-from-data-module.md)).

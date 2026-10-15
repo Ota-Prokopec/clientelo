@@ -100,6 +100,14 @@ _Avoid_: Newsletter, drip, nurture sequence.
 The button that stays on screen on a phone and takes the Visitor to the Lead Form from anywhere on the page.
 _Avoid_: Floating button, FAB, sticky bar.
 
+**Share Preview**:
+The card a social app or chat shows when someone shares the page's link, built from its Open Graph tags: the Share Image, title and description.
+_Avoid_: OG card, link preview, unfurl, thumbnail (the Lead Magnet has a thumbnail).
+
+**Share Image**:
+The 1200 × 630 image in the Share Preview, rendered at build time from code.
+_Avoid_: OG image, social image.
+
 ### Measurement
 
 **Funnel**:
