@@ -6,6 +6,7 @@ import type { CSSProperties } from 'react'
 import { SHARE_IMAGE_HEIGHT, SHARE_IMAGE_WIDTH } from '@data/shareImageFile.ts'
 import { fontFileFamilies } from '@/design/fontFiles.ts'
 import { lightColourByRole } from '@/design/tokens.ts'
+import { AD_PROMISE_ETF_TICKER } from '@data/adPromise.ts'
 import { findSubstitutes } from '@lib/substitutes.ts'
 
 /** The column everything sits in, inside the central square that WhatsApp and iMessage crop to, with a margin. */
@@ -38,7 +39,7 @@ export const ShareImage = () => {
   const {
     etf,
     substitutes: [firstTwin],
-  } = findSubstitutes('VOO')
+  } = findSubstitutes(AD_PROMISE_ETF_TICKER)
 
   return (
     <div

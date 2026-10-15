@@ -3,6 +3,7 @@ import { useId } from 'react'
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '@/components/ui/input-group.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import { amountKcFormatOptions } from '@lib/format.ts'
+import { toInputValue } from '@lib/inputValue.ts'
 import { FeeCalculatorSlider } from './FeeCalculatorSlider.tsx'
 
 export type AmountFieldProps = {
@@ -38,7 +39,7 @@ export const AmountField = ({ amountKc, onAmountChange }: AmountFieldProps) => {
           type="number"
           inputMode="numeric"
           min={0}
-          value={Number.isNaN(amountKc) ? '' : amountKc}
+          value={toInputValue(amountKc)}
           onChange={(event) => onAmountChange(event.currentTarget.valueAsNumber)}
           className="font-bold text-heading tabular-nums"
         />

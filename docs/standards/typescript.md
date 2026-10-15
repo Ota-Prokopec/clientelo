@@ -21,7 +21,7 @@ A real constant is named in `UPPER_SNAKE_CASE`: `SHARE_IMAGE_MAX_BYTES`, `LEAD_F
 
 Every other `const` stays `camelCase`, even at module level:
 
-- **An object or array**, even a readonly one: a lookup map (`segmentLabelBySegment`), a data record (`etfs`), a config object (`amountSliderRange`), a list (`fontWeights`) or a style object.
+- **An object or array**, even a readonly one: a lookup map (`relationPresentationByRelation`), a data record (`etfs`), a config object (`amountSliderRange`), a list (`fontWeights`) or a style object.
 - **An instance with behaviour**, such as a formatter (`new Intl.NumberFormat(…)`) or a schema (`z.object(…)`).
 - **A value computed from data or read at runtime**: `formatYears(holdingPeriodExemption.value)`, `readHookInput()`, `Date.now()`.
 - **Mutable state**, such as a listener `Set` that code adds to.

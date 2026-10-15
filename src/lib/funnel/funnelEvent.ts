@@ -1,5 +1,6 @@
 // The Funnel Events (#49), each with its own properties, as one union: a misspelt event or a missing property fails
 // `pnpm check-types` wherever trackFunnelEvent() is called. The properties every event carries are in visitProperties.ts.
+import type { EtfTicker } from '@data/figures.ts'
 import type { InteractiveTool, SectionId, Segment } from '@/types.ts'
 
 /** Where a tap opened the Lead Form from: an inline Lead Ask's link after an Interactive Tool, or the Sticky CTA. */
@@ -15,7 +16,7 @@ export type PdfDownloadTrigger = 'auto' | 'link'
 export type FunnelEvent =
   | { event: 'arrival' }
   | { event: 'section_view'; section: SectionId }
-  | { event: 'interactive_tool_use'; tool: 'fund-picker'; ticker: string }
+  | { event: 'interactive_tool_use'; tool: 'fund-picker'; ticker: EtfTicker }
   | { event: 'interactive_tool_use'; tool: 'fee-calculator' }
   | { event: 'lead_ask_click'; placement: LeadAskClickPlacement }
   | { event: 'lead_form_seen' }

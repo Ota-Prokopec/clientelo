@@ -12,9 +12,15 @@ export type DataSource = {
 /** The index an ETF or a Twin tracks. */
 export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap'
 
+/** The Ticker of an ETF the data module holds, so a misspelt one fails `pnpm check-types` instead of `findEtf`. */
+export type EtfTicker = 'VOO' | 'IVV' | 'SPY' | 'VT'
+
+/** The Ticker of a UCITS ETF the data module holds. */
+export type UcitsEtfTicker = 'SPYL' | 'CSPX' | 'VUAA' | 'VGLA'
+
 /** An NYSE-listed ETF a Czech retail investor's app won't sell them. */
 export type Etf = {
-  ticker: string
+  ticker: EtfTicker
   trackedIndex: TrackedIndex
   terPercent: number
   source: DataSource
@@ -22,7 +28,7 @@ export type Etf = {
 
 /** A UCITS ETF a Czech retail investor can buy instead of an ETF. */
 export type UcitsEtf = {
-  ticker: string
+  ticker: UcitsEtfTicker
   isin: string
   trackedIndex: TrackedIndex
   terPercent: number
@@ -175,7 +181,7 @@ export const ucitsEtfs: UcitsEtf[] = [
 // The UCITS ETF Tickers that stand in for each ETF. Whether one is the ETF's Twin or its closest alternative is derived
 // from the two indices (src/lib/substitutes.ts), never recorded here. Every ETF has at least one, which is why VTI isn't
 // offered (docs/strategy.md#twins).
-export const substituteTickersByEtfTicker: Record<string, string[]> = {
+export const substituteTickersByEtfTicker: Record<EtfTicker, UcitsEtfTicker[]> = {
   VOO: ['SPYL', 'CSPX', 'VUAA'],
   IVV: ['SPYL', 'CSPX', 'VUAA'],
   SPY: ['SPYL', 'CSPX', 'VUAA'],
@@ -353,14 +359,14 @@ export const usEstateTaxThreshold: NumericFigure = {
 }
 
 /**
- * Finds the ETF with the given Ticker. Throws on a Ticker the data module doesn't hold, which is a programming error.
+ * Finds the ETF with the given Ticker. `EtfTicker` names only the ETFs `etfs` holds, so it never misses.
  *
  * ```ts
  * findEtf('VOO').terPercent // 0.03
- * findEtf('XYZ')            // throws
+ * findEtf('XYZ')            // a type error
  * ```
  */
-export const findEtf = (ticker: string): Etf => {
+export const findEtf = (ticker: EtfTicker): Etf => {
   const etf = etfs.find((candidate) => candidate.ticker === ticker)
   if (!etf) throw new Error(`No ETF with Ticker ${ticker}`)
 
@@ -368,14 +374,14 @@ export const findEtf = (ticker: string): Etf => {
 }
 
 /**
- * Finds the UCITS ETF with the given Ticker. Throws on a Ticker the data module doesn't hold.
+ * Finds the UCITS ETF with the given Ticker. `UcitsEtfTicker` names only the UCITS ETFs `ucitsEtfs` holds.
  *
  * ```ts
  * findUcitsEtf('SPYL').domicile // 'Irsko'
- * findUcitsEtf('VOO')           // throws: VOO is an ETF, not a UCITS ETF
+ * findUcitsEtf('VOO')           // a type error: VOO is an ETF, not a UCITS ETF
  * ```
  */
-export const findUcitsEtf = (ticker: string): UcitsEtf => {
+export const findUcitsEtf = (ticker: UcitsEtfTicker): UcitsEtf => {
   const ucitsEtf = ucitsEtfs.find((candidate) => candidate.ticker === ticker)
   if (!ucitsEtf) throw new Error(`No UCITS ETF with Ticker ${ticker}`)
 

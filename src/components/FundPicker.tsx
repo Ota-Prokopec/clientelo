@@ -3,7 +3,8 @@
 // The Visitor's first pick is its interactive_tool_use Funnel Event; the preselected VOO isn't use.
 import { AnimatePresence, m } from 'motion/react'
 import { useState, type ReactNode } from 'react'
-import { usEstateTaxThreshold } from '@data/figures.ts'
+import { AD_PROMISE_ETF_TICKER } from '@data/adPromise.ts'
+import { usEstateTaxThreshold, type EtfTicker } from '@data/figures.ts'
 import { findSubstitutes, type EtfSubstitutes } from '@lib/substitutes.ts'
 import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
 import { ClosestAlternativeNote } from './ClosestAlternativeNote.tsx'
@@ -19,9 +20,6 @@ export type FundPickerProps = {
   renderHeadline?: (etfSubstitutes: EtfSubstitutes) => ReactNode
 }
 
-/** The ETF preselected for `pain`, its fallback and Section 03: the one Ad Variant A names. */
-const PRESELECTED_ETF_TICKER = 'VOO'
-
 /**
  * The Fund Picker: a segmented choice of US ETF, the ETF struck out over its Twin or closest alternative with their
  * facts and Data Sources, ending in the inline Lead Ask.
@@ -32,7 +30,7 @@ const PRESELECTED_ETF_TICKER = 'VOO'
  * ```
  */
 export const FundPicker = ({ renderHeadline }: FundPickerProps) => {
-  const [pickedEtfTicker, setPickedEtfTicker] = useState<string>(PRESELECTED_ETF_TICKER)
+  const [pickedEtfTicker, setPickedEtfTicker] = useState<EtfTicker>(AD_PROMISE_ETF_TICKER)
   const etfSubstitutes = findSubstitutes(pickedEtfTicker)
   const { etf, relation, substitutes } = etfSubstitutes
   const [primarySubstitute, ...otherSubstitutes] = substitutes
@@ -44,7 +42,7 @@ export const FundPicker = ({ renderHeadline }: FundPickerProps) => {
    * pickEtfTicker('SPY') // SPY struck out over its Twins; interactive_tool_use { tool: 'fund-picker', ticker: 'SPY' }
    * ```
    */
-  const pickEtfTicker = (etfTicker: string) => {
+  const pickEtfTicker = (etfTicker: EtfTicker) => {
     setPickedEtfTicker(etfTicker)
     trackFunnelEvent({ event: 'interactive_tool_use', tool: 'fund-picker', ticker: etfTicker })
   }
