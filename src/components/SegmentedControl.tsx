@@ -51,9 +51,10 @@ export const SegmentedControl = ({ label, options, pickedValue, onPick, optionCl
             key={option.value}
             value={option.value}
             // `flex-1` shares a row equally, and `min-w-max` keeps each option as wide as its content, so a row that
-            // can't hold every option breaks onto the next.
+            // can't hold every option breaks onto the next. The picked option drops the page's button pointer (index.css),
+            // since pressing it does nothing.
             className={cn(
-              'min-w-max flex-1 rounded-sm text-heading hover:bg-background/60 aria-pressed:bg-brand aria-pressed:text-background aria-pressed:hover:bg-brand',
+              'min-w-max flex-1 rounded-sm text-heading hover:bg-background/60 aria-pressed:bg-brand aria-pressed:text-background aria-pressed:hover:bg-brand aria-pressed:cursor-default',
               optionClassName,
             )}
           >

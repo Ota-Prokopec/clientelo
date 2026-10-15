@@ -169,4 +169,19 @@
   h3 {
     @apply text-balance;
   }
+  /* Tailwind v4's Preflight dropped `cursor: pointer` on buttons, so an enabled button (a Segmented Control's option
+     included) gets it back. Pressing anywhere on a Slider moves its thumb there and starts a drag, so the whole
+     slider shows `grab`, and the whole page `grabbing` mid-drag, so the cursor holds when it drifts off the track.
+     `!important` lets that last rule outrank cursor utilities (the picked segment's `cursor-default`) too. */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    @apply cursor-pointer;
+  }
+  [data-slot='slider']:not([data-disabled]) {
+    @apply cursor-grab;
+  }
+  html:has([data-slot='slider'][data-dragging]),
+  html:has([data-slot='slider'][data-dragging]) * {
+    @apply cursor-grabbing!;
+  }
 }
