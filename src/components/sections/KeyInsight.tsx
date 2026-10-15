@@ -1,6 +1,6 @@
 // The Key Insight Section (docs/strategy.md#key-insight): why the Visitor's app won't sell them VOO, and why its Twin is no worse.
 import { DataSourceNote } from '../DataSourceNote.tsx'
-import { findEtf, findUcitsEtf, usEstateTaxThreshold } from '@data/figures.ts'
+import { findEtf, findUcitsEtf, keyInsightSources, usEstateTaxThreshold } from '@data/figures.ts'
 import { formatAmount, formatPercent } from '@lib/format.ts'
 import { Section } from './Section.tsx'
 
@@ -45,7 +45,17 @@ export const KeyInsight = () => {
       <p className="text-muted-foreground">
         Fio e-Broker a Patria americká ETF prodávají. I u nich ale dvojče vychází lépe kvůli dědické dani a daním.
       </p>
-      <DataSourceNote sources={[voo.source, spyl.source, usEstateTaxThreshold.source]} />
+      <DataSourceNote
+        sources={[
+          keyInsightSources.priips,
+          keyInsightSources.xtbHelpCentre,
+          keyInsightSources.trading212Community,
+          keyInsightSources.revolutHelpCentre,
+          voo.source,
+          spyl.source,
+          usEstateTaxThreshold.source,
+        ]}
+      />
     </Section>
   )
 }

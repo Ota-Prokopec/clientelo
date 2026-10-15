@@ -217,12 +217,36 @@ export const czechTaxFigures = {
 
 /**
  * The rules and statements the Key Insight rests on (docs/strategy.md#key-insight): why the apps won't sell a US ETF,
- * and why Fio e-Broker and Patria may. Not figures, but cited wherever the Lead Magnet explains the block.
+ * and why Fio e-Broker and Patria may. Not figures, but cited wherever the page or the Lead Magnet explains the block.
  */
 export const keyInsightSources = {
-  priips: unverifiedSource('Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13'),
-  xtbHelpCentre: unverifiedSource('XTB, centrum nápovědy: ETF z USA bez dokumentu KID'),
-  cnbExecutionOnly: unverifiedSource('ČNB, stanovisko RS2018-12, část B.2'),
+  priips: {
+    name: 'Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13',
+    url: 'https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:32014R1286',
+    verifiedOn: '2026-10-14',
+  },
+  xtbHelpCentre: {
+    name: 'XTB, centrum nápovědy: ETF z USA bez dokumentu KID',
+    url: 'https://www.xtb.com/int/help-center/stocks-and-etfs/adding-a-new-instrument-to-the-offer',
+    verifiedOn: '2026-10-14',
+  },
+  // Trading 212's help centre doesn't say it, so its Data Source is its own team's reply on its own community. The
+  // reply is older than `verifiedOn`, so its name carries its date.
+  trading212Community: {
+    name: 'Trading 212, odpověď týmu v komunitě z 2. 8. 2024: ETF z USA bez souladu s PRIIPs',
+    url: 'https://community.trading212.com/t/view-only-instrument/73602/7',
+    verifiedOn: '2026-10-14',
+  },
+  revolutHelpCentre: {
+    name: 'Revolut, centrum nápovědy: jen ETF registrované v EU',
+    url: 'https://help.revolut.com/en-CZ/help/wealth/stocks/getting-started-with-etf-s/which-types-of-etf-are-available-in-the-revolut-app/',
+    verifiedOn: '2026-10-14',
+  },
+  cnbExecutionOnly: {
+    name: 'ČNB, stanovisko RS2018-12, část B.2',
+    url: 'https://www.cnb.cz/cs/dohled-financni-trh/legislativni-zakladna/stanoviska-k-regulaci-financniho-trhu/RS2018-12/',
+    verifiedOn: '2026-10-14',
+  },
 } satisfies Record<string, DataSource>;
 
 export const usEstateTaxThreshold: NumericFigure = {
@@ -298,6 +322,7 @@ export const listDataSources = (): DataSource[] => {
     typicalBankEquityFundTer.source,
     csobAkciovy.source,
     ...Object.values(czechTaxFigures).map((figure) => figure.source),
+    ...Object.values(keyInsightSources),
     usEstateTaxThreshold.source,
   ];
 
