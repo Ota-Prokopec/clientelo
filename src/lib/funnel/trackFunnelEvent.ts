@@ -2,8 +2,8 @@
 // every event carries, and pushes the event to `window.dataLayer`, an in-page array that sends nothing anywhere. In
 // `pnpm dev`, each event is also logged to the console. No event ever carries the Lead's email. A component that reacts
 // to the Visitor's journey, such as the Consent Bar to the first Interactive Tool use, subscribes to the recorded events.
-import { readHasVisitedBefore } from '@/consent/rememberedVisit.ts'
-import { readRememberedLead } from '@/lead/rememberedLead.ts'
+import { readHasVisitedBefore } from '@lib/consent/rememberedVisit.ts'
+import { readRememberedLead } from '@lib/lead/rememberedLead.ts'
 import type { FunnelEvent } from './funnelEvent.ts'
 import { createFunnelEventGate } from './funnelEventGate.ts'
 import { buildVisitProperties, type VisitProperties } from './visitProperties.ts'

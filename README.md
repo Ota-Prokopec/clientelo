@@ -26,7 +26,7 @@ Stránka má jedinou routu `/`. `utm_content` vybírá Ad Variant (`pain` nebo `
 
 ## Funnel
 
-Stránka zaznamenává průchod stránkou jako Funnel Events do `window.dataLayer`, pole uvnitř stránky, které nic nikam neposílá: analytický backend neexistuje ([ADR-0005](./docs/adr/0005-funnel-events-in-the-datalayer-only.md)). Každá událost se vkládá jako `{ event: '<name>', ...properties }` přes jediné místo, `trackFunnelEvent()` (`src/funnel/`), a v `pnpm dev` se navíc vypíše do konzole. Žádná událost nenese e-mail, který Lead zadal.
+Stránka zaznamenává průchod stránkou jako Funnel Events do `window.dataLayer`, pole uvnitř stránky, které nic nikam neposílá: analytický backend neexistuje ([ADR-0005](./docs/adr/0005-funnel-events-in-the-datalayer-only.md)). Každá událost se vkládá jako `{ event: '<name>', ...properties }` přes jediné místo, `trackFunnelEvent()` (`src/lib/funnel/`), a v `pnpm dev` se navíc vypíše do konzole. Žádná událost nenese e-mail, který Lead zadal.
 
 | Událost                | Kdy                                                                                                    | Vlastní vlastnosti                                                                        |
 | ---------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |

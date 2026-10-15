@@ -1,7 +1,7 @@
 // Tests the stubbed submitLead() seam: it accepts a Visitor's email, fails behind the dev toggle, and drops a bot's
 // submit silently.
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { submitLead } from '@/lead/submitLead.ts'
+import { submitLead } from '@lib/lead/submitLead.ts'
 
 describe('submitLead', () => {
   afterEach(() => {

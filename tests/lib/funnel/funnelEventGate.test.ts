@@ -1,6 +1,6 @@
 // Tests which Funnel Events a Visit records: the once-per-Visit rules, and nothing at all once a bot fills the honeypot.
 import { describe, expect, it } from 'vitest'
-import { createFunnelEventGate } from '@/funnel/funnelEventGate.ts'
+import { createFunnelEventGate } from '@lib/funnel/funnelEventGate.ts'
 
 describe('createFunnelEventGate', () => {
   it.each(['arrival', 'lead_form_seen', 'lead_form_start'] as const)('records %s once per Visit', (event) => {

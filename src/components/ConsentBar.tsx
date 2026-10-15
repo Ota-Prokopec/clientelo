@@ -3,7 +3,7 @@
 // equal weight, nothing preselected. A `block` panel at the bottom of the screen, stacked above the Sticky CTA
 // (design-identity.md#components), its buttons light like Delivery's link so neither competes with the red CTA.
 import { Button } from '@/components/ui/button'
-import type { ConsentChoice } from '@/consent/consentChoice.ts'
+import type { ConsentChoice } from '@lib/consent/consentChoice.ts'
 import { cn } from '@/lib/utils'
 
 /** The bar's id, which the footer's "Nastavení cookies" names as the element it opens. */

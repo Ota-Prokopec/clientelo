@@ -3,9 +3,9 @@
 // "Nastavení cookies" reopens it, so withdrawing is as easy as giving. A choice is stored with its date, and the
 // remembered Visit follows it: stored once the Visitor allows it, removed once they refuse or withdraw.
 import { useEffect, useState } from 'react'
-import { readConsentChoice, rememberConsentChoice, type ConsentChoice } from '@/consent/consentChoice.ts'
-import { syncRememberedVisit } from '@/consent/rememberedVisit.ts'
-import { subscribeToFunnelEvents } from '@/funnel/trackFunnelEvent.ts'
+import { readConsentChoice, rememberConsentChoice, type ConsentChoice } from '@lib/consent/consentChoice.ts'
+import { syncRememberedVisit } from '@lib/consent/rememberedVisit.ts'
+import { subscribeToFunnelEvents } from '@lib/funnel/trackFunnelEvent.ts'
 
 /** The Consent Bar's state, and the two ways the page changes it. */
 export type ConsentBarState = {

@@ -1,7 +1,7 @@
 // Tests the properties every Funnel Event carries, built from the page's URL and what earlier Visits remember: a Lead,
 // or, with the Visitor's consent, that they have been here before.
 import { describe, expect, it } from 'vitest'
-import { buildVisitProperties } from '@/funnel/visitProperties.ts'
+import { buildVisitProperties } from '@lib/funnel/visitProperties.ts'
 
 describe('buildVisitProperties', () => {
   it('names the money First Screen for utm_content=money', () => {
