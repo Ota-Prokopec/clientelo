@@ -14,7 +14,7 @@ export type TerCostDifferenceProps = {
  *
  * ```tsx
  * <TerCostDifference years={20} differenceKc={40_235.89} twin={spyl} />
- * // Za 20 let vám bankovní fond nechá o / 40 236 Kč / méně než ETF SPYL, i bez růstu trhu.
+ * // Za 20 let vám bankovní fond nechá o / 32 641 Kč / méně než ETF SPYL, i bez růstu trhu.
  * ```
  */
 export const TerCostDifference = ({ years, differenceKc, twin }: TerCostDifferenceProps) => {

@@ -1,10 +1,13 @@
 // The privacy-policy page the Lead Form's GDPR sentence links to. A draft: its legal check is step 8 of docs/plan.md.
 // The controller's identity and contact, and the paragraph on the Meta Pixel, wait for the employer's real legal data
 // before an Ad launches (README.md#before-an-ad-launches).
-import { Link } from 'react-router'
 import { Page } from '@/components/Page.tsx'
 import { PolicyHeading } from '@/components/PolicyHeading.tsx'
+import { QueryKeepingLink } from '@/components/QueryKeepingLink.tsx'
 import { RuledFact } from '@/components/RuledFact.tsx'
+
+/** The privacy policy's route, which the router mounts and the Lead Form and the Footer link to. */
+export const PRIVACY_POLICY_PATH = '/ochrana-osobnich-udaju'
 
 /**
  * The privacy policy: what the Lead Form collects, why, for how long, the Visitor's rights, and everything the page
@@ -69,9 +72,9 @@ const PrivacyPolicy = () => {
           clientelo:visited smažeme.
         </p>
         <p>
-          <Link to="/" className="font-bold text-brand underline underline-offset-4">
+          <QueryKeepingLink pathname="/" className="font-bold text-brand underline underline-offset-4">
             Zpět na srovnání ETF
-          </Link>
+          </QueryKeepingLink>
         </p>
       </main>
     </Page>

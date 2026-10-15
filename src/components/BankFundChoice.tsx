@@ -12,9 +12,9 @@ export type BankFundChoiceProps = {
  * A labelled segmented control of every Bank Fund option, each its name over its TER, the picked one filled `brand`.
  *
  * ```tsx
- * <BankFundChoice pickedBankFundOption={bankFundOptions[0]} onPick={setPickedBankFundOption} />
- * // Bankovní fond [ČSOB Akciový 2,59 %] Jiný fond banky kolem 2 %
- * // pressing "Jiný fond banky" calls onPick(bankFundOptions[1]); pressing ČSOB Akciový again calls nothing
+ * <BankFundChoice pickedBankFundOption={typicalBankFundOption} onPick={setPickedBankFundOption} />
+ * // Bankovní fond ČSOB Akciový 2,59 % [Jiný fond banky kolem 2 %]
+ * // pressing ČSOB Akciový calls onPick(csobAkciovyOption); pressing "Jiný fond banky" again calls nothing
  * ```
  */
 export const BankFundChoice = ({ pickedBankFundOption, onPick }: BankFundChoiceProps) => {
