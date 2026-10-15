@@ -30,4 +30,5 @@ A Bank Fund's TER is the KID's ongoing costs ("poplatky za vedení a jiné sprá
 
 - A figure changes only in a commit that rereads its source, so `verifiedOn` always says how old a figure is. The build sets no age limit on it, so an old `verifiedOn` never fails the build.
 - The unverified machinery stays for a figure added before it is verified: `unverifiedSource`, `isVerified`, the PDF's `*` marker and "Pracovní verze" banner, and "zatím neověřeno" on the page.
+- The tests fail while any Data Source the data module exports is unverified or missing from the footer, so such a figure can be drafted on a branch but never passes the post-modification checklist.
 - A verified figure that breaks a claim the copy makes ("SPYL stojí stejně jako VOO", "kolem 2 %") isn't silently reworded: the claim is decided before the figure lands.
