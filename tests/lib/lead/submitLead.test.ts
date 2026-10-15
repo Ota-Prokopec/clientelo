@@ -9,19 +9,25 @@ describe('submitLead', () => {
   })
 
   it('resolves for a Visitor’s email', async () => {
-    await expect(submitLead({ email: 'jana.novakova@seznam.cz', honeypot: '' })).resolves.toBeUndefined()
+    await expect(
+      submitLead({ email: 'jana.novakova@seznam.cz', honeypot: '', welcomeEmailsConsent: false }),
+    ).resolves.toBeUndefined()
   })
 
   it('rejects in development when the page was opened with ?submit-lead=fail', async () => {
     vi.stubGlobal('location', new URL('http://localhost:5173/?utm_content=money&submit-lead=fail'))
 
-    await expect(submitLead({ email: 'jana.novakova@seznam.cz', honeypot: '' })).rejects.toThrow('?submit-lead=fail')
+    await expect(
+      submitLead({ email: 'jana.novakova@seznam.cz', honeypot: '', welcomeEmailsConsent: false }),
+    ).rejects.toThrow('?submit-lead=fail')
   })
 
   it('resolves for a bot that filled the honeypot, without sending anything', async () => {
     // With the failure toggle on, every send fails, so only a submit that never sends can resolve.
     vi.stubGlobal('location', new URL('http://localhost:5173/?submit-lead=fail'))
 
-    await expect(submitLead({ email: 'bot@example.com', honeypot: 'https://spam.example' })).resolves.toBeUndefined()
+    await expect(
+      submitLead({ email: 'bot@example.com', honeypot: 'https://spam.example', welcomeEmailsConsent: false }),
+    ).resolves.toBeUndefined()
   })
 })

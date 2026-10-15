@@ -13,6 +13,7 @@ import { LeadContext } from '@/hooks/leadContext.ts'
 import { useConsentBar } from '@/hooks/useConsentBar.ts'
 import { useOnFirstView } from '@/hooks/useOnFirstView.ts'
 import { readRememberedLead, rememberLead } from '@lib/lead/rememberedLead.ts'
+import type { LeadSubmission } from '@/schemas/leadSchema.ts'
 import type { Lead, SectionId } from '@/types.ts'
 import { ConsentBar } from '@/components/ConsentBar.tsx'
 import { Page } from '@/components/Page.tsx'
@@ -64,12 +65,12 @@ const Home = () => {
    * Turns the Visitor into a new Lead: the PDF starts downloading, and the page remembers them for the next visit.
    *
    * ```ts
-   * handleLeadFormSubmitted('jana.novakova@seznam.cz')
+   * handleLeadFormSubmitted({ email: 'jana.novakova@seznam.cz', honeypot: '', welcomeEmailsConsent: true })
    * // tahak-evropska-dvojcata-americkych-etf.pdf downloads, then pdf_download { trigger: 'auto' };
-   * // lead = { kind: 'new', email: 'jana.novakova@seznam.cz' }
+   * // lead = { kind: 'new', email: 'jana.novakova@seznam.cz', hasWelcomeEmailsConsent: true }
    * ```
    */
-  const handleLeadFormSubmitted = (email: string) => {
+  const handleLeadFormSubmitted = ({ email, welcomeEmailsConsent }: LeadSubmission) => {
     // Not awaited, so Delivery shows at once. A failed download records no pdf_download, and Delivery's visible link to
     // the same file stays the way to it, as it is when a browser refuses a download no tap started (Safari on iOS can).
     downloadFile(LEAD_MAGNET_PDF_PATH, LEAD_MAGNET_PDF_FILE_NAME).then(
@@ -77,7 +78,7 @@ const Home = () => {
       () => {},
     )
     rememberLead()
-    setLead({ kind: 'new', email })
+    setLead({ kind: 'new', email, hasWelcomeEmailsConsent: welcomeEmailsConsent })
   }
 
   return (

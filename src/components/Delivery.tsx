@@ -1,6 +1,7 @@
 // Delivery: what replaces the Lead Form once the Visitor is a Lead, inline, never a toast or a dialog
 // (design-identity.md#components). A new Lead reads that the PDF is downloading and on its way to their email, gets the
-// PDF as a visible link in case the download didn't start, and is asked the Segmentation Question. A returning Lead
+// PDF as a visible link in case the download didn't start, and, if they ticked the Welcome Emails Consent, is asked the
+// Segmentation Question, whose answer only picks their Day 5 Welcome Email. A returning Lead
 // gets the link again. Either way, Section 04 shows Chapters 2 and 3 unlocked below the band. A tap on the link is a
 // pdf_download Funnel Event.
 import { ArrowDown } from 'lucide-react'
@@ -37,12 +38,14 @@ const focusDelivery = (delivery: HTMLDivElement | null) => {
 }
 
 /**
- * The confirmation, the PDF's link, and for a new Lead the Segmentation Question.
+ * The confirmation, the PDF's link, and for a new Lead who wants the Welcome Emails the Segmentation Question.
  *
  * ```tsx
- * <Delivery lead={{ kind: 'new', email: 'jana.novakova@seznam.cz' }} />
+ * <Delivery lead={{ kind: 'new', email: 'jana.novakova@seznam.cz', hasWelcomeEmailsConsent: true }} />
  * // Hotovo. Tahák se stahuje. Odkaz na něj vám posíláme i na jana.novakova@seznam.cz. …
  * // [Stáhnout tahák (PDF) ↓] Kde investujete? XTB · Trading 212 · … Tabulku dvojčat a daně máte odemčené…
+ * <Delivery lead={{ kind: 'new', email: 'jana.novakova@seznam.cz', hasWelcomeEmailsConsent: false }} />
+ * // the same, without the Segmentation Question
  * <Delivery lead={{ kind: 'returning' }} />
  * // Tahák už máte. … [Stáhnout tahák (PDF) ↓] Tabulku dvojčat a daně máte odemčené…
  * ```
@@ -84,7 +87,7 @@ export const Delivery = ({ lead }: DeliveryProps) => {
         <span className="text-fact">Stáhnout tahák (PDF)</span>
         <ArrowDown data-icon="inline-end" aria-hidden="true" className="size-5" />
       </a>
-      {isNewLead && <SegmentationQuestion email={lead.email} />}
+      {isNewLead && lead.hasWelcomeEmailsConsent && <SegmentationQuestion email={lead.email} />}
       <p>Tabulku dvojčat a daně máte odemčené hned pod tímto blokem.</p>
     </div>
   )
