@@ -1,9 +1,11 @@
 // The Fund Picker (`fund-picker`): the Visitor picks the US ETF their app won't sell and sees its Twin, or its closest
 // alternative where no UCITS ETF tracks the same index. It opens the `pain` First Screen and is Section 03 for `money`.
+// The Visitor's first pick is its interactive_tool_use Funnel Event; the preselected VOO isn't use.
 import { AnimatePresence, m } from 'motion/react';
 import { useState, type ReactNode } from 'react';
 import { usEstateTaxThreshold } from '@data/figures.ts';
 import { findSubstitutes, type EtfSubstitutes } from '@lib/substitutes.ts';
+import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts';
 import { ClosestAlternativeNote } from './ClosestAlternativeNote.tsx';
 import { DataSourceNote } from './DataSourceNote.tsx';
 import { LeadAsk } from './LeadAsk.tsx';
@@ -35,10 +37,22 @@ export const FundPicker = ({ renderHeadline }: FundPickerProps) => {
   const { etf, relation, substitutes } = etfSubstitutes;
   const [primarySubstitute, ...otherSubstitutes] = substitutes;
 
+  /**
+   * Shows the picked ETF's answer, and records the pick as the Fund Picker's use, once per Visit.
+   *
+   * ```ts
+   * pickEtfTicker('SPY') // SPY struck out over its Twins; interactive_tool_use { tool: 'fund-picker', ticker: 'SPY' }
+   * ```
+   */
+  const pickEtfTicker = (etfTicker: string) => {
+    setPickedEtfTicker(etfTicker);
+    trackFunnelEvent({ event: 'interactive_tool_use', tool: 'fund-picker', ticker: etfTicker });
+  };
+
   return (
     <div id="fund-picker" className="grid gap-5">
       {renderHeadline?.(etfSubstitutes)}
-      <TickerChoice pickedEtfTicker={pickedEtfTicker} onPick={setPickedEtfTicker} />
+      <TickerChoice pickedEtfTicker={pickedEtfTicker} onPick={pickEtfTicker} />
       <div className="grid" aria-live="polite">
         <StruckTicker ticker={etf.ticker} />
         {/* Each pick slides its answer in; the preselected one is already there when the page opens. */}
