@@ -51,12 +51,13 @@ The twins in the right-hand column are **not** paired with the ETF on the same r
 Funnel Events to track:
 
 - arrival with UTM parameters
-- scroll depth 25, 50 and 75 %
+- the first view of each Section
 - use of the fund picker and the fee calculator
+- a tap on a Lead Ask or the sticky CTA
 - Lead Form view, start of typing, submit, success and error
-- PDF download
+- PDF download, and the answer to the segmentation question
 
-Send them to GA4 or a `dataLayer`, the Meta Pixel (the `Lead` event) and an own endpoint. Funnel: arrival → interaction → Lead Form seen → started typing → submitted.
+They go to the in-page `dataLayer` only: no GA4, no Meta Pixel and no endpoint of our own ([ADR-0005](./adr/0005-funnel-events-in-the-datalayer-only.md)). Funnel: arrival → Lead Form seen → started typing → success, counting Visitors only. Interactive Tool use is a breakdown of the Funnel, not a step. The events and the Funnel are listed in the [README](../README.md#funnel).
 
 ## 6. README
 

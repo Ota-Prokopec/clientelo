@@ -17,8 +17,8 @@ const adVariantByUtmContent: Record<AdVariantUtmContent, AdVariant> = {
   money: MoneyAdVariant,
 };
 
-/** The Ad Variant a Visitor without a known `utm_content` sees: it carries the Key Insight. */
-const fallbackAdVariant: AdVariant = PainAdVariant;
+/** The `utm_content` naming the Ad Variant a Visitor without a known one sees: it carries the Key Insight. */
+const fallbackAdVariantUtmContent: AdVariantUtmContent = 'pain';
 
 /**
  * Whether a `utm_content` value names an Ad Variant.
@@ -33,6 +33,20 @@ const isAdVariantUtmContent = (utmContent: string | null): utmContent is AdVaria
   utmContent !== null && Object.hasOwn(adVariantByUtmContent, utmContent);
 
 /**
+ * The name of the Ad Variant whose First Screen a `utm_content` value opens: the value itself when it names one, or
+ * `pain` when it is missing or unknown.
+ *
+ * ```ts
+ * resolveAdVariantUtmContent('money') // 'money'
+ * resolveAdVariantUtmContent('pian')  // 'pain'
+ * resolveAdVariantUtmContent(null)    // 'pain'
+ * ```
+ */
+export const resolveAdVariantUtmContent = (utmContent: string | null): AdVariantUtmContent => {
+  return isAdVariantUtmContent(utmContent) ? utmContent : fallbackAdVariantUtmContent;
+};
+
+/**
  * The Ad Variant a `utm_content` value names, or `PainAdVariant` when it is missing or unknown.
  *
  * ```ts
@@ -42,5 +56,5 @@ const isAdVariantUtmContent = (utmContent: string | null): utmContent is AdVaria
  * ```
  */
 export const resolveAdVariant = (utmContent: string | null): AdVariant => {
-  return isAdVariantUtmContent(utmContent) ? adVariantByUtmContent[utmContent] : fallbackAdVariant;
+  return adVariantByUtmContent[resolveAdVariantUtmContent(utmContent)];
 };

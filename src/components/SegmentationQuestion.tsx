@@ -2,8 +2,10 @@
 // PDF has started downloading, so answering never delays it. It is optional and takes one tap, on a segmented control
 // whose options wrap onto rows (design-identity.md#components). The answer, the Lead's Segment, goes through the
 // submitSegment() seam and picks their Day 5 Welcome Email (docs/welcome-emails.md). It shows unanswered, submitting,
-// answered or error on `data-state`, for step 5's Funnel Events.
+// answered or error on `data-state`. Each answer submitted is a segment_answer Funnel Event, which carries the Segment
+// and never the email.
 import { useState } from 'react'
+import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
 import { submitSegment } from '@/lead/submitSegment.ts'
 import type { Segment } from '@/types.ts'
 import { SegmentedControl } from './SegmentedControl.tsx'
@@ -65,13 +67,15 @@ export const SegmentationQuestion = ({ email }: SegmentationQuestionProps) => {
    * still being sent is ignored, so two answers never race each other.
    *
    * ```ts
-   * await pickSegment('revolut') // "answered"; it rejects → "error", and Revolut is no longer picked
+   * await pickSegment('revolut') // segment_answer { segment: 'revolut' }, then "answered";
+   * // it rejects → "error", and Revolut is no longer picked
    * ```
    */
   const pickSegment = async (pickedOptionValue: string) => {
     if (segmentationQuestionState === 'submitting' || !isSegment(pickedOptionValue)) return
     setPickedSegment(pickedOptionValue)
     setSegmentationQuestionState('submitting')
+    trackFunnelEvent({ event: 'segment_answer', segment: pickedOptionValue })
     try {
       await submitSegment({ email, segment: pickedOptionValue })
     } catch {

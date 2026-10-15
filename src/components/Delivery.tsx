@@ -1,15 +1,28 @@
 // Delivery: what replaces the Lead Form once the Visitor is a Lead, inline, never a toast or a dialog
 // (design-identity.md#components). A new Lead reads that the PDF is downloading and on its way to their email, gets the
 // PDF as a visible link in case the download didn't start, and is asked the Segmentation Question. A returning Lead
-// gets the link again. Either way, Section 04 shows Chapters 2 and 3 unlocked below the band.
+// gets the link again. Either way, Section 04 shows Chapters 2 and 3 unlocked below the band. A tap on the link is a
+// pdf_download Funnel Event.
 import { ArrowDown } from 'lucide-react'
 import { leadMagnetPdfPath } from '@data/leadMagnetFiles.ts'
 import { buttonVariants } from '@/components/ui/button-variants'
+import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
 import { cn } from '@/lib/utils'
 import type { Lead } from '@/types.ts'
 import { SegmentationQuestion } from './SegmentationQuestion.tsx'
 
 export type DeliveryProps = { lead: Lead }
+
+/**
+ * Records a tap on the PDF's link.
+ *
+ * ```ts
+ * trackPdfLinkDownload() // pdf_download { trigger: 'link' }
+ * ```
+ */
+const trackPdfLinkDownload = () => {
+  trackFunnelEvent({ event: 'pdf_download', trigger: 'link' })
+}
 
 /**
  * Moves focus to a new Lead's Delivery as it appears, so a Lead on a keyboard or a screen reader isn't left on the form
@@ -64,6 +77,7 @@ export const Delivery = ({ lead }: DeliveryProps) => {
       <a
         href={leadMagnetPdfPath}
         download
+        onClick={trackPdfLinkDownload}
         className={cn(buttonVariants({ variant: 'secondary' }), 'h-12 justify-between px-5')}
       >
         {/* The type size sits on the text: the button's own `text-sm` would fight it through `cn` (tailwind.md#tokens). */}

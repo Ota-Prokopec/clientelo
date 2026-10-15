@@ -4,6 +4,9 @@
 /** An Interactive Tool, by the id step 5's Funnel Events hook onto. */
 export type InteractiveTool = 'fund-picker' | 'fee-calculator'
 
+/** A Section, by its anchor's id, in the order README.md justifies. The Footer is the last one. */
+export type SectionId = 'first-screen' | 'key-insight' | 'other-tool' | 'lead-magnet' | 'footer'
+
 /** Whose amount the Fee Calculator's bars show: a Bank Fund's TER costs the Visitor, a Twin's is the good number. */
 export type FundKind = 'bank-fund' | 'twin'
 
