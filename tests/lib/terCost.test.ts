@@ -3,12 +3,12 @@ import { describe, expect, it } from 'vitest'
 import { calculateTerCost } from '@lib/terCost.ts'
 
 describe('calculateTerCost', () => {
-  it('leaves 63 826 Kč in ČSOB Akciový and 99 402 Kč in SPYL from 100 000 Kč over 20 years', () => {
-    const terCost = calculateTerCost({ amountKc: 100_000, years: 20, bankFundTerPercent: 2.22, twinTerPercent: 0.03 })
+  it('leaves 59 166 Kč in ČSOB Akciový and 99 402 Kč in SPYL from 100 000 Kč over 20 years', () => {
+    const terCost = calculateTerCost({ amountKc: 100_000, years: 20, bankFundTerPercent: 2.59, twinTerPercent: 0.03 })
 
-    expect(terCost.bankFundAmountKc).toBeCloseTo(63_826.45, 1)
+    expect(terCost.bankFundAmountKc).toBeCloseTo(59_165.82, 1)
     expect(terCost.twinAmountKc).toBeCloseTo(99_401.71, 1)
-    expect(terCost.differenceKc).toBeCloseTo(35_575.26, 1)
+    expect(terCost.differenceKc).toBeCloseTo(40_235.89, 1)
   })
 
   // docs/ads.md derives "zhruba o třetinu méně" from this ratio: ((1 − 0.02) / (1 − 0.0003))^20 ≈ 0.67.

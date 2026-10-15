@@ -149,5 +149,5 @@ An equity fund a bank sells its clients, such as ČSOB Akciový, whose TER the F
 _Avoid_: Mutual fund, bank product.
 
 **Data Source**:
-The primary source of a figure the page, the Lead Magnet, the Ads or the Welcome Emails show: the party that sets or publishes it, such as the issuer's fund page for an ETF. It holds the date the figure was verified there, or none while it is unverified. An aggregator such as justETF is never one. Every figure has one. See [ADR-0004](./docs/adr/0004-figures-verified-against-primary-sources.md).
+The primary source of a figure the page, the Lead Magnet, the Ads or the Welcome Emails show: the party that sets or publishes it, such as the issuer's fund page for an ETF. It holds the date the figure was verified there, or none while it is unverified. An aggregator such as justETF is never one. Every figure has one, and a figure computed from others, such as the typical Bank Fund TER behind "kolem 2 %", cites each of theirs. See [ADR-0004](./docs/adr/0004-figures-verified-against-primary-sources.md).
 _Avoid_: Reference, provider.

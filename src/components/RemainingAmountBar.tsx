@@ -18,7 +18,7 @@ const fillClassNameByFundKind: Record<FundKind, string> = {
 
 export type RemainingAmountBarProps = {
   name: string
-  /** The TER as the page names it, such as "2,22 %" or "kolem 2 %". */
+  /** The TER as the page names it, such as "2,59 %" or "kolem 2 %". */
   terLabel: string
   amountKc: number
   /** The share of the Twin's amount this fund leaves, from 0 to 1: the Twin's own bar is 1. */
@@ -30,9 +30,9 @@ export type RemainingAmountBarProps = {
  * The fund's name and TER, its amount on the right, and a bar filled to its share of the Twin's amount.
  *
  * ```tsx
- * <RemainingAmountBar name="ČSOB Akciový" terLabel="2,22 %" amountKc={63_826} shareOfTwinAmount={0.642} fundKind="bank-fund" />
- * // ČSOB Akciový · 2,22 % (in `signal`) ……… 63 826 Kč
- * // [█████████████░░░░░░░] a `signal` bar across 64.2 % of the row
+ * <RemainingAmountBar name="ČSOB Akciový" terLabel="2,59 %" amountKc={59_166} shareOfTwinAmount={0.595} fundKind="bank-fund" />
+ * // ČSOB Akciový · 2,59 % (in `signal`) ……… 59 166 Kč
+ * // [████████████░░░░░░░░] a `signal` bar across 59.5 % of the row
  * ```
  */
 export const RemainingAmountBar = ({ name, terLabel, amountKc, shareOfTwinAmount, fundKind }: RemainingAmountBarProps) => {

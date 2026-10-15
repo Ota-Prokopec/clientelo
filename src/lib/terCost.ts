@@ -35,10 +35,10 @@ const clampToNonNegativeAmountKc = (amountKc: number): number => (amountKc > 0 ?
  * negative amount counts as 0 Kč, so the page never shows `NaN`.
  *
  * ```ts
- * calculateTerCost({ amountKc: 100_000, years: 20, bankFundTerPercent: 2.22, twinTerPercent: 0.03 })
- * // { bankFundAmountKc: 63 826.45…, twinAmountKc: 99 401.71…, differenceKc: 35 575.26…, bankFundToTwinRatio: 0.642… }
- * calculateTerCost({ amountKc: Number.NaN, years: 20, bankFundTerPercent: 2.22, twinTerPercent: 0.03 })
- * // { bankFundAmountKc: 0, twinAmountKc: 0, differenceKc: 0, bankFundToTwinRatio: 0.642… }
+ * calculateTerCost({ amountKc: 100_000, years: 20, bankFundTerPercent: 2.59, twinTerPercent: 0.03 })
+ * // { bankFundAmountKc: 59 165.82…, twinAmountKc: 99 401.71…, differenceKc: 40 235.89…, bankFundToTwinRatio: 0.595… }
+ * calculateTerCost({ amountKc: Number.NaN, years: 20, bankFundTerPercent: 2.59, twinTerPercent: 0.03 })
+ * // { bankFundAmountKc: 0, twinAmountKc: 0, differenceKc: 0, bankFundToTwinRatio: 0.595… }
  * ```
  */
 export const calculateTerCost = ({ years, bankFundTerPercent, twinTerPercent, ...args }: CalculateTerCostProps): TerCost => {
