@@ -43,18 +43,18 @@ Dark mode follows the system (`prefers-color-scheme`) with no toggle. Every colo
 
 One family: **Schibsted Grotesk** at 400, 700 and 900, self-hosted from Fontsource as static files (they cover Czech, and the PDF embeds the same files). A figure that changes as the Visitor moves a control (the Kč difference) uses `tabular-nums`, so it doesn't jitter; a static figure stays proportional, because tabular figures set the decimal comma a digit wide (`2 , 22 %`).
 
-| Role                         | Token        | Size at 375 px      | Weight | Tracking |
-| ---------------------------- | ------------ | ------------------- | ------ | -------- |
-| Giant Ticker                 | `ticker`     | 6.5rem, fits 343 px | 900    | −0.06em  |
-| Giant TER                    | `ter`        | 4.5rem              | 900    | −0.05em  |
-| Kč difference                | `difference` | 3.4rem              | 900    | −0.05em  |
-| First Screen headline        | `headline`   | 2.5rem              | 900    | −0.045em |
-| Section heading, band title  | `title`      | 2.2rem              | 900    | −0.045em |
-| Fact value                   | `fact`       | 18 px               | 700    |          |
-| Body                         | `body`       | 17 px, line 1.55    | 400    |          |
-| Lead Magnet contents line    | `contents`   | 14 px, line 1.2     | 700    |          |
-| Grid label, field label      | `label`      | 12 px               | 700    |          |
-| Fact label, Data Source note | `note`       | 11 px               | 400    |          |
+| Role                                              | Token        | Size at 375 px      | Weight | Tracking |
+| ------------------------------------------------- | ------------ | ------------------- | ------ | -------- |
+| Giant Ticker                                      | `ticker`     | 6.5rem, fits 343 px | 900    | −0.06em  |
+| Giant TER                                         | `ter`        | 4.5rem              | 900    | −0.05em  |
+| Kč difference                                     | `difference` | 3.4rem              | 900    | −0.05em  |
+| First Screen headline                             | `headline`   | 2.5rem              | 900    | −0.045em |
+| Section heading, band title                       | `title`      | 2.2rem              | 900    | −0.045em |
+| Fact value                                        | `fact`       | 18 px               | 700    |          |
+| Body                                              | `body`       | 17 px, line 1.55    | 400    |          |
+| Lead Magnet contents line, the Consent Bar's line | `contents`   | 14 px, line 1.2     | 700    |          |
+| Grid label, field label                           | `label`      | 12 px               | 700    |          |
+| Fact label, Data Source note                      | `note`       | 11 px               | 400    |          |
 
 Each role is a `--text-*` token in `src/index.css` that carries its line height, tracking and weight, so `text-ticker` alone sets a giant Ticker. A giant figure must fit the 343 px between the gutters at 375 px, so the widest one shown (a four-letter Ticker, `2,59 %`) sets the size.
 
@@ -97,6 +97,7 @@ Rules, giant type and the grid stay square. Nothing has a shadow.
 | Segmentation Question                   | `ToggleGroup` as a segmented control, its options wrapping onto rows       |
 | The Chapters a Lead unlocks             | ruled rows and the ruled fact list, numbered like a Section                |
 | Sticky CTA and every CTA                | `Button`, or a link styled with its `buttonVariants` where it scrolls      |
+| Consent Bar                             | a `block` panel holding two `secondary` `Button`s of equal width           |
 | The PDF preview in a Lead Ask           | `Card`, white, in the light palette                                        |
 
 These stay plain, on purpose: a Data Source note is visible inline text (a popover would hide the trust it builds), the Key Insight's points are a list (an accordion would put the argument behind taps), and Delivery replaces the Lead Form inline (no toast, no dialog).
@@ -113,6 +114,8 @@ These stay plain, on purpose: a Data Source note is visible inline text (a popov
 **Delivery** replaces the Lead Form on Section 04's band. For a new Lead it reads "Hotovo. Tahák se stahuje.", then the PDF's link as a `secondary` button, light on the band so it never competes with the red CTA, then the Segmentation Question, whose error is bold `block-foreground` like the form's. A returning Lead gets the link alone. Below the band, Chapters 2 and 3 unlock on the page, each framed like a Section: a 2 px rule, its number in `signal`, "Odemčeno z taháku", and its contents line as the heading. The Twin table lists each UCITS ETF as a ruled row with its facts two to a line, since 375 px can't hold the PDF's six columns, and the taxes are one ruled fact to a row.
 
 **The Sticky CTA** is the same red button floating 16 px from the edges and above the safe area. It steps aside while a Lead Ask, Section 04's with the Lead Form included, is on screen. The page keeps enough bottom padding that it never covers a Data Source note.
+
+**The Consent Bar** is a `block` panel with the `xl` radius, floating 16 px from the edges and 8 px above the Sticky CTA, or where the Sticky CTA would be once the Visitor is a Lead. It holds one line of copy in `contents` and, below it, "Povolit" and "Odmítnout" side by side as `secondary` buttons of equal width, light on the panel like Delivery's link, so neither outweighs the other and neither competes with the red CTA. It appears without motion, and only after the Visitor's first scroll or Interactive Tool use, so it never covers the First Screen's Ad Promise.
 
 ## Motion
 

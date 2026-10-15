@@ -7,7 +7,7 @@ A mobile-first lead-magnet landing page that compares NYSE-traded ETFs for Czech
 ### Acquisition
 
 **Visitor**:
-A person on the page who hasn't submitted the Lead Form yet. They are assumed to be on a phone, arriving from an Ad, and giving the page a few seconds.
+A person on the page who hasn't submitted the Lead Form yet. They are assumed to be on a phone, arriving from an Ad, and giving the page a few seconds. A returning Visitor is one the page remembers from an earlier Visit, which it may only after they allow it in the Consent Bar.
 _Avoid_: User, customer, client.
 
 **Lead**:
@@ -119,8 +119,12 @@ The measured journey from arrival to Lead Form submission, in four steps: arriva
 _Avoid_: Journey, pipeline.
 
 **Funnel Event**:
-One tracked moment of a Visit, pushed to the in-page `dataLayer` with the Visit's Ad Variant, UTM parameters and who arrived (a new Visitor or a returning Lead): arrival, Section view, Interactive Tool use, Lead Ask click, Lead Form seen, Lead Form start, Lead Form submit, Lead Form success, Lead Form error, PDF download and Segment answer. It never carries the Lead's email. See [ADR-0005](./docs/adr/0005-funnel-events-in-the-datalayer-only.md).
+One tracked moment of a Visit, pushed to the in-page `dataLayer` with the Visit's Ad Variant, UTM parameters and who arrived (a new Visitor, a returning Visitor or a returning Lead): arrival, Section view, Interactive Tool use, Lead Ask click, Lead Form seen, Lead Form start, Lead Form submit, Lead Form success, Lead Form error, PDF download and Segment answer. It never carries the Lead's email. See [ADR-0005](./docs/adr/0005-funnel-events-in-the-datalayer-only.md).
 _Avoid_: Hit, ping, analytics event (when it is a Funnel step), Lead Form open (a tap that opens the Lead Form is a Lead Ask click).
+
+**Consent Bar**:
+The bar at the bottom of the screen that asks the Visitor, after their first scroll or Interactive Tool use, whether the page may remember that they have been here before, for measurement. It has one line of copy and two buttons of equal weight, "Povolit" and "Odmítnout", with nothing preselected. A choice holds for 12 months, and the footer's "Nastavení cookies" reopens the bar to change it. See [README.md](./README.md#consent).
+_Avoid_: Cookie banner, cookie popup, consent modal.
 
 **Conversion Rate**:
 Leads divided by Visitors who arrived, per Ad Variant unless stated otherwise. Per Ad Variant, it counts only arrivals whose `utm_content` named that Ad Variant, so a Visitor without UTMs, who sees the `pain` First Screen, doesn't count for Ad Variant A.

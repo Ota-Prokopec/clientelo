@@ -57,7 +57,7 @@ Funnel Events to track:
 - Lead Form view, start of typing, submit, success and error
 - PDF download, and the answer to the segmentation question
 
-They go to the in-page `dataLayer` only: no GA4, no Meta Pixel and no endpoint of our own ([ADR-0005](./adr/0005-funnel-events-in-the-datalayer-only.md)). Funnel: arrival → Lead Form seen → started typing → success, counting Visitors only. Interactive Tool use is a breakdown of the Funnel, not a step. The events and the Funnel are listed in the [README](../README.md#funnel).
+They go to the in-page `dataLayer` only: no GA4, no Meta Pixel and no endpoint of our own ([ADR-0005](./adr/0005-funnel-events-in-the-datalayer-only.md)). Funnel: arrival → Lead Form seen → started typing → success, counting Visitors only. Interactive Tool use is a breakdown of the Funnel, not a step. The events and the Funnel are listed in the [README](../README.md#funnel). A returning Visitor is remembered only after they allow it in the Consent Bar ([README](../README.md#consent)).
 
 ## 6. README
 

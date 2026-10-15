@@ -2,24 +2,7 @@
 // Visitor with the content locked, instead of breaking the page.
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { readRememberedLead, rememberLead } from '../../src/lead/rememberedLead.ts'
-
-/**
- * A localStorage that keeps its items in memory, as a browser keeps them across a reload.
- *
- * ```ts
- * const storage = createMemoryStorage()
- * storage.setItem('a', '1')
- * storage.getItem('a') // '1'
- * ```
- */
-const createMemoryStorage = (): Pick<Storage, 'getItem' | 'setItem'> => {
-  const itemByKey = new Map<string, string>()
-
-  return {
-    getItem: (key) => itemByKey.get(key) ?? null,
-    setItem: (key, item) => itemByKey.set(key, item) && undefined,
-  }
-}
+import { createMemoryStorage } from '../memoryStorage.ts'
 
 describe('readRememberedLead', () => {
   afterEach(() => {

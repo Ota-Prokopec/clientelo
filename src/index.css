@@ -74,7 +74,7 @@
   --text-fact: 1.125rem; /* a fact's value */
   --text-fact--line-height: 1.2;
   --text-fact--font-weight: 700;
-  --text-contents: 0.875rem; /* a line of the Lead Magnet's contents list, beside its thumbnail */
+  --text-contents: 0.875rem; /* a line of the Lead Magnet's contents list, beside its thumbnail; the Consent Bar's line */
   --text-contents--line-height: 1.2;
   --text-contents--font-weight: 700;
   --text-body: 1.0625rem; /* 17 px */
