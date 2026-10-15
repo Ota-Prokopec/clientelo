@@ -1,0 +1,3 @@
+# Keep the page and the Lead Magnet PDF out of search engines, so no user who isn't an interviewer reaches it by accident.
+User-agent: *
+Allow: /
