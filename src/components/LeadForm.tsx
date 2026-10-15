@@ -7,7 +7,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, type FormEvent } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router'
 import { Button } from '@/components/ui/button.tsx'
 import { shutOutBot, trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
 import { useOnFirstView, type ElementVisibility } from '@/hooks/useOnFirstView.ts'
@@ -18,6 +17,8 @@ import { Delivery } from './Delivery.tsx'
 import { HoneypotField } from './fields/HoneypotField.tsx'
 import { InputField } from './fields/InputField.tsx'
 import { LeadCta } from './LeadCta.tsx'
+import { QueryKeepingLink } from './QueryKeepingLink.tsx'
+import { PRIVACY_POLICY_PATH } from '@/routes/privacyPolicy.tsx'
 
 /** The Lead Form's id, which every link to the Lead Form targets. Step 5's Funnel Events hook onto it. */
 export const LEAD_FORM_ID = 'lead-form'
@@ -227,9 +228,9 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
       <p className="text-note">
         E-mail použijeme jen k zaslání taháku a několika e-mailů o ETF, z jejichž odběru se kdykoli odhlásíte jedním
         kliknutím (
-        <Link to="/ochrana-osobnich-udaju" className="underline underline-offset-2">
+        <QueryKeepingLink pathname={PRIVACY_POLICY_PATH} opensInNewTab className="underline underline-offset-2">
           zásady ochrany osobních údajů
-        </Link>
+        </QueryKeepingLink>
         ).
       </p>
     </div>
