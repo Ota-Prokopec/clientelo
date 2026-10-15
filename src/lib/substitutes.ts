@@ -9,6 +9,7 @@ import {
   substituteTickersByEtfTicker,
   type DataSource,
   type Etf,
+  type EtfTicker,
   type UcitsEtf,
 } from '@data/figures.ts'
 import type { SubstituteRelation } from '@/types.ts'
@@ -45,9 +46,9 @@ const rankDistributionPolicy = (ucitsEtf: UcitsEtf): number => (ucitsEtf.distrib
  * findSubstitutes('VT')  // { etf: VT, relation: 'twin', substitutes: [VGLA] }
  * ```
  */
-export const findSubstitutes = (etfTicker: string): EtfSubstitutes => {
+export const findSubstitutes = (etfTicker: EtfTicker): EtfSubstitutes => {
   const etf = findEtf(etfTicker)
-  const substitutes = (substituteTickersByEtfTicker[etfTicker] ?? [])
+  const substitutes = substituteTickersByEtfTicker[etfTicker]
     .map(findUcitsEtf)
     // An accumulating fund pays no dividends, so it leaves nothing for the Czech tax return. The sort is stable.
     .toSorted((first, second) => rankDistributionPolicy(first) - rankDistributionPolicy(second))

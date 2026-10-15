@@ -1,13 +1,13 @@
 // Tests the Fund Picker's answer: the Substitutes shown for an ETF, and whether they are Twins or closest alternatives.
 // Also tests the groups the Lead Magnet's Twin table lists them in.
 import { describe, expect, it } from 'vitest'
-import { etfs } from '@data/figures.ts'
+import { etfs, type EtfTicker } from '@data/figures.ts'
 import { findSubstitutes, groupEtfsBySubstitutes } from '@lib/substitutes.ts'
 
 const etfTickers = etfs.map((etf) => etf.ticker)
 
 describe('findSubstitutes', () => {
-  it.each(['VOO', 'IVV', 'SPY'])('answers %s with its S&P 500 Twins, SPYL first', (etfTicker) => {
+  it.each<EtfTicker>(['VOO', 'IVV', 'SPY'])('answers %s with its S&P 500 Twins, SPYL first', (etfTicker) => {
     const etfSubstitutes = findSubstitutes(etfTicker)
 
     expect(etfSubstitutes.relation).toBe('twin')

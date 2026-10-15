@@ -2,6 +2,7 @@
 // made. A choice 12 months old counts as none, so the Consent Bar asks again. A browser that blocks or refuses storage,
 // or holds a garbled record, gets no choice, never an error: the bar asks, and nothing is remembered without consent.
 import { z } from 'zod'
+import { readStoredItem, storeItem } from '@lib/browserStorage.ts'
 
 /** The localStorage key of the record, namespaced like `clientelo:lead`. */
 const CONSENT_CHOICE_STORAGE_KEY = 'clientelo:consent'
@@ -35,14 +36,8 @@ export type RememberConsentChoiceProps = {
  * ```
  */
 export const rememberConsentChoice = ({ consentChoice, chosenAt }: RememberConsentChoiceProps): void => {
-  try {
-    localStorage.setItem(
-      CONSENT_CHOICE_STORAGE_KEY,
-      JSON.stringify({ consentChoice, chosenAt: chosenAt.toISOString() }),
-    )
-  } catch {
-    // Without storage the choice is forgotten on the next reload, so the Consent Bar only asks again.
-  }
+  // Without storage the choice is forgotten on the next reload, so the Consent Bar only asks again.
+  storeItem(CONSENT_CHOICE_STORAGE_KEY, JSON.stringify({ consentChoice, chosenAt: chosenAt.toISOString() }))
 }
 
 /**
@@ -57,12 +52,7 @@ export const rememberConsentChoice = ({ consentChoice, chosenAt }: RememberConse
  * ```
  */
 export const readConsentChoice = (now: Date): ConsentChoice | null => {
-  let storedConsentRecord: string | null
-  try {
-    storedConsentRecord = localStorage.getItem(CONSENT_CHOICE_STORAGE_KEY)
-  } catch {
-    return null
-  }
+  const storedConsentRecord = readStoredItem(CONSENT_CHOICE_STORAGE_KEY)
   if (storedConsentRecord === null) return null
 
   let consentRecordJson: unknown

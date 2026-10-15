@@ -2,6 +2,7 @@
 // Funnel Events count them as a returning Visitor (#51). It serves measurement only, so it is stored and read only while
 // the Visitor's consent from the Consent Bar holds (§89(3) of Act No. 127/2005 Coll.), and removed once they refuse or
 // withdraw it. A browser that blocks or refuses storage counts as a new Visitor, never an error.
+import { readStoredItem, removeStoredItem, storeItem } from '@lib/browserStorage.ts'
 import { readConsentChoice } from './consentChoice.ts'
 
 /** The localStorage key of the flag, namespaced like `clientelo:lead`. */
@@ -17,12 +18,9 @@ const REMEMBERED_VISIT_STORAGE_KEY = 'clientelo:visited'
  * ```
  */
 export const syncRememberedVisit = (now: Date): void => {
-  try {
-    if (readConsentChoice(now) === 'granted') localStorage.setItem(REMEMBERED_VISIT_STORAGE_KEY, '1')
-    else localStorage.removeItem(REMEMBERED_VISIT_STORAGE_KEY)
-  } catch {
-    // Without storage the Visit is forgotten, so the next one counts as a new Visitor's.
-  }
+  // Without storage the Visit is forgotten, so the next one counts as a new Visitor's.
+  if (readConsentChoice(now) === 'granted') storeItem(REMEMBERED_VISIT_STORAGE_KEY, '1')
+  else removeStoredItem(REMEMBERED_VISIT_STORAGE_KEY)
 }
 
 /**
@@ -35,10 +33,5 @@ export const syncRememberedVisit = (now: Date): void => {
  * ```
  */
 export const readHasVisitedBefore = (now: Date): boolean => {
-  if (readConsentChoice(now) !== 'granted') return false
-  try {
-    return localStorage.getItem(REMEMBERED_VISIT_STORAGE_KEY) === '1'
-  } catch {
-    return false
-  }
+  return readConsentChoice(now) === 'granted' && readStoredItem(REMEMBERED_VISIT_STORAGE_KEY) === '1'
 }

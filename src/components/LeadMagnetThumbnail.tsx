@@ -3,6 +3,7 @@
 // from the same data module the PDF renders, so the preview never names anything the file doesn't.
 import { Card } from '@/components/ui/card.tsx'
 import { LEAD_MAGNET_TITLE } from '@data/leadMagnet.ts'
+import { AD_PROMISE_ETF_TICKER } from '@data/adPromise.ts'
 import { findSubstitutes } from '@lib/substitutes.ts'
 
 /**
@@ -18,7 +19,7 @@ export const LeadMagnetThumbnail = () => {
   const {
     etf,
     substitutes: [firstTwin],
-  } = findSubstitutes('VOO')
+  } = findSubstitutes(AD_PROMISE_ETF_TICKER)
 
   return (
     <Card

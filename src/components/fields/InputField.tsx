@@ -4,6 +4,7 @@ import { useId, type ComponentProps, type ReactNode } from 'react'
 import { Controller, type ControllerRenderProps, type FieldPathByValue, type FieldValues } from 'react-hook-form'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field.tsx'
 import { Input } from '@/components/ui/input.tsx'
+import { toInputValue } from '@lib/inputValue.ts'
 import { cn } from '@lib/utils.ts'
 import type { FieldProps } from './types.ts'
 
@@ -77,7 +78,7 @@ export const InputField = <
           <Input
             {...inputProps}
             {...field}
-            value={Number.isNaN(field.value) ? '' : field.value}
+            value={toInputValue(field.value)}
             onChange={(event) =>
               field.onChange(type === 'number' ? event.currentTarget.valueAsNumber : event.currentTarget.value)
             }

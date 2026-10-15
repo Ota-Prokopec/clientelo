@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
 import { submitSegment } from '@lib/lead/submitSegment.ts'
 import type { Segment } from '@/types.ts'
-import { SegmentedControl } from './SegmentedControl.tsx'
+import { SegmentedControl, type SegmentedControlOption } from './SegmentedControl.tsx'
 
 /** Where the question is: not answered yet, waiting for submitSegment(), answered, or failed and ready to answer again. */
 export type SegmentationQuestionState = 'unanswered' | 'submitting' | 'answered' | 'error'
@@ -19,15 +19,15 @@ export type SegmentationQuestionProps = {
 }
 
 // Each Segment as its option names it, in the order the options show.
-const segmentLabelBySegment: Record<Segment, string> = {
-  xtb: 'XTB',
-  'trading-212': 'Trading 212',
-  revolut: 'Revolut',
-  'fio-patria': 'Fio / Patria',
-  'robo-advisor': 'Portu nebo jiný robo-advisor',
-  'bank-fund': 'Fond u banky',
-  'nowhere-yet': 'Zatím nikde',
-}
+const segmentOptions: SegmentedControlOption<Segment>[] = [
+  { value: 'xtb', content: 'XTB' },
+  { value: 'trading-212', content: 'Trading 212' },
+  { value: 'revolut', content: 'Revolut' },
+  { value: 'fio-patria', content: 'Fio / Patria' },
+  { value: 'robo-advisor', content: 'Portu nebo jiný robo-advisor' },
+  { value: 'bank-fund', content: 'Fond u banky' },
+  { value: 'nowhere-yet', content: 'Zatím nikde' },
+]
 
 // The line under the options: why to answer, then whether the answer arrived.
 const statusLineBySegmentationQuestionState: Record<SegmentationQuestionState, string> = {
@@ -36,16 +36,6 @@ const statusLineBySegmentationQuestionState: Record<SegmentationQuestionState, s
   answered: 'Díky. Návod podle vaší odpovědi vám přijde e-mailem za pár dní.',
   error: 'Odpověď se nepodařilo uložit. Zkuste ji prosím vybrat znovu.',
 }
-
-/**
- * Whether an option's value is a Segment.
- *
- * ```ts
- * isSegment('xtb')      // true
- * isSegment('toString') // false
- * ```
- */
-const isSegment = (optionValue: string): optionValue is Segment => Object.hasOwn(segmentLabelBySegment, optionValue)
 
 /**
  * The question, its options, and a status line that changes as the answer is sent.
@@ -71,13 +61,13 @@ export const SegmentationQuestion = ({ email }: SegmentationQuestionProps) => {
    * // it rejects → "error", and Revolut is no longer picked
    * ```
    */
-  const pickSegment = async (pickedOptionValue: string) => {
-    if (segmentationQuestionState === 'submitting' || !isSegment(pickedOptionValue)) return
-    setPickedSegment(pickedOptionValue)
+  const pickSegment = async (segment: Segment) => {
+    if (segmentationQuestionState === 'submitting') return
+    setPickedSegment(segment)
     setSegmentationQuestionState('submitting')
-    trackFunnelEvent({ event: 'segment_answer', segment: pickedOptionValue })
+    trackFunnelEvent({ event: 'segment_answer', segment })
     try {
-      await submitSegment({ email, segment: pickedOptionValue })
+      await submitSegment({ email, segment })
     } catch {
       // Nothing stays picked, since pressing the picked option again does nothing and the Lead may retry that one.
       setPickedSegment(null)
@@ -91,10 +81,7 @@ export const SegmentationQuestion = ({ email }: SegmentationQuestionProps) => {
     <div id="segmentation-question" data-state={segmentationQuestionState} className="grid gap-2">
       <SegmentedControl
         label="Kde investujete?"
-        options={Object.entries(segmentLabelBySegment).map(([segment, segmentLabel]) => ({
-          value: segment,
-          content: segmentLabel,
-        }))}
+        options={segmentOptions}
         pickedValue={pickedSegment}
         onPick={pickSegment}
         optionClassName="h-11 px-3 font-bold"

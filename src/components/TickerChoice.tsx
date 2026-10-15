@@ -1,10 +1,10 @@
 // The Fund Picker's Ticker choice: the US ETFs as a segmented control (design-identity.md#components), one always picked.
-import { etfs } from '@data/figures.ts'
+import { etfs, type EtfTicker } from '@data/figures.ts'
 import { SegmentedControl } from './SegmentedControl.tsx'
 
 export type TickerChoiceProps = {
-  pickedEtfTicker: string
-  onPick: (etfTicker: string) => void
+  pickedEtfTicker: EtfTicker
+  onPick: (etfTicker: EtfTicker) => void
 }
 
 /**

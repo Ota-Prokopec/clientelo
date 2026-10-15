@@ -1,5 +1,6 @@
 // Chapter 1 of the Lead Magnet PDF (docs/strategy.md#lead-magnet): PRIIPs and the KID in three sentences, then the Fio
 // exception with the reason ČNB gives for it, and the rules and fund pages it rests on as its Data Sources.
+import { AD_PROMISE_ETF_TICKER, AD_PROMISE_TWIN_TICKER } from '@data/adPromise.ts'
 import { findEtf, findUcitsEtf, keyInsightSources } from '@data/figures.ts'
 import { leadMagnetChapters } from '@data/leadMagnet.ts'
 import { formatPercent } from '@lib/format.ts'
@@ -17,10 +18,10 @@ import { pdfTw } from './pdfTw.ts'
  * ```
  */
 export const PdfWhyNoVooChapter = () => {
-  const voo = findEtf('VOO')
+  const adPromiseEtf = findEtf(AD_PROMISE_ETF_TICKER)
   // The three ETFs the text names, so each one's issuer page is cited.
-  const namedEtfs = [voo, findEtf('IVV'), findEtf('SPY')]
-  const spyl = findUcitsEtf('SPYL')
+  const namedEtfs = [adPromiseEtf, findEtf('IVV'), findEtf('SPY')]
+  const adPromiseTwin = findUcitsEtf(AD_PROMISE_TWIN_TICKER)
 
   return (
     <PdfChapter chapter={leadMagnetChapters.whyNoVoo}>
@@ -33,10 +34,14 @@ export const PdfWhyNoVooChapter = () => {
         Každý z nich má ale evropské dvojče: fond se sídlem v Irsku, který sleduje stejný index. Často za stejný
         poplatek:{' '}
         <PdfText style={pdfTw('font-bold text-brand')}>
-          {spyl.ticker} <PdfSourcedFigure sources={[spyl.source]}>{formatPercent(spyl.terPercent)}</PdfSourcedFigure>
+          {adPromiseTwin.ticker}{' '}
+          <PdfSourcedFigure sources={[adPromiseTwin.source]}>
+            {formatPercent(adPromiseTwin.terPercent)}
+          </PdfSourcedFigure>
         </PdfText>
-        , stejně jako {voo.ticker}{' '}
-        <PdfSourcedFigure sources={[voo.source]}>{formatPercent(voo.terPercent)}</PdfSourcedFigure> ročně.
+        , stejně jako {adPromiseEtf.ticker}{' '}
+        <PdfSourcedFigure sources={[adPromiseEtf.source]}>{formatPercent(adPromiseEtf.terPercent)}</PdfSourcedFigure>{' '}
+        ročně.
       </PdfText>
       <PdfText style={pdfTw('text-body text-muted-foreground')}>
         Výjimkou je Fio e-Broker: když jen provede váš pokyn a nic vám nedoporučuje, povinnost KID se na něj podle ČNB
@@ -44,7 +49,7 @@ export const PdfWhyNoVooChapter = () => {
         daň (kapitola 4) a akumulační třída vám nepřidá dividendy do přiznání (kapitola 3).
       </PdfText>
       <PdfDataSourceNote
-        sources={[...Object.values(keyInsightSources), ...namedEtfs.map((etf) => etf.source), spyl.source]}
+        sources={[...Object.values(keyInsightSources), ...namedEtfs.map((etf) => etf.source), adPromiseTwin.source]}
       />
     </PdfChapter>
   )

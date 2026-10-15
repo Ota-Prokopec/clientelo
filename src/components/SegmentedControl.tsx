@@ -7,14 +7,14 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group.tsx'
 import { cn } from '@lib/utils.ts'
 
 /** One option: the value picking it reports, and what its button shows. */
-export type SegmentedControlOption = { value: string; content: ReactNode }
+export type SegmentedControlOption<TValue extends string> = { value: TValue; content: ReactNode }
 
-export type SegmentedControlProps = {
+export type SegmentedControlProps<TValue extends string> = {
   label: string
-  options: SegmentedControlOption[]
+  options: SegmentedControlOption<TValue>[]
   /** The picked option's value, or null while none is picked yet. */
-  pickedValue: string | null
-  onPick: (value: string) => void
+  pickedValue: TValue | null
+  onPick: (value: TValue) => void
   /** Classes every option's button adds, such as its height. */
   optionClassName?: string
 }
@@ -30,7 +30,13 @@ export type SegmentedControlProps = {
  * // pickedValue={null} → Bankovní fond A B, none filled until one is pressed
  * ```
  */
-export const SegmentedControl = ({ label, options, pickedValue, onPick, optionClassName }: SegmentedControlProps) => {
+export const SegmentedControl = <TValue extends string>({
+  label,
+  options,
+  pickedValue,
+  onPick,
+  optionClassName,
+}: SegmentedControlProps<TValue>) => {
   const labelId = useId()
 
   return (
@@ -41,8 +47,12 @@ export const SegmentedControl = ({ label, options, pickedValue, onPick, optionCl
       <ToggleGroup
         aria-labelledby={labelId}
         value={pickedValue === null ? [] : [pickedValue]}
-        // Pressing the picked option again would leave nothing picked, so an empty value is ignored.
-        onValueChange={([value]) => value && onPick(value)}
+        // Pressing the picked option again would leave nothing picked, so an empty value is ignored. Looking the value up
+        // among the options gives it back its type, which the toggle group's untyped value loses.
+        onValueChange={([toggledValue]) => {
+          const pickedOption = options.find((option) => option.value === toggledValue)
+          if (pickedOption) onPick(pickedOption.value)
+        }}
         spacing={1}
         className="w-full flex-wrap rounded-md bg-accent p-1"
       >

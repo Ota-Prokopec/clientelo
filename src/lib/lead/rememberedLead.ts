@@ -1,6 +1,7 @@
 // Remembers a Lead across visits with one localStorage flag, so a reload keeps the content unlocked and the Sticky CTA
 // gone. The flag holds no contact. A browser that blocks or refuses storage gets the page as a Visitor sees it, with
 // the content locked, never an error.
+import { readStoredItem, storeItem } from '@lib/browserStorage.ts'
 import type { Lead } from '@/types.ts'
 
 /** The localStorage key of the flag, namespaced so it can't collide with another app on the same origin. */
@@ -14,11 +15,8 @@ const REMEMBERED_LEAD_STORAGE_KEY = 'clientelo:lead'
  * ```
  */
 export const rememberLead = (): void => {
-  try {
-    localStorage.setItem(REMEMBERED_LEAD_STORAGE_KEY, '1')
-  } catch {
-    // Without storage the Lead is forgotten on the next reload, which only locks the content again.
-  }
+  // Without storage the Lead is forgotten on the next reload, which only locks the content again.
+  storeItem(REMEMBERED_LEAD_STORAGE_KEY, '1')
 }
 
 /**
@@ -30,9 +28,5 @@ export const rememberLead = (): void => {
  * ```
  */
 export const readRememberedLead = (): Lead | null => {
-  try {
-    return localStorage.getItem(REMEMBERED_LEAD_STORAGE_KEY) === '1' ? { kind: 'returning' } : null
-  } catch {
-    return null
-  }
+  return readStoredItem(REMEMBERED_LEAD_STORAGE_KEY) === '1' ? { kind: 'returning' } : null
 }
