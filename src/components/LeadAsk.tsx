@@ -22,7 +22,7 @@ export type LeadAskProps = {
 export const LeadAsk = ({ interactiveTool }: LeadAskProps) => {
   return (
     <LeadAskBand placement={interactiveTool} headingLevel={3} chapters={leadAskChapters}>
-      <LeadFormLink />
+      <LeadFormLink placement={interactiveTool} />
     </LeadAskBand>
   )
 }

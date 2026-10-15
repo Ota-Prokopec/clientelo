@@ -2,13 +2,15 @@
 // and its label on the grid's 3 rem left column, then the Section's content. The Page sets its width and gutter.
 import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
+import type { SectionId } from '@/types.ts'
 import { NumberedLabel } from '../NumberedLabel.tsx'
 
 /** A Section's number on the grid: 01 First Screen, 02 Key Insight, 03 the other Interactive Tool, 04 the Lead Magnet. */
 export type SectionNumber = '01' | '02' | '03' | '04'
 
 export type SectionProps = ComponentProps<'section'> & {
-  id: string
+  /** The Section's anchor, which the section_view Funnel Event names. The Footer is a `<footer>`, not a numbered one. */
+  id: Exclude<SectionId, 'footer'>
   number: SectionNumber
   label: string
 }

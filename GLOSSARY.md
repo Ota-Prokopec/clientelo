@@ -110,16 +110,20 @@ _Avoid_: OG image, social image.
 
 ### Measurement
 
+**Visit**:
+One page load, from arrival until the Visitor leaves. A reload is a new Visit. Some Funnel Events are recorded only once per Visit.
+_Avoid_: Session, pageview.
+
 **Funnel**:
-The measured journey from arrival to Lead Form submission, as an ordered list of Funnel Events.
+The measured journey from arrival to Lead Form submission, in four steps: arrival → Lead Form seen → Lead Form start → Lead Form success. It counts Visitors only, never a returning Lead, and its last step is the Conversion Rate. Interactive Tool use is a breakdown of it, not a step. See [README.md](./README.md#funnel).
 _Avoid_: Journey, pipeline.
 
 **Funnel Event**:
-One tracked step in the Funnel, such as arrival, a First Screen view, a Section view, Interactive Tool use, Lead Form open or Lead Form submit. It carries the Ad Variant.
-_Avoid_: Hit, ping, analytics event (when it is a Funnel step).
+One tracked moment of a Visit, pushed to the in-page `dataLayer` with the Visit's Ad Variant, UTM parameters and who arrived (a new Visitor or a returning Lead): arrival, Section view, Interactive Tool use, Lead Ask click, Lead Form seen, Lead Form start, Lead Form submit, Lead Form success, Lead Form error, PDF download and Segment answer. It never carries the Lead's email. See [ADR-0005](./docs/adr/0005-funnel-events-in-the-datalayer-only.md).
+_Avoid_: Hit, ping, analytics event (when it is a Funnel step), Lead Form open (a tap that opens the Lead Form is a Lead Ask click).
 
 **Conversion Rate**:
-Leads divided by Visitors who arrived, per Ad Variant unless stated otherwise.
+Leads divided by Visitors who arrived, per Ad Variant unless stated otherwise. Per Ad Variant, it counts only arrivals whose `utm_content` named that Ad Variant, so a Visitor without UTMs, who sees the `pain` First Screen, doesn't count for Ad Variant A.
 _Avoid_: CR, conversion (for the ratio).
 
 **A/B Hypothesis**:

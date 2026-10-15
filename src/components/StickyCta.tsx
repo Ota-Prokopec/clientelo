@@ -25,6 +25,7 @@ export const StickyCta = ({ isLead }: StickyCtaProps) => {
   return (
     <LeadFormLink
       id="sticky-cta"
+      placement="sticky-cta"
       data-hidden={isAnyOnScreen}
       aria-hidden={isAnyOnScreen}
       tabIndex={isAnyOnScreen ? -1 : undefined}
