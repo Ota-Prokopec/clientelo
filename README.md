@@ -180,7 +180,7 @@ Spouštějte z kořene repa.
 
 ## Kontrolní seznam po úpravě
 
-Změna je hotová, když projde všechno níže. lefthook při každém commitu spustí `pnpm lint` a `pnpm check-types` a zkontroluje předmět commitu ([ADR-0001](./docs/adr/0001-git-rules-enforced-by-hooks.md)).
+Změna je hotová, když projde všechno níže. lefthook při každém commitu spustí `pnpm lint` a `pnpm check-types` a zkontroluje předmět commitu ([ADR-0001](./docs/adr/0001-git-rules-enforced-by-hooks.md)). CI ([`.github/workflows/ci.yml`](./.github/workflows/ci.yml)) spustí body 1–4 na každém PR a po každém pushi do `main`.
 
 1. `pnpm lint`
 2. `pnpm check-types`

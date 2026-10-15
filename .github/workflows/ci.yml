@@ -1,0 +1,43 @@
+# Items 1–4 of the post-modification checklist (README.md) on every PR and on
+# every push to main. Each check runs even when an earlier one failed, so a run
+# reports every failure. Node comes from engines.node and pnpm from
+# packageManager, both in package.json.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - id: install
+        run: pnpm install --frozen-lockfile
+      - name: lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: pnpm lint
+      - name: check-types
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: pnpm check-types
+      - name: test
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: pnpm test
+      - name: build
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: pnpm build

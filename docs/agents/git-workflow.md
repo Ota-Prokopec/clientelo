@@ -19,6 +19,7 @@ The [`@repo/conventions` hooks](../../conventions/AGENTS.md#hooks) enforce most 
 ## Pull requests
 
 - **All finished work lands through a PR**: branch, commit, push, open the PR. Commits reach `main` only through the user's merge.
+- **A PR merges only when CI is green.** The `ci` job ([`.github/workflows/ci.yml`](../../.github/workflows/ci.yml)) runs the automated items of the post-modification checklist on every PR.
 - **Every PR body states the issue(s) it addresses.** A PR into `main` uses a closing keyword (`Closes #<n>`), so the user's merge closes the issue. A PR into an intermediate branch (a parent or spec branch) can't fire a keyword, so it states the relationship in prose (`Part of #14, resolves #16`). The eventual PR into `main` carries the closing keywords.
 
 ## Resolving an issue
