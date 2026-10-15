@@ -32,13 +32,13 @@ Sent at once, so the Lead has the PDF in their inbox even if the download on the
 >
 > Krátce, proč vám XTB, Trading 212 ani Revolut VOO nenabídnou: pravidla EU (nařízení PRIIPs) dovolují prodat fond drobnému investorovi, jen když k němu existuje dokument KID. Američtí emitenti jako Vanguard ho nevydávají.
 >
-> O index S&P 500 tím ale nepřicházíte. Evropské dvojče SPYL, fond registrovaný v Irsku, sleduje stejný index za stejný poplatek: SPYL i VOO stojí 0,03 % ročně. A protože sídlí v Evropě, vašim dědicům u něj nehrozí americká dědická daň, která u fondu z USA dopadá na majetek nad 60 000 USD **(verify)**.
+> O index S&P 500 tím ale nepřicházíte. Evropské dvojče SPYL, fond registrovaný v Irsku, sleduje stejný index za stejný poplatek: SPYL i VOO stojí 0,03 % ročně. A protože sídlí v Evropě, vašim dědicům u něj nehrozí americká dědická daň, která u fondu z USA dopadá na majetek nad 60 000 USD.
 >
 > V taháku najdete tabulku všech dvojčat s ISIN, burzou a měnou, daně v Česku a co stojí poplatek bankovního fondu za 20 let.
 >
 > Za dva dny vám pošleme, kdy z prodeje ETF neplatíte žádnou daň.
 >
-> Zdroje: Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13; XTB, centrum nápovědy: ETF z USA bez dokumentu KID; Trading 212, odpověď týmu v komunitě z 2. 8. 2024: ETF z USA bez souladu s PRIIPs; Revolut, centrum nápovědy: jen ETF registrované v EU; Vanguard, stránka fondu VOO; SPDR, stránka fondu SPYL; IRS, estate tax pro nerezidenty (US-situs assets).
+> Zdroje: Nařízení (EU) č. 1286/2014 (PRIIPs), čl. 5 a 13; XTB, centrum nápovědy: ETF z USA bez dokumentu KID; Trading 212, odpověď týmu v komunitě z 2. 8. 2024: ETF z USA bez souladu s PRIIPs; Revolut, centrum nápovědy: jen ETF registrované v EU; Vanguard, stránka fondu VOO; SPDR, stránka fondu SPYL; IRS, pokyny k formuláři 706-NA.
 >
 > Nejde o investiční doporučení. Investování nese riziko ztráty.
 > [Odhlásit se z odběru]({{unsubscribe_url}})
@@ -57,11 +57,11 @@ Chapter 3 of the Lead Magnet, explained one rule at a time.
 >
 > u dvojčete rozhoduje o dani hlavně to, jak dlouho ho držíte. Čtyři pravidla z taháku:
 >
-> **Časový test: více než 3 roky** **(verify)**. Když fond držíte déle než 3 roky, příjem z jeho prodeje je od daně osvobozený. Schovávejte si potvrzení o každém nákupu: podle nich při prodeji doložíte, jak dlouho jste fond drželi.
+> **Časový test: více než 3 roky.** Když fond držíte déle než 3 roky, příjem z jeho prodeje je od daně osvobozený. Schovávejte si potvrzení o každém nákupu: podle nich při prodeji doložíte, jak dlouho jste fond drželi.
 >
-> **Malé prodeje: do 100 000 Kč ročně** **(verify)**. Když za rok prodáte cenné papíry celkem nejvýš za 100 000 Kč, příjem je osvobozený i bez časového testu.
+> **Malé prodeje: do 100 000 Kč ročně.** Když za rok prodáte cenné papíry celkem nejvýš za 100 000 Kč, příjem je osvobozený i bez časového testu.
 >
-> **Strop osvobození: 40 000 000 Kč ročně** **(verify)**. Časový test osvobodí příjem z prodeje nejvýš 40 000 000 Kč za rok. Co je nad tuto hranici, zdaníte.
+> **Strop časového testu: žádný.** Časový test osvobodí příjem z prodeje v jakékoli výši, i kdyby šlo o desítky milionů korun.
 >
 > **Dividendy: akumulační dvojče.** Distribuční fond vyplácí dividendy a ty patří každý rok do přiznání. Akumulační dvojče je rovnou investuje, takže dividendy k přiznání nemáte. Tabulka v taháku proto u každého dvojčete uvádí, zda je akumulační.
 >
@@ -69,7 +69,7 @@ Chapter 3 of the Lead Magnet, explained one rule at a time.
 >
 > Za tři dny vám pošleme, jak dvojče koupit tam, kde investujete.
 >
-> Zdroj: Zákon o daních z příjmů, § 4.
+> Zdroj: Zákon o daních z příjmů, § 4 odst. 1 písm. t) a u).
 >
 > Nejde o investiční doporučení. Investování nese riziko ztráty.
 > [Odhlásit se z odběru]({{unsubscribe_url}})
@@ -127,11 +127,11 @@ Every variant opens with "Dobrý den," and closes with:
 
 > Fio e-Broker i Patria vám VOO prodají: jako obchodníci, kteří jen provádějí vaše pokyny, dokument KID nepotřebují.
 >
-> Dvojče přesto vychází lépe. U irského fondu vašim dědicům nehrozí americká dědická daň nad 60 000 USD **(verify)**, a akumulační třída vám nepřidá dividendy do přiznání.
+> Dvojče přesto vychází lépe. U irského fondu vašim dědicům nehrozí americká dědická daň nad 60 000 USD a akumulační třída vám nepřidá dividendy do přiznání.
 >
 > Ve Fiu i v Patrii hledejte dvojče podle ISIN z tabulky v taháku. U SPYL je to IE000XZSV718.
 
-This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, estate tax pro nerezidenty (US-situs assets)" in its "Zdroje" line.
+This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, pokyny k formuláři 706-NA" in its "Zdroje" line.
 
 ### `robo-advisor`
 
@@ -155,9 +155,9 @@ This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, estat
 >
 > Dvojče koupíte přes aplikaci brokera. V taháku najdete, jak ho najít v XTB, Trading 212, Revolutu a Fiu.
 >
-> Než fond u banky prodáte, zjistěte si jeho výstupní poplatek a myslete na časový test: příjem z prodeje fondu, který držíte kratší dobu než 3 roky **(verify)**, může podléhat dani.
+> Než fond u banky prodáte, zjistěte si jeho výstupní poplatek a myslete na časový test: příjem z prodeje fondu, který držíte kratší dobu než 3 roky, může podléhat dani.
 
-This variant also cites "ČSOB, KID fondu ČSOB Akciový" and "Zákon o daních z příjmů, § 4" in its "Zdroje" line.
+This variant also cites "ČSOB, KID fondu ČSOB Akciový" and "Zákon o daních z příjmů, § 4 odst. 1 písm. u)" in its "Zdroje" line.
 
 ### `nowhere-yet`
 
@@ -184,4 +184,4 @@ This variant also cites "ČSOB, KID fondu ČSOB Akciový" and "Zákon o daních 
 > - **Revolut:** vyhledejte ticker nebo název fondu. Když aplikace najde víc fondů, rozhodne ISIN.
 > - **Fio e-Broker:** hledejte podle ISIN dvojčete. Fio vám prodá i VOO, dvojče vás ale ušetří americké dědické daně.
 
-Like `fio-patria`, this variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, estate tax pro nerezidenty (US-situs assets)" in its "Zdroje" line.
+Like `fio-patria`, this variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, pokyny k formuláři 706-NA" in its "Zdroje" line.

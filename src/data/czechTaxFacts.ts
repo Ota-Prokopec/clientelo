@@ -1,4 +1,4 @@
-// Chapter 3's Czech tax rules: the holding-period test, the 100 000 Kč yearly exemption, the cap on exempt income, and
+// Chapter 3's Czech tax rules: the holding-period test, the 100 000 Kč yearly exemption, the test's lack of a cap, and
 // dividends against an accumulating Twin. The Lead Magnet PDF and the content a Lead unlocks on the page both read them
 // from here, so the two can't word a figure differently (ADR-0002).
 import { formatAmount, formatYears } from '@lib/format.ts'
@@ -7,17 +7,16 @@ import { czechTaxFigures, listDistinctDataSources, type DataSource } from './fig
 /** One tax rule a Czech holder of a Twin needs: what it is, its figure, and what it means for the Lead. */
 export type CzechTaxFact = {
   label: string
-  /** The figure as Czech copy, or the Twin's answer for a rule with no figure. */
+  /** The figure as Czech copy, or the short answer for a rule with no figure: the Twin, or the cap the test lacks. */
   figure: string
   explanation: string
-  /** The figure's Data Source, or null for a rule with no figure to cite. */
+  /** The Data Source of the provision the rule states, or null for a rule with no provision to cite. */
   source: DataSource | null
 }
 
-const { holdingPeriodExemption, yearlyIncomeExemption, exemptIncomeCap } = czechTaxFigures
+const { holdingPeriodExemption, yearlyIncomeExemption } = czechTaxFigures
 const holdingPeriod = formatYears(holdingPeriodExemption.value)
 const yearlyIncome = formatAmount(yearlyIncomeExemption.value, yearlyIncomeExemption.unit)
-const exemptIncome = formatAmount(exemptIncomeCap.value, exemptIncomeCap.unit)
 
 /** The four rules, in the order Chapter 3 lists them. */
 export const czechTaxFacts: CzechTaxFact[] = [
@@ -34,10 +33,10 @@ export const czechTaxFacts: CzechTaxFact[] = [
     source: yearlyIncomeExemption.source,
   },
   {
-    label: 'Strop osvobození',
-    figure: `${exemptIncome} ročně`,
-    explanation: `Časový test osvobodí příjem z prodeje nejvýš ${exemptIncome} za rok. Co je nad tuto hranici, zdaníte.`,
-    source: exemptIncomeCap.source,
+    label: 'Strop časového testu',
+    figure: 'žádný',
+    explanation: 'Časový test osvobodí příjem z prodeje v jakékoli výši, i kdyby šlo o desítky milionů korun.',
+    source: holdingPeriodExemption.source,
   },
   {
     label: 'Dividendy',

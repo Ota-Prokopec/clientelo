@@ -1,5 +1,5 @@
 // Chapter 3 of the Lead Magnet PDF: Czech taxes on a fund, as a ruled fact grid (design-identity.md#layout). The
-// holding-period test, the 100 000 Kč yearly exemption, the cap on exempt income, and dividends against an accumulating
+// holding-period test, the 100 000 Kč yearly exemption, the test's lack of a cap, and dividends against an accumulating
 // Twin, read from the same module as the content a Lead unlocks on the page.
 import { View } from '@react-pdf/renderer'
 import { czechTaxFacts, czechTaxSources } from '@data/czechTaxFacts.ts'
@@ -16,8 +16,8 @@ import { pdfTw } from './pdfTw.ts'
  * ```tsx
  * <PdfCzechTaxesChapter />
  * // 03 Daně v Česku: časový test a dividendy
- * // Časový test: více než 3 roky*          Malé prodeje: do 100 000 Kč ročně*
- * // Strop osvobození: 40 000 000 Kč ročně* Dividendy: akumulační dvojče
+ * // Časový test: více než 3 roky       Malé prodeje: do 100 000 Kč ročně
+ * // Strop časového testu: žádný        Dividendy: akumulační dvojče
  * ```
  */
 export const PdfCzechTaxesChapter = () => {

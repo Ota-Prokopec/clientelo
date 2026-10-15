@@ -13,7 +13,7 @@ const forbiddenBreakPenalty = 10_000
  * A react-pdf Text whose lines break only between words.
  *
  * ```tsx
- * <PdfText style={pdfTw('text-body')}>… nejvýš 40 000 000 Kč …</PdfText> // wraps before "nejvýš", never inside it
+ * <PdfText style={pdfTw('text-body')}>… nejvýš za 100 000 Kč …</PdfText> // wraps before "nejvýš", never inside it
  * ```
  */
 export const PdfText = (props: PdfTextProps) => {

@@ -66,8 +66,8 @@ Outline:
 
 1. **Why your broker won't sell you VOO.** PRIIPs and the KID in three sentences, plus the Fio and Patria exception: they will sell US ETFs, but the Twin still wins on estate tax and a simpler tax return.
 2. **The Twin table.** ISIN, TER, domicile, distribution policy, and exchange and currency for each Twin. Accumulating share classes first.
-3. **Taxes in the Czech Republic.** The 3-year holding-period exemption, the 100 000 Kč yearly exemption, the 40 M Kč cap on exempt income, and dividends vs. accumulating funds. **(verify)** each.
-4. **Why a US-domiciled fund is riskier for a Czech investor.** US estate tax on US-situs assets above $60 000 **(verify)**.
+3. **Taxes in the Czech Republic.** The 3-year holding-period exemption, the 100 000 Kč yearly exemption, the absence of any cap on what the 3-year test exempts, and dividends vs. accumulating funds.
+4. **Why a US-domiciled fund is riskier for a Czech investor.** US estate tax on US-situs assets above $60 000. Stock of a non-US corporation, such as an Irish Twin, isn't one.
 5. **Bank fund vs. ETF over 20 years.** What a TER of about 2 % costs compared with 0.03 %, in Kč. This Chapter is the Bank-Fund Saver's reason to download.
 6. **How to buy a Twin.** One line each for XTB, Trading 212, Revolut and Fio.
 
