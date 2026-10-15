@@ -3,11 +3,10 @@
  * command can break, checked before Claude Code runs it. Pure: the current
  * branch and file contents come in through `CheckBashCommandProps`.
  */
-import { resolve } from 'node:path'
+import * as path from 'node:path'
 import { parse } from 'shell-quote'
-import { BRANCH_NAME, CONVENTIONAL_SUBJECT } from './naming.ts'
+import { BRANCH_NAME, CONVENTIONAL_SUBJECT, MAIN_BRANCH } from './naming.ts'
 
-const MAIN_BRANCH = 'main' as const
 const SEPARATORS = new Set(['&&', '||', ';', '|', '&', '|&', '(', ')'])
 const GH_POSTING_COMMANDS = new Set([
   'pr create',
@@ -29,18 +28,39 @@ const NO_MERGE = 'The user merges every pull request; never merge one yourself.'
 const NO_CLAUDE =
   'Nothing posted to GitHub mentions Claude: no `CLAUDE` prefix and no "Generated with Claude Code" footer.' as const
 
-const badBranch = (branch: string): string => {
+/**
+ * The instruction to rename a branch whose name isn't `<type>/<slug>`.
+ *
+ * ```ts
+ * createBranchNameReason('worktree-x') // 'The branch `worktree-x` doesn't match `<type>/<slug>` … Rename it with …'
+ * ```
+ */
+const createBranchNameReason = (branch: string): string => {
   return `The branch \`${branch}\` doesn't match \`<type>/<slug>\` (e.g. \`feat/fee-calculator\`). Rename it with \`git branch -m <type>/<slug>\` before committing or pushing.`
 }
 
-const badTitle = (title: string): string => {
+/**
+ * The instruction to reword a PR or issue title that isn't a Conventional Commits subject.
+ *
+ * ```ts
+ * createTitleReason('Add form') // 'The title "Add form" doesn't follow `<type>(<scope>): <description>` …'
+ * ```
+ */
+const createTitleReason = (title: string): string => {
   return `The title "${title}" doesn't follow \`<type>(<scope>): <description>\`, where \`<type>\` is feat, fix, docs, refactor, test or chore and the scope is optional.`
 }
 
-/** The command split into its simple commands, each a list of words. */
+/**
+ * The command split into its simple commands, each a list of words.
+ *
+ * ```ts
+ * splitCommands('cd app && git commit -m "fix: x"') // [['cd', 'app'], ['git', 'commit', '-m', 'fix: x']]
+ * splitCommands('echo $HOME')                       // [['echo', '$HOME']]
+ * ```
+ */
 const splitCommands = (command: string): string[][] => {
   const commands: string[][] = [[]]
-  for (const token of parse(command, (name): string => `$${name}`)) {
+  for (const token of parse(command, (variableName): string => `$${variableName}`)) {
     if (typeof token === 'string') {
       commands[commands.length - 1]?.push(token)
     } else if ('op' in token && SEPARATORS.has(token.op)) {
@@ -52,42 +72,75 @@ const splitCommands = (command: string): string[][] => {
   return commands.filter((words): boolean => words.length > 0)
 }
 
-/** The values given to any of `flags`, as `--flag value` or `--flag=value`. */
-const flagValues = (words: string[], flags: string[]): string[] => {
+/**
+ * The values given to any of `flags`, as `--flag value` or `--flag=value`.
+ *
+ * ```ts
+ * findFlagValues(['--title', 'a', '-t=b'], ['--title', '-t']) // ['a', 'b']
+ * findFlagValues(['--title'], ['--title'])                    // []
+ * ```
+ */
+const findFlagValues = (words: string[], flags: string[]): string[] => {
   return words.flatMap((word, index): string[] => {
     if (flags.includes(word)) {
-      const value = words[index + 1]
-      return value === undefined ? [] : [value]
+      const flagValue = words[index + 1]
+      return flagValue === undefined ? [] : [flagValue]
     }
-    const flag = flags.find((candidate): boolean => word.startsWith(`${candidate}=`))
-    return flag === undefined ? [] : [word.slice(flag.length + 1)]
+    const matchedFlag = flags.find((candidate): boolean => word.startsWith(`${candidate}=`))
+    return matchedFlag === undefined ? [] : [word.slice(matchedFlag.length + 1)]
   })
 }
 
+/**
+ * Whether a cluster of single-letter flags includes `flag`.
+ *
+ * ```ts
+ * hasShortFlag(['-anm', 'fix: x'], 'n') // true
+ * hasShortFlag(['--no-edit'], 'n')      // false
+ * ```
+ */
 const hasShortFlag = (words: string[], flag: string): boolean => {
   return words.some((word): boolean => /^-[a-zA-Z]+$/.test(word) && word.includes(flag))
 }
 
+/**
+ * Whether a word is an environment assignment that turns lefthook off.
+ *
+ * ```ts
+ * isHookSkip('LEFTHOOK=0')            // true
+ * isHookSkip('LEFTHOOK_EXCLUDE=lint') // true
+ * isHookSkip('LEFTHOOK=1')            // false
+ * ```
+ */
 const isHookSkip = (word: string): boolean => {
   return /^LEFTHOOK=(?:0|false)$/i.test(word) || word.startsWith('LEFTHOOK_EXCLUDE=')
 }
 
+/** The directory a command runs in and the branch an earlier command in it checked out there, if any. */
 type GitState = { directory: string; branch: string | undefined }
 
-/** Splits `git [global options] <subcommand> <args>`, applying `-C` to `state` and reporting a `-c core.hooksPath` override. */
-const parseGit = (
-  words: string[],
-  directory: string,
-  reasons: Set<string>,
-): { directory: string; subcommand: string | undefined; args: string[] } => {
+/** A `git` call split into the directory it runs in, its subcommand and the subcommand's arguments. */
+type GitInvocation = { directory: string; subcommand: string | undefined; subcommandArgs: string[] }
+
+/**
+ * Splits `git [global options] <subcommand> <args>`, applying `-C` to `directory` and reporting a
+ * `-c core.hooksPath` override into `reasons`.
+ *
+ * ```ts
+ * parseGit(['git', '-C', 'app', 'commit', '-m', 'x'], '/repo', reasons)
+ * // { directory: '/repo/app', subcommand: 'commit', subcommandArgs: ['-m', 'x'] }
+ * parseGit(['git', '-c', 'core.hooksPath=/dev/null', 'commit'], '/repo', reasons) // reasons gets SKIP_HOOK
+ * ```
+ */
+const parseGit = (words: string[], directory: string, reasons: Set<string>): GitInvocation => {
   let index = 1
-  let target = directory
+  let gitDirectory = directory
   while (index < words.length && words[index]?.startsWith('-')) {
-    const option = words[index]
-    if (option === '-C') {
-      target = resolve(target, words[index + 1] ?? '.')
+    const globalOption = words[index]
+    if (globalOption === '-C') {
+      gitDirectory = path.resolve(gitDirectory, words[index + 1] ?? '.')
       index += 2
-    } else if (option === '-c') {
+    } else if (globalOption === '-c') {
       if (words[index + 1]?.toLowerCase().startsWith('core.hookspath')) {
         reasons.add(SKIP_HOOK)
       }
@@ -96,52 +149,75 @@ const parseGit = (
       index += 1
     }
   }
-  return { directory: target, subcommand: words[index], args: words.slice(index + 1) }
+  return { directory: gitDirectory, subcommand: words[index], subcommandArgs: words.slice(index + 1) }
 }
 
+/**
+ * Adds a reason to `reasons` when `branch` is `main` or isn't named `<type>/<slug>`; an unknown branch passes.
+ *
+ * ```ts
+ * checkBranch('main', reasons)       // reasons gets NOT_ON_MAIN
+ * checkBranch('worktree-x', reasons) // reasons gets the rename instruction
+ * checkBranch('feat/x', reasons)     // nothing
+ * ```
+ */
 const checkBranch = (branch: string | undefined, reasons: Set<string>): void => {
   if (branch === MAIN_BRANCH) {
     reasons.add(NOT_ON_MAIN)
   } else if (branch !== undefined && !BRANCH_NAME.test(branch)) {
-    reasons.add(badBranch(branch))
+    reasons.add(createBranchNameReason(branch))
   }
 }
 
-const checkGit = (words: string[], state: GitState, args: CheckBashCommandProps, reasons: Set<string>): GitState => {
-  const git = parseGit(words, state.directory, reasons)
-  const positional = git.args.filter((word): boolean => !word.startsWith('-'))
+/**
+ * Adds every rule one `git` command breaks to `reasons`, and returns the state the next command starts from: a
+ * checkout, switch or rename changes the branch later commands land on.
+ *
+ * ```ts
+ * checkGit(['git', 'commit', '-n'], state, props, reasons)          // reasons gets SKIP_HOOK; state unchanged
+ * checkGit(['git', 'switch', '-c', 'feat/x'], state, props, reasons) // { directory, branch: 'feat/x' }
+ * ```
+ */
+const checkGit = (words: string[], state: GitState, props: CheckBashCommandProps, reasons: Set<string>): GitState => {
+  const gitInvocation = parseGit(words, state.directory, reasons)
+  const { subcommandArgs } = gitInvocation
+  const positionalArgs = subcommandArgs.filter((word): boolean => !word.startsWith('-'))
   const branch =
-    git.directory === state.directory && state.branch !== undefined ? state.branch : args.currentBranch(git.directory)
-  switch (git.subcommand) {
+    gitInvocation.directory === state.directory && state.branch !== undefined
+      ? state.branch
+      : props.currentBranch(gitInvocation.directory)
+  switch (gitInvocation.subcommand) {
     case 'commit':
-      if (git.args.includes('--no-verify') || hasShortFlag(git.args, 'n')) {
+      if (subcommandArgs.includes('--no-verify') || hasShortFlag(subcommandArgs, 'n')) {
         reasons.add(SKIP_HOOK)
       }
       checkBranch(branch, reasons)
       return state
     case 'push':
       if (
-        positional.slice(1).some((ref): boolean => ref === MAIN_BRANCH || /(?:^|:)(?:refs\/heads\/)?main$/.test(ref))
+        positionalArgs
+          .slice(1)
+          .some((ref): boolean => ref === MAIN_BRANCH || /(?:^|:)(?:refs\/heads\/)?main$/.test(ref))
       ) {
         reasons.add(NOT_ON_MAIN)
       }
       checkBranch(branch, reasons)
       return state
     case 'config':
-      if (git.args.some((word): boolean => word.toLowerCase() === 'core.hookspath')) {
+      if (subcommandArgs.some((word): boolean => word.toLowerCase() === 'core.hookspath')) {
         reasons.add(SKIP_HOOK)
       }
       return state
     case 'checkout':
     case 'switch': {
-      const created = flagValues(git.args, ['-b', '-B', '-c', '-C', '--create', '--force-create'])[0]
-      const next = created ?? (git.args.includes('--') ? undefined : positional[0])
-      return next === undefined ? state : { directory: git.directory, branch: next }
+      const createdBranch = findFlagValues(subcommandArgs, ['-b', '-B', '-c', '-C', '--create', '--force-create'])[0]
+      const nextBranch = createdBranch ?? (subcommandArgs.includes('--') ? undefined : positionalArgs[0])
+      return nextBranch === undefined ? state : { directory: gitInvocation.directory, branch: nextBranch }
     }
     case 'branch':
-      if (git.args.includes('-m') || git.args.includes('-M') || git.args.includes('--move')) {
-        const renamed = positional[positional.length - 1]
-        return renamed === undefined ? state : { directory: git.directory, branch: renamed }
+      if (subcommandArgs.includes('-m') || subcommandArgs.includes('-M') || subcommandArgs.includes('--move')) {
+        const renamedBranch = positionalArgs[positionalArgs.length - 1]
+        return renamedBranch === undefined ? state : { directory: gitInvocation.directory, branch: renamedBranch }
       }
       return state
     default:
@@ -149,30 +225,39 @@ const checkGit = (words: string[], state: GitState, args: CheckBashCommandProps,
   }
 }
 
-const checkGh = (words: string[], command: string, args: CheckBashCommandProps, reasons: Set<string>): void => {
-  const action = `${words[1] ?? ''} ${words[2] ?? ''}`
-  if (action === 'pr merge') {
+/**
+ * Adds every rule one `gh` command breaks to `reasons`: merging a PR, a non-conventional title, or a Claude mention
+ * in anything it posts.
+ *
+ * ```ts
+ * checkGh(['gh', 'pr', 'merge', '4'], command, props, reasons)               // reasons gets NO_MERGE
+ * checkGh(['gh', 'pr', 'create', '--title', 'Add x'], command, props, reasons) // reasons gets the title instruction
+ * ```
+ */
+const checkGh = (words: string[], command: string, props: CheckBashCommandProps, reasons: Set<string>): void => {
+  const ghAction = `${words[1] ?? ''} ${words[2] ?? ''}`
+  if (ghAction === 'pr merge') {
     reasons.add(NO_MERGE)
   }
-  if (GH_TITLED_COMMANDS.has(action)) {
-    for (const title of flagValues(words, ['--title', '-t'])) {
+  if (GH_TITLED_COMMANDS.has(ghAction)) {
+    for (const title of findFlagValues(words, ['--title', '-t'])) {
       if (!CONVENTIONAL_SUBJECT.test(title)) {
-        reasons.add(badTitle(title))
+        reasons.add(createTitleReason(title))
       }
     }
   }
-  if (GH_POSTING_COMMANDS.has(action)) {
-    const bodyFiles = flagValues(words, ['--body-file', '-F'])
-      .filter((path): boolean => path !== '-')
-      .map((path): string => args.readFile(resolve(args.cwd, path)) ?? '')
+  if (GH_POSTING_COMMANDS.has(ghAction)) {
+    const bodyFileTexts = findFlagValues(words, ['--body-file', '-F'])
+      .filter((bodyFilePath): boolean => bodyFilePath !== '-')
+      .map((bodyFilePath): string => props.readFile(path.resolve(props.cwd, bodyFilePath)) ?? '')
     // `gh issue close` posts its closing comment through `--comment`/`-c`.
-    const textFlags = action === 'issue close' ? ['--comment', '-c'] : ['--title', '-t', '--body', '-b']
-    const posted = [...flagValues(words, textFlags), ...bodyFiles]
+    const textFlags = ghAction === 'issue close' ? ['--comment', '-c'] : ['--title', '-t', '--body', '-b']
+    const postedTexts = [...findFlagValues(words, textFlags), ...bodyFileTexts]
     // A heredoc fed to stdin never reaches the words, so the raw command stands in for it.
     if (command.includes('<<')) {
-      posted.push(command)
+      postedTexts.push(command)
     }
-    if (posted.some((text): boolean => /claude/i.test(text))) {
+    if (postedTexts.some((postedText): boolean => /claude/i.test(postedText))) {
       reasons.add(NO_CLAUDE)
     }
   }
@@ -184,26 +269,33 @@ export type CheckBashCommandProps = {
   cwd: string
   /** The branch checked out in `directory`, or `undefined` on a detached HEAD or outside a repository. */
   currentBranch: (directory: string) => string | undefined
-  /** The content of the file at `path`, or `undefined` when it can't be read. */
-  readFile: (path: string) => string | undefined
+  /** The content of the file at `filePath`, or `undefined` when it can't be read. */
+  readFile: (filePath: string) => string | undefined
 }
 
-/** Every rule `command` breaks, each as the instruction to follow; empty when it may run. */
-export const checkBashCommand = (args: CheckBashCommandProps): string[] => {
+/**
+ * Every rule `command` breaks, each as the instruction to follow; empty when it may run.
+ *
+ * ```ts
+ * checkBashCommand({ command: 'git commit --no-verify -m "fix: x"', … }) // ['Never skip the pre-commit hook …']
+ * checkBashCommand({ command: 'pnpm lint && pnpm test', … })             // []
+ * ```
+ */
+export const checkBashCommand = (props: CheckBashCommandProps): string[] => {
   const reasons = new Set<string>()
-  let state: GitState = { directory: args.cwd, branch: undefined }
-  for (const words of splitCommands(args.command)) {
+  let state: GitState = { directory: props.cwd, branch: undefined }
+  for (const words of splitCommands(props.command)) {
     if (words.some(isHookSkip)) {
       reasons.add(SKIP_HOOK)
     }
     const commandWords = words.slice(words.findIndex((word): boolean => !/^[A-Za-z_][A-Za-z0-9_]*=/.test(word)))
     const [program] = commandWords
     if (program === 'cd') {
-      state = { directory: resolve(state.directory, commandWords[1] ?? '.'), branch: undefined }
+      state = { directory: path.resolve(state.directory, commandWords[1] ?? '.'), branch: undefined }
     } else if (program === 'git') {
-      state = checkGit(commandWords, state, args, reasons)
+      state = checkGit(commandWords, state, props, reasons)
     } else if (program === 'gh') {
-      checkGh(commandWords, args.command, args, reasons)
+      checkGh(commandWords, props.command, props, reasons)
     }
   }
   return [...reasons]

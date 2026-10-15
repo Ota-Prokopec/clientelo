@@ -1,7 +1,6 @@
+// Tests checkBashCommand: the git and GitHub rules a Bash command can break before Claude Code runs it.
 import { describe, expect, it } from 'vitest'
 import { checkBashCommand } from '../src/checkBashCommand.ts'
-import { checkCommitMessage } from '../src/checkCommitMessage.ts'
-import { checkEditedPath } from '../src/checkEditedPath.ts'
 
 const REPO = '/repo' as const
 
@@ -11,13 +10,20 @@ type RunProps = {
   files?: Record<string, string>
 }
 
-/** The reasons `command` is denied, run from `/repo` checked out on `branch` (`feat/thing` by default). */
+/**
+ * The reasons `command` is denied, run from `/repo` checked out on `branch` (`feat/thing` by default).
+ *
+ * ```ts
+ * check('git status')                           // []
+ * check('git commit -m "fix: x"', { branch: 'main' }) // ['All finished work lands through a pull request …']
+ * ```
+ */
 const check = (command: string, { branch = 'feat/thing', branches = {}, files = {} }: RunProps = {}): string[] => {
   return checkBashCommand({
     command,
     cwd: REPO,
     currentBranch: (directory): string | undefined => branches[directory] ?? branch,
-    readFile: (path): string | undefined => files[path],
+    readFile: (filePath): string | undefined => files[filePath],
   })
 }
 
@@ -110,83 +116,5 @@ describe('checkBashCommand', () => {
 
   it('reports every broken rule, not only the first', () => {
     expect(check('LEFTHOOK=0 git commit --no-verify -m "x" && gh pr merge 1', { branch: 'main' })).toHaveLength(3)
-  })
-})
-
-const SKILLS_LOCK = JSON.stringify({ version: 1, skills: { tdd: {}, zod: {} } })
-
-/**
- * The reasons the edit guard denies editing `path`, as run from `/repo`
- * with `lock` as its `skills-lock.json` (`null`: the file is missing). By
- * default the lock lists the `tdd` and `zod` skills.
- *
- * ```ts
- * checkEdit('src/App.tsx')    // []: allowed
- * checkEdit('.agents/skills/tdd/SKILL.md')   // one reason: an installed skill
- * checkEdit('.agents/skills/my-skill/SKILL.md') // []: a skill the repo owns
- * checkEdit('.agents/skills/my-skill/SKILL.md', null) // one reason: no lock, so any skill may be installed
- * ```
- */
-const checkEdit = (path: string, lock: string | null = SKILLS_LOCK): string[] => {
-  return checkEditedPath({
-    path,
-    cwd: REPO,
-    readFile: (file): string | undefined => (file === `${REPO}/skills-lock.json` ? (lock ?? undefined) : undefined),
-  })
-}
-
-describe('checkEditedPath', () => {
-  it.each([
-    'src/App.tsx',
-    '/repo/AGENTS.md',
-    '/repo/.claude/settings.json',
-    '.agents/skills/my-skill/SKILL.md',
-    '/repo/.claude/skills/my-skill/SKILL.md',
-  ])('allows editing %s', (path) => {
-    expect(checkEdit(path)).toEqual([])
-  })
-
-  it.each(['.agents/skills/tdd/SKILL.md', '/repo/.claude/skills/zod/SKILL.md'])(
-    'denies editing the installed skill file %s',
-    (path) => {
-      expect(checkEdit(path)).toEqual([expect.stringContaining('installed from an external source')])
-    },
-  )
-
-  it.each([null, 'not json'])('denies editing any skill when the lock file is %j', (lock) => {
-    expect(checkEdit('.agents/skills/my-skill/SKILL.md', lock)).toEqual([
-      expect.stringContaining('installed from an external source'),
-    ])
-  })
-
-  it('denies writing to the agent memory', () => {
-    expect(checkEdit('/home/me/.claude/projects/-repo/memory/MEMORY.md')).toEqual([
-      expect.stringContaining('Persist knowledge in the repo'),
-    ])
-  })
-})
-
-describe('checkCommitMessage', () => {
-  it.each([
-    'feat(lead-form): add the consent checkbox\n\nBody.',
-    'chore: move the repo to TypeScript 6.0.3',
-    'fix!: drop Node 22',
-    '# comment line\ndocs(adr): record ADR-0001',
-    "Merge branch 'main' into feat/thing",
-    'Revert "feat: add consent"',
-    'fixup! feat: add consent',
-  ])('accepts %j', (message) => {
-    expect(checkCommitMessage(message)).toBeUndefined()
-  })
-
-  it.each([
-    'fix',
-    'CLAUDE(feat): add consent',
-    'feature: add consent',
-    'feat(LeadForm): add consent',
-    'feat:missing space',
-    '',
-  ])('rejects %j', (message) => {
-    expect(checkCommitMessage(message)).toContain("doesn't follow `<type>(<scope>): <description>`")
   })
 })

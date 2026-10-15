@@ -1,6 +1,6 @@
 # `@repo/conventions`
 
-The repo's git and agent rules as code: hooks for the rules oxlint can't see. A private package with no build. Node runs the hook scripts directly by stripping their types, so the `tsconfig.json` limits (`erasableSyntaxOnly`, `verbatimModuleSyntax`, `.ts` import extensions) apply.
+The repo's git and agent rules as code: hooks for the rules oxlint can't see. A private package with no build. Its one export, `./naming` (`src/naming.ts`), holds the git-workflow naming patterns and `MAIN_BRANCH`, which `scripts/claude-list` imports too. Node runs the hook scripts directly by stripping their types, so the `tsconfig.json` limits (`erasableSyntaxOnly`, `verbatimModuleSyntax`, `.ts` import extensions) apply.
 
 ## Hooks
 
