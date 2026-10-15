@@ -1,7 +1,7 @@
 // The Visitor's choice in the Consent Bar (#51), kept in localStorage under `clientelo:consent` with the date it was
 // made. A choice 12 months old counts as none, so the Consent Bar asks again. A browser that blocks or refuses storage,
 // or holds a garbled record, gets no choice, never an error: the bar asks, and nothing is remembered without consent.
-import { z } from 'zod'
+import { z } from 'zod/mini'
 import { readStoredItem, storeItem } from '@lib/browserStorage.ts'
 
 /** The localStorage key of the record, namespaced like `clientelo:lead`. */
