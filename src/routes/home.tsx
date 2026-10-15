@@ -3,12 +3,13 @@
 // Consent Bar before it remembers the Visit.
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import useDownloader from 'react-use-downloader'
 import { LEAD_MAGNET_PDF_FILE_NAME, LEAD_MAGNET_PDF_PATH } from '@data/leadMagnetFiles.ts'
 import { resolveAdVariant } from '@/adVariant/adVariant.ts'
 import { syncRememberedVisit } from '@lib/consent/rememberedVisit.ts'
 import { isSectionViewed } from '@lib/funnel/sectionView.ts'
+import { downloadFile } from '@lib/downloadFile.ts'
 import { trackFunnelEvent } from '@lib/funnel/trackFunnelEvent.ts'
+import { LeadContext } from '@/hooks/leadContext.ts'
 import { useConsentBar } from '@/hooks/useConsentBar.ts'
 import { useOnFirstView } from '@/hooks/useOnFirstView.ts'
 import { readRememberedLead, rememberLead } from '@lib/lead/rememberedLead.ts'
@@ -48,7 +49,6 @@ const Home = () => {
   const [searchParams] = useSearchParams()
   const adVariant = resolveAdVariant(searchParams.get('utm_content'))
   const [lead, setLead] = useState<Lead | null>(readRememberedLead)
-  const { download } = useDownloader()
   const { isConsentBarOpen, openConsentBar, chooseConsent } = useConsentBar()
 
   // The Visit's first Funnel Event: a Section's first view comes from an observer, which reports only after this runs.
@@ -65,27 +65,31 @@ const Home = () => {
    *
    * ```ts
    * handleLeadFormSubmitted('jana.novakova@seznam.cz')
-   * // tahak-evropska-dvojcata-americkych-etf.pdf downloads, pdf_download { trigger: 'auto' };
+   * // tahak-evropska-dvojcata-americkych-etf.pdf downloads, then pdf_download { trigger: 'auto' };
    * // lead = { kind: 'new', email: 'jana.novakova@seznam.cz' }
    * ```
    */
   const handleLeadFormSubmitted = (email: string) => {
-    // Not awaited: the hook catches a failed download into its own `error`. A browser may also refuse a download that
-    // no tap started directly, as Safari on iOS can, so Delivery always shows the same file as a visible link too.
-    void download(LEAD_MAGNET_PDF_PATH, LEAD_MAGNET_PDF_FILE_NAME)
-    trackFunnelEvent({ event: 'pdf_download', trigger: 'auto' })
+    // Not awaited, so Delivery shows at once. A failed download records no pdf_download, and Delivery's visible link to
+    // the same file stays the way to it, as it is when a browser refuses a download no tap started (Safari on iOS can).
+    downloadFile(LEAD_MAGNET_PDF_PATH, LEAD_MAGNET_PDF_FILE_NAME).then(
+      () => trackFunnelEvent({ event: 'pdf_download', trigger: 'auto' }),
+      () => {},
+    )
     rememberLead()
     setLead({ kind: 'new', email })
   }
 
   return (
     <Page>
-      <main>
-        <adVariant.FirstScreen />
-        <KeyInsight />
-        <adVariant.OtherTool />
-        <LeadMagnetSection lead={lead} onLeadFormSubmitted={handleLeadFormSubmitted} />
-      </main>
+      <LeadContext value={lead}>
+        <main>
+          <adVariant.FirstScreen />
+          <KeyInsight />
+          <adVariant.OtherTool />
+          <LeadMagnetSection lead={lead} onLeadFormSubmitted={handleLeadFormSubmitted} />
+        </main>
+      </LeadContext>
       <Footer onConsentSettingsOpen={openConsentBar} />
       {/* Right after the footer, so "Nastavení cookies" tabs straight into the bar it opens. */}
       {isConsentBarOpen && <ConsentBar isAboveStickyCta={lead === null} onChoose={chooseConsent} />}
