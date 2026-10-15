@@ -151,7 +151,7 @@ This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, pokyn
 
 **Preheader:** Co stojí rozdíl v poplatku a na co myslet před prodejem.
 
-> Akciový fond banky, jako ČSOB Akciový, stojí 2,22 % ročně **(verify)**. Dvojče SPYL 0,03 %. Kolik ten rozdíl dělá v korunách za 20 let, ukazuje kapitola 5 taháku.
+> Akciový fond banky, jako ČSOB Akciový, stojí 2,59 % ročně. Dvojče SPYL 0,03 %. Kolik ten rozdíl dělá v korunách za 20 let, ukazuje kapitola 5 taháku.
 >
 > Dvojče koupíte přes aplikaci brokera. V taháku najdete, jak ho najít v XTB, Trading 212, Revolutu a Fiu.
 >

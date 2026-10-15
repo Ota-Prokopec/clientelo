@@ -14,10 +14,10 @@ export type TerCostFormulaProps = {
  * Explains the yearly fee, then shows `((1 − TER_bank) / (1 − TER_twin))^years` with the figures filled in.
  *
  * ```tsx
- * <TerCostFormula years={20} bankFundTerPercent={2.22} twinTerPercent={0.03} bankFundToTwinRatio={0.6421} />
+ * <TerCostFormula years={20} bankFundTerPercent={2.59} twinTerPercent={0.03} bankFundToTwinRatio={0.5952} />
  * // ((1 − TER banky) / (1 − TER ETF))^roky
- * // = ((1 − 0,0222) / (1 − 0,0003))^20
- * // = 0,642
+ * // = ((1 − 0,0259) / (1 − 0,0003))^20
+ * // = 0,595
  * ```
  */
 export const TerCostFormula = ({ years, bankFundTerPercent, twinTerPercent, bankFundToTwinRatio }: TerCostFormulaProps) => {

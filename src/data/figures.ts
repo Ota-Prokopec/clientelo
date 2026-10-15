@@ -49,14 +49,22 @@ export type NumericFigure = {
   source: DataSource;
 };
 
+/** A single number computed from other figures, such as the typical Bank Fund TER, citing each one's Data Source. */
+export type ComputedFigure = {
+  value: number;
+  unit: NumericFigure['unit'];
+  sources: DataSource[];
+};
+
 /**
- * A Data Source no one has verified yet.
+ * A Data Source no one has verified yet, for a figure added before it is verified (ADR-0004). Every figure the module
+ * holds today is verified, so nothing here calls it.
  *
  * ```ts
  * unverifiedSource('Vanguard, stránka fondu VOO') // { name: 'Vanguard, stránka fondu VOO', url: null, verifiedOn: null }
  * ```
  */
-const unverifiedSource = (name: string): DataSource => ({ name, url: null, verifiedOn: null });
+export const unverifiedSource = (name: string): DataSource => ({ name, url: null, verifiedOn: null });
 
 export const etfs: Etf[] = [
   {
@@ -191,22 +199,83 @@ export const substituteTickersByEtfTicker: Record<string, string[]> = {
 
 export const csobAkciovy: BankFund = {
   name: 'ČSOB Akciový',
-  terPercent: 2.22,
-  source: unverifiedSource('ČSOB, KID fondu ČSOB Akciový'),
+  terPercent: 2.59,
+  source: {
+    name: 'ČSOB, KID fondu ČSOB Akciový',
+    url: 'https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_770000001170_CS.PDF',
+    verifiedOn: '2026-10-14',
+  },
 };
 
-/** The "about 2 %" a bank's equity fund charges a year (docs/ads.md, Ad Variant B). */
-export const typicalBankEquityFundTer: NumericFigure = {
-  value: 2,
+/**
+ * The Bank Funds "kolem 2 %" is computed from: ČSOB Akciový, and at each of Česká spořitelna, Komerční banka and
+ * Raiffeisenbank the largest equity fund by assets that the bank sells retail clients under its own brand.
+ */
+export const surveyedBankFunds: BankFund[] = [
+  csobAkciovy,
+  // Česká spořitelna
+  {
+    name: 'TOP STOCKS',
+    terPercent: 1.88,
+    source: {
+      name: 'Erste, KID fondu TOP STOCKS',
+      url: 'https://data.erste-am.com/gem/erste-am/getDocumentContent/20020871-c83a-4843-adbc-fedff51e9282',
+      verifiedOn: '2026-10-14',
+    },
+  },
+  // Komerční banka
+  {
+    name: 'KB Portfolio – Dividendové',
+    terPercent: 1.74,
+    source: {
+      name: 'Amundi, KID fondu KB Portfolio – Dividendové',
+      url: 'https://www.amundi-kb.cz/storage/app/media/KIID/KIID_CZ0008473972.pdf',
+      verifiedOn: '2026-10-14',
+    },
+  },
+  // Raiffeisenbank
+  {
+    name: 'Raiffeisen fond amerických akcií',
+    terPercent: 2.24,
+    source: {
+      name: 'Raiffeisen, KID fondu Raiffeisen fond amerických akcií',
+      url: 'https://www.rb.cz/attachments/ris/KID-RFAA-CZ.pdf',
+      verifiedOn: '2026-10-14',
+    },
+  },
+];
+
+/**
+ * The TER a typical Bank Fund charges: the median of the given Bank Funds' TERs, rounded to a whole percent as the copy
+ * states it ("kolem 2 %"). Throws on no Bank Funds, which is a programming error.
+ *
+ * ```ts
+ * calculateTypicalTerPercent(surveyedBankFunds) // 2: the median of 1.74, 1.88, 2.24 and 2.59 is 2.06
+ * calculateTypicalTerPercent([])                // throws
+ * ```
+ */
+export const calculateTypicalTerPercent = (bankFunds: BankFund[]): number => {
+  if (bankFunds.length === 0) throw new Error('No Bank Funds to take a typical TER from');
+
+  const sortedTerPercents = bankFunds.map((bankFund) => bankFund.terPercent).toSorted((left, right) => left - right);
+  // The middle TER of an odd count, or the upper of the two middle TERs of an even count.
+  const middleIndex = Math.floor(sortedTerPercents.length / 2);
+  const medianTerPercent =
+    sortedTerPercents.length % 2 === 0
+      ? (sortedTerPercents[middleIndex - 1] + sortedTerPercents[middleIndex]) / 2
+      : sortedTerPercents[middleIndex];
+
+  return Math.round(medianTerPercent);
+};
+
+/**
+ * The "about 2 %" a bank's equity fund charges a year (docs/ads.md, Ad Variant B), computed from the surveyed Bank Funds
+ * so it can't drift from their KIDs.
+ */
+export const typicalBankEquityFundTer: ComputedFigure = {
+  value: calculateTypicalTerPercent(surveyedBankFunds),
   unit: '%',
-  source: unverifiedSource('KID akciových fondů největších českých bank'),
-};
-
-/** Any other bank's equity fund, at the typical TER: the Fee Calculator's "kolem 2 %" option. */
-export const typicalBankEquityFund: BankFund = {
-  name: 'Jiný fond banky',
-  terPercent: typicalBankEquityFundTer.value,
-  source: typicalBankEquityFundTer.source,
+  sources: surveyedBankFunds.map((bankFund) => bankFund.source),
 };
 
 /**
@@ -347,8 +416,8 @@ export const listDataSources = (): DataSource[] => {
   const allSources = [
     ...etfs.map((etf) => etf.source),
     ...ucitsEtfs.map((ucitsEtf) => ucitsEtf.source),
-    typicalBankEquityFundTer.source,
     csobAkciovy.source,
+    ...typicalBankEquityFundTer.sources,
     ...Object.values(czechTaxFigures).map((figure) => figure.source),
     ...Object.values(keyInsightSources),
     usEstateTaxThreshold.source,

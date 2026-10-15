@@ -13,7 +13,7 @@ export type PdfDataSourceNoteProps = { sources: DataSource[] }
  *
  * ```tsx
  * <PdfDataSourceNote sources={[voo.source, csobAkciovy.source, voo.source]} />
- * // Zdroje: Vanguard, stránka fondu VOO (ověřeno 14. 10. 2026); ČSOB, KID fondu ČSOB Akciový (zatím neověřeno)
+ * // Zdroje: Vanguard, stránka fondu VOO (ověřeno 14. 10. 2026); ČSOB, KID fondu ČSOB Akciový (ověřeno 14. 10. 2026)
  * ```
  */
 export const PdfDataSourceNote = ({ sources }: PdfDataSourceNoteProps) => {

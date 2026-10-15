@@ -21,20 +21,19 @@ import { YearsField } from './YearsField.tsx'
  *
  * ```tsx
  * <FeeCalculator />
- * // <div id="fee-calculator">Za 20 let vám bankovní fond nechá o 35 575 Kč méně než ETF SPYL, i bez růstu trhu.
- * //   ČSOB Akciový 63 826 Kč, SPYL 99 402 Kč, the amount, years and Bank Fund, the formula, the Lead Ask</div>
+ * // <div id="fee-calculator">Za 20 let vám bankovní fond nechá o 40 236 Kč méně než ETF SPYL, i bez růstu trhu.
+ * //   ČSOB Akciový 59 166 Kč, SPYL 99 402 Kč, the amount, years and Bank Fund, the formula, the Lead Ask</div>
  * ```
  */
 export const FeeCalculator = () => {
   const [amountKc, setAmountKc] = useState(feeCalculatorPrefill.amountKc)
   const [years, setYears] = useState(feeCalculatorPrefill.years)
   const [pickedBankFundOption, setPickedBankFundOption] = useState<BankFundOption>(bankFundOptions[0])
-  const { bankFund, terLabel } = pickedBankFundOption
   const twin = findUcitsEtf(feeCalculatorPrefill.twinTicker)
   const terCost = calculateTerCost({
     amountKc,
     years,
-    bankFundTerPercent: bankFund.terPercent,
+    bankFundTerPercent: pickedBankFundOption.terPercent,
     twinTerPercent: twin.terPercent,
   })
 
@@ -43,8 +42,8 @@ export const FeeCalculator = () => {
       <TerCostDifference years={years} differenceKc={terCost.differenceKc} twin={twin} />
       <div className="grid gap-3">
         <RemainingAmountBar
-          name={bankFund.name}
-          terLabel={terLabel}
+          name={pickedBankFundOption.name}
+          terLabel={pickedBankFundOption.terLabel}
           amountKc={terCost.bankFundAmountKc}
           shareOfTwinAmount={terCost.bankFundToTwinRatio}
           fundKind="bank-fund"
@@ -62,12 +61,12 @@ export const FeeCalculator = () => {
       <BankFundChoice pickedBankFundOption={pickedBankFundOption} onPick={setPickedBankFundOption} />
       <TerCostFormula
         years={years}
-        bankFundTerPercent={bankFund.terPercent}
+        bankFundTerPercent={pickedBankFundOption.terPercent}
         twinTerPercent={twin.terPercent}
         bankFundToTwinRatio={terCost.bankFundToTwinRatio}
       />
-      {/* Both Bank Funds' TERs are on screen in the choice, so both are cited. */}
-      <DataSourceNote sources={[...bankFundOptions.map((option) => option.bankFund.source), twin.source]} />
+      {/* Both Bank Funds' TERs are on screen in the choice, so both are cited: "kolem 2 %" by every surveyed KID. */}
+      <DataSourceNote sources={[...bankFundOptions.flatMap((option) => option.sources), twin.source]} />
       <LeadAsk interactiveTool="fee-calculator" />
     </div>
   )

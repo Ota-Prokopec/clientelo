@@ -13,8 +13,8 @@ export type TerCostDifferenceProps = {
  * The Kč difference, inside the sentence that says what it is.
  *
  * ```tsx
- * <TerCostDifference years={20} differenceKc={35_575.26} twin={spyl} />
- * // Za 20 let vám bankovní fond nechá o / 35 575 Kč / méně než ETF SPYL, i bez růstu trhu.
+ * <TerCostDifference years={20} differenceKc={40_235.89} twin={spyl} />
+ * // Za 20 let vám bankovní fond nechá o / 40 236 Kč / méně než ETF SPYL, i bez růstu trhu.
  * ```
  */
 export const TerCostDifference = ({ years, differenceKc, twin }: TerCostDifferenceProps) => {

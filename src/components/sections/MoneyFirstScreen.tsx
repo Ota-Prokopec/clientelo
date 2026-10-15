@@ -12,7 +12,7 @@ import { Section } from './Section.tsx'
  * ```tsx
  * <MoneyFirstScreen />
  * // <section id="first-screen" data-ad-variant="money">01 Poplatek banky vs ETF
- * //   <h1>2 % nebo 0,03 % ročně? …</h1><div id="fee-calculator">… 35 575 Kč …</div></section>
+ * //   <h1>2 % nebo 0,03 % ročně? …</h1><div id="fee-calculator">… 40 236 Kč …</div></section>
  * ```
  */
 export const MoneyFirstScreen = () => {

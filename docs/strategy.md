@@ -19,7 +19,7 @@ Fio e-Broker and Patria clients are deliberately left out: those brokers sell US
 
 ### Bank-Fund Saver (Ad Variant B, "money")
 
-- Holds savings in an equity fund sold by their bank, such as ČSOB Akciový (TER 2.22 % **(verify)**), or in a robo-advisor such as Portu.
+- Holds savings in an equity fund sold by their bank, such as ČSOB Akciový (TER 2.59 %), or in a robo-advisor such as Portu.
 - Has heard of ETFs but has never picked one, and doesn't know a Ticker like VOO.
 - Wants: to see in Kč what the fee difference costs over 20 years, and a simple, safe next step.
 

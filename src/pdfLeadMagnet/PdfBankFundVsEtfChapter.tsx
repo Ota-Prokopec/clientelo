@@ -20,7 +20,7 @@ import { pdfTw } from './pdfTw.ts'
  * ```tsx
  * <PdfBankFundVsEtfChapter />
  * // 05 Bankovní fond vs. ETF za 20 let v korunách
- * // 100 000 Kč jednorázově na 20 let. ČSOB Akciový vám nechá o 35 575 Kč* méně než dvojče SPYL, i bez růstu trhu.
+ * // 100 000 Kč jednorázově na 20 let. ČSOB Akciový vám nechá o 40 236 Kč méně než dvojče SPYL, i bez růstu trhu.
  * ```
  */
 export const PdfBankFundVsEtfChapter = () => {
@@ -72,12 +72,12 @@ export const PdfBankFundVsEtfChapter = () => {
         {formatYears(years)} nechá dvojče, vám tak bankovní fond nechá jen{' '}
         <PdfSourcedFigure sources={terSources}>{formatAmount(bankFundToTwinRatio * 100, 'Kč')}</PdfSourcedFigure>. Trh se u obou vyvíjí stejně, a když roste, je rozdíl v korunách
         ještě větší. Akciové fondy bank si obvykle strhávají kolem{' '}
-        <PdfSourcedFigure sources={[typicalBankEquityFundTer.source]}>
+        <PdfSourcedFigure sources={typicalBankEquityFundTer.sources}>
           {formatPercent(typicalBankEquityFundTer.value)}
         </PdfSourcedFigure>{' '}
         ročně.
       </PdfText>
-      <PdfDataSourceNote sources={[...terSources, typicalBankEquityFundTer.source]} />
+      <PdfDataSourceNote sources={[...terSources, ...typicalBankEquityFundTer.sources]} />
     </PdfChapter>
   )
 }

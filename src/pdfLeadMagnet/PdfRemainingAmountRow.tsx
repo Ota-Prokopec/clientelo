@@ -34,10 +34,10 @@ export type PdfRemainingAmountRowProps = {
  * The fund's name and TER, its amount on the right, and a bar filled to its share of the Twin's amount.
  *
  * ```tsx
- * <PdfRemainingAmountRow name="ČSOB Akciový" terLabel="2,22 %" terSource={csobAkciovy.source} amountKc={63_826}
- *   shareOfTwinAmount={0.642} fundKind="bank-fund" />
- * // ČSOB Akciový · 2,22 %* ……… 63 826 Kč*
- * // [█████████████░░░░░░░]
+ * <PdfRemainingAmountRow name="ČSOB Akciový" terLabel="2,59 %" terSource={csobAkciovy.source} amountKc={59_166}
+ *   shareOfTwinAmount={0.595} fundKind="bank-fund" />
+ * // ČSOB Akciový · 2,59 % ……… 59 166 Kč
+ * // [████████████░░░░░░░░]
  * ```
  */
 export const PdfRemainingAmountRow = ({
