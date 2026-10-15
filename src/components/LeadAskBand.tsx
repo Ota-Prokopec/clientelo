@@ -2,7 +2,7 @@
 // before it asks. "Tahák zdarma · PDF, 2 strany", the title, and the PDF thumbnail beside its Chapters, then what the
 // Visitor does next: a link to the Lead Form after an Interactive Tool, or the Lead Form itself in Section 04.
 import type { ReactNode } from 'react'
-import { leadMagnetTitle, type LeadMagnetChapter } from '@data/leadMagnet.ts'
+import { LEAD_MAGNET_TITLE, type LeadMagnetChapter } from '@data/leadMagnet.ts'
 import type { InteractiveTool } from '@/types.ts'
 import { LeadMagnetContents } from './LeadMagnetContents.tsx'
 import { LeadMagnetThumbnail } from './LeadMagnetThumbnail.tsx'
@@ -39,7 +39,7 @@ export const LeadAskBand = ({ placement, headingLevel, chapters, children }: Lea
     <div data-lead-ask={placement} className="grid gap-5 rounded-3xl bg-block p-5 text-block-foreground">
       <div className="grid gap-2">
         <p className="text-label">Tahák zdarma · PDF, 2 strany</p>
-        <TitleHeading className="text-title">{leadMagnetTitle}</TitleHeading>
+        <TitleHeading className="text-title">{LEAD_MAGNET_TITLE}</TitleHeading>
       </div>
       <div className="grid grid-cols-[auto_1fr] items-start gap-4">
         <LeadMagnetThumbnail />

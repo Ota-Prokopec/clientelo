@@ -20,10 +20,10 @@ import { InputField } from './fields/InputField.tsx';
 import { LeadCta } from './LeadCta.tsx';
 
 /** The Lead Form's id, which every link to the Lead Form targets. Step 5's Funnel Events hook onto it. */
-export const leadFormId = 'lead-form';
+export const LEAD_FORM_ID = 'lead-form';
 
 /** The id of the Lead Form's email field, which a link to the Lead Form focuses. */
-export const leadFormEmailId = 'lead-form-email';
+export const LEAD_FORM_EMAIL_ID = 'lead-form-email';
 
 /**
  * Where the Lead Form is: untouched, being filled in, waiting for submitLead(), submitted on this visit, failed and
@@ -51,7 +51,7 @@ const submitLabelByLeadFormState: Partial<Record<LeadFormState, string>> = {
 };
 
 /** The Lead Form's id, as the observer behind lead_form_seen watches it. */
-const leadFormIds = [leadFormId] as const;
+const leadFormIds = [LEAD_FORM_ID] as const;
 
 /**
  * Whether the Lead Form counts as seen: at least half of it on screen.
@@ -169,7 +169,7 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
   };
 
   return (
-    <div id={leadFormId} data-state={leadFormState} className="grid scroll-mt-6 gap-4">
+    <div id={LEAD_FORM_ID} data-state={leadFormState} className="grid scroll-mt-6 gap-4">
       {lead ? (
         <Delivery lead={lead} />
       ) : (
@@ -179,7 +179,7 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
             name="email"
             label="Kam vám tahák poslat?"
             surface="band"
-            id={leadFormEmailId}
+            id={LEAD_FORM_EMAIL_ID}
             type="email"
             inputMode="email"
             autoComplete="email"

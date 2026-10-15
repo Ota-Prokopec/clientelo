@@ -3,7 +3,7 @@
 import type { ElementVisibility } from '@/hooks/useOnFirstView.ts'
 
 /** The share of the Section, or of the screen, that has to be filled for the Section to count as viewed. */
-const viewedShare = 0.5
+const VIEWED_SHARE = 0.5
 
 /**
  * Whether a Section counts as viewed.
@@ -15,5 +15,5 @@ const viewedShare = 0.5
  * ```
  */
 export const isSectionViewed = ({ visibleRatio, visibleHeight, viewportHeight }: ElementVisibility): boolean => {
-  return visibleRatio >= viewedShare || visibleHeight >= viewportHeight * viewedShare
+  return visibleRatio >= VIEWED_SHARE || visibleHeight >= viewportHeight * VIEWED_SHARE
 }

@@ -4,11 +4,11 @@
 import { Resvg } from '@resvg/resvg-js'
 import satori, { type Font } from 'satori'
 import { findWoff, fontFileFamilies } from '@/design/fontFiles.ts'
-import { shareImageHeight, shareImageWidth } from '@data/shareImageFile.ts'
+import { SHARE_IMAGE_HEIGHT, SHARE_IMAGE_WIDTH } from '@data/shareImageFile.ts'
 import { ShareImage } from './ShareImage.tsx'
 
 /** The one weight the Share Image sets its type in. */
-const shareImageFontWeight = 900
+const SHARE_IMAGE_FONT_WEIGHT = 900
 
 /**
  * The page's font at the Share Image's weight, its latin-ext subset included, as satori loads it.
@@ -22,8 +22,8 @@ const loadShareImageFonts = async (): Promise<Font[]> =>
     fontFileFamilies.map(async (fontFileFamily) => ({
       name: fontFileFamily.family,
       // fetch() decodes a data URL into the bytes satori reads.
-      data: await (await fetch(findWoff(fontFileFamily, shareImageFontWeight))).arrayBuffer(),
-      weight: shareImageFontWeight,
+      data: await (await fetch(findWoff(fontFileFamily, SHARE_IMAGE_FONT_WEIGHT))).arrayBuffer(),
+      weight: SHARE_IMAGE_FONT_WEIGHT,
       style: 'normal',
     })),
   )
@@ -37,8 +37,8 @@ const loadShareImageFonts = async (): Promise<Font[]> =>
  */
 export const renderShareImage = async (): Promise<Uint8Array> => {
   const shareImageSvg = await satori(<ShareImage />, {
-    width: shareImageWidth,
-    height: shareImageHeight,
+    width: SHARE_IMAGE_WIDTH,
+    height: SHARE_IMAGE_HEIGHT,
     fonts: await loadShareImageFonts(),
   })
 

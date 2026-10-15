@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import useDownloader from 'react-use-downloader'
-import { leadMagnetPdfFileName, leadMagnetPdfPath } from '@data/leadMagnetFiles.ts'
+import { LEAD_MAGNET_PDF_FILE_NAME, LEAD_MAGNET_PDF_PATH } from '@data/leadMagnetFiles.ts'
 import { resolveAdVariant } from '@lib/adVariant/adVariant.ts'
 import { syncRememberedVisit } from '@/consent/rememberedVisit.ts'
 import { isSectionViewed } from '@/funnel/sectionView.ts'
@@ -72,7 +72,7 @@ const Home = () => {
   const handleLeadFormSubmitted = (email: string) => {
     // Not awaited: the hook catches a failed download into its own `error`. A browser may also refuse a download that
     // no tap started directly, as Safari on iOS can, so Delivery always shows the same file as a visible link too.
-    void download(leadMagnetPdfPath, leadMagnetPdfFileName)
+    void download(LEAD_MAGNET_PDF_PATH, LEAD_MAGNET_PDF_FILE_NAME)
     trackFunnelEvent({ event: 'pdf_download', trigger: 'auto' })
     rememberLead()
     setLead({ kind: 'new', email })

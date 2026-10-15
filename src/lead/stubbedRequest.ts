@@ -3,7 +3,7 @@
 // makes one seam's stand-in fail, so the error state of what calls it can be reached.
 
 /** How long the stand-in takes, about as long as a real request, so a form's submitting state shows. */
-const stubbedRequestDurationMs = 600
+const STUBBED_REQUEST_DURATION_MS = 600
 
 /** The query parameter that makes one seam's stand-in fail in `pnpm dev`, set to `fail`. */
 export type FailureToggle = 'submit-lead' | 'submit-segment'
@@ -32,6 +32,6 @@ const isFailureSimulated = (failureToggle: FailureToggle): boolean => {
  * ```
  */
 export const awaitStubbedRequest = async (failureToggle: FailureToggle): Promise<void> => {
-  await new Promise((resolve) => setTimeout(resolve, stubbedRequestDurationMs))
+  await new Promise((resolve) => setTimeout(resolve, STUBBED_REQUEST_DURATION_MS))
   if (isFailureSimulated(failureToggle)) throw new Error(`The stubbed request failed: simulated by ?${failureToggle}=fail`)
 }

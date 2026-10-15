@@ -18,7 +18,7 @@ const adVariantByUtmContent: Record<AdVariantUtmContent, AdVariant> = {
 };
 
 /** The `utm_content` naming the Ad Variant a Visitor without a known one sees: it carries the Key Insight. */
-const fallbackAdVariantUtmContent: AdVariantUtmContent = 'pain';
+const FALLBACK_AD_VARIANT_UTM_CONTENT: AdVariantUtmContent = 'pain';
 
 /**
  * Whether a `utm_content` value names an Ad Variant.
@@ -43,7 +43,7 @@ const isAdVariantUtmContent = (utmContent: string | null): utmContent is AdVaria
  * ```
  */
 export const resolveAdVariantUtmContent = (utmContent: string | null): AdVariantUtmContent => {
-  return isAdVariantUtmContent(utmContent) ? utmContent : fallbackAdVariantUtmContent;
+  return isAdVariantUtmContent(utmContent) ? utmContent : FALLBACK_AD_VARIANT_UTM_CONTENT;
 };
 
 /**

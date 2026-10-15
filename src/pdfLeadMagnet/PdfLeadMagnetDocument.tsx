@@ -3,7 +3,7 @@
 // its Data Source, so the PDF can't disagree with the page (ADR-0002).
 import { Document, Page, View } from '@react-pdf/renderer'
 import { isVerified, listDataSources } from '@data/figures.ts'
-import { leadMagnetTitle } from '@data/leadMagnet.ts'
+import { LEAD_MAGNET_TITLE } from '@data/leadMagnet.ts'
 import { feeCalculatorPrefill } from '@lib/feeCalculatorPrefill.ts'
 import { formatYears } from '@lib/format.ts'
 import { PdfBankFundVsEtfChapter } from './PdfBankFundVsEtfChapter.tsx'
@@ -11,7 +11,7 @@ import { PdfCzechTaxesChapter } from './PdfCzechTaxesChapter.tsx'
 import { PdfHowToBuyChapter } from './PdfHowToBuyChapter.tsx'
 import { PdfPageFooter } from './PdfPageFooter.tsx'
 import { pdfFontFamilyNames } from './registerPdfFonts.ts'
-import { unverifiedMarker } from './PdfSourcedFigure.tsx'
+import { UNVERIFIED_MARKER } from './PdfSourcedFigure.tsx'
 import { PdfTwinTableChapter } from './PdfTwinTableChapter.tsx'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
@@ -38,14 +38,14 @@ export const PdfLeadMagnetDocument = () => {
   const hasUnverifiedFigure = !listDataSources().every(isVerified)
 
   return (
-    <Document title={leadMagnetTitle} subject={leadMagnetSubtitle} language="cs">
+    <Document title={LEAD_MAGNET_TITLE} subject={leadMagnetSubtitle} language="cs">
       <Page size="A4" style={pageStyle}>
         <View style={pdfTw('gap-2 pb-2')}>
-          <PdfText style={pdfTw('text-headline text-heading')}>{leadMagnetTitle}</PdfText>
+          <PdfText style={pdfTw('text-headline text-heading')}>{LEAD_MAGNET_TITLE}</PdfText>
           <PdfText style={pdfTw('text-fact text-heading')}>{leadMagnetSubtitle}</PdfText>
           {hasUnverifiedFigure && (
             <PdfText style={pdfTw('text-label text-heading')}>
-              Pracovní verze: údaje označené {unverifiedMarker} zatím čekají na ověření u zdroje.
+              Pracovní verze: údaje označené {UNVERIFIED_MARKER} zatím čekají na ověření u zdroje.
             </PdfText>
           )}
         </View>

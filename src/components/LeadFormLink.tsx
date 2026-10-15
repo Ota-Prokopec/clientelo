@@ -5,7 +5,7 @@ import type { ComponentProps, MouseEvent } from 'react'
 import type { LeadAskClickPlacement } from '@/funnel/funnelEvent.ts'
 import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
 import { LeadCta } from './LeadCta.tsx'
-import { leadFormEmailId, leadFormId } from './LeadForm.tsx'
+import { LEAD_FORM_EMAIL_ID, LEAD_FORM_ID } from './LeadForm.tsx'
 
 export type LeadFormLinkProps = Omit<ComponentProps<'a'>, 'href' | 'children'> & {
   /** Where the link is: after an Interactive Tool, as its `data-lead-ask` band says, or the Sticky CTA. */
@@ -35,16 +35,16 @@ export const LeadFormLink = ({ placement, className, onClick, ...anchorProps }: 
   const openLeadForm = (event: MouseEvent<HTMLAnchorElement>) => {
     trackFunnelEvent({ event: 'lead_ask_click', placement })
     onClick?.(event)
-    const leadForm = document.getElementById(leadFormId)
+    const leadForm = document.getElementById(LEAD_FORM_ID)
     if (event.defaultPrevented || !leadForm) return
 
     event.preventDefault()
     // No `behavior`, so the scroll follows html's `scroll-behavior`: smooth, or instant under reduced motion.
     leadForm.scrollIntoView()
-    document.getElementById(leadFormEmailId)?.focus({ preventScroll: true })
+    document.getElementById(LEAD_FORM_EMAIL_ID)?.focus({ preventScroll: true })
   }
 
   return (
-    <LeadCta render={<a href={`#${leadFormId}`} onClick={openLeadForm} {...anchorProps} />} className={className} />
+    <LeadCta render={<a href={`#${LEAD_FORM_ID}`} onClick={openLeadForm} {...anchorProps} />} className={className} />
   )
 }

@@ -1,8 +1,8 @@
 // The foot of each page of the Lead Magnet PDF: the disclaimer the page's Footer carries, and the page number. The
 // number is passed in, not counted by react-pdf's `render` prop, which drops a styled dynamic Text inside a fixed View.
-// The PDF always has leadMagnetPageCount pages, since the build fails otherwise.
+// The PDF always has LEAD_MAGNET_PAGE_COUNT pages, since the build fails otherwise.
 import { View } from '@react-pdf/renderer'
-import { leadMagnetPageCount } from '@data/leadMagnetFiles.ts'
+import { LEAD_MAGNET_PAGE_COUNT } from '@data/leadMagnetFiles.ts'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
 
@@ -25,7 +25,7 @@ export const PdfPageFooter = ({ pageNumber }: PdfPageFooterProps) => {
         Nejde o investiční doporučení. Investování nese riziko ztráty.
       </PdfText>
       <PdfText style={pdfTw('text-note text-muted-foreground')}>
-        {pageNumber} / {leadMagnetPageCount}
+        {pageNumber} / {LEAD_MAGNET_PAGE_COUNT}
       </PdfText>
     </View>
   )

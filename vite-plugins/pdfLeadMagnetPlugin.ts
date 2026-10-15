@@ -3,7 +3,7 @@
 // a PDF with a page count other than the one every Lead Ask promises, fails the build.
 import { PDFDocument } from 'pdf-lib'
 import { runnerImport, type AliasOptions, type Plugin } from 'vite'
-import { leadMagnetPageCount, leadMagnetPdfFileName, leadMagnetPdfPath } from '../src/data/leadMagnetFiles.ts'
+import { LEAD_MAGNET_PAGE_COUNT, LEAD_MAGNET_PDF_FILE_NAME, LEAD_MAGNET_PDF_PATH } from '../src/data/leadMagnetFiles.ts'
 
 export type PdfLeadMagnetPluginProps = {
   /** The app's `resolve.alias`, which src/pdfLeadMagnet/ imports through. */
@@ -19,7 +19,7 @@ export type BuildLeadMagnetPdfProps = PdfLeadMagnetPluginProps & {
 type RenderLeadMagnetPdfModule = { renderLeadMagnetPdf: () => Promise<Uint8Array> }
 
 /**
- * Renders the PDF. Throws when its page count isn't leadMagnetPageCount.
+ * Renders the PDF. Throws when its page count isn't LEAD_MAGNET_PAGE_COUNT.
  *
  * ```ts
  * await buildLeadMagnetPdf({ root, alias }) // Uint8Array, 2 pages
@@ -34,9 +34,9 @@ const buildLeadMagnetPdf = async ({ root, alias }: BuildLeadMagnetPdfProps): Pro
   const leadMagnetPdf = await module.renderLeadMagnetPdf()
   const pageCount = (await PDFDocument.load(leadMagnetPdf)).getPageCount()
 
-  if (pageCount !== leadMagnetPageCount) {
+  if (pageCount !== LEAD_MAGNET_PAGE_COUNT) {
     throw new Error(
-      `The Lead Magnet PDF has ${pageCount} pages, but every Lead Ask promises ${leadMagnetPageCount}. ` +
+      `The Lead Magnet PDF has ${pageCount} pages, but every Lead Ask promises ${LEAD_MAGNET_PAGE_COUNT}. ` +
         'Shorten it, cutting Chapter 6 first (docs/strategy.md#lead-magnet).',
     )
   }
@@ -77,7 +77,7 @@ export const pdfLeadMagnetPlugin = ({ alias }: PdfLeadMagnetPluginProps): Plugin
       })
 
       server.middlewares.use((request, response, next) => {
-        if (request.url?.split('?')[0] !== leadMagnetPdfPath) return next()
+        if (request.url?.split('?')[0] !== LEAD_MAGNET_PDF_PATH) return next()
 
         leadMagnetPdf ??= buildLeadMagnetPdf({ root, alias })
         leadMagnetPdf.then(
@@ -95,7 +95,7 @@ export const pdfLeadMagnetPlugin = ({ alias }: PdfLeadMagnetPluginProps): Plugin
     /** Emits the PDF into dist/ beside the page. A thrown error fails `vite build`. */
     async generateBundle() {
       const builtPdf = await buildLeadMagnetPdf({ root, alias })
-      this.emitFile({ type: 'asset', fileName: leadMagnetPdfFileName, source: builtPdf })
+      this.emitFile({ type: 'asset', fileName: LEAD_MAGNET_PDF_FILE_NAME, source: builtPdf })
     },
   }
 }
