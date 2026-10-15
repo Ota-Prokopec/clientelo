@@ -1,6 +1,6 @@
-// The submitLead() seam the Lead Form calls. A stub until step 7 of docs/plan.md replaces sendLead() with a request
-// to /api/lead. In `pnpm dev`, opening the page with `?submit-lead=fail` makes every send fail, so the Lead Form's
-// error state can be reached.
+// The submitLead() seam the Lead Form calls. A final stub that sends nothing, since the page is frontend only
+// (docs/plan.md#7-deployment). In `pnpm dev`, opening the page with `?submit-lead=fail` makes every send fail, so the
+// Lead Form's error state can be reached.
 import type { LeadSubmission } from '@/schemas/leadSchema.ts'
 import { awaitStubbedRequest } from './stubbedRequest.ts'
 

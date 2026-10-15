@@ -10,7 +10,7 @@ Each one was left out because it would send the Visitor's data to a service outs
 - **PostHog.** Funnels and session replay out of the box, through an external service, with the same consent requirement.
 - **Umami.** Cookieless and lighter, but still a hosted service (or a server of our own to run it) receiving every Visit.
 - **Vercel Web Analytics.** Built into the hosting, but it is still an external collector of every Visit.
-- **An endpoint of our own.** A serverless function storing events would be a backend to build, secure and keep, for a page that has none until step 7's `/api/lead`.
+- **An endpoint of our own.** A serverless function storing events would be a backend to build, secure and keep, for a page that has none.
 - **The Meta Pixel.** The Ads would optimise on its `Lead` event, but it is Meta's tracker, it needs consent, and it needs the employer's real legal data in the privacy policy before an Ad launches.
 
 ## Consequences

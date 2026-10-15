@@ -1,7 +1,6 @@
-// The submitSegment() seam the Segmentation Question calls. A stub until step 7 of docs/plan.md replaces it with a
-// request that stores the Segment with the Lead's contact, so it can pick their Day 5 Welcome Email. In
-// `pnpm dev`, opening the page with `?submit-segment=fail` makes every send fail, so the question's error state can be
-// reached.
+// The submitSegment() seam the Segmentation Question calls. A final stub that stores and sends nothing, since the
+// page is frontend only (docs/plan.md#7-deployment). In `pnpm dev`, opening the page with `?submit-segment=fail` makes
+// every send fail, so the question's error state can be reached.
 import type { Segment } from '@/types.ts'
 import { awaitStubbedRequest } from './stubbedRequest.ts'
 
