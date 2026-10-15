@@ -18,6 +18,14 @@ describe('calculateTerCost', () => {
     expect(terCost.bankFundToTwinRatio).toBeCloseTo(0.6716, 4)
   })
 
+  // The `money` First Screen opens on this: feeCalculatorPrefill.ts, a Bank Fund at "kolem 2 %" against SPYL.
+  it('leaves 66 761 Kč in a Bank Fund at 2 % and 99 402 Kč in SPYL from 100 000 Kč over 20 years', () => {
+    const terCost = calculateTerCost({ amountKc: 100_000, years: 20, bankFundTerPercent: 2, twinTerPercent: 0.03 })
+
+    expect(terCost.bankFundAmountKc).toBeCloseTo(66_760.82, 1)
+    expect(terCost.differenceKc).toBeCloseTo(32_640.89, 1)
+  })
+
   it.each([Number.NaN, -50_000])('counts an amount of %s, a cleared or negative field, as 0 Kč', (amountKc) => {
     const terCost = calculateTerCost({ amountKc, years: 20, bankFundTerPercent: 2.22, twinTerPercent: 0.03 })
 

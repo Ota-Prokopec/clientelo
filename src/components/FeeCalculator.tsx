@@ -34,18 +34,18 @@ const addFeeCalculatorUseTracking =
   }
 
 /**
- * The Fee Calculator, prefilled with 100 000 Kč in ČSOB Akciový against the Twin SPYL over 20 years.
+ * The Fee Calculator, prefilled with 100 000 Kč in a bank fund at "kolem 2 %" against the Twin SPYL over 20 years.
  *
  * ```tsx
  * <FeeCalculator />
- * // <div id="fee-calculator">Za 20 let vám bankovní fond nechá o 40 236 Kč méně než ETF SPYL, i bez růstu trhu.
- * //   ČSOB Akciový 59 166 Kč, SPYL 99 402 Kč, the amount, years and Bank Fund, the formula, the Lead Ask</div>
+ * // <div id="fee-calculator">Za 20 let vám bankovní fond nechá o 32 641 Kč méně než ETF SPYL, i bez růstu trhu.
+ * //   Jiný fond banky 66 761 Kč, SPYL 99 402 Kč, the amount, years and Bank Fund, the formula, the Lead Ask</div>
  * ```
  */
 export const FeeCalculator = () => {
   const [amountKc, setAmountKc] = useState(feeCalculatorPrefill.amountKc)
   const [years, setYears] = useState(feeCalculatorPrefill.years)
-  const [pickedBankFundOption, setPickedBankFundOption] = useState<BankFundOption>(bankFundOptions[0])
+  const [pickedBankFundOption, setPickedBankFundOption] = useState<BankFundOption>(feeCalculatorPrefill.bankFundOption)
   const twin = findUcitsEtf(feeCalculatorPrefill.twinTicker)
   const terCost = calculateTerCost({
     amountKc,
