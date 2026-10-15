@@ -1,8 +1,8 @@
 // Tests Chapter 3's Czech tax rules, which the Lead Magnet PDF and the content a Lead unlocks both read, so each figure
 // reads the same in both, with its Data Source.
 import { describe, expect, it } from 'vitest'
-import { czechTaxFacts, czechTaxSources } from '../../src/data/czechTaxFacts.ts'
-import { czechDividendTaxSource, czechTaxFigures } from '../../src/data/figures.ts'
+import { czechTaxFacts, czechTaxSources } from '@data/czechTaxFacts.ts'
+import { czechDividendTaxSource, czechTaxFigures } from '@data/figures.ts'
 
 /** A non-breaking space, which the page's Czech amounts put between digit groups and before the unit. */
 const NBSP = '\u00a0'

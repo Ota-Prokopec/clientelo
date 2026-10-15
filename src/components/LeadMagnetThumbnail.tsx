@@ -1,7 +1,7 @@
 // The Lead Magnet's first page in miniature: a white Card that stays in the light palette in both modes
 // (design-identity.md#components). It's drawn in markup, not as an image of the PDF, and reads the title and the Twin
 // from the same data module the PDF renders, so the preview never names anything the file doesn't.
-import { Card } from '@/components/ui/card'
+import { Card } from '@/components/ui/card.tsx'
 import { LEAD_MAGNET_TITLE } from '@data/leadMagnet.ts'
 import { findSubstitutes } from '@lib/substitutes.ts'
 

@@ -64,7 +64,9 @@ export const PdfTwinTableChapter = () => {
                 {etfs.map((etf, etfIndex) => (
                   <Fragment key={etf.ticker}>
                     {etfIndex > 0 && ' · '}
-                    <PdfText style={pdfTw('text-muted-foreground line-through decoration-signal')}>{etf.ticker}</PdfText>{' '}
+                    <PdfText style={pdfTw('text-muted-foreground line-through decoration-signal')}>
+                      {etf.ticker}
+                    </PdfText>{' '}
                     <PdfText style={pdfTw('text-muted-foreground')}>
                       <PdfSourcedFigure sources={[etf.source]}>{formatPercent(etf.terPercent)}</PdfSourcedFigure>
                     </PdfText>

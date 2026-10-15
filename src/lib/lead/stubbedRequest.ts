@@ -33,5 +33,6 @@ const isFailureSimulated = (failureToggle: FailureToggle): boolean => {
  */
 export const awaitStubbedRequest = async (failureToggle: FailureToggle): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, STUBBED_REQUEST_DURATION_MS))
-  if (isFailureSimulated(failureToggle)) throw new Error(`The stubbed request failed: simulated by ?${failureToggle}=fail`)
+  if (isFailureSimulated(failureToggle))
+    throw new Error(`The stubbed request failed: simulated by ?${failureToggle}=fail`)
 }

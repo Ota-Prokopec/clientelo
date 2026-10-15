@@ -8,7 +8,6 @@ import { PdfSourcedFigure } from './PdfSourcedFigure.tsx'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
 
-
 const terClassNameByFundKind: Record<FundKind, string> = {
   'bank-fund': 'text-signal',
   twin: 'text-brand',
@@ -64,7 +63,11 @@ export const PdfRemainingAmountRow = ({
       <View style={pdfTw('h-2 rounded-full bg-accent')}>
         {/* A computed width is the one style no class can carry. */}
         <View
-          style={[pdfTw('h-full rounded-full'), pdfTw(fillClassNameByFundKind[fundKind]), { width: `${shareOfTwinAmount * 100}%` }]}
+          style={[
+            pdfTw('h-full rounded-full'),
+            pdfTw(fillClassNameByFundKind[fundKind]),
+            { width: `${shareOfTwinAmount * 100}%` },
+          ]}
         />
       </View>
     </View>

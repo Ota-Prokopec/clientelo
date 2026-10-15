@@ -2,8 +2,8 @@
 // fills in every field fills too. The Lead Form's `honeypot` is one, and submitLead() sends nothing once it's filled.
 import { useId } from 'react'
 import { Controller, type FieldPathByValue, type FieldValues } from 'react-hook-form'
-import { Field, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
+import { Field, FieldLabel } from '@/components/ui/field.tsx'
+import { Input } from '@/components/ui/input.tsx'
 import type { FieldProps } from './types.ts'
 
 /** The honeypot needs nothing beyond what every field takes. Its `name` is the form value a bot fills. */

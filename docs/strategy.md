@@ -39,10 +39,10 @@ What backs it (researched 2026-10-11):
 
 A Twin tracks the **same index** as the US ETF. Where no UCITS ETF tracks the same index, the page shows the closest alternative and labels it as such. It never presents it as a Twin.
 
-| US ETF        | Index               | Twins (accumulating first)                        |
-| ------------- | ------------------- | ------------------------------------------------- |
-| VOO, IVV, SPY | S&P 500             | SPYL, CSPX, VUAA                                  |
-| VT            | FTSE Global All Cap | VGLA                                              |
+| US ETF        | Index               | Twins (accumulating first) |
+| ------------- | ------------------- | -------------------------- |
+| VOO, IVV, SPY | S&P 500             | SPYL, CSPX, VUAA           |
+| VT            | FTSE Global All Cap | VGLA                       |
 
 VT had no Twin until Vanguard launched VGLA, its FTSE Global All-Cap UCITS ETF, on 18 August 2026 (read 2026-10-15). Before that the page showed VWCE and FWRA, on the similar FTSE All-World, as closest alternatives. A fund on a similar index is never shown beside a Twin, so they left the data module with VGLA's arrival.
 
@@ -60,7 +60,7 @@ An ETF with no Substitute would leave the Visitor without an answer, so VTI is l
 
 One PDF for both personas, so a difference in Conversion Rate between Ad Variants can be read as the Ad's effect.
 
-- **Title:** *Tahák: evropská dvojčata amerických ETF*, subtitled *Co koupit místo VOO, co stojí poplatek bankovního fondu za 20 let a jak na daně v Česku*. The subtitle carries both Ad Promises ([ads.md](./ads.md)): each Ad Variant quotes the half its persona cares about.
+- **Title:** _Tahák: evropská dvojčata amerických ETF_, subtitled _Co koupit místo VOO, co stojí poplatek bankovního fondu za 20 let a jak na daně v Česku_. The subtitle carries both Ad Promises ([ads.md](./ads.md)): each Ad Variant quotes the half its persona cares about.
 - **Promise:** which European fund to buy instead of the US ETF you can't buy, what a bank fund's TER costs over 20 years compared with an ETF's, and how to avoid the tax mistakes, on two pages.
 - **Length:** two pages. If it runs over, Chapter 6 is cut first, because it goes stale fastest.
 

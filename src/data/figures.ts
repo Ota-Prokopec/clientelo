@@ -4,57 +4,57 @@
 
 /** Where a figure comes from, and the ISO date (`2026-10-11`) it was verified, or null while unverified. */
 export type DataSource = {
-  name: string;
-  url: string | null;
-  verifiedOn: string | null;
-};
+  name: string
+  url: string | null
+  verifiedOn: string | null
+}
 
 /** The index an ETF or a Twin tracks. */
-export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap';
+export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap'
 
 /** An NYSE-listed ETF a Czech retail investor's app won't sell them. */
 export type Etf = {
-  ticker: string;
-  trackedIndex: TrackedIndex;
-  terPercent: number;
-  source: DataSource;
-};
+  ticker: string
+  trackedIndex: TrackedIndex
+  terPercent: number
+  source: DataSource
+}
 
 /** A UCITS ETF a Czech retail investor can buy instead of an ETF. */
 export type UcitsEtf = {
-  ticker: string;
-  isin: string;
-  trackedIndex: TrackedIndex;
-  terPercent: number;
-  domicile: 'Irsko';
-  distributionPolicy: 'akumulační' | 'distribuční';
+  ticker: string
+  isin: string
+  trackedIndex: TrackedIndex
+  terPercent: number
+  domicile: 'Irsko'
+  distributionPolicy: 'akumulační' | 'distribuční'
   /** The exchange the Ticker is listed under: the same fund has another Ticker on another exchange. */
-  exchange: 'Xetra' | 'LSE';
+  exchange: 'Xetra' | 'LSE'
   /** The currency the fund trades in on that exchange. */
-  currency: 'EUR' | 'USD';
-  source: DataSource;
-};
+  currency: 'EUR' | 'USD'
+  source: DataSource
+}
 
 /** A bank's equity fund the Bank-Fund Saver holds. */
 export type BankFund = {
-  name: string;
-  terPercent: number;
-  source: DataSource;
-};
+  name: string
+  terPercent: number
+  source: DataSource
+}
 
 /** A figure that is a single number, such as a tax threshold. */
 export type NumericFigure = {
-  value: number;
-  unit: 'Kč' | 'USD' | 'let' | '%';
-  source: DataSource;
-};
+  value: number
+  unit: 'Kč' | 'USD' | 'let' | '%'
+  source: DataSource
+}
 
 /** A single number computed from other figures, such as the typical Bank Fund TER, citing each one's Data Source. */
 export type ComputedFigure = {
-  value: number;
-  unit: NumericFigure['unit'];
-  sources: DataSource[];
-};
+  value: number
+  unit: NumericFigure['unit']
+  sources: DataSource[]
+}
 
 /**
  * A Data Source no one has verified yet, for a figure added before it is verified (ADR-0004). Every figure the module
@@ -64,7 +64,7 @@ export type ComputedFigure = {
  * unverifiedSource('Vanguard, stránka fondu VOO') // { name: 'Vanguard, stránka fondu VOO', url: null, verifiedOn: null }
  * ```
  */
-export const unverifiedSource = (name: string): DataSource => ({ name, url: null, verifiedOn: null });
+export const unverifiedSource = (name: string): DataSource => ({ name, url: null, verifiedOn: null })
 
 export const etfs: Etf[] = [
   {
@@ -107,7 +107,7 @@ export const etfs: Etf[] = [
       verifiedOn: '2026-10-14',
     },
   },
-];
+]
 
 export const ucitsEtfs: UcitsEtf[] = [
   {
@@ -170,7 +170,7 @@ export const ucitsEtfs: UcitsEtf[] = [
       verifiedOn: '2026-10-15',
     },
   },
-];
+]
 
 // The UCITS ETF Tickers that stand in for each ETF. Whether one is the ETF's Twin or its closest alternative is derived
 // from the two indices (src/lib/substitutes.ts), never recorded here. Every ETF has at least one, which is why VTI isn't
@@ -180,7 +180,7 @@ export const substituteTickersByEtfTicker: Record<string, string[]> = {
   IVV: ['SPYL', 'CSPX', 'VUAA'],
   SPY: ['SPYL', 'CSPX', 'VUAA'],
   VT: ['VGLA'],
-};
+}
 
 export const csobAkciovy: BankFund = {
   name: 'ČSOB Akciový',
@@ -190,7 +190,7 @@ export const csobAkciovy: BankFund = {
     url: 'https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_770000001170_CS.PDF',
     verifiedOn: '2026-10-15',
   },
-};
+}
 
 /**
  * The Bank Funds "kolem 2 %" is computed from: ČSOB Akciový, and at each of Česká spořitelna, Komerční banka and
@@ -228,7 +228,7 @@ export const surveyedBankFunds: BankFund[] = [
       verifiedOn: '2026-10-14',
     },
   },
-];
+]
 
 /**
  * The TER a typical Bank Fund charges: the median of the given Bank Funds' TERs, rounded to a whole percent as the copy
@@ -240,18 +240,18 @@ export const surveyedBankFunds: BankFund[] = [
  * ```
  */
 export const calculateTypicalTerPercent = (bankFunds: BankFund[]): number => {
-  if (bankFunds.length === 0) throw new Error('No Bank Funds to take a typical TER from');
+  if (bankFunds.length === 0) throw new Error('No Bank Funds to take a typical TER from')
 
-  const sortedTerPercents = bankFunds.map((bankFund) => bankFund.terPercent).toSorted((left, right) => left - right);
+  const sortedTerPercents = bankFunds.map((bankFund) => bankFund.terPercent).toSorted((left, right) => left - right)
   // The middle TER of an odd count, or the upper of the two middle TERs of an even count.
-  const middleIndex = Math.floor(sortedTerPercents.length / 2);
+  const middleIndex = Math.floor(sortedTerPercents.length / 2)
   const medianTerPercent =
     sortedTerPercents.length % 2 === 0
       ? (sortedTerPercents[middleIndex - 1] + sortedTerPercents[middleIndex]) / 2
-      : sortedTerPercents[middleIndex];
+      : sortedTerPercents[middleIndex]
 
-  return Math.round(medianTerPercent);
-};
+  return Math.round(medianTerPercent)
+}
 
 /**
  * The "about 2 %" a bank's equity fund charges a year (docs/ads.md, Ad Variant B), computed from the surveyed Bank Funds
@@ -261,7 +261,7 @@ export const typicalBankEquityFundTer: ComputedFigure = {
   value: calculateTypicalTerPercent(surveyedBankFunds),
   unit: '%',
   sources: surveyedBankFunds.map((bankFund) => bankFund.source),
-};
+}
 
 /**
  * The Czech tax figures Chapter 3 states. The holding-period test exempts income of any amount: the act in force caps
@@ -286,7 +286,7 @@ export const czechTaxFigures = {
       verifiedOn: '2026-10-15',
     },
   },
-} satisfies Record<string, NumericFigure>;
+} satisfies Record<string, NumericFigure>
 
 /**
  * The provision that puts a fund's dividends in a Czech tax return: profit shares from a fund abroad, such as an Irish
@@ -296,7 +296,7 @@ export const czechDividendTaxSource: DataSource = {
   name: 'Zákon o daních z příjmů, § 8 odst. 1 písm. a) a odst. 4',
   url: 'https://e-sbirka.gov.cz/sb/1992/586#par_8-odst_4',
   verifiedOn: '2026-10-15',
-};
+}
 
 /**
  * The rules and statements the Key Insight rests on (docs/strategy.md#key-insight): why the apps won't sell a US ETF,
@@ -335,7 +335,7 @@ export const keyInsightSources = {
     url: 'https://www.fio.cz/akcie-investice/etf',
     verifiedOn: '2026-10-15',
   },
-} satisfies Record<string, DataSource>;
+} satisfies Record<string, DataSource>
 
 /**
  * The US estate-tax threshold for a nonresident. Its source states the threshold, and that stock of a non-US
@@ -350,7 +350,7 @@ export const usEstateTaxThreshold: NumericFigure = {
     url: 'https://www.irs.gov/instructions/i706na',
     verifiedOn: '2026-10-14',
   },
-};
+}
 
 /**
  * Finds the ETF with the given Ticker. Throws on a Ticker the data module doesn't hold, which is a programming error.
@@ -361,11 +361,11 @@ export const usEstateTaxThreshold: NumericFigure = {
  * ```
  */
 export const findEtf = (ticker: string): Etf => {
-  const etf = etfs.find((candidate) => candidate.ticker === ticker);
-  if (!etf) throw new Error(`No ETF with Ticker ${ticker}`);
+  const etf = etfs.find((candidate) => candidate.ticker === ticker)
+  if (!etf) throw new Error(`No ETF with Ticker ${ticker}`)
 
-  return etf;
-};
+  return etf
+}
 
 /**
  * Finds the UCITS ETF with the given Ticker. Throws on a Ticker the data module doesn't hold.
@@ -376,11 +376,11 @@ export const findEtf = (ticker: string): Etf => {
  * ```
  */
 export const findUcitsEtf = (ticker: string): UcitsEtf => {
-  const ucitsEtf = ucitsEtfs.find((candidate) => candidate.ticker === ticker);
-  if (!ucitsEtf) throw new Error(`No UCITS ETF with Ticker ${ticker}`);
+  const ucitsEtf = ucitsEtfs.find((candidate) => candidate.ticker === ticker)
+  if (!ucitsEtf) throw new Error(`No UCITS ETF with Ticker ${ticker}`)
 
-  return ucitsEtf;
-};
+  return ucitsEtf
+}
 
 /**
  * Whether a Data Source has been verified (step 4 of docs/plan.md).
@@ -390,7 +390,7 @@ export const findUcitsEtf = (ticker: string): UcitsEtf => {
  * isVerified({ name: 'Vanguard, stránka fondu VOO', url: null, verifiedOn: null })       // false
  * ```
  */
-export const isVerified = (source: DataSource): boolean => source.verifiedOn !== null;
+export const isVerified = (source: DataSource): boolean => source.verifiedOn !== null
 
 /**
  * Each Data Source once, by name, in the order first given.
@@ -400,10 +400,10 @@ export const isVerified = (source: DataSource): boolean => source.verifiedOn !==
  * ```
  */
 export const listDistinctDataSources = (sources: DataSource[]): DataSource[] => {
-  const sourceByName = new Map(sources.map((source) => [source.name, source]));
+  const sourceByName = new Map(sources.map((source) => [source.name, source]))
 
-  return [...sourceByName.values()];
-};
+  return [...sourceByName.values()]
+}
 
 /**
  * Every distinct Data Source the data module cites, in module order, for the footer.
@@ -422,7 +422,7 @@ export const listDataSources = (): DataSource[] => {
     czechDividendTaxSource,
     ...Object.values(keyInsightSources),
     usEstateTaxThreshold.source,
-  ];
+  ]
 
-  return listDistinctDataSources(allSources);
-};
+  return listDistinctDataSources(allSources)
+}

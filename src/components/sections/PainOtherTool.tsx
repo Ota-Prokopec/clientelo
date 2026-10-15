@@ -1,5 +1,5 @@
 // Ad Variant A's Section 03: the Fee Calculator, the Interactive Tool its First Screen didn't open.
-import { FeeCalculator } from '../FeeCalculator.tsx'
+import { FeeCalculator } from '@/components/FeeCalculator.tsx'
 import { Section } from './Section.tsx'
 
 /**

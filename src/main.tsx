@@ -13,7 +13,8 @@ import './index.css'
  * await loadMotionFeatures() // domAnimation
  * ```
  */
-const loadMotionFeatures = () => import('./lib/motionFeatures.ts').then((motionFeaturesModule) => motionFeaturesModule.default)
+const loadMotionFeatures = () =>
+  import('./lib/motionFeatures.ts').then((motionFeaturesModule) => motionFeaturesModule.default)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

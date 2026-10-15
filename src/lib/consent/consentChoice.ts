@@ -36,7 +36,10 @@ export type RememberConsentChoiceProps = {
  */
 export const rememberConsentChoice = ({ consentChoice, chosenAt }: RememberConsentChoiceProps): void => {
   try {
-    localStorage.setItem(CONSENT_CHOICE_STORAGE_KEY, JSON.stringify({ consentChoice, chosenAt: chosenAt.toISOString() }))
+    localStorage.setItem(
+      CONSENT_CHOICE_STORAGE_KEY,
+      JSON.stringify({ consentChoice, chosenAt: chosenAt.toISOString() }),
+    )
   } catch {
     // Without storage the choice is forgotten on the next reload, so the Consent Bar only asks again.
   }

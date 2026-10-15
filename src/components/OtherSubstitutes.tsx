@@ -1,13 +1,13 @@
 // The Fund Picker's other Substitutes for the picked ETF, listed below the one set giant, each with its index and TER.
-import type { UcitsEtf } from '@data/figures.ts';
-import { formatPercent } from '@lib/format.ts';
-import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts';
-import type { SubstituteRelation } from '@/types.ts';
+import type { UcitsEtf } from '@data/figures.ts'
+import { formatPercent } from '@lib/format.ts'
+import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts'
+import type { SubstituteRelation } from '@/types.ts'
 
 export type OtherSubstitutesProps = {
-  substitutes: UcitsEtf[];
-  relation: SubstituteRelation;
-};
+  substitutes: UcitsEtf[]
+  relation: SubstituteRelation
+}
 
 /**
  * The other Twins or alternatives as ruled rows: Ticker, index, and TER in the relation's colour.
@@ -18,7 +18,7 @@ export type OtherSubstitutesProps = {
  * ```
  */
 export const OtherSubstitutes = ({ substitutes, relation }: OtherSubstitutesProps) => {
-  const relationPresentation = relationPresentationByRelation[relation];
+  const relationPresentation = relationPresentationByRelation[relation]
 
   return (
     <div className="grid gap-2">
@@ -38,5 +38,5 @@ export const OtherSubstitutes = ({ substitutes, relation }: OtherSubstitutesProp
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}

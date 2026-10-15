@@ -4,8 +4,8 @@
 import { useRender } from '@base-ui/react/use-render'
 import { ArrowRight } from 'lucide-react'
 import type { ReactElement, ReactNode } from 'react'
-import { buttonVariants } from '@/components/ui/button-variants'
-import { cn } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/button-variants.ts'
+import { cn } from '@lib/utils.ts'
 
 export type LeadCtaProps = {
   /** The element the CTA renders as, which keeps its own props: a link to the Lead Form, or its submit `Button`. */

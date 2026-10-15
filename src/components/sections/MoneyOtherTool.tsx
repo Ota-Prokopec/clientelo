@@ -1,5 +1,5 @@
 // Ad Variant B's Section 03: the Fund Picker, the Interactive Tool its First Screen didn't open.
-import { FundPicker } from '../FundPicker.tsx'
+import { FundPicker } from '@/components/FundPicker.tsx'
 import { Section } from './Section.tsx'
 
 /**

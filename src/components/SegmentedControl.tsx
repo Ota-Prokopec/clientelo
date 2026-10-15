@@ -3,8 +3,8 @@
 // `background` text. Pressing the picked option again keeps it picked. The Fund Picker's Ticker and the Fee Calculator's
 // Bank Fund are each picked on one, and a new Lead answers the Segmentation Question on one that starts with none picked.
 import { useId, type ReactNode } from 'react'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { cn } from '@/lib/utils'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group.tsx'
+import { cn } from '@lib/utils.ts'
 
 /** One option: the value picking it reports, and what its button shows. */
 export type SegmentedControlOption = { value: string; content: ReactNode }

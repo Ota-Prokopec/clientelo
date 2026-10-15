@@ -21,9 +21,9 @@ describe('createFunnelEventGate', () => {
   it('records interactive_tool_use once per Interactive Tool, whatever Ticker is picked later', () => {
     const funnelEventGate = createFunnelEventGate()
 
-    expect(funnelEventGate.admitFunnelEvent({ event: 'interactive_tool_use', tool: 'fund-picker', ticker: 'SPY' })).toBe(
-      true,
-    )
+    expect(
+      funnelEventGate.admitFunnelEvent({ event: 'interactive_tool_use', tool: 'fund-picker', ticker: 'SPY' }),
+    ).toBe(true)
     expect(funnelEventGate.admitFunnelEvent({ event: 'interactive_tool_use', tool: 'fee-calculator' })).toBe(true)
     expect(funnelEventGate.admitFunnelEvent({ event: 'interactive_tool_use', tool: 'fund-picker', ticker: 'VT' })).toBe(
       false,

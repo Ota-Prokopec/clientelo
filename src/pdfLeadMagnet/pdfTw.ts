@@ -49,13 +49,17 @@ const hyphenatedColourRoles = colourRoles
  * ```
  */
 const toLookupClassName = (className: string): string => {
-  const colourRole = hyphenatedColourRoles.find((hyphenatedColourRole) => className.endsWith(`-${hyphenatedColourRole}`))
+  const colourRole = hyphenatedColourRoles.find((hyphenatedColourRole) =>
+    className.endsWith(`-${hyphenatedColourRole}`),
+  )
 
   return colourRole ? `${className.slice(0, -colourRole.length)}${toLookupColourName(colourRole)}` : className
 }
 
 const resolveClassNames = createTw({
-  colors: Object.fromEntries(colourRoles.map((colourRole) => [toLookupColourName(colourRole), lightColourByRole[colourRole]])),
+  colors: Object.fromEntries(
+    colourRoles.map((colourRole) => [toLookupColourName(colourRole), lightColourByRole[colourRole]]),
+  ),
   // No family class: react-pdf-tailwind keeps only the first family of a list, which would drop the latin-ext
   // fallback that carries the Czech glyphs. The Document sets the family list once (registerPdfFonts.ts).
   fontFamily: {},

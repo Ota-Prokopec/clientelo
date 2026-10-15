@@ -1,28 +1,25 @@
-import { describe, expect, it } from 'vitest';
-import { checkBashCommand } from '../src/checkBashCommand.ts';
-import { checkCommitMessage } from '../src/checkCommitMessage.ts';
-import { checkEditedPath } from '../src/checkEditedPath.ts';
+import { describe, expect, it } from 'vitest'
+import { checkBashCommand } from '../src/checkBashCommand.ts'
+import { checkCommitMessage } from '../src/checkCommitMessage.ts'
+import { checkEditedPath } from '../src/checkEditedPath.ts'
 
-const REPO = '/repo' as const;
+const REPO = '/repo' as const
 
 type RunProps = {
-  branch?: string | undefined;
-  branches?: Record<string, string>;
-  files?: Record<string, string>;
-};
+  branch?: string | undefined
+  branches?: Record<string, string>
+  files?: Record<string, string>
+}
 
 /** The reasons `command` is denied, run from `/repo` checked out on `branch` (`feat/thing` by default). */
-const check = (
-  command: string,
-  { branch = 'feat/thing', branches = {}, files = {} }: RunProps = {},
-): string[] => {
+const check = (command: string, { branch = 'feat/thing', branches = {}, files = {} }: RunProps = {}): string[] => {
   return checkBashCommand({
     command,
     cwd: REPO,
     currentBranch: (directory): string | undefined => branches[directory] ?? branch,
     readFile: (path): string | undefined => files[path],
-  });
-};
+  })
+}
 
 describe('checkBashCommand', () => {
   it.each([
@@ -36,8 +33,8 @@ describe('checkBashCommand', () => {
     'gh issue comment 4 --body "Opened #5."',
     'pnpm lint && pnpm test',
   ])('allows `%s`', (command) => {
-    expect(check(command)).toEqual([]);
-  });
+    expect(check(command)).toEqual([])
+  })
 
   it.each([
     'git commit --no-verify -m "fix: x"',
@@ -49,8 +46,8 @@ describe('checkBashCommand', () => {
     'git -c core.hooksPath=/dev/null commit -m "fix: x"',
     'git config core.hooksPath /tmp/hooks',
   ])('denies skipping the pre-commit hook: `%s`', (command) => {
-    expect(check(command)).toEqual([expect.stringContaining('Never skip the pre-commit hook')]);
-  });
+    expect(check(command)).toEqual([expect.stringContaining('Never skip the pre-commit hook')])
+  })
 
   it.each([
     ['git commit -m "fix: x"', { branch: 'main' }],
@@ -62,52 +59,42 @@ describe('checkBashCommand', () => {
     ['git -C /other commit -m "fix: x"', { branches: { '/other': 'main' } }],
     ['cd /other && git commit -m "fix: x"', { branches: { '/other': 'main' } }],
   ])('denies committing or pushing to main: `%s`', (command, args: RunProps) => {
-    expect(check(command, args)).toEqual([
-      expect.stringContaining('never commit on or push to `main`'),
-    ]);
-  });
+    expect(check(command, args)).toEqual([expect.stringContaining('never commit on or push to `main`')])
+  })
 
   it.each([
     ['git commit -m "fix: x"', 'worktree-chore+agents'],
     ['git push -u origin issue/5-thing', 'issue/5-thing'],
     ['git commit -m "fix: x"', 'Feat/Thing'],
   ])('denies `%s` on the branch %s', (command, branch) => {
-    expect(check(command, { branch })).toEqual([
-      expect.stringContaining(`The branch \`${branch}\``),
-    ]);
-  });
+    expect(check(command, { branch })).toEqual([expect.stringContaining(`The branch \`${branch}\``)])
+  })
 
   it('denies the branch a command switches to before committing', () => {
     expect(check('git checkout -b my-branch && git commit -m "fix: x"')).toEqual([
       expect.stringContaining('The branch `my-branch`'),
-    ]);
-  });
+    ])
+  })
 
   it('denies merging a pull request', () => {
-    expect(check('gh pr merge 12 --squash')).toEqual([
-      expect.stringContaining('never merge one yourself'),
-    ]);
-  });
+    expect(check('gh pr merge 12 --squash')).toEqual([expect.stringContaining('never merge one yourself')])
+  })
 
   it('allows closing an issue', () => {
-    expect(check('gh issue close 4 --comment "Resolved by #12."')).toEqual([]);
-  });
+    expect(check('gh issue close 4 --comment "Resolved by #12."')).toEqual([])
+  })
 
   it('denies a closing comment that mentions Claude', () => {
-    expect(check('gh issue close 4 -c "Done with Claude Code"')).toEqual([
-      expect.stringContaining('mentions Claude'),
-    ]);
-  });
+    expect(check('gh issue close 4 -c "Done with Claude Code"')).toEqual([expect.stringContaining('mentions Claude')])
+  })
 
   it.each([
     'gh pr create --title "Add consent" --body "Closes #4."',
     'gh issue create -t "CLAUDE(feat): add consent" -b "x"',
     'gh pr edit 5 --title=update',
   ])('denies a non-conventional title: `%s`', (command) => {
-    expect(check(command)).toContainEqual(
-      expect.stringContaining("doesn't follow `<type>(<scope>): <description>`"),
-    );
-  });
+    expect(check(command)).toContainEqual(expect.stringContaining("doesn't follow `<type>(<scope>): <description>`"))
+  })
 
   it.each([
     'gh pr create --title "feat: add consent" --body "Closes #4.\n\nGenerated with Claude Code"',
@@ -118,17 +105,15 @@ describe('checkBashCommand', () => {
   ])('denies posting a Claude mention: `%s`', (command) => {
     expect(check(command, { files: { '/repo/body.md': 'Made by Claude.' } })).toContainEqual(
       expect.stringContaining('Nothing posted to GitHub mentions Claude'),
-    );
-  });
+    )
+  })
 
   it('reports every broken rule, not only the first', () => {
-    expect(
-      check('LEFTHOOK=0 git commit --no-verify -m "x" && gh pr merge 1', { branch: 'main' }),
-    ).toHaveLength(3);
-  });
-});
+    expect(check('LEFTHOOK=0 git commit --no-verify -m "x" && gh pr merge 1', { branch: 'main' })).toHaveLength(3)
+  })
+})
 
-const SKILLS_LOCK = JSON.stringify({ version: 1, skills: { tdd: {}, zod: {} } });
+const SKILLS_LOCK = JSON.stringify({ version: 1, skills: { tdd: {}, zod: {} } })
 
 /**
  * The reasons the edit guard denies editing `path`, as run from `/repo`
@@ -146,10 +131,9 @@ const checkEdit = (path: string, lock: string | null = SKILLS_LOCK): string[] =>
   return checkEditedPath({
     path,
     cwd: REPO,
-    readFile: (file): string | undefined =>
-      file === `${REPO}/skills-lock.json` ? (lock ?? undefined) : undefined,
-  });
-};
+    readFile: (file): string | undefined => (file === `${REPO}/skills-lock.json` ? (lock ?? undefined) : undefined),
+  })
+}
 
 describe('checkEditedPath', () => {
   it.each([
@@ -159,30 +143,28 @@ describe('checkEditedPath', () => {
     '.agents/skills/my-skill/SKILL.md',
     '/repo/.claude/skills/my-skill/SKILL.md',
   ])('allows editing %s', (path) => {
-    expect(checkEdit(path)).toEqual([]);
-  });
+    expect(checkEdit(path)).toEqual([])
+  })
 
   it.each(['.agents/skills/tdd/SKILL.md', '/repo/.claude/skills/zod/SKILL.md'])(
     'denies editing the installed skill file %s',
     (path) => {
-      expect(checkEdit(path)).toEqual([
-        expect.stringContaining('installed from an external source'),
-      ]);
+      expect(checkEdit(path)).toEqual([expect.stringContaining('installed from an external source')])
     },
-  );
+  )
 
   it.each([null, 'not json'])('denies editing any skill when the lock file is %j', (lock) => {
     expect(checkEdit('.agents/skills/my-skill/SKILL.md', lock)).toEqual([
       expect.stringContaining('installed from an external source'),
-    ]);
-  });
+    ])
+  })
 
   it('denies writing to the agent memory', () => {
     expect(checkEdit('/home/me/.claude/projects/-repo/memory/MEMORY.md')).toEqual([
       expect.stringContaining('Persist knowledge in the repo'),
-    ]);
-  });
-});
+    ])
+  })
+})
 
 describe('checkCommitMessage', () => {
   it.each([
@@ -194,8 +176,8 @@ describe('checkCommitMessage', () => {
     'Revert "feat: add consent"',
     'fixup! feat: add consent',
   ])('accepts %j', (message) => {
-    expect(checkCommitMessage(message)).toBeUndefined();
-  });
+    expect(checkCommitMessage(message)).toBeUndefined()
+  })
 
   it.each([
     'fix',
@@ -205,8 +187,6 @@ describe('checkCommitMessage', () => {
     'feat:missing space',
     '',
   ])('rejects %j', (message) => {
-    expect(checkCommitMessage(message)).toContain(
-      "doesn't follow `<type>(<scope>): <description>`",
-    );
-  });
-});
+    expect(checkCommitMessage(message)).toContain("doesn't follow `<type>(<scope>): <description>`")
+  })
+})

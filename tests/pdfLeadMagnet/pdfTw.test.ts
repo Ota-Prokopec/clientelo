@@ -1,7 +1,7 @@
 // Tests the Lead Magnet PDF's `pdfTw`: the page's Tailwind class names resolve to react-pdf styles in the light palette,
 // and a class it can't resolve fails the build instead of being dropped.
 import { describe, expect, it } from 'vitest'
-import { pdfTw } from '../../src/pdfLeadMagnet/pdfTw.ts'
+import { pdfTw } from '@/pdfLeadMagnet/pdfTw.ts'
 
 describe('pdfTw', () => {
   it('resolves a colour role to its light value', () => {

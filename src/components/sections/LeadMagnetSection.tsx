@@ -3,11 +3,11 @@
 // the band, and Chapters 2 and 3 unlock below it.
 import { leadMagnetChapters } from '@data/leadMagnet.ts'
 import type { Lead } from '@/types.ts'
-import { CzechTaxFactList } from '../CzechTaxFactList.tsx'
-import { LeadAskBand } from '../LeadAskBand.tsx'
-import { LeadForm } from '../LeadForm.tsx'
-import { TwinTable } from '../TwinTable.tsx'
-import { UnlockedChapter } from '../UnlockedChapter.tsx'
+import { CzechTaxFactList } from '@/components/CzechTaxFactList.tsx'
+import { LeadAskBand } from '@/components/LeadAskBand.tsx'
+import { LeadForm } from '@/components/LeadForm.tsx'
+import { TwinTable } from '@/components/TwinTable.tsx'
+import { UnlockedChapter } from '@/components/UnlockedChapter.tsx'
 import { Section } from './Section.tsx'
 
 export type LeadMagnetSectionProps = {

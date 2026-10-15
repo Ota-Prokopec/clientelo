@@ -13,12 +13,12 @@ import { useConsentBar } from '@/hooks/useConsentBar.ts'
 import { useOnFirstView } from '@/hooks/useOnFirstView.ts'
 import { readRememberedLead, rememberLead } from '@lib/lead/rememberedLead.ts'
 import type { Lead, SectionId } from '@/types.ts'
-import { ConsentBar } from '../components/ConsentBar.tsx'
-import { Page } from '../components/Page.tsx'
-import { StickyCta } from '../components/StickyCta.tsx'
-import { Footer } from '../components/sections/Footer.tsx'
-import { KeyInsight } from '../components/sections/KeyInsight.tsx'
-import { LeadMagnetSection } from '../components/sections/LeadMagnetSection.tsx'
+import { ConsentBar } from '@/components/ConsentBar.tsx'
+import { Page } from '@/components/Page.tsx'
+import { StickyCta } from '@/components/StickyCta.tsx'
+import { Footer } from '@/components/sections/Footer.tsx'
+import { KeyInsight } from '@/components/sections/KeyInsight.tsx'
+import { LeadMagnetSection } from '@/components/sections/LeadMagnetSection.tsx'
 
 /** Every Section's anchor, whose first view is a section_view Funnel Event. */
 const sectionIds: readonly SectionId[] = ['first-screen', 'key-insight', 'other-tool', 'lead-magnet', 'footer']

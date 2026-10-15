@@ -20,7 +20,12 @@ export type TerCostFormulaProps = {
  * // = 0,595
  * ```
  */
-export const TerCostFormula = ({ years, bankFundTerPercent, twinTerPercent, bankFundToTwinRatio }: TerCostFormulaProps) => {
+export const TerCostFormula = ({
+  years,
+  bankFundTerPercent,
+  twinTerPercent,
+  bankFundToTwinRatio,
+}: TerCostFormulaProps) => {
   return (
     <div className="grid gap-2">
       <p className="text-label">Jak počítáme</p>
