@@ -7,6 +7,7 @@ Figures marked **(verify)** are not yet checked against a primary source. Step 4
 ## Shared rules
 
 - **Schedule.** Day 0 goes out when the Lead Form is submitted, Day 2 two days later, Day 5 five days later. A Lead who unsubscribes gets nothing more.
+- **Day 2 and Day 5 need the Welcome Emails Consent.** Day 0 carries the PDF the Lead asked for, so every new Lead gets it. Day 2 and Day 5 are commercial communications (§ 7 odst. 2 zákona č. 480/2004 Sb.), so only a Lead who ticked the Welcome Emails Consent in the Lead Form gets them. The Segmentation Question, which only picks the Day 5 email, is asked only of them.
 - **One topic per email**, so each one answers a question the Lead Magnet raised: Day 0 why the Twin, Day 2 the taxes, Day 5 how to buy it.
 - **Formal address (_vykání_)** and the page's voice: the same words as the page and the PDF (dvojče, tahák, časový test), plural "we" for the sender, and no gendered verb forms that would need the Lead's gender.
 - **Every figure is the page's figure.** Each one comes from `src/data/figures.ts`, and each email that states a figure ends with a "Zdroj" line naming the same Data Source the page cites. The copy is static, so when step 4 verifies or changes a figure, this file changes in the same commit.

@@ -1,4 +1,5 @@
-// The one Lead Form (`lead-form`): an email field, a honeypot no person sees, and the red CTA, validated by leadSchema
+// The one Lead Form (`lead-form`): an email field, the unticked Welcome Emails Consent, a honeypot no person sees, and
+// the red CTA, validated by leadSchema
 // and sent through the submitLead() seam. It moves through idle, typing, submitting, and success or error, shown on
 // `data-state`, and gives way to Delivery once the Visitor is a Lead. A returning Lead's opens as "remembered", so a
 // reload never reads as a submit. Each step is a Funnel Event, from lead_form_seen to lead_form_success or
@@ -14,6 +15,7 @@ import { submitLead } from '@lib/lead/submitLead.ts'
 import { leadSchema, type LeadSubmission } from '@/schemas/leadSchema.ts'
 import type { Lead } from '@/types.ts'
 import { Delivery } from './Delivery.tsx'
+import { CheckboxField } from './fields/CheckboxField.tsx'
 import { HoneypotField } from './fields/HoneypotField.tsx'
 import { InputField } from './fields/InputField.tsx'
 import { LeadCta } from './LeadCta.tsx'
@@ -35,8 +37,8 @@ export type LeadFormState = 'idle' | 'typing' | 'submitting' | 'success' | 'erro
 export type LeadFormProps = {
   /** The Visitor as a Lead once they are one, or null while they are a Visitor. */
   lead: Lead | null
-  /** Called once submitLead() resolves, with the email the new Lead left. */
-  onLeadFormSubmitted: (email: string) => void
+  /** Called once submitLead() resolves, with what the new Lead submitted. */
+  onLeadFormSubmitted: (leadSubmission: LeadSubmission) => void
 }
 
 /** The Lead Form's state once the Visitor is a Lead: a new Lead's submit succeeded, a returning Lead's is remembered. */
@@ -135,7 +137,8 @@ const trackInvalidEmail = () => {
  * ```tsx
  * <LeadForm lead={null} onLeadFormSubmitted={handleLeadFormSubmitted} />
  * // <div id="lead-form" data-state="idle">Kam vám tahák poslat? [e-mail] [Chci tahák zdarma →] E-mail použijeme…</div>
- * // typing jana@seznam.cz and submitting → data-state "typing", "submitting", then onLeadFormSubmitted('jana@seznam.cz')
+ * // typing jana@seznam.cz and submitting → data-state "typing", "submitting", then
+ * //   onLeadFormSubmitted({ email: 'jana@seznam.cz', honeypot: '', welcomeEmailsConsent: false })
  * // pnpm dev, /?submit-lead=fail          → "error": Tahák se nepodařilo odeslat… [Zkusit znovu →]
  * <LeadForm lead={{ kind: 'returning' }} onLeadFormSubmitted={handleLeadFormSubmitted} />
  * // <div id="lead-form" data-state="remembered"><Delivery /> E-mail použijeme…</div>
@@ -147,10 +150,14 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
     handleSubmit,
     getValues,
     formState: { isDirty, isSubmitting },
-  } = useForm({ resolver: zodResolver(leadSchema), defaultValues: { email: '', honeypot: '' } })
+  } = useForm({
+    resolver: zodResolver(leadSchema),
+    defaultValues: { email: '', honeypot: '', welcomeEmailsConsent: false },
+  })
   const [hasSubmitFailed, setHasSubmitFailed] = useState(false)
   useOnFirstView({ elementIds: leadFormIds, isViewed: isLeadFormSeen, onFirstView: trackLeadFormSeen })
   const leadFormState = resolveLeadFormState({ lead, isSubmitting, hasSubmitFailed, isDirty })
+
   /**
    * Handles the form's submit event: validates the Lead Form against leadSchema, sends a valid one through
    * submitLead(), and reports the new Lead or records the failure. An invalid one shows its field errors and sends
@@ -158,9 +165,9 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
    *
    * ```tsx
    * <form onSubmit={submitHandler}>
-   * // { email: 'jana.novakova@seznam.cz', honeypot: '' } → submitLead() resolves →
-   * //   onLeadFormSubmitted('jana.novakova@seznam.cz'); it rejects → "error", and the Visitor can retry
-   * // { email: 'jana@', honeypot: '' } → the email's field error, and submitLead() isn't called
+   * // { email: 'jana.novakova@seznam.cz', honeypot: '', welcomeEmailsConsent: true } → submitLead() resolves →
+   * //   onLeadFormSubmitted({ email: 'jana.novakova@seznam.cz', … }); it rejects → "error", and the Visitor can retry
+   * // { email: 'jana@', honeypot: '', welcomeEmailsConsent: false } → the email's field error, and submitLead() isn't called
    * ```
    */
   const submitHandler = handleSubmit(async (leadSubmission: LeadSubmission) => {
@@ -173,7 +180,7 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
       return
     }
     trackFunnelEvent({ event: 'lead_form_success' })
-    onLeadFormSubmitted(leadSubmission.email)
+    onLeadFormSubmitted(leadSubmission)
   }, trackInvalidEmail)
 
   /**
@@ -214,6 +221,13 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
             onInput={trackLeadFormStart}
             className="h-12"
           />
+          <CheckboxField
+            control={control}
+            name="welcomeEmailsConsent"
+            label="Pošlete mi i dva navazující e-maily: o daních a o tom, jak dvojče koupit. Odhlásit se můžu kdykoli."
+            surface="band"
+            disabled={isSubmitting}
+          />
           <HoneypotField control={control} name="honeypot" />
           {leadFormState === 'error' && (
             <p role="alert" className="font-bold">
@@ -226,8 +240,8 @@ export const LeadForm = ({ lead, onLeadFormSubmitted }: LeadFormProps) => {
         </form>
       )}
       <p className="text-note">
-        E-mail použijeme jen k zaslání taháku a několika e-mailů o ETF, z jejichž odběru se kdykoli odhlásíte jedním
-        kliknutím (
+        E-mail použijeme k zaslání taháku. Navazující e-maily vám pošleme, jen když o ně výše požádáte, a odhlásíte se z
+        nich jedním kliknutím (
         <QueryKeepingLink pathname={PRIVACY_POLICY_PATH} opensInNewTab className="underline underline-offset-2">
           zásady ochrany osobních údajů
         </QueryKeepingLink>

@@ -27,10 +27,11 @@ const PrivacyPolicy = () => {
           dalšího od vás nechceme.
         </p>
         <PolicyHeading>Proč</PolicyHeading>
+        <p>E-mail použijeme k zaslání taháku, o který jste požádali. K tomu nám stačí vaše žádost.</p>
         <p>
-          E-mail použijeme k zaslání taháku a několika navazujících e-mailů o investování do ETF. Odpověď na otázku nám
-          pomůže psát e-maily, které se vás týkají. Zpracování je založené na vašem souhlasu, který můžete kdykoli
-          odvolat odkazem v každém e-mailu.
+          Dva navazující e-maily o investování do ETF vám pošleme, jen když o ně ve formuláři zaškrtnutím požádáte.
+          Jejich zasílání je založené na vašem souhlasu, který můžete kdykoli odvolat odkazem v každém e-mailu. Odpověď
+          na otázku, kde investujete, nám pomůže napsat druhý z nich tak, aby se vás týkal.
         </p>
         <PolicyHeading>Jak dlouho</PolicyHeading>
         <p>Údaje uchováváme, dokud se z odběru neodhlásíte. Pak je smažeme.</p>
