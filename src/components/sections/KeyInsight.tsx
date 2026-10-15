@@ -1,6 +1,12 @@
 // The Key Insight Section (docs/strategy.md#key-insight): why the Visitor's app won't sell them VOO, and why its Twin is no worse.
 import { DataSourceNote } from '../DataSourceNote.tsx'
-import { findEtf, findUcitsEtf, keyInsightSources, usEstateTaxThreshold } from '@data/figures.ts'
+import {
+  czechDividendTaxSource,
+  findEtf,
+  findUcitsEtf,
+  keyInsightSources,
+  usEstateTaxThreshold,
+} from '@data/figures.ts'
 import { formatAmount, formatPercent } from '@lib/format.ts'
 import { Section } from './Section.tsx'
 
@@ -13,6 +19,7 @@ import { Section } from './Section.tsx'
  */
 export const KeyInsight = () => {
   const voo = findEtf('VOO')
+  const spy = findEtf('SPY')
   const spyl = findUcitsEtf('SPYL')
 
   return (
@@ -20,8 +27,8 @@ export const KeyInsight = () => {
       <h2 className="text-title text-heading">Proč vám aplikace VOO neprodá?</h2>
       <p>
         Pravidla EU (nařízení PRIIPs) dovolují prodat fond drobnému investorovi, jen když k němu existuje dokument KID.
-        Američtí emitenti jako Vanguard ho nevydávají. XTB, Trading 212 ani Revolut vám proto VOO ani SPY
-        nenabízejí.
+        Američtí emitenti jako Vanguard ho nevydávají. XTB, Trading 212 ani Revolut vám proto {voo.ticker} ani{' '}
+        {spy.ticker} nenabízejí.
       </p>
       <p>
         K oběma ale existuje evropské dvojče: fond registrovaný v Irsku, který sleduje stejný index. Často za
@@ -43,7 +50,8 @@ export const KeyInsight = () => {
         </li>
       </ul>
       <p className="text-muted-foreground">
-        Fio e-Broker a Patria americká ETF prodávají. I u nich ale dvojče vychází lépe kvůli dědické dani a daním.
+        U Fio e-Brokeru americká ETF koupíte: když jen provede váš pokyn, povinnost KID se na něj podle ČNB nevztahuje.
+        I tam ale dvojče vychází lépe kvůli dědické dani a daním.
       </p>
       <DataSourceNote
         sources={[
@@ -52,8 +60,12 @@ export const KeyInsight = () => {
           keyInsightSources.trading212Community,
           keyInsightSources.revolutHelpCentre,
           voo.source,
+          spy.source,
           spyl.source,
           usEstateTaxThreshold.source,
+          czechDividendTaxSource,
+          keyInsightSources.cnbExecutionOnly,
+          keyInsightSources.fioEtfPage,
         ]}
       />
     </Section>

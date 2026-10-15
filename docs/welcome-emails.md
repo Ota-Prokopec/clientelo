@@ -69,14 +69,14 @@ Chapter 3 of the Lead Magnet, explained one rule at a time.
 >
 > Za tři dny vám pošleme, jak dvojče koupit tam, kde investujete.
 >
-> Zdroj: Zákon o daních z příjmů, § 4 odst. 1 písm. t) a u).
+> Zdroje: Zákon o daních z příjmů, § 4 odst. 1 písm. t) a u); Zákon o daních z příjmů, § 8 odst. 1 písm. a) a odst. 4.
 >
 > Nejde o investiční doporučení. Investování nese riziko ztráty.
 > [Odhlásit se z odběru]({{unsubscribe_url}})
 
 ## Day 5: how to buy a Twin where the Lead invests
 
-Chapter 6 of the Lead Magnet, for the Lead's own app. `{{segment}}` picks one of the variants below, and a Lead who skipped the Segmentation Question gets the last one. Each line says how to find the fund, never what a broker offers or charges, which the page has no Data Source for.
+Chapter 6 of the Lead Magnet, for the Lead's own app. `{{segment}}` picks one of the variants below, and a Lead who skipped the Segmentation Question gets the last one. A line says what a broker offers only where the broker says so itself, and never what it charges, which the page has no Data Source for.
 
 Every variant opens with "Dobrý den," and closes with:
 
@@ -121,17 +121,17 @@ Every variant opens with "Dobrý den," and closes with:
 
 ### `fio-patria`
 
-**Subject:** Fio a Patria vám VOO prodají. Proč přesto dvojče
+**Subject:** Ve Fiu VOO koupíte. Proč přesto dvojče
 
 **Preheader:** Stejný index, ale bez americké dědické daně.
 
-> Fio e-Broker i Patria vám VOO prodají: jako obchodníci, kteří jen provádějí vaše pokyny, dokument KID nepotřebují.
+> Fio e-Broker vám dovolí obchodovat i s americkými ETF: když jen provede váš pokyn a nic vám nedoporučuje, povinnost dokumentu KID se na něj podle ČNB nevztahuje.
 >
 > Dvojče přesto vychází lépe. U irského fondu vašim dědicům nehrozí americká dědická daň nad 60 000 USD a akumulační třída vám nepřidá dividendy do přiznání.
 >
-> Ve Fiu i v Patrii hledejte dvojče podle ISIN z tabulky v taháku. U SPYL je to IE000XZSV718.
+> U svého brokera hledejte dvojče podle ISIN z tabulky v taháku. U SPYL je to IE000XZSV718.
 
-This variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, pokyny k formuláři 706-NA" in its "Zdroje" line.
+This variant also cites "ČNB, stanovisko RS2018-12, část B.2", "Fio banka, stránka ETF: obchodování i s americkými ETF", "IRS, pokyny k formuláři 706-NA" and "Zákon o daních z příjmů, § 8 odst. 1 písm. a) a odst. 4" in its "Zdroje" line. It says nothing of Patria's offer, which Patria's own pages don't state.
 
 ### `robo-advisor`
 
@@ -179,9 +179,11 @@ This variant also cites "ČSOB, KID fondu ČSOB Akciový" and "Zákon o daních 
 
 > Jak dvojče najít v XTB, Trading 212, Revolutu a Fiu:
 >
-> - **XTB:** vyhledejte ticker z tabulky v taháku a zkontrolujte, že burza a měna odpovídají řádku v tabulce.
-> - **Trading 212:** vyhledejte ticker nebo název fondu. Zkratka „Acc“ v názvu značí akumulační třídu.
-> - **Revolut:** vyhledejte ticker nebo název fondu. Když aplikace najde víc fondů, rozhodne ISIN.
-> - **Fio e-Broker:** hledejte podle ISIN dvojčete. Fio vám prodá i VOO, dvojče vás ale ušetří americké dědické daně.
+> Ticker se mezi burzami liší, ISIN ne. Než nákup potvrdíte, porovnejte ISIN fondu s tabulkou v taháku.
+>
+> - **XTB:** americká ETF nenabízí, chybí k nim KID. Dvojče hledejte podle tickeru a ohlídejte si burzu a měnu.
+> - **Trading 212:** americká ETF bez souladu s pravidly PRIIPs nenabízí. Dvojče hledejte podle tickeru nebo názvu.
+> - **Revolut:** nabízí jen ETF registrovaná v EU. Dvojče hledejte podle tickeru nebo názvu.
+> - **Fio e-Broker:** dovolí obchodovat i s americkými ETF. Dvojče vás ale ušetří americké dědické daně.
 
-Like `fio-patria`, this variant also cites "ČNB, stanovisko RS2018-12, část B.2" and "IRS, pokyny k formuláři 706-NA" in its "Zdroje" line.
+This variant cites the same sources as Chapter 6 in its "Zdroje" line: "XTB, centrum nápovědy: ETF z USA bez dokumentu KID", "Trading 212, odpověď týmu v komunitě z 2. 8. 2024: ETF z USA bez souladu s PRIIPs", "Revolut, centrum nápovědy: jen ETF registrované v EU", "Fio banka, stránka ETF: obchodování i s americkými ETF" and "IRS, pokyny k formuláři 706-NA".

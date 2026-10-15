@@ -2,7 +2,7 @@
 // reads the same in both, with its Data Source.
 import { describe, expect, it } from 'vitest'
 import { czechTaxFacts, czechTaxSources } from '../../src/data/czechTaxFacts.ts'
-import { czechTaxFigures } from '../../src/data/figures.ts'
+import { czechDividendTaxSource, czechTaxFigures } from '../../src/data/figures.ts'
 
 /** A non-breaking space, which the page's Czech amounts put between digit groups and before the unit. */
 const nbsp = '\u00a0'
@@ -44,13 +44,13 @@ describe('czechTaxFacts', () => {
     })
   })
 
-  it('answers dividends with the accumulating Twin, a rule with no figure to cite', () => {
+  it('answers dividends with the accumulating Twin, citing the provision that taxes a foreign fund’s dividends', () => {
     expect(czechTaxFacts[3]).toEqual({
       label: 'Dividendy',
       figure: 'akumulační dvojče',
       explanation:
         'Distribuční fond vyplácí dividendy a ty patří každý rok do přiznání. Akumulační dvojče je rovnou investuje, takže dividendy k přiznání nemáte.',
-      source: null,
+      source: czechDividendTaxSource,
     })
   })
 })
@@ -60,6 +60,7 @@ describe('czechTaxSources', () => {
     expect(czechTaxSources.map((source) => source.name)).toEqual([
       'Zákon o daních z příjmů, § 4 odst. 1 písm. u)',
       'Zákon o daních z příjmů, § 4 odst. 1 písm. t)',
+      'Zákon o daních z příjmů, § 8 odst. 1 písm. a) a odst. 4',
     ])
   })
 })

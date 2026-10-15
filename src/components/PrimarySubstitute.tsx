@@ -18,8 +18,8 @@ export type PrimarySubstituteProps = {
  * ```tsx
  * <PrimarySubstitute etf={voo} substitute={spyl} relation="twin" />
  * // Dvojče SPYL (in `brand`) / Stejný index S&P 500 · TER ročně (VOO 0,03 %) 0,03 % · Americká dědická daň žádná
- * <PrimarySubstitute etf={vt} substitute={vwce} relation="closest-alternative" />
- * // Nejbližší alternativa VWCE (in `heading`) / Podobný index FTSE All-World · …
+ * <PrimarySubstitute etf={etf} substitute={ucitsEtf} relation="closest-alternative" />
+ * // Nejbližší alternativa … (in `heading`) / Podobný index … · …
  * ```
  */
 export const PrimarySubstitute = ({ etf, substitute, relation }: PrimarySubstituteProps) => {

@@ -51,7 +51,7 @@
   --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
 
   /* The type scale at 375 px, each size with its line height, tracking and weight. `cn` doesn't know these names (tailwind.md#tokens). */
-  --text-ticker: 6.5rem; /* a giant Ticker; the longest, VWCE, fits 343 px */
+  --text-ticker: 6.5rem; /* a giant Ticker; every four-letter Ticker shown fits 343 px */
   --text-ticker--line-height: 0.82;
   --text-ticker--letter-spacing: -0.06em;
   --text-ticker--font-weight: 900;

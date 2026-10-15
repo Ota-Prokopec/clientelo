@@ -10,7 +10,7 @@ export type DataSource = {
 };
 
 /** The index an ETF or a Twin tracks. */
-export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap' | 'FTSE All-World';
+export type TrackedIndex = 'S&P 500' | 'FTSE Global All Cap';
 
 /** An NYSE-listed ETF a Czech retail investor's app won't sell them. */
 export type Etf = {
@@ -156,33 +156,18 @@ export const ucitsEtfs: UcitsEtf[] = [
     },
   },
   {
-    ticker: 'VWCE',
-    isin: 'IE00BK5BQT80',
-    trackedIndex: 'FTSE All-World',
-    terPercent: 0.14,
+    ticker: 'VGLA',
+    isin: 'IE000VAHT5T0',
+    trackedIndex: 'FTSE Global All Cap',
+    terPercent: 0.07,
     domicile: 'Irsko',
     distributionPolicy: 'akumulační',
     exchange: 'Xetra',
     currency: 'EUR',
     source: {
-      name: 'Vanguard, stránka fondu VWCE',
-      url: 'https://global.vanguard.com/de-de/investment-products/etf/equities/9679/ftse-all-world-ucits-etf-usd-accumulating',
-      verifiedOn: '2026-10-14',
-    },
-  },
-  {
-    ticker: 'FWRA',
-    isin: 'IE000716YHJ7',
-    trackedIndex: 'FTSE All-World',
-    terPercent: 0.15,
-    domicile: 'Irsko',
-    distributionPolicy: 'akumulační',
-    exchange: 'LSE',
-    currency: 'USD',
-    source: {
-      name: 'Invesco, stránka fondu FWRA',
-      url: 'https://www.invesco.com/uk/en/financial-products/etfs/invesco-ftse-all-world-ucits-etf-acc.html',
-      verifiedOn: '2026-10-14',
+      name: 'Vanguard, stránka fondu VGLA',
+      url: 'https://global.vanguard.com/de-de/investment-products/etf/equities/E161/ftse-global-all-cap-ucits-etf-usd-acc',
+      verifiedOn: '2026-10-15',
     },
   },
 ];
@@ -194,7 +179,7 @@ export const substituteTickersByEtfTicker: Record<string, string[]> = {
   VOO: ['SPYL', 'CSPX', 'VUAA'],
   IVV: ['SPYL', 'CSPX', 'VUAA'],
   SPY: ['SPYL', 'CSPX', 'VUAA'],
-  VT: ['VWCE', 'FWRA'],
+  VT: ['VGLA'],
 };
 
 export const csobAkciovy: BankFund = {
@@ -203,7 +188,7 @@ export const csobAkciovy: BankFund = {
   source: {
     name: 'ČSOB, KID fondu ČSOB Akciový',
     url: 'https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_770000001170_CS.PDF',
-    verifiedOn: '2026-10-14',
+    verifiedOn: '2026-10-15',
   },
 };
 
@@ -289,7 +274,7 @@ export const czechTaxFigures = {
     source: {
       name: 'Zákon o daních z příjmů, § 4 odst. 1 písm. u)',
       url: 'https://e-sbirka.gov.cz/sb/1992/586#par_4-odst_1-pism_u',
-      verifiedOn: '2026-10-14',
+      verifiedOn: '2026-10-15',
     },
   },
   yearlyIncomeExemption: {
@@ -298,14 +283,24 @@ export const czechTaxFigures = {
     source: {
       name: 'Zákon o daních z příjmů, § 4 odst. 1 písm. t)',
       url: 'https://e-sbirka.gov.cz/sb/1992/586#par_4-odst_1-pism_t',
-      verifiedOn: '2026-10-14',
+      verifiedOn: '2026-10-15',
     },
   },
 } satisfies Record<string, NumericFigure>;
 
 /**
+ * The provision that puts a fund's dividends in a Czech tax return: profit shares from a fund abroad, such as an Irish
+ * one, are part of the tax base. An accumulating Twin pays none, which is why it leaves nothing to declare.
+ */
+export const czechDividendTaxSource: DataSource = {
+  name: 'Zákon o daních z příjmů, § 8 odst. 1 písm. a) a odst. 4',
+  url: 'https://e-sbirka.gov.cz/sb/1992/586#par_8-odst_4',
+  verifiedOn: '2026-10-15',
+};
+
+/**
  * The rules and statements the Key Insight rests on (docs/strategy.md#key-insight): why the apps won't sell a US ETF,
- * and why Fio e-Broker and Patria may. Not figures, but cited wherever the page or the Lead Magnet explains the block.
+ * and why Fio e-Broker may. Not figures, but cited wherever the page or the Lead Magnet explains the block.
  */
 export const keyInsightSources = {
   priips: {
@@ -316,7 +311,7 @@ export const keyInsightSources = {
   xtbHelpCentre: {
     name: 'XTB, centrum nápovědy: ETF z USA bez dokumentu KID',
     url: 'https://www.xtb.com/int/help-center/stocks-and-etfs/adding-a-new-instrument-to-the-offer',
-    verifiedOn: '2026-10-14',
+    verifiedOn: '2026-10-15',
   },
   // Trading 212's help centre doesn't say it, so its Data Source is its own team's reply on its own community. The
   // reply is older than `verifiedOn`, so its name carries its date.
@@ -334,6 +329,11 @@ export const keyInsightSources = {
     name: 'ČNB, stanovisko RS2018-12, část B.2',
     url: 'https://www.cnb.cz/cs/dohled-financni-trh/legislativni-zakladna/stanoviska-k-regulaci-financniho-trhu/RS2018-12/',
     verifiedOn: '2026-10-14',
+  },
+  fioEtfPage: {
+    name: 'Fio banka, stránka ETF: obchodování i s americkými ETF',
+    url: 'https://www.fio.cz/akcie-investice/etf',
+    verifiedOn: '2026-10-15',
   },
 } satisfies Record<string, DataSource>;
 
@@ -419,6 +419,7 @@ export const listDataSources = (): DataSource[] => {
     csobAkciovy.source,
     ...typicalBankEquityFundTer.sources,
     ...Object.values(czechTaxFigures).map((figure) => figure.source),
+    czechDividendTaxSource,
     ...Object.values(keyInsightSources),
     usEstateTaxThreshold.source,
   ];
