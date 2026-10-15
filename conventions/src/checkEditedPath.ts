@@ -1,5 +1,5 @@
 /** The rules a file edit can break, checked before Claude Code's Edit, Write or NotebookEdit runs. */
-import { resolve, sep } from 'node:path'
+import * as path from 'node:path'
 
 const SKILLS =
   'Skills listed in `skills-lock.json` (under `.agents/skills/` and their `.claude/skills` symlinks) are installed from an external source, so a hand edit is lost on the next install. Raise the change with the user, or layer it in `docs/specifications/skill-extensions.md`.' as const
@@ -17,33 +17,41 @@ type IsInstalledSkillProps = {
 /** Whether `root`'s `skills-lock.json` lists the skill `name`; true when the lock can't be read, so the guard fails closed. */
 const isInstalledSkill = ({ root, name, readFile }: IsInstalledSkillProps): boolean => {
   try {
-    const lock: unknown = JSON.parse(readFile(`${root}/skills-lock.json`) ?? '')
-    const skills = typeof lock === 'object' && lock !== null && 'skills' in lock ? lock.skills : undefined
-    return typeof skills !== 'object' || skills === null || name in skills
+    const skillsLock: unknown = JSON.parse(readFile(`${root}/skills-lock.json`) ?? '')
+    const lockedSkills =
+      typeof skillsLock === 'object' && skillsLock !== null && 'skills' in skillsLock ? skillsLock.skills : undefined
+    return typeof lockedSkills !== 'object' || lockedSkills === null || name in lockedSkills
   } catch {
     return true
   }
 }
 
 export type CheckEditedPathProps = {
-  path: string
+  editedPath: string
   cwd: string
-  readFile: (path: string) => string | undefined
+  readFile: (filePath: string) => string | undefined
 }
 
-/** Every rule editing `path` (resolved against `cwd`) breaks; empty when the edit may run. */
-export const checkEditedPath = ({ path, cwd, readFile }: CheckEditedPathProps): string[] => {
-  const absolute = resolve(cwd, path).split(sep).join('/')
+/**
+ * Every rule editing `editedPath` (resolved against `cwd`) breaks; empty when the edit may run.
+ *
+ * ```ts
+ * checkEditedPath({ editedPath: '.agents/skills/tdd/SKILL.md', cwd: '/repo', readFile }) // [SKILLS] when the lock lists tdd
+ * checkEditedPath({ editedPath: 'src/main.tsx', cwd: '/repo', readFile })                // []
+ * ```
+ */
+export const checkEditedPath = ({ editedPath, cwd, readFile }: CheckEditedPathProps): string[] => {
+  const absoluteEditedPath = path.resolve(cwd, editedPath).split(path.sep).join('/')
   const reasons: string[] = []
-  const skill = SKILL_PATH.exec(absolute)?.groups
+  const skillPathGroups = SKILL_PATH.exec(absoluteEditedPath)?.groups
   if (
-    skill?.root !== undefined &&
-    skill.name !== undefined &&
-    isInstalledSkill({ root: skill.root, name: skill.name, readFile })
+    skillPathGroups?.root !== undefined &&
+    skillPathGroups.name !== undefined &&
+    isInstalledSkill({ root: skillPathGroups.root, name: skillPathGroups.name, readFile })
   ) {
     reasons.push(SKILLS)
   }
-  if (/\/\.claude\/projects\/[^/]+\/memory\//.test(absolute)) {
+  if (/\/\.claude\/projects\/[^/]+\/memory\//.test(absoluteEditedPath)) {
     reasons.push(MEMORY)
   }
   return reasons

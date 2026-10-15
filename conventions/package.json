@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./naming": "./src/naming.ts"
+  },
   "scripts": {
     "check-types": "tsc --noEmit",
     "test": "vitest run"

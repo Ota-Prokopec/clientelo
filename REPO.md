@@ -15,7 +15,7 @@ scripts/
 
 - The landing page depends on no workspace entry, and nothing depends on it.
 - Both scripts read worktrees through `@repo/git-worktrees`. Nothing depends on the scripts.
-- Nothing imports `@repo/conventions`. `lefthook.yml` and `.claude/settings.json` run its hook scripts by path.
+- `lefthook.yml` and `.claude/settings.json` run `@repo/conventions`' hook scripts by path. Its one export, `@repo/conventions/naming` (the git-workflow naming patterns and `MAIN_BRANCH`), is imported by `claude-list`, so the rule has one source.
 
 ## Scripts
 

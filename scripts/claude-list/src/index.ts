@@ -8,80 +8,119 @@
  * for deletion. `git worktree prune` and a summary end the run; the exit code
  * is 1 if any removal or deletion failed.
  */
-import { basename } from 'node:path'
-import { styleText } from 'node:util'
+import * as util from 'node:util'
 import { cancel, confirm, intro, isCancel, log, multiselect, outro } from '@clack/prompts'
+import { MAIN_BRANCH } from '@repo/conventions/naming'
 import {
   countPrunableWorktrees,
   getCurrentWorktreePath,
   getMainCheckoutPath,
   git,
+  labelWorktree,
   listWorktrees,
   type Worktree,
 } from '@repo/git-worktrees'
 
-type Entry = Worktree & {
+/** A worktree as the removal menu shows it: whether it can be picked, how dirty it is, and whether it is merged. */
+type ListedWorktree = Worktree & {
   /** The main checkout or the current worktree, neither of which can be removed. */
   isProtected: boolean
   /** Uncommitted changes, untracked files included. */
-  changedFiles: number
+  changedFileCount: number
   /** The branch is merged into `main`; `false` on a detached HEAD, which has no branch. */
   isMerged: boolean
 }
 
 /** A failed `git` call, as the summary reports it. */
-type Failure = {
+type GitFailure = {
   subject: string
   message: string
 }
 
-const MAIN_BRANCH = 'main' as const
-
-type CountNounProps = {
+type FormatCountProps = {
   count: number
   singular: string
   plural: string
 }
 
-const countNoun = ({ count, singular, plural }: CountNounProps): string => {
+/**
+ * A count followed by the noun in the matching number.
+ *
+ * ```ts
+ * formatCount({ count: 1, singular: 'file', plural: 'files' }) // '1 file'
+ * formatCount({ count: 3, singular: 'file', plural: 'files' }) // '3 files'
+ * ```
+ */
+const formatCount = ({ count, singular, plural }: FormatCountProps): string => {
   return `${count} ${count === 1 ? singular : plural}`
 }
 
-const currentPath = getCurrentWorktreePath()
+const currentWorktreePath = getCurrentWorktreePath()
 const mainCheckoutPath = getMainCheckoutPath()
 const mergedBranches = new Set(git(['branch', '--merged', MAIN_BRANCH, '--format=%(refname:short)']).split('\n'))
 
-const countChangedFiles = (path: string): number => {
-  return git(['-C', path, 'status', '--porcelain'])
+/**
+ * How many files in the worktree at `worktreePath` have uncommitted changes, untracked files included.
+ *
+ * ```ts
+ * countChangedFiles('/repo/.claude/worktrees/x') // 2
+ * ```
+ */
+const countChangedFiles = (worktreePath: string): number => {
+  return git(['-C', worktreePath, 'status', '--porcelain'])
     .split('\n')
-    .filter((line) => line !== '').length
+    .filter((statusLine) => statusLine !== '').length
 }
 
-const toEntry = (worktree: Worktree): Entry => {
+/**
+ * The worktree with what the removal menu needs to know about it.
+ *
+ * ```ts
+ * createListedWorktree({ path: '/repo', branch: 'main', locked: false })
+ * // { …, isProtected: true, changedFileCount: 0, isMerged: true }
+ * ```
+ */
+const createListedWorktree = (worktree: Worktree): ListedWorktree => {
   return {
     ...worktree,
-    isProtected: worktree.path === mainCheckoutPath || worktree.path === currentPath,
-    changedFiles: countChangedFiles(worktree.path),
+    isProtected: worktree.path === mainCheckoutPath || worktree.path === currentWorktreePath,
+    changedFileCount: countChangedFiles(worktree.path),
     isMerged: worktree.branch !== undefined && mergedBranches.has(worktree.branch),
   }
 }
 
-const labelEntry = (entry: Entry): string => {
-  const tags = [entry.path === mainCheckoutPath && 'main checkout', entry.path === currentPath && 'current']
-  const label = [basename(entry.path), ...tags.filter((tag) => tag !== false)].join(' · ')
-  if (entry.isProtected) return styleText('gray', label)
-  if (entry.changedFiles > 0) return styleText('yellow', label)
+/**
+ * The worktree's menu label: gray when it can't be removed, yellow when it has uncommitted changes.
+ *
+ * ```ts
+ * colorWorktreeLabel(mainCheckout)  // gray 'repo · main checkout'
+ * colorWorktreeLabel(dirtyWorktree) // yellow 'x'
+ * ```
+ */
+const colorWorktreeLabel = (listedWorktree: ListedWorktree): string => {
+  const label = labelWorktree(listedWorktree)
+  if (listedWorktree.isProtected) return util.styleText('gray', label)
+  if (listedWorktree.changedFileCount > 0) return util.styleText('yellow', label)
   return label
 }
 
-const hintEntry = (entry: Entry): string => {
-  const tags = [
-    entry.branch ?? 'detached HEAD',
-    entry.branch !== undefined && !entry.isMerged && 'unmerged',
-    entry.locked && 'locked',
-    entry.changedFiles > 0 && `dirty (${countNoun({ count: entry.changedFiles, singular: 'file', plural: 'files' })})`,
+/**
+ * The worktree's menu hint: its branch, then "unmerged", "locked" and "dirty" where they apply.
+ *
+ * ```ts
+ * hintWorktree(lockedDirtyWorktree) // 'feat/x · unmerged · locked · dirty (2 files)'
+ * hintWorktree(detachedWorktree)    // 'detached HEAD'
+ * ```
+ */
+const hintWorktree = (listedWorktree: ListedWorktree): string => {
+  const stateTags = [
+    listedWorktree.branch ?? 'detached HEAD',
+    listedWorktree.branch !== undefined && !listedWorktree.isMerged && 'unmerged',
+    listedWorktree.locked && 'locked',
+    listedWorktree.changedFileCount > 0 &&
+      `dirty (${formatCount({ count: listedWorktree.changedFileCount, singular: 'file', plural: 'files' })})`,
   ]
-  return tags.filter((tag) => tag !== false).join(' · ')
+  return stateTags.filter((stateTag) => stateTag !== false).join(' · ')
 }
 
 type TryGitProps = {
@@ -90,8 +129,15 @@ type TryGitProps = {
   subject: string
 }
 
-/** Runs `git`, turning a failure into a `Failure` for the summary instead of a throw. */
-const tryGit = ({ args, subject }: TryGitProps): Failure | undefined => {
+/**
+ * Runs `git`, turning a failure into a `GitFailure` for the summary instead of a throw.
+ *
+ * ```ts
+ * tryGit({ args: ['branch', '-D', 'feat/x'], subject: 'delete branch feat/x' }) // undefined on success
+ * tryGit({ args: ['branch', '-D', 'nope'], subject: 'delete branch nope' })     // { subject, message: 'error: …' }
+ * ```
+ */
+const tryGit = ({ args, subject }: TryGitProps): GitFailure | undefined => {
   try {
     git(args)
     return undefined
@@ -100,27 +146,29 @@ const tryGit = ({ args, subject }: TryGitProps): Failure | undefined => {
   }
 }
 
-const allEntries = listWorktrees().map(toEntry)
-const entries = [
-  ...allEntries.filter((entry) => entry.path === mainCheckoutPath),
-  ...allEntries.filter((entry) => entry.path === currentPath && entry.path !== mainCheckoutPath),
-  ...allEntries.filter((entry) => !entry.isProtected),
+const allListedWorktrees = listWorktrees().map(createListedWorktree)
+const listedWorktrees = [
+  ...allListedWorktrees.filter((listedWorktree) => listedWorktree.path === mainCheckoutPath),
+  ...allListedWorktrees.filter(
+    (listedWorktree) => listedWorktree.path === currentWorktreePath && listedWorktree.path !== mainCheckoutPath,
+  ),
+  ...allListedWorktrees.filter((listedWorktree) => !listedWorktree.isProtected),
 ]
 
 intro('Remove worktrees')
 
-if (entries.every((entry) => entry.isProtected)) {
+if (listedWorktrees.every((listedWorktree) => listedWorktree.isProtected)) {
   outro('There is no worktree to remove.')
   process.exit(0)
 }
 
 const pickedPaths = await multiselect<string>({
   message: 'Which worktrees should be removed?',
-  options: entries.map((entry) => ({
-    value: entry.path,
-    label: labelEntry(entry),
-    hint: hintEntry(entry),
-    disabled: entry.isProtected,
+  options: listedWorktrees.map((listedWorktree) => ({
+    value: listedWorktree.path,
+    label: colorWorktreeLabel(listedWorktree),
+    hint: hintWorktree(listedWorktree),
+    disabled: listedWorktree.isProtected,
   })),
   required: false,
 })
@@ -130,11 +178,18 @@ if (isCancel(pickedPaths) || pickedPaths.length === 0) {
   process.exit(0)
 }
 
-const picked = entries.filter((entry) => pickedPaths.includes(entry.path))
+const pickedWorktrees = listedWorktrees.filter((listedWorktree) => pickedPaths.includes(listedWorktree.path))
 
-log.message(picked.map((entry) => `${labelEntry(entry)}  ${styleText('dim', hintEntry(entry))}`).join('\n'))
+log.message(
+  pickedWorktrees
+    .map(
+      (pickedWorktree) =>
+        `${colorWorktreeLabel(pickedWorktree)}  ${util.styleText('dim', hintWorktree(pickedWorktree))}`,
+    )
+    .join('\n'),
+)
 const isConfirmed = await confirm({
-  message: `Remove ${countNoun({ count: picked.length, singular: 'worktree', plural: 'worktrees' })}?`,
+  message: `Remove ${formatCount({ count: pickedWorktrees.length, singular: 'worktree', plural: 'worktrees' })}?`,
   initialValue: false,
 })
 
@@ -143,34 +198,42 @@ if (isCancel(isConfirmed) || !isConfirmed) {
   process.exit(0)
 }
 
-const failures: Failure[] = []
-const removed: Entry[] = []
+const gitFailures: GitFailure[] = []
+const removedWorktrees: ListedWorktree[] = []
 
-for (const entry of picked) {
+for (const pickedWorktree of pickedWorktrees) {
   // Two `--force`s: one overrides uncommitted changes, the second the lock.
-  const failure = tryGit({
-    args: ['worktree', 'remove', '--force', '--force', entry.path],
-    subject: `remove worktree ${entry.path}`,
+  const gitFailure = tryGit({
+    args: ['worktree', 'remove', '--force', '--force', pickedWorktree.path],
+    subject: `remove worktree ${pickedWorktree.path}`,
   })
-  if (failure === undefined) removed.push(entry)
-  else failures.push(failure)
+  if (gitFailure === undefined) removedWorktrees.push(pickedWorktree)
+  else gitFailures.push(gitFailure)
 }
 
 const deletedBranches: string[] = []
+
+/**
+ * Deletes each branch, recording it in `deletedBranches` or its failure in `gitFailures`.
+ *
+ * ```ts
+ * deleteBranches(['feat/x', 'fix/y']) // deletedBranches: ['feat/x', 'fix/y']
+ * ```
+ */
 const deleteBranches = (branches: string[]): void => {
   for (const branch of branches) {
     // `-D`: `-d` checks the branch against the current HEAD, not `main`.
-    const failure = tryGit({ args: ['branch', '-D', branch], subject: `delete branch ${branch}` })
-    if (failure === undefined) deletedBranches.push(branch)
-    else failures.push(failure)
+    const gitFailure = tryGit({ args: ['branch', '-D', branch], subject: `delete branch ${branch}` })
+    if (gitFailure === undefined) deletedBranches.push(branch)
+    else gitFailures.push(gitFailure)
   }
 }
 
 // `main` itself is always merged into `main`; a removed worktree that had it checked out keeps it.
-const removedBranches = removed.flatMap((entry) =>
-  entry.branch === undefined || entry.branch === MAIN_BRANCH
+const removedBranches = removedWorktrees.flatMap((removedWorktree) =>
+  removedWorktree.branch === undefined || removedWorktree.branch === MAIN_BRANCH
     ? []
-    : [{ branch: entry.branch, isMerged: entry.isMerged }],
+    : [{ branch: removedWorktree.branch, isMerged: removedWorktree.isMerged }],
 )
 deleteBranches(removedBranches.filter(({ isMerged }) => isMerged).map(({ branch }) => branch))
 
@@ -192,24 +255,26 @@ const pruneFailure = tryGit({
   args: ['worktree', 'prune'],
   subject: 'prune stale worktree entries',
 })
-if (pruneFailure !== undefined) failures.push(pruneFailure)
+if (pruneFailure !== undefined) gitFailures.push(pruneFailure)
 
 const keptBranches = unmergedBranches.filter((branch) => !deletedBranches.includes(branch))
 
-if (removed.length > 0) {
-  log.success(`Removed worktrees:\n${removed.map((entry) => entry.path).join('\n')}`)
+if (removedWorktrees.length > 0) {
+  log.success(`Removed worktrees:\n${removedWorktrees.map((removedWorktree) => removedWorktree.path).join('\n')}`)
 }
 if (deletedBranches.length > 0) log.success(`Deleted branches: ${deletedBranches.join(', ')}`)
 if (keptBranches.length > 0) log.info(`Kept unmerged branches: ${keptBranches.join(', ')}`)
 if (pruneFailure === undefined && prunableCount > 0) {
   log.success(
-    `Pruned ${countNoun({ count: prunableCount, singular: 'stale worktree entry', plural: 'stale worktree entries' })}`,
+    `Pruned ${formatCount({ count: prunableCount, singular: 'stale worktree entry', plural: 'stale worktree entries' })}`,
   )
 }
-for (const failure of failures) log.error(`Could not ${failure.subject}:\n${failure.message}`)
+for (const gitFailure of gitFailures) log.error(`Could not ${gitFailure.subject}:\n${gitFailure.message}`)
 
-if (failures.length > 0) {
-  outro(styleText('red', `${countNoun({ count: failures.length, singular: 'step', plural: 'steps' })} failed.`))
+if (gitFailures.length > 0) {
+  outro(
+    util.styleText('red', `${formatCount({ count: gitFailures.length, singular: 'step', plural: 'steps' })} failed.`),
+  )
   process.exit(1)
 }
 outro('Done.')
