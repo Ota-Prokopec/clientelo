@@ -147,6 +147,7 @@ Zaznamenání Funnel Event nic neukládá, takže nepotřebuje souhlas. Stránka
 - **Consent Bar** (`#consent-bar`) žádá o souhlas právě k tomuto jedinému účelu. Otevře se při prvním scrollu nebo prvním použití Interactive Tool, nikdy dřív, aby Ad Promise na First Screen zůstal nezakrytý, a nikdy, dokud je uložená volba mladší 12 měsíců. Sedí dole na obrazovce nad Sticky CTA, má jeden řádek textu a dvě stejně výrazná tlačítka, „Povolit“ a „Odmítnout“. Nic není předvybrané a ignorování není souhlas.
 - **`clientelo:visited` se řídí volbou.** Zapíše se po „Povolit“ a při každé další Visit, dokud souhlas platí, a smaže se po „Odmítnout“ a při každé Visit bez platného souhlasu. Čte se jen, dokud souhlas platí.
 - **Odvolat souhlas je stejně snadné jako ho dát:** „Nastavení cookies“ v patičce otevře Consent Bar znovu.
+- **Proč Consent Bar už dnes, když `dataLayer` nic neposílá.** Dnes měří jen `returning_visitor`. Hlavně je ale bránou, kterou Meta Pixel před spuštěním Ad potřebuje ([Před spuštěním Ad](#before-an-ad-launches)): Pixel se načte až po „Povolit“. Mechanika volby, její platnosti a odvolání je tedy hotová a otestovaná dřív, než na ní bude záviset první reklamní tag. Při doplnění Pixelu se rozšíří jen text Consent Bar a zásady o Pixel jako druhý účel.
 
 <a id="before-an-ad-launches"></a>
 
