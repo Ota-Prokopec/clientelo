@@ -5,6 +5,7 @@ import { formatPercent } from '@lib/format.ts'
 import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts'
 import type { SubstituteRelation } from '@/types.ts'
 import { FactGrid } from './FactGrid.tsx'
+import { SubstituteFigure } from './SubstituteFigure.tsx'
 
 export type PrimarySubstituteProps = {
   etf: Etf
@@ -28,8 +29,12 @@ export const PrimarySubstitute = ({ etf, substitute, relation }: PrimarySubstitu
   return (
     <>
       <div className="grid gap-1 pt-2">
-        <p className={`text-label ${relationPresentation.colorClassName}`}>{relationPresentation.substituteLabel}</p>
-        <p className={`text-ticker ${relationPresentation.colorClassName}`}>{substitute.ticker}</p>
+        <SubstituteFigure relation={relation} render={<p className="text-label" />}>
+          {relationPresentation.substituteLabel}
+        </SubstituteFigure>
+        <SubstituteFigure relation={relation} render={<p className="text-ticker" />}>
+          {substitute.ticker}
+        </SubstituteFigure>
       </div>
       <FactGrid
         facts={[

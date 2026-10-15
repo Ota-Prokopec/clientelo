@@ -3,17 +3,8 @@
 import type { CSSProperties } from 'react'
 import { cn } from '@lib/utils.ts'
 import { formatAmount } from '@lib/format.ts'
+import { fillClassNameByFundKind, terClassNameByFundKind } from '@lib/fundKindClassNames.ts'
 import type { FundKind } from '@/types.ts'
-
-const terClassNameByFundKind: Record<FundKind, string> = {
-  'bank-fund': 'text-signal',
-  twin: 'text-brand',
-}
-
-const fillClassNameByFundKind: Record<FundKind, string> = {
-  'bank-fund': 'bg-signal',
-  twin: 'bg-brand',
-}
 
 export type RemainingAmountBarProps = {
   name: string

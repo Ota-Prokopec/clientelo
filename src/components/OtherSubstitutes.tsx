@@ -3,6 +3,7 @@ import type { UcitsEtf } from '@data/figures.ts'
 import { formatPercent } from '@lib/format.ts'
 import { relationPresentationByRelation } from '@lib/relationPresentationByRelation.ts'
 import type { SubstituteRelation } from '@/types.ts'
+import { SubstituteFigure } from './SubstituteFigure.tsx'
 
 export type OtherSubstitutesProps = {
   substitutes: UcitsEtf[]
@@ -31,9 +32,9 @@ export const OtherSubstitutes = ({ substitutes, relation }: OtherSubstitutesProp
           >
             <span className="text-fact text-heading">{substitute.ticker}</span>
             <span className="text-muted-foreground">{substitute.trackedIndex}</span>
-            <span className={`text-fact ${relationPresentation.colorClassName}`}>
+            <SubstituteFigure relation={relation} render={<span className="text-fact" />}>
               {formatPercent(substitute.terPercent)} ročně
-            </span>
+            </SubstituteFigure>
           </li>
         ))}
       </ul>

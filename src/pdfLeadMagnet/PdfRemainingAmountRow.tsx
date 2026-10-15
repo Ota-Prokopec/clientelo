@@ -3,20 +3,11 @@
 import { View } from '@react-pdf/renderer'
 import type { DataSource } from '@data/figures.ts'
 import { formatAmount } from '@lib/format.ts'
+import { fillClassNameByFundKind, terClassNameByFundKind } from '@lib/fundKindClassNames.ts'
 import type { FundKind } from '@/types.ts'
 import { PdfSourcedFigure } from './PdfSourcedFigure.tsx'
 import { PdfText } from './PdfText.tsx'
 import { pdfTw } from './pdfTw.ts'
-
-const terClassNameByFundKind: Record<FundKind, string> = {
-  'bank-fund': 'text-signal',
-  twin: 'text-brand',
-}
-
-const fillClassNameByFundKind: Record<FundKind, string> = {
-  'bank-fund': 'bg-signal',
-  twin: 'bg-brand',
-}
 
 export type PdfRemainingAmountRowProps = {
   name: string

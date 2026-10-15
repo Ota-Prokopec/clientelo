@@ -15,10 +15,10 @@ export const useIsAnyOnScreen = (selector: string): { isAnyOnScreen: boolean } =
 
   useEffect(() => {
     const onScreenElements = new Set<Element>()
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) onScreenElements.add(entry.target)
-        else onScreenElements.delete(entry.target)
+    const observer = new IntersectionObserver((intersectionEntries) => {
+      for (const intersectionEntry of intersectionEntries) {
+        if (intersectionEntry.isIntersecting) onScreenElements.add(intersectionEntry.target)
+        else onScreenElements.delete(intersectionEntry.target)
       }
       setIsAnyOnScreen(onScreenElements.size > 0)
     })
