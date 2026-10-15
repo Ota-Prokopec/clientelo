@@ -40,12 +40,34 @@ The page records the Visitor's journey as Funnel Events in `window.dataLayer`, a
 | `pdf_download`         | the automatic download on success, or a tap on Delivery's link                                          | `trigger`: `auto` or `link`                                                                 |
 | `segment_answer`       | an answer to the Segmentation Question is submitted                                                     | `segment`                                                                                   |
 
-- **Every event also carries** `ad_variant` (`pain` or `money`, the First Screen shown), the raw `utm_source`, `utm_medium`, `utm_campaign` and `utm_content` (`none` when missing), and `visitor_kind`: `new_visitor`, or `returning_lead` when an earlier Visit remembers the Lead. These describe the Visit as it arrived, so a new Lead's later events still say `new_visitor`.
+- **Every event also carries** `ad_variant` (`pain` or `money`, the First Screen shown), the raw `utm_source`, `utm_medium`, `utm_campaign` and `utm_content` (`none` when missing), and `visitor_kind`: `new_visitor`, `returning_visitor` when an earlier Visit remembers the Visitor (only with their consent, see [Consent](#consent)), or `returning_lead` when an earlier Visit remembers the Lead, which wins over `returning_visitor`. These describe the Visit as it arrived, so a new Lead's later events still say `new_visitor`, and allowing the Consent Bar counts only from the next Visit.
 - **A Visit is one page load**, so a reload is a new `arrival`. `arrival`, `lead_form_seen` and `lead_form_start` fire once per Visit, `section_view` once per Section and `interactive_tool_use` once per tool. The others fire every time.
 - **A filled honeypot sends nothing** from that submit on, not even `lead_form_submit`, so bots never reach the Funnel's last step. The honeypot is read only on submit, so a bot's earlier `lead_form_seen` and `lead_form_start` stay recorded.
 - **The Funnel** is `arrival` → `lead_form_seen` → `lead_form_start` → `lead_form_success`, counting Visitors only (never `returning_lead`). Its last step is the Conversion Rate. Interactive Tool use is a breakdown, not a step: the Conversion Rate of Visitors who used a tool against those who didn't. The Conversion Rate per Ad Variant counts only arrivals whose `utm_content` named it, so a Visitor without UTMs, who sees the `pain` First Screen, doesn't inflate Ad Variant A.
 - **To read them**, open the browser's console on the page and run `window.dataLayer` (or `console.table(window.dataLayer)`). In `pnpm dev`, each event is also logged as it happens.
-- **Before an Ad launches**, the Meta Pixel and any other ad-platform tag are added as tags reading the `dataLayer`, behind the Visitor's consent, with the employer's real legal data in the privacy policy.
+- **Before an Ad launches**, the Meta Pixel and any other ad-platform tag are added as tags reading the `dataLayer`: see [Before an Ad launches](#before-an-ad-launches).
+
+## Consent
+
+Recording a Funnel Event stores nothing, so it needs no consent. The page keeps three flags in `localStorage`, none holding the email, and the privacy policy (`/ochrana-osobnich-udaju`) lists each one with its purpose, whether it needs consent and how long it is kept:
+
+| Key                 | Purpose                                                            | Consent                                         | Kept                                       |
+| ------------------- | ------------------------------------------------------------------ | ----------------------------------------------- | ------------------------------------------ |
+| `clientelo:lead`    | keeps Delivery unlocked for a returning Lead                       | none: it serves the Delivery the Lead asked for | until the Visitor clears it                |
+| `clientelo:consent` | the Visitor's choice in the Consent Bar and its date               | none                                            | 12 months, then the Consent Bar asks again |
+| `clientelo:visited` | counts the next Visit as `returning_visitor`, for measurement only | required (§89(3) of Act No. 127/2005 Coll.)     | until consent is refused or withdrawn      |
+
+- **The Consent Bar** (`#consent-bar`) asks for that one purpose. It opens on the Visitor's first scroll or first Interactive Tool use, never before, so the First Screen's Ad Promise lands uncovered, and never while a choice under 12 months old is stored. It sits at the bottom of the screen above the Sticky CTA, with one line of copy and two buttons of equal weight, "Povolit" and "Odmítnout". Nothing is preselected, and ignoring it is not consent.
+- **`clientelo:visited` follows the choice.** It is written on "Povolit" and on every later Visit while consent holds, and removed on "Odmítnout" and on any Visit without valid consent. It is read only while consent holds.
+- **Withdrawing is as easy as giving:** the footer's "Nastavení cookies" reopens the bar.
+
+## Before an Ad launches
+
+The Meta Pixel and the privacy policy's controller identity and contact are not implemented. Before an Ad launches, they are added with the employer's real legal data:
+
+- **The Meta Pixel ID**, loaded as a tag reading the `dataLayer` (`lead_form_success` as its `Lead` event), behind the Visitor's consent.
+- **The controller's name and contact** in the privacy policy.
+- **The privacy policy's paragraph on Meta** as joint controller for the Pixel's data, and on the transfer of that data to the US.
 
 ## Commands
 
@@ -72,6 +94,6 @@ A change is done when all of these pass. lefthook runs `pnpm lint` and `pnpm che
 2. `pnpm check-types`
 3. `pnpm test` (Vitest: the app's pure logic in `tests/`, then every workspace entry)
 4. `pnpm build`
-5. For a UI change: the change works in `pnpm dev` at 375 px phone width, and the Funnel Events show in the console. Until step 7 wires `/api/lead`, `submitLead()` and `submitSegment()` are stubs: open the page with `?submit-lead=fail` or `?submit-segment=fail` (dev only) to reach the Lead Form's or the Segmentation Question's error state. A submitted Lead is remembered in `localStorage` under `clientelo:lead`: remove it to see the page as a Visitor again.
+5. For a UI change: the change works in `pnpm dev` at 375 px phone width, and the Funnel Events show in the console. Until step 7 wires `/api/lead`, `submitLead()` and `submitSegment()` are stubs: open the page with `?submit-lead=fail` or `?submit-segment=fail` (dev only) to reach the Lead Form's or the Segmentation Question's error state. A submitted Lead is remembered in `localStorage` under `clientelo:lead`: remove it to see the page as a Visitor again. Remove `clientelo:consent` to see the Consent Bar again, and `clientelo:visited` to arrive as a `new_visitor`.
 6. For a change to the Lead Magnet PDF or a figure in it: `/tahak-evropska-dvojcata-americkych-etf.pdf` in `pnpm dev` still reads well on its two pages. The build already fails on any other page count.
 7. For a change to the Share Image: `/share-image.png` in `pnpm dev` reads at a glance at full size and scaled down to 600 × 314, with its háček letters rendered. The build already fails on an image over 300 KB.

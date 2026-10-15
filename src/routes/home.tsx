@@ -1,15 +1,19 @@
 // The landing page: the five Sections in the order README.md justifies, opened by the Visitor's Ad Variant. It records
-// the Visit's arrival, each Section's first view and the automatic PDF download as Funnel Events.
+// the Visit's arrival, each Section's first view and the automatic PDF download as Funnel Events, and asks in the
+// Consent Bar before it remembers the Visit.
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import useDownloader from 'react-use-downloader'
 import { leadMagnetPdfFileName, leadMagnetPdfPath } from '@data/leadMagnetFiles.ts'
 import { resolveAdVariant } from '@lib/adVariant/adVariant.ts'
+import { syncRememberedVisit } from '@/consent/rememberedVisit.ts'
 import { isSectionViewed } from '@/funnel/sectionView.ts'
 import { trackFunnelEvent } from '@/funnel/trackFunnelEvent.ts'
+import { useConsentBar } from '@/hooks/useConsentBar.ts'
 import { useOnFirstView } from '@/hooks/useOnFirstView.ts'
 import { readRememberedLead, rememberLead } from '@/lead/rememberedLead.ts'
 import type { Lead, SectionId } from '@/types.ts'
+import { ConsentBar } from '../components/ConsentBar.tsx'
 import { Page } from '../components/Page.tsx'
 import { StickyCta } from '../components/StickyCta.tsx'
 import { Footer } from '../components/sections/Footer.tsx'
@@ -45,10 +49,14 @@ const Home = () => {
   const adVariant = resolveAdVariant(searchParams.get('utm_content'))
   const [lead, setLead] = useState<Lead | null>(readRememberedLead)
   const { download } = useDownloader()
+  const { isConsentBarOpen, openConsentBar, chooseConsent } = useConsentBar()
 
   // The Visit's first Funnel Event: a Section's first view comes from an observer, which reports only after this runs.
+  // Arrival reads whether an earlier Visit was remembered, so only then is this Visit remembered, or a leftover flag
+  // removed when the Visitor's consent has lapsed.
   useEffect(() => {
     trackFunnelEvent({ event: 'arrival' })
+    syncRememberedVisit(new Date())
   }, [])
   useOnFirstView({ elementIds: sectionIds, isViewed: isSectionViewed, onFirstView: trackSectionView })
 
@@ -78,7 +86,9 @@ const Home = () => {
         <adVariant.OtherTool />
         <LeadMagnetSection lead={lead} onLeadFormSubmitted={handleLeadFormSubmitted} />
       </main>
-      <Footer />
+      <Footer onConsentSettingsOpen={openConsentBar} />
+      {/* Right after the footer, so "Nastavení cookies" tabs straight into the bar it opens. */}
+      {isConsentBarOpen && <ConsentBar isAboveStickyCta={lead === null} onChoose={chooseConsent} />}
       <StickyCta isLead={lead !== null} />
     </Page>
   )
