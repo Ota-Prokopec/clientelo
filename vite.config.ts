@@ -4,9 +4,11 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 import { pdfLeadMagnetPlugin } from './vite-plugins/pdfLeadMagnetPlugin.ts'
+import { sharePreviewPlugin } from './vite-plugins/sharePreviewPlugin.ts'
 
 // `@/` is src/, the alias shadcn's components import through (components.json). `@lib/` and `@data/` are shortcuts
-// into src/lib and src/data. tsconfig.app.json mirrors all three, and the Lead Magnet PDF renders through them too.
+// into src/lib and src/data. tsconfig.app.json mirrors all three, and the Lead Magnet PDF and the Share Image render
+// through them too.
 const alias = {
   '@': path.resolve(import.meta.dirname, 'src'),
   '@lib': path.resolve(import.meta.dirname, 'src/lib'),
@@ -14,7 +16,7 @@ const alias = {
 }
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), pdfLeadMagnetPlugin({ alias })],
+  plugins: [react(), tailwindcss(), pdfLeadMagnetPlugin({ alias }), sharePreviewPlugin({ alias })],
   resolve: { alias },
   test: {
     include: ['tests/**/*.test.ts'],

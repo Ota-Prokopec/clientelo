@@ -137,6 +137,14 @@ A lucide icon appears only where a primitive needs a functional glyph, such as a
 - Filler Czech copy: "Odemkněte potenciál", "bezproblémově", "posuňte své investice na další úroveň".
 - A dark mode made by inverting the light one, or shadcn's stock zinc dark.
 
+## Share Image
+
+The Share Image is the picture in the Share Preview, 1200 × 630, rendered at build time from `src/shareImage/` in the light palette only, since a chat app shows it on any background. On white, in Schibsted Grotesk 900, it sets Ad Variant A's Ad Promise the way its First Screen does: `VOO` giant in `muted-foreground` under its `signal` bar, `SPYL` giant in `brand`, then the headline "VOO v aplikaci nekoupíte. Dvojče ano." in `heading`, with "Dvojče ano." in `brand`. Two 2 px `heading` rules run out to both edges between the three.
+
+- **Everything that matters sits in the central 630 × 630**, with a margin, because WhatsApp and iMessage crop toward a square and X crops to 2:1. Only the rules reach past it.
+- **No figures.** A fee, return or size on an image can't carry its Data Source, so it holds Tickers and words only. No broker logo either ([ads.md](../ads.md#compliance-from-the-start)).
+- **Under 300 KB**, or WhatsApp drops it. The build fails above that.
+
 ## Ad creatives
 
 The Ad Variants' visual briefs ([ads.md](../ads.md)) use this identity, so the Ad and the First Screen read as one piece.

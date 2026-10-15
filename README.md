@@ -30,7 +30,7 @@ Run from the repo root.
 | ---------------------------------- | ---------------------------------------------------------------------------------------- |
 | `pnpm install`                     | Install dependencies and the lefthook git hooks                                          |
 | `pnpm dev`                         | Start the Vite dev server with HMR                                                       |
-| `pnpm build`                       | Type-check and build the production bundle and the Lead Magnet PDF into `dist/`          |
+| `pnpm build`                       | Type-check and build the production bundle, the Lead Magnet PDF and the Share Image      |
 | `pnpm preview`                     | Serve the production build locally                                                       |
 | `pnpm lint`                        | Lint the whole repo with oxlint                                                          |
 | `pnpm check-types`                 | Type-check the app and every workspace entry                                             |
@@ -49,3 +49,4 @@ A change is done when all of these pass. lefthook runs `pnpm lint` and `pnpm che
 4. `pnpm build`
 5. For a UI change: the change works in `pnpm dev` at 375 px phone width. Until step 7 wires `/api/lead`, `submitLead()` and `submitSegment()` are stubs: open the page with `?submit-lead=fail` or `?submit-segment=fail` (dev only) to reach the Lead Form's or the Segmentation Question's error state. A submitted Lead is remembered in `localStorage` under `clientelo:lead`: remove it to see the page as a Visitor again.
 6. For a change to the Lead Magnet PDF or a figure in it: `/tahak-evropska-dvojcata-americkych-etf.pdf` in `pnpm dev` still reads well on its two pages. The build already fails on any other page count.
+7. For a change to the Share Image: `/share-image.png` in `pnpm dev` reads at a glance at full size and scaled down to 600 × 314, with its háček letters rendered. The build already fails on an image over 300 KB.
